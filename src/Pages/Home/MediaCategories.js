@@ -1,0 +1,91 @@
+import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+
+// Themes
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+
+// React Query
+import { useQuery } from 'react-query';
+
+// Material UI Components
+import { Grid, Typography, Container, Button, Alert, AlertTitle, Stack } from "@mui/material";
+
+// Icons
+import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
+
+// Images
+import { familyWatching } from "../../Config/images.config";
+
+// Models
+import { sub_menus } from "../../Services/SettingService";
+
+const MediaCategories = () => {
+
+    const darkTheme = createTheme({
+        palette: {
+          mode: 'dark',
+        },
+    });
+
+     // React Query
+    let getSubMenu = useQuery(['sub_menus', { is_active: 1, id: null }], sub_menus, {
+        cacheTime: 24 * 60 * 60 * 1000, // 24 hours
+        refetchOnWindowFocus: false,
+        notifyOnChangeProps: "tracked",
+    });
+
+    let submenu = getSubMenu?.data?.data?.data;
+
+    return (
+        <ThemeProvider theme={darkTheme}>
+            <CssBaseline />
+            <Container>
+                <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={3} style={{ margin: '85px auto 85px auto', padding: '0px' }}>
+
+                    <Grid item xl={12} lg={12} md={12} sm={12} xs={12} style={{ marginBottom: 15 }}>
+                        <center>
+                            <Typography variant="h5" sx={{ marginBottom: 1, fontWeight: '550' }}><SubscriptionsIcon sx={{ fontSize: 28, marginBottom: '-6px' }}/> CATEGORIES</Typography>
+                            <Typography variant="p" sx={{ fontWeight: '550', textTransform: 'uppercase' }}>Unlimited movies, TV shows and more.</Typography>
+                        </center>
+                    </Grid>
+
+                    <Grid item xl={12} lg={12} md={12} sm={12} xs={12} style={{ marginBottom: 15 }} hidden>
+                        <Stack sx={{ width: '100%', textAlign: 'left !important' }} spacing={0}>
+                            <Alert severity="info">
+                                <AlertTitle>Attention Movie Enthusiasts!</AlertTitle>
+                                🎬 We're aware of some hiccups in our <strong>International Movies</strong> and <strong>International Series</strong> sections. 🌍 Developer is on the case, working tirelessly to fix these issues ASAP! 🛠️ Your seamless streaming experience is our priority, and we appreciate your patience. Sit back, relax, and stay tuned for an improved movie-watching journey! 🍿✨ <strong>#TechFixInProgress</strong>
+                            </Alert>
+                        </Stack>
+                    </Grid>
+
+                    <Grid item xl={6} lg={6} md={6} sm={12} xs={12} style={{ margin: 'auto', width: '640px', padding: '10px' }}>
+                        <center>
+                            <Container fluid sx={{ width: '100%' }}>
+                                <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={1} justifyContent="center">
+                                {submenu?.filter((item) => parseInt(item.is_main) === 1).map((item, index) => {
+                                    return (
+                                    <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                                        <Link to={item.link}>
+                                        <Button className="provider-links" variant="contained" color={item.is_dev ? 'error' : 'primary'} fullWidth={true} style={{ fontWeight: '550' }}>{item.full_name} {item.is_dev ? '('+item.badge_message+')' : ''}</Button>
+                                        </Link>
+                                    </Grid>
+                                    )
+                                })}
+                                </Grid>
+                            </Container>
+                        </center>
+                    </Grid>
+                    <Grid item xl={6} lg={6} md={6} sm={12} xs={12} style={{ marginTop: 5 }}>
+                        <center>
+                            <img src={familyWatching} alt='' style={{ borderRadius: 10 }}/>
+                        </center>
+                    </Grid>
+
+                </Grid>
+            </Container>
+        </ThemeProvider>
+    );
+};
+
+export default MediaCategories;

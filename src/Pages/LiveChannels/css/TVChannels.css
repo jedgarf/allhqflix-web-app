@@ -1,0 +1,16 @@
+.live_channels {
+    flex: 1.0;
+    overflow-y: scroll;
+    background: var(--body);
+    width: 100%;
+    color: var(--four-color);
+}
+
+.live_channels_content {
+    margin-top: 30px !important;
+    min-height: 80%;
+}
+
+.search-country-bar {
+    /* margin-right: 20%; */
+}

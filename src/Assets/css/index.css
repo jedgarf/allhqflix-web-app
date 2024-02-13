@@ -1,0 +1,242 @@
+@import url(https://fonts.googleapis.com/css?family=Montserrat:100,200,300,regular,500,600,700,800,900,100italic,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic);
+:root {
+    --main-color: #01a3ff;
+    --second-color: #14A44D;
+    --third-color: #222222;
+    --four-color: #ccced1;
+    --five-color: #2e2e31;
+    --six-color: #314846;
+    --text-color: #353b45;
+    --submenu-color: rgba(53, 59, 69, 255);
+    --footer-link: #8394f5;
+    --sidebar: rgba(0, 10, 20, 255);
+    --sidebar-transparent: rgba(10, 12, 15, 0.3);
+    --appbar: rgba(0, 10, 20, 0.7);
+    --appbar-stream: rgba(0, 10, 20, 1);
+    --footer: rgba(0, 10, 20, 255);
+    --body: rgba(0, 0, 0, 255);
+    --body-content: rgba(45, 45, 45, 255);
+    --body-content-contain: rgba(25, 25, 45, 255);
+}
+
+body {
+    margin: 0;
+    font-family: Tahoma, sans-serif;
+    font-weight: bold;
+    box-sizing: border-box;
+    transition: .3s;
+    background-color: var(--body);
+}
+
+
+/* img:hover {
+    pointer-events: none !important;
+    cursor: pointer !important;
+} */
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: .3s;
+}
+
+html {
+    overflow: hidden;
+}
+
+.MuiDrawer-paper {
+    scrollbar-width: thin;
+    background-color: var(--sidebar) !important;
+}
+
+.MuiDrawer-paper a {
+    color: var(--four-color);
+    font-weight: bolder;
+}
+
+::-webkit-scrollbar {
+    width: 9px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--text-color);
+    border-radius: 20px;
+    border: transparent;
+}
+
+.dark-theme-text-color {
+    color: var(--four-color);
+}
+
+.filter_icon .MuiInputBase-root,
+.filter_icon .MuiSelect-select,
+.filter_icon .MuiSelect-outlined,
+.filter_icon .MuiSelect-outlined {
+    color: var(--four-color) !important;
+    border-color: var(--four-color) !important;
+}
+
+.filter_icon .MuiInputLabel-formControl {
+    color: var(--four-color) !important;
+}
+
+.filter_icon .MuiOutlinedInput-notchedOutline {
+    border-color: var(--four-color) !important;
+}
+
+.text-link {
+    text-decoration: none !important;
+    border-bottom: 1px dotted !important;
+    color: var(--four-color) !important;
+}
+
+.text-link-without-underline {
+    text-decoration: none !important;
+    color: var(--four-color) !important;
+}
+
+
+/* .divFocus * {
+    color: var(--four-color) !important;
+} */
+
+@keyframes blink {
+    0% {
+        color: red !important;
+    }
+    50% {
+        color: blue !important;
+    }
+    100% {
+        color: red !important;
+    }
+}
+
+.blinking-text {
+    animation: blink 1s infinite;
+}
+
+
+/* line with text */
+
+.text-line {
+    overflow: hidden;
+    text-align: center;
+    color: var(--four-color);
+}
+
+.text-line:before,
+.text-line:after {
+    background-color: var(--four-color);
+    content: "";
+    display: inline-block;
+    height: 1px;
+    position: relative;
+    vertical-align: middle;
+    width: 50%;
+}
+
+.text-line:before {
+    right: 0.5em;
+    margin-left: -50%;
+}
+
+.text-line:after {
+    left: 0.5em;
+    margin-right: -50%;
+}
+
+
+/* Content Hover Animation */
+
+.image-container {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+}
+
+.image-container img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    transition: transform 0.3s;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    /* Adjust the opacity as needed */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.overlay i {
+    color: white;
+    /* Change the icon color as needed */
+    font-size: 2rem;
+    /* Adjust the icon size as needed */
+}
+
+.image-container:hover img {
+    /* transform: scale(1.1); */
+    /* Zoom in the image on hover (adjust as needed) */
+}
+
+.image-container:hover .overlay {
+    opacity: 1;
+    /* color: #DC4C64; */
+    /* Show the overlay on hover */
+}
+
+.css-1ashow5-MuiNativeSelect-select-MuiInputBase-input-MuiInput-input:not([multiple]) option,
+.css-1ashow5-MuiNativeSelect-select-MuiInputBase-input-MuiInput-input:not([multiple]) optgroup {
+    background-color: transparent !important;
+}
+
+.css-io47o0-MuiNativeSelect-select-MuiInputBase-input-MuiInput-input:not([multiple]) option,
+.css-io47o0-MuiNativeSelect-select-MuiInputBase-input-MuiInput-input:not([multiple]) optgroup {
+    background-color: transparent !important;
+}
+
+.css-156xqnd-MuiInputBase-input {
+    color: var(var(--four-color)) !important;
+}
+
+.slick-prev::before {
+    content: "" !important;
+}
+
+.slick-next::before {
+    content: "" !important;
+}
+
+
+/* two column OL */
+
+@media (min-width:700px) {
+    .two-column-ol {
+        columns: 2;
+        margin: 0;
+        /* Remove the default margin on the <ol> element */
+        padding: 0;
+        /* Remove the default padding on the <ol> element */
+    }
+    .two-column-ol li {
+        margin: 0 1em 0 0;
+        /* Add margin to the right of each list item */
+    }
+}

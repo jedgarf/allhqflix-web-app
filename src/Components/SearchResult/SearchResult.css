@@ -1,0 +1,46 @@
+.result_movie_card {
+    position: relative;
+    width: 150px !important;
+    /* width: auto; */
+    /* border: 1px solid beige; */
+}
+
+.result_movie_card .movie_card_fav {
+    position: relative;
+    color: #DC4C64;
+    margin-top: 3px;
+    margin-left: 3px;
+    margin-bottom: -30px;
+}
+
+.vidq {
+    background: rgba(0, 0, 0, 0.80);
+    color: var(--four-color);
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 14px;
+}
+
+.result_movie_card .image-container img {
+    height: 225px !important;
+    width: 150px !important;
+    border-radius: 10px;
+}
+
+.img-card-result-skeleton {
+    height: 225px !important;
+    width: 150px !important;
+    border-radius: 10px;
+}
+
+.movie_result_name {
+    width: 150px !important;
+    /* Set the desired width */
+    white-space: nowrap;
+    /* Prevent text from wrapping to the next line */
+    overflow: hidden;
+    /* Hide overflowing text */
+    text-overflow: ellipsis;
+    /* Add an ellipsis when text overflows */
+}

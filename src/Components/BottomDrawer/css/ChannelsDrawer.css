@@ -1,0 +1,99 @@
+.channel_drawer {
+    /* color: var(--four-color); */
+}
+
+.channel_drawer_box {
+    color: var(--four-color);
+}
+
+.channel_drawer .tv_episodes_appbar {
+    background-color: var(--sidebar);
+    color: var(--four-color);
+}
+
+.channel_drawer_list {
+    position: fixed;
+    width: 100%;
+    margin-top: -3%;
+    font-size: 12px !important;
+    font-weight: normal;
+    overflow-y: scroll !important;
+    max-height: 540px !important;
+}
+
+.countryGrid {
+    margin-bottom: 1%;
+}
+
+.country_selection {
+    margin-top: 0.5%;
+    margin-left: 1%;
+    padding-bottom: 1%;
+}
+
+.close_bottom_drawer {
+    margin-right: 1% !important;
+    margin-top: 1% !important;
+}
+
+.country_selection label {
+    color: var(--four-color) !important;
+}
+
+
+/* .country_selection .MuiFormControl-root {
+    color: var(--four-color) !important;
+    font-weight: bolder !important;
+}
+
+.country_selection .MuiSvgIcon-root {
+    color: var(--four-color) !important;
+} */
+
+
+/* #uncontrolled-native {
+    color: var(--four-color) !important;
+    font-size: 13px;
+    background-color: var(--sidebar) !important;
+}
+
+#uncontrolled-native option {
+    color: var(--text-color) !important;
+} */
+
+.channel_list_btn {
+    /* background-color: var(--text-color) !important; */
+    font-size: 12px;
+    font-weight: bolder !important;
+    margin-right: 3%;
+    /* margin-bottom: -5px !important; */
+}
+
+.selectedEpisodeContent {
+    font-weight: 650;
+    font-size: 12px;
+    text-transform: uppercase;
+    /* margin-left: -30px; */
+}
+
+@media (max-width: 1000px) {
+    .selectedEpisodeContent {
+        margin-left: 11px !important;
+    }
+    .channel_list_btn {
+        margin-right: 5px !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .selectedEpisodeContent {
+        margin-left: 11px !important;
+    }
+    .country_selection {
+        margin-top: 3%;
+        padding-bottom: 7% !important;
+    }
+    .channel_drawer_list {
+        margin-top: -4% !important;
+    }
+}

@@ -1,0 +1,10 @@
+.App {
+    /* user-select: none; */
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+* {
+    scrollbar-width: thin;
+}

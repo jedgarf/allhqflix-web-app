@@ -1,0 +1,5 @@
+@media (max-width: 600px) {
+    .carousel-skeleton {
+        margin-bottom: 25px !important;
+    }
+}

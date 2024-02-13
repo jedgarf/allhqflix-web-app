@@ -1,0 +1,77 @@
+.seasons_content {
+    margin: auto auto auto auto !important;
+    align-items: center;
+    width: 100%;
+    color: var(--four-color);
+}
+
+.season_dropdown {
+    margin-bottom: -5px !important;
+}
+
+
+/* .season_dropdown .MuiFormControl-root {
+    color: var(--four-color) !important;
+    font-weight: bolder !important;
+}
+
+.season_dropdown .MuiSvgIcon-root {
+    color: var(--four-color) !important;
+} */
+
+
+/* .season_dropdown .season_dropdown_form select {
+    border: 1px solid var(--four-color) !important;
+} */
+
+
+/* .episode_list {
+    font-size: 11px;
+} */
+
+.episode_list_content {
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    height: 390px;
+    width: 100%;
+    /* border: 2px solid #0f1622; */
+    font-size: 5px !important;
+    /* border-radius: 10px; */
+}
+
+.episode_list_content_mobile {
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    height: auto;
+    max-height: 300px;
+    width: 100%;
+    /* border: 2px solid #0f1622; */
+    font-size: 5px !important;
+    /* border-radius: 10px; */
+}
+
+.episode_list button {
+    font-weight: bolder !important;
+    /* background-color: var(--main-color) !important; */
+    width: 100%;
+    /* height: 60px; */
+    /* border-radius: 20px; */
+    /* font-size: 12px; */
+}
+
+#demo-simple-select-helper,
+#demo-simple-select-helper-label {
+    color: var(--four-color) !important;
+}
+
+
+/* .MuiSelect-nativeInput, */
+
+
+/* .MuiFormControl-root,
+.MuiInputBase-root,
+.MuiOutlinedInput-notchedOutline,
+.season_dropdown .MuiSvgIcon-root {
+    color: var(--four-color) !important;
+    border-color: var(--four-color) !important;
+} */

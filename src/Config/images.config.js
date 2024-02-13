@@ -1,0 +1,39 @@
+import mainLogo from "../Assets/images/multimedia_hub_logo.png";
+import headerLogo from "../Assets/images/header_logo.JPG";
+import homeBackground from "../Assets/images/movies-background.jpg";
+import jefdevLogoTransparent from "../Assets/images/jefdev_projects_transparent.png";
+import consumetLogo from "../Assets/images/consumet.png";
+import familyWatching from "../Assets/images/family_watching.jpeg";
+import mediaAlchemyLogo from "../Assets/images/media_alchemy_logo_transparent.png";
+
+// One Piece Banner
+import onePieceBanner from "../Assets/images/one_piece_banner.png";
+// One Piece Netflix Banner
+import onePieceNetflixBanner from "../Assets/images/one_piece_netflix_banner.png";
+// Yu Yu Hakusho Banner
+import yuYuHakushoBanner from "../Assets/images/yu_yu_hakusho_banner.png";
+
+// Native Apps
+import appPhoto from "../Assets/images/android_app_photo.png";
+
+// No Image Available
+import noImagePlaceholder from "../Assets/images/no-image-placeholder.png";
+
+// 404 not found
+import notFoundImage from "../Assets/images/error_404.png";
+
+// off limits
+import offLimits from "../Assets/images/off_limit.png";
+
+// Custom Player Loading
+import customLoadingFileName from "../Assets/images/loader6.gif";
+
+// Custom Player Icons
+import subtitleLogo from "../Assets/images/subtitle.png";
+import videoQuality from "../Assets/images/video_quality.png";
+
+// IPTV
+import iptv from "../Assets/images/iptv.png";
+
+
+export { mainLogo, headerLogo, homeBackground, jefdevLogoTransparent, consumetLogo, familyWatching, mediaAlchemyLogo, onePieceBanner, onePieceNetflixBanner, yuYuHakushoBanner, appPhoto, noImagePlaceholder, notFoundImage, offLimits, customLoadingFileName, subtitleLogo, videoQuality, iptv };

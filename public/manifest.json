@@ -1,0 +1,52 @@
+{
+    "name": "AllHQFlix App",
+    "short_name": "AllHQFlix",
+    "description": "Online Movie Streaming Site",
+    "start_url": "/",
+    "display": "standalone",
+    "orientation": "any",
+    "background_color": "#ffffff",
+    "theme_color": "#000000",
+    "icons": [{
+            "src": "favicon.ico",
+            "sizes": "64x64 32x32 24x24 16x16",
+            "type": "image/x-icon"
+        },
+        {
+            "src": "images/multimedia_hub_logo.png",
+            "type": "image/png",
+            "sizes": "192x192",
+            "purpose": "any"
+        },
+        {
+            "src": "images/multimedia_hub_logo.png",
+            "type": "image/png",
+            "sizes": "512x512",
+            "purpose": "any"
+        },
+        {
+            "src": "images/multimedia_hub_logo.png",
+            "type": "image/png",
+            "sizes": "144x144",
+            "purpose": "any"
+        },
+        {
+            "src": "images/multimedia_hub_logo.png",
+            "type": "image/png",
+            "sizes": "192x192",
+            "purpose": "maskable"
+        },
+        {
+            "src": "images/multimedia_hub_logo.png",
+            "type": "image/png",
+            "sizes": "512x512",
+            "purpose": "maskable"
+        },
+        {
+            "src": "images/multimedia_hub_logo.png",
+            "type": "image/png",
+            "sizes": "144x144",
+            "purpose": "maskable"
+        }
+    ]
+}

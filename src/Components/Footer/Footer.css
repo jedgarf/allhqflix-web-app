@@ -1,0 +1,114 @@
+.footer {
+    height: auto;
+    width: 100%;
+    position: relative;
+    left: 0;
+    bottom: 0 !important;
+    background-color: var(--footer);
+    color: var(--four-color);
+    font-weight: normal;
+    /* visibility: hidden; */
+}
+
+.footer_title {
+    margin-top: 20px;
+    margin-left: 5px;
+}
+
+.footer_text {
+    font-size: 12px;
+    margin-top: 20px;
+    margin-left: 8px;
+    margin-right: 12px;
+    text-align: justify;
+}
+
+.footer_links {
+    margin-top: 20px;
+    /* margin-left: 10px !important; */
+    font-size: 15px;
+}
+
+.footer_links a {
+    color: var(--footer-link);
+    text-decoration-line: none;
+    text-transform: uppercase;
+    font-size: 11px;
+}
+
+.lower-footer {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    text-align: center;
+    font-size: 13px;
+}
+
+.footer_owner {
+    font-size: 11px !important;
+    width: 100%;
+}
+
+.footer_dev_logo img {
+    width: 180px;
+}
+
+.footer_dev_logo {
+    margin-top: -35px;
+    margin-bottom: -60px;
+    margin-left: -15px;
+}
+
+.footer_owner_name {
+    color: var(--four-color);
+    text-align: center !important;
+    /* margin-top: 90px; */
+    margin-top: 20px;
+}
+
+.footer_social_medias {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.footer_social_media_icon {
+    margin-right: 5px;
+    width: 25px !important;
+}
+
+.footer_social_media_github_icon {
+    margin-right: 5px;
+    width: 20px !important;
+}
+
+@media (max-width: 900px) {
+    .link-head-title {
+        margin-left: 9px;
+    }
+    .footer_links {
+        font-size: 13px;
+        margin-left: 10px !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .lower-footer {
+        margin-top: 50px;
+        margin-bottom: 100px;
+        text-align: center;
+    }
+    .footer_title {
+        margin-left: 2px;
+    }
+    .footer_text {
+        font-size: 11px !important;
+    }
+    .footer_links a {
+        font-size: 11px;
+    }
+    .footer h1 {
+        font-size: 24px;
+    }
+    /* .footer p {
+        font-size: 14px;
+    } */
+}

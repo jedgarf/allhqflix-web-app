@@ -1,0 +1,294 @@
+import React, { useState, useRef, useEffect } from 'react';
+
+// ArtPlayerJS
+import Artplayer from 'artplayer';
+import artplayerPluginAds from 'artplayer-plugin-ads';
+import Hls from "hls.js";
+import flvjs from "flv.js";
+// import artplayerPluginControl from "artplayer-plugin-control";
+
+// Material UI Components
+import CircularProgress from '@mui/material/CircularProgress';
+
+// Icons
+import SubtitlesIcon from '@mui/icons-material/Subtitles';
+import HighQualityIcon from '@mui/icons-material/HighQuality';
+
+// Settings
+import { ads } from "../../Config/settings.config";
+
+// Images
+import { mainLogo, customLoadingFileName } from "../../Config/images.config";
+
+// Utilities
+import { getFileExtention } from "../../Services/Utils";
+
+// ------------------------------------------------------------------------------------------------------------
+
+var artInstance;
+
+const playFlv = (video, url, art) => {
+    if (flvjs.isSupported()) {
+        const flv = flvjs.createPlayer({ type: 'flv', url });
+        flv.attachMediaElement(video);
+        flv.load();
+
+        // optional
+        art.flv = flv;
+        art.once('url', () => flv.destroy());
+        art.once('destroy', () => flv.destroy());
+    } else {
+        art.notice.show = 'Unsupported playback format: flv';
+    }
+}
+
+const playM3u8 = (video, url, art) => {
+    if (Hls.isSupported()) {
+        const hls = new Hls();
+        hls.loadSource(url);
+        hls.attachMedia(video);
+
+        // optional
+        art.hls = hls;
+        art.once('url', () => hls.destroy());
+        art.once('destroy', () => hls.destroy());
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        video.src = url;
+    } else {
+        art.notice.show = 'Unsupported playback format: m3u8';
+    }
+}
+
+const destroyPlayM3u8 = () => {
+    // Hls.destroy();
+}
+
+const destroyPlayFlv = () => {
+    flvjs.destroy();
+}
+
+const random_ads = (items) => {
+    return items[Math.floor(Math.random() * items.length)];
+}
+
+// ----------------------------------------------------------------------------------------------------------
+
+const Player = ({ defaultlink, infotitle, infocover, episodeNum, totalEpisodes, nextEpisode, seekTime, option, ...rest }) => {
+
+    // const cads = random_ads(ads);
+
+    const artRef = useRef();
+
+    useEffect(() => {
+
+        var customIcons = {
+            loading: `<img width="100" src="${customLoadingFileName}">`,
+        };
+
+        let isAutoPlay = true;
+
+        if (process.env.REACT_APP_NODE_ENV === 'DEVELOPMENT') {
+            Artplayer.DEBUG = true;
+            isAutoPlay = false;
+        } else {
+            Artplayer.DEBUG = false;
+        }
+
+        Artplayer.ASPECT_RATIO = ['Default', '1:1', '2:1', '4:3', '6:5'];
+        Artplayer.TOUCH_MOVE_RATIO = 0.5;
+
+        var art = new Artplayer({
+            ...option,
+            container: artRef.current,
+            autoOrientation: true,
+            fastForward: true,
+            url: defaultlink,
+            type: getFileExtention(defaultlink), // 'm3u8'
+            customType: {
+                m3u8: playM3u8,
+                flv: playFlv
+            },
+            title: infotitle || "Unknown Title",
+            poster: infocover || "",
+            volume: 1,
+            muted: false,
+            autoplay: isAutoPlay,
+            pip: false,
+            autoSize: false,
+            autoMini: true,
+            // screenshot: true,
+            loop: false,
+            flip: true,
+            playbackRate: true,
+            aspectRatio: true,
+            fullscreen: true,
+            // fullscreenWeb: true,
+            subtitleOffset: false,
+            miniProgressBar: true,
+            lock: true,
+            // mutex: true,
+            backdrop: true,
+            playsInline: true,
+            autoPlayback: true,
+            airplay: false,
+            theme: '#DC4C64',
+            lang: navigator.language.toLowerCase(),
+            whitelist: ['*'],
+            // moreVideoAttr: {
+            //     crossOrigin: 'anonymous',
+            // },
+            contextmenu: [{
+                html: 'Custom menu',
+                click: function(contextmenu) {
+                    console.info('You clicked on the custom menu');
+                    contextmenu.show = false;
+                },
+            }, ],
+            layers: [{
+                html: `<img src="${mainLogo}">`,
+                click: function() {
+                    // window.open('https://jedgarfdev.vercel.app');
+                    console.info('You clicked on the custom layer');
+                },
+                style: {
+                    position: 'absolute',
+                    width: '50px',
+                    top: '3px',
+                    right: '0px',
+                    opacity: '.7',
+                },
+            }, ],
+            // thumbnails: {
+            //     url: '/images/multimedia_hub_logo.png',
+            //     number: 60,
+            //     column: 10,
+            // },
+            icons: customIcons,
+        });
+
+        if (option.enableAds === true && process.env.REACT_APP_ENABLE_ADS == true) {
+            // art.plugins.add(artplayerPluginAds({
+            //     html: `<img src="${mainLogo}">`,
+            //     video: '/ads/' + cads.video,
+            //     url: cads.link,
+            //     playDuration: cads.skipDuration,
+            //     totalDuration: cads.totalDuration,
+            //     i18n: {
+            //         close: 'SKIP ADS',
+            //         countdown: '%ss',
+            //         detail: cads.name,
+            //         canBeClosed: 'ADS CAN BE CLOSED AFTER %s SECONDS',
+            //     },
+            // }));
+
+            // The ad was clicked
+            // art.on('artplayerPluginAds:click', (ads) => {
+            //     console.info('Ad was clicked', ads);
+            // });
+
+            // Advertisement is skipped
+            // art.on('artplayerPluginAds:skip', (ads) => {
+            //     console.info('Ad was skipped', ads);
+            // });
+        }
+
+        art.on('waiting', () => {
+
+            // m3u8 checher
+            // fetch(defaultlink)
+            // .then((response) => {
+            //     if (!response.ok) {
+            //         if (response.status === 500) {
+            //             art.notice.show = 'The M3U8 file returned an HTTP 500 error.';
+            //         } else {
+            //             art.notice.show = 'An error occurred while fetching the M3U8 file.';
+            //         }
+            //     }
+            // })
+            // .catch((error) => {
+            //     art.notice.show = 'An error occurred while fetching the M3U8 file.';
+            // });
+            
+            // Show the loading message after 5 seconds
+            setTimeout(() => {
+                art.notice.show = 'Please switch to another server.';
+            }, 5000);
+
+        });
+
+        art.on('ready', () => {
+            if (totalEpisodes > 1) {
+                art.notice.show = infotitle;
+            }
+            art.subtitle.style({
+                fontSize: '150%',
+                width: 'inherit',
+                backgroundColor: 'rgba(0, 0, 0, 0.50)',
+                marginBottom: 20,
+                borderRadius: 5,
+                padding: 5
+            });
+
+            // Seek time
+            if (seekTime > 0) {
+                art.seek = seekTime;   
+            }
+
+            // art.fullscreen = !art.fullscreen;
+
+            // auto fullscreen
+            // if (artRef.current) {
+            //     const videoElement = artRef.current.querySelector('video');
+
+            //     if (videoElement) {
+            //         if (document.fullscreenElement) {
+            //             document.exitFullscreen();
+            //         } else {
+            //             try {
+            //                 videoElement.requestFullscreen();
+            //             } catch (err) {
+            //                 console.error('Fullscreen request denied:', err);
+            //             }
+            //         }
+            //     }
+            // }
+        });
+
+        art.on('pause', () => {
+            art.notice.show = infotitle;
+        });
+
+        // art.on('play', () => {
+        //     art.notice.hide();
+        // });
+
+        if (totalEpisodes > 1) {
+            // auto next function
+            art.on('video:ended', () => {
+                nextEpisode();
+            });
+        }
+
+        art.on('error', (error, reconnectTime) => {
+            console.info(error, reconnectTime);
+            art.notice.show = 'Error loading Link, please switch to another server.';
+        });
+
+        // Assign the player instance to the ref
+        artInstance = art;
+
+        return () => {
+            // artInstance.destroy();
+        };
+
+    }, []);
+
+    return <div ref={artRef} {...rest}></div>;
+}
+
+export {
+    Player,
+    destroyPlayM3u8,
+    destroyPlayFlv,
+    artInstance
+}

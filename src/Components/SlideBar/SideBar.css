@@ -1,0 +1,69 @@
+.app-bar-transparent {
+    background-color: var(--sidebar-transparent) !important;
+    color: var(--four-color) !important;
+}
+
+.app-bar-transparent button {
+    font-size: 12px !important;
+}
+
+.app-bar-transparent a {
+    color: var(--four-color) !important;
+}
+
+.app-bar {
+    background-color: var(--appbar) !important;
+    color: var(--four-color) !important;
+}
+
+.app-bar button {
+    font-size: 12px !important;
+}
+
+.app-bar a {
+    color: var(--four-color) !important;
+}
+
+.app-bar-stream {
+    background-color: var(--appbar-stream) !important;
+    color: var(--four-color) !important;
+}
+
+.app-bar-stream button {
+    font-size: 12px !important;
+}
+
+.app-bar-stream a {
+    color: var(--four-color) !important;
+}
+
+.sidebar-no-link-menu {
+    color: var(--four-color) !important;
+}
+
+#nested-list-subheader {
+    color: var(--four-color);
+    font-weight: 530;
+}
+
+.MuiMenu-root {
+    color: var(--four-color) !important;
+}
+
+.MuiMenu-list {
+    background-color: var(--submenu-color) !important;
+    border-radius: 2px !important;
+}
+
+.MuiMenu-paper {
+    background-color: var(--submenu-color) !important;
+}
+
+.sub-menu-text {
+    color: var(--four-color) !important;
+    font-size: 11px !important;
+}
+
+.sub-menu-active {
+    color: var(--second-color) !important;
+}

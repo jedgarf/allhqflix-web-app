@@ -1,0 +1,120 @@
+.stream-dashboard-content {
+    /* position: absolute;
+    top: 20vh; */
+    max-width: 100% !important;
+    padding-left: 20px;
+    padding-top: 15px;
+    padding-bottom: 20px;
+    color: var(--four-color);
+    text-shadow: 3px var(--four-color);
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.stream-dashboard-title {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.stream-dashboard-description {
+    margin-top: -15px;
+    margin-bottom: 15px;
+    width: 700px;
+    font-weight: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.stream-dashboard-description-details {
+    margin-bottom: 20px;
+    width: 700px;
+    font-weight: normal;
+}
+
+.stream-dashboard-servers {
+    max-width: 100% !important;
+}
+
+
+/* .stream-dashboard-servername {
+    font-weight: normal;
+    margin-right: 10px;
+    margin-bottom: 50px !important;
+    border-radius: 10px;
+} */
+
+.stream-dashboard-season-episode {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.stream-dashboard-video-qualities {
+    margin-bottom: 20px;
+}
+
+.stream-dashboard-resource-links {
+    margin-bottom: 20px;
+}
+
+.stream-dashboard-playbutton a {
+    text-decoration-line: none;
+    font-weight: bolder !important;
+}
+
+.videoq-span {
+    background: rgba(0, 0, 0, 0.70);
+    color: var(--four-color);
+    padding: 0px 3px 3px 3px !important;
+    border-radius: 5px;
+}
+
+.stream-dashboard-playbutton button {
+    font-size: 12px;
+    font-weight: 530;
+}
+
+
+/* mobile size */
+
+@media (max-width: 800px) {
+    .stream-dashboard-description {
+        width: 98% !important;
+    }
+    .stream-dashboard-description-details {
+        width: 98% !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .stream-dashboard-content {
+        top: 45% !important;
+    }
+    .stream-dashboard-title {
+        font-size: 13px !important;
+    }
+    .stream-dashboard-description {
+        width: 98% !important;
+        font-size: 13px;
+    }
+    .stream-dashboard-description-details {
+        width: 98% !important;
+        font-size: 13px;
+    }
+    .stream-dashboard-servers {
+        font-size: 13px;
+    }
+    .stream-dashboard-season-episode {
+        font-size: 13px;
+    }
+    .stream-dashboard-video-qualities {
+        font-size: 13px;
+    }
+    .stream-dashboard-playbutton button {
+        font-size: 13px !important;
+    }
+}

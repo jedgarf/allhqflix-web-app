@@ -1,0 +1,116 @@
+.moviesRow {
+    border-radius: 10px;
+    /* transition: .3s; */
+    position: relative;
+    margin-bottom: 10px;
+    width: 150px;
+    z-index: 0;
+}
+
+.moviesRow img:hover {
+    /* transform: scale(1.1); */
+    border: 1px solid #222;
+}
+
+.fav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.80);
+    color: var(--second-color);
+    padding: 5px;
+    border-radius: 0px 0px 10px 0px;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+}
+
+.fav .MuiSvgIcon-root:hover {
+    color: var(--second-color);
+}
+
+.vidq {
+    background: rgba(0, 0, 0, 0.80);
+    color: var(--four-color);
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 14px;
+    padding: 5px;
+    border-radius: 0px 9px 0px 10px
+}
+
+.moviesRow img {
+    /* max-height: 250px; */
+    width: 150px;
+    border-radius: 10px;
+    object-fit: cover;
+    margin-bottom: 0px !important;
+}
+
+.gridMovies {
+    flex: 1 1;
+}
+
+.movie__name h3 {
+    font-size: 12px !important;
+    font-weight: normal !important;
+    overflow-wrap: break-word !important;
+    text-align: left;
+}
+
+.movie__other {
+    font-weight: normal !important;
+    font-size: 12px !important;
+}
+
+.movie_card {
+    position: relative;
+    width: 150px;
+    margin-inline: 10px;
+}
+
+.movie_card .image-container img {
+    height: 225px !important;
+    width: 150px !important;
+    border-radius: 10px;
+}
+
+.movie_name {
+    width: 150px !important;
+    /* Set the desired width */
+    white-space: nowrap;
+    /* Prevent text from wrapping to the next line */
+    overflow: hidden;
+    /* Hide overflowing text */
+    text-overflow: ellipsis;
+    /* Add an ellipsis when text overflows */
+}
+
+.img-card-skeleton {
+    height: 225px !important;
+    width: 150px !important;
+    border-radius: 10px !important;
+}
+
+.img-carousel-skeleton {
+    height: 85vh;
+    width: 100% !important;
+}
+
+@media (max-width:650px) {
+    .img-carousel-skeleton {
+        height: 350px !important;
+    }
+}
+
+@media (max-width:600px) {
+    .img-carousel-skeleton {
+        height: 350px !important;
+    }
+}
+
+@media (max-width:400px) {
+    .img-carousel-skeleton {
+        height: 260px !important;
+    }
+}

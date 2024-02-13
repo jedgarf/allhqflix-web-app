@@ -1,0 +1,116 @@
+.live_channels {
+    flex: 1.0;
+    overflow-y: scroll;
+    background: var(--body);
+    width: 100%;
+}
+
+.live_channels_content {
+    margin-top: 83px !important;
+    min-height: 62%;
+}
+
+.live_channel_cover {
+    width: auto !important;
+    padding-left: 2%;
+    padding-right: 2%;
+}
+
+.channel_title {
+    color: var(--four-color);
+    margin-left: 5px;
+}
+
+.live_channels_content_player {
+    margin-top: 10px !important;
+    width: 100% !important;
+    height: 350px !important;
+}
+
+.live_channel_details {
+    margin-top: 3%;
+    margin-left: 3%;
+    color: var(--four-color);
+}
+
+.channel_logo {
+    width: 100px;
+    background-color: var(--text-color);
+    padding: 5px;
+    border-radius: 5px;
+    margin-bottom: 3%;
+}
+
+.channel_logo img {
+    width: 100%;
+}
+
+.channel_logo_mobile {
+    width: 80px;
+    background-color: var(--text-color);
+    padding: 5px;
+    border-radius: 5px;
+    margin-top: 4%;
+    margin-left: 3%;
+    margin-bottom: 3%;
+}
+
+.channel_logo_mobile img {
+    width: 100%;
+}
+
+.channel_details_table {
+    text-align: left;
+    font-size: 12px;
+    margin-bottom: 0%;
+    text-transform: capitalize;
+}
+
+.country_selection {
+    margin-left: 3%;
+    margin-bottom: 2% !important;
+}
+
+.country_selection label {
+    color: var(--four-color) !important;
+}
+
+.country_selection .MuiFormControl-root {
+    color: var(--four-color) !important;
+    font-weight: bolder !important;
+}
+
+.country_selection .MuiSvgIcon-root {
+    color: var(--four-color) !important;
+}
+
+#uncontrolled-native {
+    color: var(--four-color) !important;
+    font-size: 13px;
+    /* background-color: var(--sidebar) !important; */
+}
+
+#uncontrolled-native option {
+    color: var(--text-color) !important;
+}
+
+@media (max-width: 600px) {
+    
+    .live_channel_details {
+        margin-top: -6%;
+    }
+
+    .live_channels_content {
+        margin-top: 67px !important;
+    }
+    .country_selection {
+        /* margin-top: -1% !important; */
+        margin-bottom: 5% !important;
+    }
+    .live_channels_content_player {
+        height: 300px !important;
+    }
+    .channel_logo {
+        width: 70px;
+    }
+}

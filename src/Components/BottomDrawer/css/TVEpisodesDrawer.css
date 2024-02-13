@@ -1,0 +1,28 @@
+.tv_episodes_appbar .MuiFormControl-root {
+    /* color: var(--four-color) !important; */
+    /* font-weight: bolder !important; */
+}
+
+.tv_episodes_appbar .MuiSvgIcon-root {
+    /* color: var(--four-color) !important; */
+}
+
+#uncontrolled-native {
+    /* color: var(--four-color) !important; */
+    /* font-size: 13px; */
+}
+
+.css-1ashow5-MuiNativeSelect-select-MuiInputBase-input-MuiInput-input:not([multiple]) option,
+.css-1ashow5-MuiNativeSelect-select-MuiInputBase-input-MuiInput-input:not([multiple]) optgroup {
+    background-color: transparent;
+}
+
+
+/* .channel_drawer_box {
+    height: 100vh;
+} */
+
+.tv_episodes_appbar,
+.channel_drawer_box {
+    background-color: var(--sidebar);
+}
