@@ -50,7 +50,7 @@ const NativeApps = () => {
                                         <Alert severity="info">Exciting news! Our official mobile app development is underway. In the meantime, feel free to enjoy the temporary hybrid app experience. Stay tuned for the enhanced features coming your way soon!</Alert>
                                     </Stack>
                                 </Container> */}
-                                <Container maxWidth={'md'}>
+                                <Container maxWidth={'md'} style={{ marginTop: '30px' }}>
                                     <div className="appdownload" style={{ backgroundImage: `linear-gradient(rgba(2, 9, 22, 0.8),rgba(2, 9, 22, 0.8)) , url("${homeBackground}")`, borderRadius: 10, padding: 40, minHeight: '450px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                         <div className="apd-container">
                                             <div className="apdc-content">
