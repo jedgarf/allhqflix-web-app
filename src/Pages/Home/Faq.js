@@ -249,8 +249,8 @@ const Faq = () => {
                                                     <li><a className='text-link' href={`${googleSearch}Javascript`} target='__blank'>Javascript ES5/ES6</a></li>
                                                     <li><a className='text-link' href={`${googleSearch}NodeJS`} target='__blank'>NodeJS</a></li>
                                                     <li><a className='text-link' href={`${googleSearch}ExpressJS`} target='__blank'>ExpressJS Framework</a></li>
-                                                    <li><a className='text-link' href={`${googleSearch}MySQL`} target='__blank'>MySQL Database</a></li>
-                                                    <li><a className='text-link' href={`${googleSearch}Sequelize`} target='__blank'>Sequelize (ORM)</a></li>
+                                                    {/* <li><a className='text-link' href={`${googleSearch}MySQL`} target='__blank'>MySQL Database</a></li>
+                                                    <li><a className='text-link' href={`${googleSearch}Sequelize`} target='__blank'>Sequelize (ORM)</a></li> */}
                                                     </ul>
                                                 </td>
                                                 </tr>
