@@ -131,7 +131,7 @@ const MobileSideBar = ({ Type, subType, getMenu, menu, submenu }) => {
                         OTHER SITES
                     </ListSubheader>
                     }>
-                        <a href={`https://media-alchemy.allhqflix.com/`} target="__blank" style={{ textDecoration: 'none', fontWeight: 'bolder !important' }}>
+                        <a href={`https://media-alchemy.vercel.app/`} target="__blank" style={{ textDecoration: 'none', fontWeight: 'bolder !important' }}>
                             <ListItem disablePadding>
                                 <ListItemButton selected={false} style={{ color: '#DC4C64', fontWeight: '550' }}>
                                     <ListItemIcon>

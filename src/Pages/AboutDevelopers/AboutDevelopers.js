@@ -68,7 +68,7 @@ const AboutDevelopers = () => {
                                                     <p style={{ textAlign: 'left', marginBottom: 5 }}><b>GitHub:</b> <a href={ github_link } target='__blank' className='text-link'>{ github_link }</a></p>
                                                     <p style={{ textAlign: 'left', marginBottom: 5 }}><b>LinkedIn:</b> <a href={ linkedin_link } target='__blank' className='text-link'>{ linkedin_link }</a></p>
                                                     <p style={{ textAlign: 'left', marginBottom: 5 }}><b>Facebook:</b> <a href={ fb_link } target='__blank' className='text-link'>{ fb_link }</a></p>
-                                                    <p style={{ textAlign: 'left', marginBottom: 5 }}><b>Site Email:</b> <a href={`mailto:${site_email}`} className='text-link'>{ site_email }</a></p>
+                                                    {/* <p style={{ textAlign: 'left', marginBottom: 5 }}><b>Site Email:</b> <a href={`mailto:${site_email}`} className='text-link'>{ site_email }</a></p> */}
                                                 </div>
                                             </center>
                                         </Grid>

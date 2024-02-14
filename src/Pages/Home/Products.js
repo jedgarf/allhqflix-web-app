@@ -40,7 +40,7 @@ const Products = () => {
                     </Grid>
                     <Grid item xl={6} lg={6} md={6} sm={12} xs={12} style={{ margin: 'auto', width: '640px', padding: '10px' }}>
                         <center>
-                            <a href='https://media-alchemy.allhqflix.com/' target='__blank'>
+                            <a href='https://media-alchemy.vercel.app/' target='__blank'>
                                 <Badge badgeContent={'Beta'} color="error">
                                     <img src={mediaAlchemyLogo} alt='Media Alchemy Logo'  style={{ borderRadius: 10, width: '300px' }}/>
                                 </Badge>

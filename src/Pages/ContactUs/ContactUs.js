@@ -23,7 +23,7 @@ import SnackBar from "../../Components/SnackBar/SnackBar";
 import { moveToTop, moveToClassName } from "../../Services/Utils";
 
 // Config
-import { title, version, allowed_countries, jefdev_logo_transparent, dev_portfolio, fb_link, linkedin_link, github_link } from "../../Config/settings.config";
+import { title, version, allowed_countries, jefdev_logo_transparent, dev_portfolio, fb_link, linkedin_link, github_link, site_email } from "../../Config/settings.config";
 
 // Services
 import { receiveEmail } from "../../Services/SettingService";
@@ -214,7 +214,7 @@ const AboutDevelopers = () => {
                                                             </center>
                                                         </Grid>
                                                         <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
-                                                            <Typography>Contact Email: <a className='text-link' href='mailto:dev@allhqflix.com'>dev@allhqflix.com</a></Typography>
+                                                            <Typography>Contact Email: <a className='text-link' href={`mailto:${site_email}`}>{site_email}</a></Typography>
                                                         </Grid>
                                                     </Grid>
                                                 </Container>
