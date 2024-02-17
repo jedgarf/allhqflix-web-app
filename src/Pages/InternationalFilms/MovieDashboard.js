@@ -173,9 +173,6 @@ const MovieDashboard = (props) => {
 
   const set_selectedLinkSubtitle = useCallback((resourceValue) => {
 
-    // Referrer
-    let defReferrer = 'https://flixhq.to/';
-
     // Default Link
     let defLink = resourceValue.data?.sources?.filter( (result) => { return result.quality === "auto"; });
     defLink = defLink?.length > 0 ? defLink[0]?.url : "";
@@ -478,6 +475,10 @@ const MovieDashboard = (props) => {
                         fontSize: '20px',
                     },
                     encoding: 'utf-8',
+                },
+                headers: {
+                  Referer: 'https://flixhq.to/',
+                  Origin: 'https://flixhq.to/'
                 },
                 controls: additionalControls,
                 }}
