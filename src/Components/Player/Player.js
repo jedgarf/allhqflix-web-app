@@ -42,8 +42,15 @@ const playFlv = (video, url, art) => {
     }
 }
 
+// var hlsConfig = {
+//     xhrSetup: function (xhr, url) {
+//       xhr.referer = 'https://flixhq.to/';
+//     },
+// };
+
 const playM3u8 = (video, url, art) => {
     if (Hls.isSupported()) {
+        // const hls = new Hls(hlsConfig);
         const hls = new Hls();
         hls.loadSource(url);
         hls.attachMedia(video);
@@ -220,38 +227,21 @@ const Player = ({ defaultlink, infotitle, infocover, episodeNum, totalEpisodes, 
             if (totalEpisodes > 1) {
                 art.notice.show = infotitle;
             }
-            art.subtitle.style({
-                fontSize: '150%',
-                width: 'inherit',
-                backgroundColor: 'rgba(0, 0, 0, 0.50)',
-                marginBottom: 20,
-                borderRadius: 5,
-                padding: 5
-            });
+
+            // art.subtitle.style({
+            //     fontSize: '150%',
+            //     width: 'inherit',
+            //     backgroundColor: 'rgba(0, 0, 0, 0.50)',
+            //     marginBottom: 20,
+            //     borderRadius: 5,
+            //     padding: 5
+            // });
 
             // Seek time
             if (seekTime > 0) {
                 art.seek = seekTime;   
             }
 
-            // art.fullscreen = !art.fullscreen;
-
-            // auto fullscreen
-            // if (artRef.current) {
-            //     const videoElement = artRef.current.querySelector('video');
-
-            //     if (videoElement) {
-            //         if (document.fullscreenElement) {
-            //             document.exitFullscreen();
-            //         } else {
-            //             try {
-            //                 videoElement.requestFullscreen();
-            //             } catch (err) {
-            //                 console.error('Fullscreen request denied:', err);
-            //             }
-            //         }
-            //     }
-            // }
         });
 
         art.on('pause', () => {
