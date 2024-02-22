@@ -141,9 +141,11 @@ const Player = ({ defaultlink, infotitle, infocover, episodeNum, totalEpisodes, 
             theme: '#DC4C64',
             lang: navigator.language.toLowerCase(),
             whitelist: ['*'],
-            // moreVideoAttr: {
-            //     crossOrigin: 'anonymous',
-            // },
+            moreVideoAttr: {
+                // crossOrigin: 'anonymous',
+                preload: 'none', // metadata
+                playsInline: true,
+            },
             contextmenu: [{
                 html: 'Custom menu',
                 click: function(contextmenu) {
