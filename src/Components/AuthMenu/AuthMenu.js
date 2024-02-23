@@ -2,7 +2,7 @@ import React, { useState, useEffect, Fragment } from 'react';
 import { jwtDecode } from 'jwt-decode';
 
 // Material UI Components
-import { Button, Badge, Menu, MenuItem, ListItemIcon, ListItemText, Avatar } from '@mui/material';
+import { IconButton, Badge, Menu, MenuItem, ListItemIcon, ListItemText, Avatar } from '@mui/material';
 
 // Material UI Icons
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -64,7 +64,7 @@ const AuthMenu = ({ isAuth }) => {
     
     return (
         <>
-            <Button
+            <IconButton
             sx={{ my: 2, color: 'white', display: 'block' }}
             aria-controls={openTopMenu ? 'basic-menu' : undefined}
             aria-haspopup="true"
@@ -78,7 +78,7 @@ const AuthMenu = ({ isAuth }) => {
                       <Avatar alt={'U'} sx={{ bgcolor: '#DC4C64' }} style={{ width: '35px', height: '35px' }} src={user?.picture && user.picture} />
                     </center>
                 {/* </Badge> */}
-            </Button>
+            </IconButton>
 
             {/* Sub Menu */}
 

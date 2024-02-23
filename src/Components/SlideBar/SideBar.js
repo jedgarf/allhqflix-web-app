@@ -234,7 +234,7 @@ const SideBar = ({ Type, subType, haveSearch = true,  transparentBg = true, isSt
             </Box> */}
             
             {/* Login Modal */}
-            <Box sx={{ flexGrow: 0, marginLeft: 2 }}>
+            <Box sx={{ flexGrow: 0, marginLeft: 1 }}>
               {auth ?
                 <AuthMenu isAuth={isAuth}/>
                : 
