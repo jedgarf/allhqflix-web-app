@@ -1,6 +1,6 @@
 {
     "name": "AllHQFlix",
-    "homepage": "https://allhqflix.vercel.com/",
+    "homepage": "https://allhqflix.vercel.app/",
     "version": "0.1.0",
     "private": true,
     "main": "electron-main.js",
