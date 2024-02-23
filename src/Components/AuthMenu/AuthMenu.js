@@ -34,6 +34,7 @@ const AuthMenu = ({ isAuth }) => {
     };
 
     const onLogoutSession = () => {
+      handleTopMenuClose();
       withReactContent(Swal).fire({
         title: "Click Yes to proceed",
         showDenyButton: false,
@@ -45,7 +46,6 @@ const AuthMenu = ({ isAuth }) => {
         if (result.isConfirmed) {
           removeSession('user');
           isAuth(false);
-          handleTopMenuClose();
           // withReactContent(Swal).fire("Saved!", "", "success");
         } else if (result.isDismissed) {
           // withReactContent(Swal).fire("Changes are not saved", "", "info");
