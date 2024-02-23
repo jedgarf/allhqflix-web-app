@@ -2,10 +2,16 @@ import React, { useState, useEffect, Fragment } from 'react';
 import { jwtDecode } from 'jwt-decode';
 
 // Material UI Components
-import { Button, Badge, Menu, MenuItem, Typography, Avatar } from '@mui/material';
+import { Button, Badge, Menu, MenuItem, ListItemIcon, ListItemText, Avatar } from '@mui/material';
 
 // Material UI Icons
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import LogoutIcon from '@mui/icons-material/Logout';
+
+// Sweet Alert
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+// import '@sweetalert2/theme-borderless/borderless.css';
 
 // Helpers
 import { getSession, removeSession } from "../../Helpers/Sessions";
@@ -28,13 +34,24 @@ const AuthMenu = ({ isAuth }) => {
     };
 
     const onLogoutSession = () => {
-      if (window.confirm("are you sure you want to logout?")) {
-        removeSession('user');
-        isAuth(false);
-        handleTopMenuClose();
-      } else {
-        return false;
-      }
+      withReactContent(Swal).fire({
+        title: "Click Yes to proceed",
+        showDenyButton: false,
+        showCancelButton: true,
+        confirmButtonText: "Yes",
+        denyButtonText: `No`,
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          removeSession('user');
+          isAuth(false);
+          handleTopMenuClose();
+          // withReactContent(Swal).fire("Saved!", "", "success");
+        } else if (result.isDismissed) {
+          // withReactContent(Swal).fire("Changes are not saved", "", "info");
+          return false;
+        }
+      });
     }
 
     useEffect(() => {
@@ -53,12 +70,12 @@ const AuthMenu = ({ isAuth }) => {
             aria-haspopup="true"
             aria-expanded={openTopMenu ? 'true' : undefined}
             onClick={(event) => handleTopMenuClick(event)}
-            title={user?.name && user.name}
+            title={user?.name && capitalizeString(user.name)}
             >
                 {/* <Badge badgeContent={devAlert.length} color="primary"> */}
                     {/* <AccountCircleIcon sx={{ color: '#DC4C64',  }} /> */}
                     <center>
-                    <Avatar alt={'U'} sx={{ bgcolor: '#DC4C64' }} style={{ width: '35px', height: '35px' }} src={user?.picture && user.picture} />
+                      <Avatar alt={'U'} sx={{ bgcolor: '#DC4C64' }} style={{ width: '35px', height: '35px' }} src={user?.picture && user.picture} />
                     </center>
                 {/* </Badge> */}
             </Button>
@@ -112,10 +129,16 @@ const AuthMenu = ({ isAuth }) => {
               }}
             >
             <MenuItem disableGutters={false}>
-                <Typography sx={{ fontWeight: 'bolder' }}>{user?.name ? capitalizeString(user.name) : 'Guest'}</Typography>
+              <ListItemIcon>
+                <AccountCircleIcon sx={{ color: '#3B71CA' }} />
+              </ListItemIcon>
+              <ListItemText className='dark-theme-text-color' sx={{ fontWeight: 'bolder' }} primary={user?.name ? `${capitalizeString(user.name)}` : 'Guest'} />
             </MenuItem>
             <MenuItem onClick={() => onLogoutSession()} disableGutters={false}>
-                <Typography sx={{ fontWeight: 'bolder' }}>Logout</Typography>
+              <ListItemIcon>
+                <LogoutIcon sx={{ color: '#DC4C64' }} />
+              </ListItemIcon>
+              <ListItemText className='dark-theme-text-color' sx={{ fontWeight: 'bolder' }} primary="Logout" />
             </MenuItem>
           </Menu>
         </>
