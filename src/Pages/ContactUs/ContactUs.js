@@ -1,37 +1,31 @@
 import React, { useState, useEffect } from 'react';
-import { ReactQueryDevtools } from 'react-query/devtools';
 
 // Themes
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 
 // Material UI Components
-import { Grid, Container, Card, CardContent, CardActions, Typography, Button, Box, TextField } from '@mui/material';
+import { Grid, Container, Card, CardContent, Typography, Button, Box, TextField } from '@mui/material';
 
 // Icons
-import FacebookIcon from '@mui/icons-material/Facebook';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import GitHubIcon from '@mui/icons-material/GitHub';
 import SendIcon from '@mui/icons-material/Send';
 
 // Pages
 import SideBar from "../../Components/SlideBar/SideBar";
 import Footer from "../../Components/Footer/Footer";
 import SnackBar from "../../Components/SnackBar/SnackBar";
-
-// Utilities
-import { moveToTop, moveToClassName } from "../../Services/Utils";
+import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
 // Config
-import { title, version, allowed_countries, jefdev_logo_transparent, dev_portfolio, fb_link, linkedin_link, github_link, site_email } from "../../Config/settings.config";
+import { title, site_email } from "../../Config/settings.config";
 
 // Services
 import { receiveEmail } from "../../Services/SettingService";
 
 // Images
-import { mainLogo, headerLogo, homeBackground } from "../../Config/images.config";
+import { mainLogo, homeBackground } from "../../Config/images.config";
 
-const AboutDevelopers = () => {
+const ContactUs = () => {
 
     document.title = 'AllHQFlix - Contact Us';
 
@@ -127,7 +121,7 @@ const AboutDevelopers = () => {
 
     return (
         <div className="landing-page">
-            {process.env.REACT_APP_NODE_ENV === 'DEVELOPMENT' ? <div className="top"><ReactQueryDevtools initialIsOpen={false} /></div> : <div className="top"></div> }
+            <ReactQueryTools/>
             <SideBar Type={type} subType={null} haveSearch={true} transparentBg={false} isStream={true}/>
             <div className="divFocus" style={{backgroundImage: `linear-gradient(rgba(2, 9, 22, 0.8),rgba(2, 9, 22, 0.8))` }}>
                 <SnackBar severity={snackBarType} handleSnackBarOpen={handleSnackBarOpen} status={snackBarOpen} snackBarMessage={snackBarMessage} />
@@ -232,4 +226,4 @@ const AboutDevelopers = () => {
     );
 };
 
-export default AboutDevelopers;
+export default ContactUs;

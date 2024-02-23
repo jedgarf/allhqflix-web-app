@@ -7,11 +7,8 @@ import { Grid, Accordion, AccordionSummary, AccordionDetails, Typography, Contai
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-// Utilities
-import { moveToTop } from "../../Services/Utils";
-
 // Config
-import { title, home_background_image, main_logo, version, allowed_countries } from "../../Config/settings.config";
+import { title, allowed_countries } from "../../Config/settings.config";
 
 const Faq = () => {
 
@@ -219,11 +216,6 @@ const Faq = () => {
                                     <Grid container columnSpacing={{ xs: 0, sm: 0, md: 3, lg: 10, xl: 10 }} rowSpacing={5}>
                                     <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
                                         <table border={1} width="100%">
-                                            {/* <thead>
-                                                <tr>
-                                                    <th colSpan={2}><big>TECHNOLOGY USED</big></th>
-                                                </tr>
-                                            </thead> */}
                                             <tbody>
                                                 <tr>
                                                 <th>

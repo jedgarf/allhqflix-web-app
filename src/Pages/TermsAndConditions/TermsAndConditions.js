@@ -1,18 +1,15 @@
 import React, { useEffect } from 'react';
-import { ReactQueryDevtools } from 'react-query/devtools';
 
 // Material UI Components
-import { Grid, Container, Card, CardContent, CardActions, Typography, Button } from '@mui/material';
+import { Grid, Container, Card, CardContent, Typography } from '@mui/material';
 
 // Pages
 import SideBar from "../../Components/SlideBar/SideBar";
 import Footer from "../../Components/Footer/Footer";
-
-// Utilities
-import { moveToTop, moveToClassName } from "../../Services/Utils";
+import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
 // Config
-import { title, site_email, version, allowed_countries } from "../../Config/settings.config";
+import { title, site_email } from "../../Config/settings.config";
 
 // Images
 import { homeBackground } from "../../Config/images.config";
@@ -20,7 +17,6 @@ import { homeBackground } from "../../Config/images.config";
 const TermsAndConditions = () => {
 
     document.title = 'AllHQFlix - Terms and Conditions';
-
     const type = 'terms_and_conditions';
 
     useEffect(() => {
@@ -30,7 +26,7 @@ const TermsAndConditions = () => {
     return (
         <div>
             <div className="landing-page">
-            {process.env.REACT_APP_NODE_ENV === 'DEVELOPMENT' ? <div className="top"><ReactQueryDevtools initialIsOpen={false} /></div> : <div className="top"></div> }
+                <ReactQueryTools/>
                 <SideBar Type={type} subType={null} haveSearch={true} transparentBg={false} isStream={true}/>
                     <div className="divFocus" style={{backgroundImage: `linear-gradient(rgba(2, 9, 22, 0.8),rgba(2, 9, 22, 0.8))`, color: '#ccced1' }}>
                         <div style={{ marginTop: '70px', minHeight: 500, width: '99vw' }}>

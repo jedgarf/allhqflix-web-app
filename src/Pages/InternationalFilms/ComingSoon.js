@@ -1,22 +1,13 @@
 // Packages
 import React, { useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
 
 // React Query
 import { useQuery } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
 
-import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
-import { pink, blue } from '@mui/material/colors';
-import Radio from '@mui/material/Radio';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import FormControl from '@mui/material/FormControl';
-import NativeSelect from '@mui/material/NativeSelect';
 
 // Icons
 import CircularProgress from '@mui/material/CircularProgress';
@@ -25,6 +16,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import SideBar from "../../Components/SlideBar/SideBar";
 import Footer from "../../Components/Footer/Footer";
 import SearchResult from "../../Components/SearchResult/SearchResult";
+import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
 import { moveToTop } from "../../Services/Utils";
 
@@ -34,15 +26,10 @@ import { movie_comming_soon } from "../../Services/FlixHQService";
 function ComingSoon() {
 
   document.title = 'AllHQFlix - Coming Soon';
-
-  const navigate = useNavigate();
   const queryParams = new URLSearchParams(window.location.search);
-
   const type = 'foreign';
   const subType = 'foreigncomingsoon';
-
   const defaultPageNumber = queryParams.get("page") === null ? 1 : queryParams.get("page");
-
   const [page, setPage] = useState(defaultPageNumber);
 
   // loading
@@ -71,7 +58,7 @@ function ComingSoon() {
   return (
     <>
       <div className="search_result">
-      {process.env.REACT_APP_NODE_ENV === 'DEVELOPMENT' ? <div className="top"><ReactQueryDevtools initialIsOpen={false} /></div> : <div className="top"></div> }
+      <ReactQueryTools/>
        <div className="search_result_content">
         <div className="search__top">
           <SideBar Type={type} subType={subType}/>

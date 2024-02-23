@@ -1,37 +1,23 @@
 // Packages
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useQuery } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
-import PropTypes from 'prop-types';
-import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import Grid from '@mui/material/Grid';
-import IconButton from '@mui/material/IconButton';
-import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import Divider from '@mui/material/Divider';
-import Chip from '@mui/material/Chip';
 
 // CSS
 import "./css/TVChannelsDashboard.css";
 
 // Icons
-import SearchIcon from "@mui/icons-material/Search";
-import StarIcon from '@mui/icons-material/Star';
-import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
-import PlaylistPlayIcon from '@mui/icons-material/PlaylistPlay';
-import DoubleArrowRoundedIcon from '@mui/icons-material/DoubleArrowRounded';
-import StorageIcon from '@mui/icons-material/Storage';
-import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck';
 import CircularProgress from '@mui/material/CircularProgress';
 
 // Components
 import SideBar from "../../Components/SlideBar/SideBar";
 import Footer from "../../Components/Footer/Footer";
 import { Player } from "../../Components/Player/Player";
+import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
 // Config
 import apiConfig from '../../Config/api.config';
@@ -92,7 +78,7 @@ const TVChannelsDashboard = (props) => {
   return (
     <>
       <div className="movie_dashboard">
-      {process.env.REACT_APP_NODE_ENV === 'DEVELOPMENT' ? <div className="top"><ReactQueryDevtools initialIsOpen={false} /></div> : <div className="top"></div> }
+      <ReactQueryTools/>
         <SideBar Type={contentType} subType={contentType} transparentBg={false} isStream={true} />
         {<>
           <div className="movie_cover" style={{backgroundImage: `linear-gradient(rgba(0, 0, 10, 1),rgba(0, 0, 10, 0.5)) , url("${channelInfo?.logo}")`}}>
@@ -111,20 +97,7 @@ const TVChannelsDashboard = (props) => {
                   hotkey: true,
                   isLive: true,
                   setting: true,
-                  settings: [
-                  // {
-                  //     html: 'Links',
-                  //     width: 150,
-                  //     tooltip: defaultQualityToolTip,
-                  //     icon: '<img width="22" heigth="22" src="/images/video_quality.png">',
-                  //     selector: videoQualities,
-                  //     onSelect: function (item, $dom, event) {
-                  //         console.info(item, $dom, event);
-                  //         this.switchQuality(item.url, item.html);
-                  //         return item.html;
-                  //     },
-                  // },
-                ]
+                  settings: []
                 }}
                 getInstance={(art) => console.log("getInstance", art)}
               />

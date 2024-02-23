@@ -17,7 +17,7 @@ const asiandrama_search = async (search, page = null) => {
 };
 
 const asiandrama_info = async ({queryKey}) => {
-    const [_key, { mediaId }] = queryKey;
+    const [{ mediaId }] = queryKey;
 
     const results = await axios.get(url + "/media_info?mediaId=" + mediaId);
     return results;
@@ -32,7 +32,7 @@ const asiandrama_carousel = async () => {
 
 const asiandrama_recent = async ({ queryKey }) => {
 
-    const [_key, { search, page }] = queryKey;
+    const [{ search, page }] = queryKey;
 
     let pageString = "";
 
@@ -46,7 +46,7 @@ const asiandrama_recent = async ({ queryKey }) => {
 
 const asiandrama_popular = async ({ queryKey }) => {
 
-    const [_key, { page }] = queryKey;
+    const [{ page }] = queryKey;
 
     let pageString = "";
 
@@ -60,7 +60,7 @@ const asiandrama_popular = async ({ queryKey }) => {
 
 const asiandrama_stream_links = async ({ queryKey }) => {
 
-    const [_key, { episodeId }] = queryKey;
+    const [{ episodeId }] = queryKey;
 
     const results = await axios.get(url + "/episode_sources?episodeId=" + episodeId);
     return results;

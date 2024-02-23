@@ -1,6 +1,5 @@
 // Packages
-import React, { useState, useEffect, useCallback, useRef } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import React, { useState, useEffect, useRef } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 
 // Material UI Themes
@@ -9,11 +8,9 @@ import CssBaseline from '@mui/material/CssBaseline';
 
 // React Query
 import { useQuery } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
 
 // Material UI Components
-import { TextField, Input, Grid, Stack, Typography, Button, Box, InputLabel, NativeSelect, Container, IconButton, Divider, Checkbox, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, InputAdornment } from '@mui/material';
-import { pink, blue } from '@mui/material/colors';
+import { TextField, Grid, Stack, Typography, Button, Container, IconButton, Checkbox, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, InputAdornment } from '@mui/material';
 
 // Icons
 import SearchIcon from "@mui/icons-material/Search";
@@ -27,14 +24,14 @@ import CloseIcon from '@mui/icons-material/Close';
 import SideBar from "../../Components/SlideBar/SideBar";
 import Footer from "../../Components/Footer/Footer";
 import SearchResult from "../../Components/SearchResult/SearchResult";
+import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
 import {anime_genres,
         anime_types, 
         anime_formats, 
         anime_sorts, 
         anime_statuses, 
-        anime_seasons, 
-        server_status} from "../../Config/settings.config";
+        anime_seasons} from "../../Config/settings.config";
 
 // Utilities
 import { moveToTop, capitalizeString, replaceUnderscoreToSpace } from "../../Services/Utils";
@@ -44,7 +41,6 @@ import { anime_advanced_search } from "../../Services/AnimeService";
 
 function AdvancedSearch() {
 
-  const navigate = useNavigate();
   const type = 'anime';
   const subType = 'animeadvancedsearch';
   document.title = 'AllHQFlix - Animes - Advanced Search';
@@ -252,7 +248,7 @@ function AdvancedSearch() {
   return (
     <>
       <div className="search_result">
-        {process.env.REACT_APP_NODE_ENV === 'DEVELOPMENT' ? <div className="top"><ReactQueryDevtools initialIsOpen={false} /></div> : <div className="top"></div> }
+            <ReactQueryTools/>
             <div className="search_result_content">
                 <div className="search__top">
                 <SideBar Type={type} subType={subType}/>

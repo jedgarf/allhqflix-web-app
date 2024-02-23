@@ -1,8 +1,5 @@
-import React, { useEffect, useState, useCallback, useRef } from 'react';
-import { useQuery } from 'react-query';
+import React, { useEffect, useState, useRef } from 'react';
 import { ReactQueryDevtools } from 'react-query/devtools';
-import { useParams, useNavigate } from "react-router-dom";
-import { styled, alpha } from '@mui/material/styles';
 import { makeStyles } from '@material-ui/core/styles';
 
 // Material UI Theme
@@ -13,21 +10,11 @@ import CssBaseline from '@mui/material/CssBaseline';
 import "./css/TVChannels.css";
 
 // Material UI Components
-import { Grid, Button, Divider, InputBase, Paper, IconButton, Typography, Container } from "@mui/material";
-
-import { pink, blue } from '@mui/material/colors';
-import { useSelector , useDispatch } from "react-redux";
+import { Grid, InputBase, Paper, IconButton, Typography, Container } from "@mui/material";
 
 // Icons
 import SearchIcon from "@mui/icons-material/Search";
 import CircularProgress from '@mui/material/CircularProgress';
-import MenuIcon from '@mui/icons-material/Menu';
-import DirectionsIcon from '@mui/icons-material/Directions';
-
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import FilterAltIcon from '@mui/icons-material/FilterAlt';
-import CloseIcon from '@mui/icons-material/Close';
 
 // Pages
 import ChannelCard from "../../Components/TVChannels/ChannelCard";
@@ -39,6 +26,7 @@ import { tv_channel_countries } from "../../Services/LiveChannelServices";
 // Components
 import SideBar from "../../Components/SlideBar/SideBar";
 import Footer from "../../Components/Footer/Footer";
+import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 import CountryPagination from "./CountryPagination";
 
 // Utils
@@ -122,7 +110,7 @@ const TVChannels = () => {
     
     return (
         <div className='live_channels'>
-            {process.env.REACT_APP_NODE_ENV === 'DEVELOPMENT' ? <div className="top"><ReactQueryDevtools initialIsOpen={false} /></div> : <div className="top"></div> }
+            <ReactQueryTools/>
             <SideBar Type={urlContentType} subType={null} haveSearch={false} transparentBg={true} isStream={false}/>
             <ThemeProvider theme={darkTheme}>
                 <CssBaseline />
@@ -145,7 +133,6 @@ const TVChannels = () => {
                                             sx={{ ml: 1, flex: 1 }}
                                             placeholder="Search by Country (ex: PHILIPPINES)"
                                             inputProps={{ 'aria-label': 'Search by Country (ex: PHILIPPINES)', 'className': classes.customInput }}
-                                            // onChange={(e) => setSearchTerm(e.target.value)}
                                             // onChange={(e) => setSearchTerm(e.target.value)}
                                         />
                                         <IconButton type="submit" sx={{ p: '10px' }} aria-label="search" onClick={(e) => searchChange(e)}>

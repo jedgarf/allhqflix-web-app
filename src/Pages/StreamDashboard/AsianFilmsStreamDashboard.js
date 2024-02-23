@@ -5,10 +5,9 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import DOMPurify from 'dompurify';
 
 import { useQuery } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
 
 // Material UI Components
-import { Grid, IconButton, Skeleton, Box, Typography, Button } from '@mui/material';
+import { Grid, Skeleton, Box, Typography, Button } from '@mui/material';
 
 // CSS
 import './StreamDashboard.css';
@@ -16,7 +15,6 @@ import './StreamDashboard.css';
 // Icons
 import ArrowBackTwoToneIcon from '@mui/icons-material/ArrowBackTwoTone';
 import WarningAmberTwoToneIcon from '@mui/icons-material/WarningAmberTwoTone';
-import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 
 // Components
@@ -24,6 +22,7 @@ import ShareModal from "../../Components/Modal/ShareModal";
 import TraillerModal from "../../Components/Modal/TraillerModal";
 import SnackBar from "../../Components/SnackBar/SnackBar";
 import { AsianDramaPlayModal } from "../../Components/Modal/PlayModal";
+import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
 // Utilities
 import { streamDashboardBackButton, SeparateArrayByComma } from "../../Services/Utils";
@@ -34,7 +33,6 @@ import { asianfilms_info, asianfilms_stream_links } from "../../Services/ViewAsi
 const AsianFilmsStreamDashboard = (props) => {
 
     const selectedEpisode = null;
-
     const [isMobile, setIsMobile] = useState(false);
     const [episodeIdVar, setEpisodeIdVar] = useState(selectedEpisode);
 
@@ -43,13 +41,9 @@ const AsianFilmsStreamDashboard = (props) => {
     const [snackBarMessage, setSnackBarMessage] = useState("");
     const [snackBarOpen, setSnackBarOpen] = useState(false);
     const [snackBarWithLoading, setSnackBarWithLoading] = useState(false);
-    
 
     const navigate = useNavigate();
-
-    const { type } = useParams();
     const media = "asian_films";
-
     const queryParams = new URLSearchParams(window.location.search);
     const indexId = queryParams.get("mediaId");
     const isShare = queryParams.get("share");
@@ -84,11 +78,6 @@ const AsianFilmsStreamDashboard = (props) => {
             setSnackBarMessage(`Source link not available, please try again later.`);
             setSnackBarOpen(true);
             setSnackBarWithLoading(false);
-        },
-        onSuccess: (response) => {
-            // setSnackBarType('success');
-            // setSnackBarMessage(`Source link are available.`);
-            // setSnackBarOpen(true);
         }
     });
     
@@ -96,7 +85,6 @@ const AsianFilmsStreamDashboard = (props) => {
 
     if (resourceData.isSuccess) {
         resourceValue = resourceData?.data;
-        // console.log("resourceValue", resourceValue);
     }
 
     //choose the screen size 
@@ -125,7 +113,7 @@ const AsianFilmsStreamDashboard = (props) => {
 
     return (
         <>
-        {process.env.REACT_APP_NODE_ENV === 'DEVELOPMENT' ? <ReactQueryDevtools initialIsOpen={false} /> : '' }
+        <ReactQueryTools/>
             <div style={{ backgroundColor: 'rgba(15, 22, 34, 1)', backgroundImage: isMobile ? `linear-gradient(rgba(15, 22, 34, 0.527),rgba(15, 22, 34, 0.5)) , url("${infoValue?.banner}")` : `linear-gradient(90deg, rgba(15, 22, 34, 1) 10%, rgba(15, 22, 34, 0.5) 90%) , url("${infoValue?.banner}")`, backgroundSize: isMobile ? '100% 100%' : '900px 100%', backgroundPosition: isMobile ? 'center' : 'right', backgroundRepeat: 'no-repeat', width: '99.9%'}}>
                 <SnackBar severity={snackBarType} handleSnackBarOpen={handleSnackBarOpen} status={snackBarOpen} snackBarMessage={snackBarMessage} withLoading={snackBarWithLoading} />
                 <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={1} justifyContent="center">

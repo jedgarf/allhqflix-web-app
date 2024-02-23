@@ -1,6 +1,6 @@
 import axios from 'axios';
 import apiConfig from '../Config/api.config';
-import { searchLike, channelSearchLike } from "./Utils";
+import { channelSearchLike } from "./Utils";
 
 let countries = require('../Services/Data/countries.json');
 

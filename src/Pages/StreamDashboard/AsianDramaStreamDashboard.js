@@ -1,14 +1,10 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useQuery } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
 import Skeleton from '@mui/material/Skeleton';
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import { color, margin, maxHeight } from "@mui/system";
-import ShareIcon from '@mui/icons-material/Share';
-import ShowMoreText from "react-show-more-text";
 
 // CSS
 import './StreamDashboard.css';
@@ -16,10 +12,10 @@ import './StreamDashboard.css';
 // Icons
 import ArrowBackTwoToneIcon from '@mui/icons-material/ArrowBackTwoTone';
 import WarningAmberTwoToneIcon from '@mui/icons-material/WarningAmberTwoTone';
-import LiveTvTwoToneIcon from '@mui/icons-material/LiveTvTwoTone';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 
-import Loader from "../../Components/Loader/Loader";
+// Pages
+import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
 import { asiandrama_info, asiandrama_stream_links } from "../../Services/DramaCoolService";
 
@@ -28,8 +24,6 @@ const MovieStreamDashboard = (props) => {
     const [loadingPicture, setLoadingPicture] = useState(true);
 
     const navigate = useNavigate();
-
-    const { type } = useParams();
 
     const queryParams = new URLSearchParams(window.location.search);
     const indexId = queryParams.get("mediaId");
@@ -80,7 +74,7 @@ const MovieStreamDashboard = (props) => {
 
     return (
         <>
-        {process.env.REACT_APP_NODE_ENV === 'DEVELOPMENT' ? <ReactQueryDevtools initialIsOpen={false} /> : '' }
+        <ReactQueryTools/>
             <div style={{backgroundImage: `linear-gradient(rgba(15, 22, 34, 0.527),rgba(15, 22, 34, 0.5)) , url("${infoValue?.image}")`, backgroundSize: 'auto 100%', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', width: '100%'}}>
                 <Button onClick={() => goBack()}>
                     <ArrowBackTwoToneIcon sx={{ fontSize: { xs: '35px', sm: '40px' }, margin: '10px', color: '#DC4C64' }}/>
@@ -134,16 +128,7 @@ const MovieStreamDashboard = (props) => {
                     </>}
                     <div className='stream-dashboard-video-qualities'>
                         {resourceData.isSuccess && resourceValue?.data?.sources?.length > 0 ? 
-                        <>
-                            {/* <h4 style={{marginBottom: '10px'}}>Video Resolutions</h4> */}
-                            {/* {resourceValue?.data?.sources?.map((item, i) => {
-                                return (
-                                    <>
-                                    | <label className='stream-dashboard-servername' key={i}>video_quality_{i+1}</label>
-                                    </>
-                                )
-                            })} */}
-                        </>
+                        <></>
                         :
                         <>
                             <div className='stream-dashboard-resource-links'>

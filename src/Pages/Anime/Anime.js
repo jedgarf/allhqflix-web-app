@@ -1,14 +1,12 @@
 // Packages
 import React, { Fragment, Suspense } from "react";
-import moment from 'moment';
 import { Link } from "react-router-dom";
 
 // React Query
 import { useQuery } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
 
 // Material UI Components
-import { Grid, Box, Skeleton, Button, Container } from '@mui/material';
+import { Box, Button, Container } from '@mui/material';
 
 // Auto Slider
 import Slider from "react-slick";
@@ -26,11 +24,11 @@ import SideBar from "../../Components/SlideBar/SideBar";
 import Footer from "../../Components/Footer/Footer";
 import AnimeDiscovers from "../../Components/Anime/AnimeDiscovers";
 import AnimeRow from "../../Components/Anime/AnimeRow";
+import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
-import { moveToTop } from "../../Services/Utils";
 import { carousel_settings, movie_card_carousel_settings, movie_genre_carousel_settings, anime_genres } from "../../Config/settings.config";
 
-import { anime_carousel, trending_anime, popular_anime, recent_anime_episodes, anime_airing_schedule } from "../../Services/AnimeService";
+import { trending_anime, popular_anime, recent_anime_episodes, anime_airing_schedule } from "../../Services/AnimeService";
 
 const Anime = () => {
 
@@ -41,46 +39,33 @@ const Anime = () => {
   const defaultPageNumber = 1;
   const defaultPerPage = 20;
 
-  // let carouselData = useQuery('anime_carousel', anime_carousel, {
-  //   cacheTime: 24 * 60 * 60 * 1000, // 24 hours
-  //   refetchOnWindowFocus: false,
-  //   notifyOnChangeProps: "tracked",
-  // });
-  // let discoverValue = carouselData.data?.data || [];
-
   let discoverData = useQuery(['popular_anime', {page: defaultPageNumber, perPage: defaultPerPage}], popular_anime, {
     cacheTime: 24 * 60 * 60 * 1000, // 24 hours
     refetchOnWindowFocus: false,
-    // staleTime: Infinity,
-    // enabled: discoverValue.length > 0,
   });
   let popularValue = discoverData.data?.data?.results;
 
   let trendingData = useQuery(['trending_anime', {page: defaultPageNumber, perPage: defaultPerPage}], trending_anime, {
     cacheTime: 24 * 60 * 60 * 1000, // 24 hours
     refetchOnWindowFocus: false,
-    // enabled: discoverValue.length > 0,
   });
   let trendingValue = trendingData.data?.data?.results; 
 
   let recentData = useQuery(['recent_anime_episodes', {page: defaultPageNumber, perPage: defaultPerPage, provider: null}], recent_anime_episodes, {
     cacheTime: 24 * 60 * 60 * 1000, // 24 hours
     refetchOnWindowFocus: false,
-    // enabled: discoverValue.length > 0,
   });
   let recentValue = recentData.data?.data?.results;
 
   let airingData = useQuery(['anime_airing_schedule', {page: defaultPageNumber, perPage: defaultPerPage, weekStart: null, weekEnd: null, notYetAired: null}], anime_airing_schedule, {
     cacheTime: 24 * 60 * 60 * 1000, // 24 hours
     refetchOnWindowFocus: false,
-    // notifyOnChangeProps: "tracked",
-    // enabled: discoverValue.length > 0,
   });
   let airingValue = airingData.data?.data?.results;
 
   return (
       <div className="movies">
-        {process.env.REACT_APP_NODE_ENV === 'DEVELOPMENT' ? <div className="top"><ReactQueryDevtools initialIsOpen={false} /></div> : <div className="top"></div> }
+        <ReactQueryTools/>
         <SideBar Type={urlContentType} subType={urlContentSubType} />
         {<>
           <Box

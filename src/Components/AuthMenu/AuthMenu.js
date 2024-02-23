@@ -45,7 +45,6 @@ const AuthMenu = ({ isAuth }) => {
       }
     }, []);
     
-    // https://lh3.googleusercontent.com/a/ACg8ocKOiWb9QOXJXNAEx-0uahx3T4d6vwNsHFzO9wBYycxXM-g=s96-c
     return (
         <>
             <Button
@@ -57,8 +56,10 @@ const AuthMenu = ({ isAuth }) => {
             title={user?.name && user.name}
             >
                 {/* <Badge badgeContent={devAlert.length} color="primary"> */}
-                    {/* <AccountCircleIcon sx={{ color: '#DC4C64', fontSize: '30px' }} /> */}
-                    <Avatar alt="A" src={user?.picture && user.picture} />
+                    {/* <AccountCircleIcon sx={{ color: '#DC4C64',  }} /> */}
+                    <center>
+                    <Avatar alt={'U'} sx={{ bgcolor: '#DC4C64' }} style={{ width: '35px', height: '35px' }} src={user?.picture && user.picture} />
+                    </center>
                 {/* </Badge> */}
             </Button>
 

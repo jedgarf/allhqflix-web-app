@@ -1,26 +1,18 @@
 import React, { Fragment } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 // React Slick
 import Slider from "react-slick";
-
-// Image Lazy Loading
-import { LazyLoadImage } from 'react-lazy-load-image-component';
-import 'react-lazy-load-image-component/src/effects/blur.css'; // Import the CSS for the placeholder effect (you can choose a different effect)
 
 // Themes
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 
-// React Query
-import { useQuery } from 'react-query';
-
 // Material UI Components
-import { Grid, Typography, Container, Button } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 
 // Icons
 import LiveTvIcon from '@mui/icons-material/LiveTv';
-import SmartDisplayIcon from '@mui/icons-material/SmartDisplay';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 
 // Images
@@ -46,7 +38,6 @@ const TopPlayed = () => {
                     <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
                         <center>
                             <Typography variant="h5" sx={{ marginBottom: 1, fontWeight: '550' }}><LiveTvIcon sx={{ fontSize: 28, marginBottom: '-4px' }}/> MOST WATCHED</Typography>
-                            {/* <Typography variant="p" sx={{ fontWeight: '550', textTransform: 'uppercase' }}>Watch to all newest movies and series worldwide.</Typography> */}
                         </center>
                     </Grid>
 
@@ -110,8 +101,6 @@ const TopPlayed = () => {
                     <Grid item xl={6} lg={6} md={12} sm={12} xs={12} hidden>
                         <center>
                             <iframe width="560" height="315" src="https://www.youtube.com/embed/xPyJ2XhSKOI?si=nMJ_g1G-s8cNMw7m" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                            {/* <br/><br/> */}
-                            {/* <Link className='text-link' to={`anime/stream_dashboard?mediaId=21`}><Button variant='contained' startIcon={<SmartDisplayIcon/>}>Watch now</Button></Link> */}
                         </center>
                     </Grid>
 

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
@@ -19,7 +19,7 @@ const style = {
 };
 
 const Login = ({isModalOpen}) => {
-  const [open, setOpen] = React.useState(isModalOpen);
+  const [open, setOpen] = useState(isModalOpen);
   const handleClose = () => setOpen(false);
 
   return (
@@ -53,7 +53,7 @@ const Login = ({isModalOpen}) => {
 }
 
 const TrailerModal = (isOpen, link) => {
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = useState(true);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 

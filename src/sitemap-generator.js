@@ -6,7 +6,7 @@ require("babel-register")({
   const Sitemap = require("react-router-sitemap").default;
   
   function generateSitemap() {
-    var mySitemap = new Sitemap(router).build("https://allhqflix.com");
+    var mySitemap = new Sitemap(router).build("https://allhqflix.vercel.app");
 
     for (let i = 0; i < mySitemap.sitemaps[0].urls.length; i++) {
         mySitemap.sitemaps[0].urls[i].changefreq =  'daily';

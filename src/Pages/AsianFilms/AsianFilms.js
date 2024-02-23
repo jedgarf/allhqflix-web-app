@@ -1,17 +1,15 @@
 // Packages
 import React, { Fragment, Suspense } from "react";
 import { Link } from "react-router-dom";
-import moment from 'moment';
 
 // React Query
 import { useQuery } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
 
 // React Slick
 import Slider from "react-slick";
 
 // Material UI Components 
-import { Grid, Box, Skeleton, Container, Button } from '@mui/material';
+import { Box, Container, Button } from '@mui/material';
 
 // Icons
 import CircularProgress from '@mui/material/CircularProgress';
@@ -25,31 +23,22 @@ import "slick-carousel/slick/slick-theme.css";
 import SideBar from "../../Components/SlideBar/SideBar";
 import AsianFilmsDiscovers from "../../Components/AsianFilms/AsianFilmsDiscovers";
 import AsianFilmsRow from "../../Components/AsianFilms/AsianFilmsRow";
+import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
 import Footer from "../../Components/Footer/Footer";
 
 // Config
-import { asian_films_genre, asian_films_country, carousel_settings, movie_card_carousel_settings, movie_genre_carousel_settings } from "../../Config/settings.config";
-
-// Utilities
-import { moveToTop } from "../../Services/Utils";
+import { asian_films_genre, carousel_settings, movie_card_carousel_settings, movie_genre_carousel_settings } from "../../Config/settings.config";
 
 // Services
-import { asianfilms_bygenre, asianfilms_bycountry, asianfilms_advancedfilter, asianfilms_carousel } from "../../Services/ViewAsianService";
-
-
-const underDevelopment = () => {
-    alert('Under Development');
-}
+import { asianfilms_bycountry, asianfilms_advancedfilter, asianfilms_carousel } from "../../Services/ViewAsianService";
 
 const AsianDrama = () => {
 
   document.title = 'AllHQFlix - Asian Drama';
 
-  const currentYear = moment().format('YYYY');
   const urlContentType = "asian_films";
   const urlContentSubType = "asian_films";
-  const carouselPageCount = 3;
 
   let discoverData = useQuery('asianfilms_carousel', asianfilms_carousel, {
     cacheTime: 24 * 60 * 60 * 1000, // 24 hours
@@ -84,7 +73,7 @@ const AsianDrama = () => {
 
   return (
       <div className="movies">
-        {process.env.REACT_APP_NODE_ENV === 'DEVELOPMENT' ? <div className="top"><ReactQueryDevtools initialIsOpen={false} /></div> : <div className="top"></div> }
+        <ReactQueryTools/>
         <SideBar Type={urlContentType} subType={urlContentSubType} />
         {<>
           <Box

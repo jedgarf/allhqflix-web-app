@@ -1,6 +1,4 @@
 .stream-dashboard-content {
-    /* position: absolute;
-    top: 20vh; */
     max-width: 100% !important;
     padding-left: 20px;
     padding-top: 15px;
@@ -39,14 +37,6 @@
 .stream-dashboard-servers {
     max-width: 100% !important;
 }
-
-
-/* .stream-dashboard-servername {
-    font-weight: normal;
-    margin-right: 10px;
-    margin-bottom: 50px !important;
-    border-radius: 10px;
-} */
 
 .stream-dashboard-season-episode {
     margin-top: 20px;

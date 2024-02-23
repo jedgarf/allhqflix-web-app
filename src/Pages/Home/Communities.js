@@ -1,15 +1,11 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
 
 // Themes
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 
-// React Query
-import { useQuery } from 'react-query';
-
 // Material UI Components
-import { Grid, Typography, Container, Button } from "@mui/material";
+import { Grid, Typography, Container } from "@mui/material";
 
 // Icons
 import GroupsIcon from '@mui/icons-material/Groups';

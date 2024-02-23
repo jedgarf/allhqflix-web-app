@@ -1,12 +1,9 @@
 // Packages
-import React, { useRef } from "react";
-import { Link, useNavigate } from 'react-router-dom';
-
-// React Query
-import { ReactQueryDevtools } from 'react-query/devtools';
+import React from "react";
+import { useNavigate } from 'react-router-dom';
 
 // Material UI Componenets
-import { Grid, Container, Box, Toolbar, Typography, Button, InputBase, Divider, Alert, AlertTitle, Stack } from '@mui/material';
+import { Grid, Container, Box, Typography, InputBase } from '@mui/material';
 import { styled, alpha } from '@mui/material/styles';
 
 // Icons
@@ -19,18 +16,18 @@ import "./Home.css";
 // Pages
 import SideBar from "../../Components/SlideBar/SideBar";
 import Footer from "../../Components/Footer/Footer";
+import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
 // partial page
 import Faq from "./Faq";
 import MediaCategories from "./MediaCategories";
-import Communities from "./Communities";
 import TopPlayed from "./TopPlayed";
 import Products from "./Products";
 
 import { search } from '../../Features/searchSlice';
 
 // Utilities
-import { moveToTop, moveToClassName } from "../../Services/Utils";
+import { moveToClassName } from "../../Services/Utils";
 
 // Config
 import { title } from "../../Config/settings.config";
@@ -110,7 +107,7 @@ const Home = () => {
 
   return (
     <div className="landing-page">
-    {process.env.REACT_APP_NODE_ENV === 'DEVELOPMENT' ? <div className="top"><ReactQueryDevtools initialIsOpen={false} /></div> : <div className="top"></div> }
+      <ReactQueryTools/>
       <SideBar Type={type} subType={null} haveSearch={false}/>
 
       <div className="divFocus" style={{backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 1)), url("${homeBackground}")`, height: '100vh', display: 'flex', flexDirection: 'column' }}>
@@ -178,10 +175,6 @@ const Home = () => {
       </div>
 
       <hr className="media-communities-divider" style={{ color: 'rgba(0, 0, 0, 255)', backgroundColor: 'rgba(0, 0, 0, 255)', marginInline: '30px', height: 0, width: 0 }} hidden/>
-      
-      {/* <div className="media-communities">
-        <Communities/>
-      </div> */}
 
       <div className="footer-advertisements" hidden>
         <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={1} justifyContent="center">

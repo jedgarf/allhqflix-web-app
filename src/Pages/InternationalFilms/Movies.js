@@ -1,5 +1,5 @@
 // Packages
-import React, { useEffect, useState, useRef, Fragment, Suspense } from "react";
+import React, { Fragment, Suspense } from "react";
 import { Link } from "react-router-dom";
 
 // React Slick
@@ -7,10 +7,9 @@ import Slider from "react-slick";
 
 // React Query
 import { useQuery } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
 
 // Material UI Components
-import { Grid, Button, Container, Skeleton, Box } from "@mui/material";
+import { Button, Container, Box } from "@mui/material";
 
 // Icon
 import CircularProgress from '@mui/material/CircularProgress';
@@ -25,19 +24,15 @@ import SideBar from "../../Components/SlideBar/SideBar";
 import Footer from "../../Components/Footer/Footer";
 import Discovers from "../../Components/InternationalFilms/Discovers";
 import MoviesRow from "../../Components/InternationalFilms/MoviesRow";
-import useAnalyticsEventTracker from '../../App/useAnalyticsEventTracker';
+import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
 // Models
-import { moveToTop } from "../../Services/Utils";
-import { foreign_genre, foreign_country, carousel_settings, movie_card_carousel_settings, movie_genre_carousel_settings } from "../../Config/settings.config";
+import { foreign_genre, carousel_settings, movie_card_carousel_settings, movie_genre_carousel_settings } from "../../Config/settings.config";
 import { content_carousel, movie_trending, movie_recent, movie_popular } from "../../Services/FlixHQService";
 
 const Movies = () => {
 
-  const gaEventTracker = useAnalyticsEventTracker('Movies');
-
   document.title = 'AllHQFlix - International Movies';
-
   const contentType = "Movie";
   const urlContentType = "foreign";
   const urlContentSubType = "movie";
@@ -48,14 +43,12 @@ const Movies = () => {
     refetchOnWindowFocus: false,
     notifyOnChangeProps: "tracked",
   });
-  // console.log("Data", discoverData);
   let discoverValue = discoverData?.data?.data?.filter( (result) => { return result.type === contentType; }) || [];
 
   let trendingData = useQuery('movie_trending', movie_trending, {
     cacheTime: 24 * 60 * 60 * 1000, // 24 hours
     refetchOnWindowFocus: false,
     notifyOnChangeProps: "tracked",
-    // enabled: discoverValue.length > 0,
   });
   let trendingValue = trendingData?.data?.data?.filter( (result) => { return result.type === contentType; });
 
@@ -63,7 +56,6 @@ const Movies = () => {
     cacheTime: 24 * 60 * 60 * 1000, // 24 hours
     refetchOnWindowFocus: false,
     notifyOnChangeProps: "tracked",
-    // enabled: discoverValue.length > 0,
   });
   let latestValue = recentData?.data?.data?.filter( (result) => { return result.type === contentType; });
 
@@ -71,13 +63,12 @@ const Movies = () => {
     cacheTime: 24 * 60 * 60 * 1000, // 24 hours
     refetchOnWindowFocus: false,
     notifyOnChangeProps: "tracked",
-    // enabled: discoverValue.length > 0,
   });
   let popularValue = popularData?.data?.data?.results?.filter( (result) => { return result.type === contentType; });
 
   return (
       <div className="movies">
-      {process.env.REACT_APP_NODE_ENV === 'DEVELOPMENT' ? <div className="top"><ReactQueryDevtools initialIsOpen={false} /></div> : <div className="top"></div> }
+      <ReactQueryTools/>
       <SideBar Type={urlContentType} subType={urlContentSubType}/>
         {<>
           <Box
@@ -91,7 +82,6 @@ const Movies = () => {
                     {discoverValue.map((item, i) => (
                       <Fragment className="movies__boxx">
                         <Discovers
-                          // onClick={()=>gaEventTracker('call')}
                           id={item.id}
                           banner={item.cover}
                           title={item.title}

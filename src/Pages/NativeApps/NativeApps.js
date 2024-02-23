@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
-import { ReactQueryDevtools } from 'react-query/devtools';
+import React from 'react';
 
 // Material UI Components
-import { Grid, Container, Card, CardContent, CardActions, Typography, Button, Box, Alert, Stack } from '@mui/material';
+import { Grid, Container, Button } from '@mui/material';
 
 // Material UI Themes
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -10,12 +9,11 @@ import CssBaseline from '@mui/material/CssBaseline';
 
 // Icons
 import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
-import AndroidIcon from '@mui/icons-material/Android';
-import LiveTvIcon from '@mui/icons-material/LiveTv';
 
 // Pages
 import SideBar from "../../Components/SlideBar/SideBar";
 import Footer from "../../Components/Footer/Footer";
+import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
 import { homeBackground, appPhoto } from "../../Config/images.config";
 
@@ -39,7 +37,7 @@ const NativeApps = () => {
     return (
         <div>
             <div className="landing-page">
-            {process.env.REACT_APP_NODE_ENV === 'DEVELOPMENT' ? <div className="top"><ReactQueryDevtools initialIsOpen={false} /></div> : <div className="top"></div> }
+                <ReactQueryTools/>
                 <SideBar Type={type} subType={null} haveSearch={true} transparentBg={false} isStream={true}/>
                     <div className="divFocus">
                         <ThemeProvider theme={darkTheme}>

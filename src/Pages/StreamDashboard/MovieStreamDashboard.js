@@ -3,12 +3,11 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 
 // React Query
 import { useQuery } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
 
 // sanitize DOM
 import DOMPurify from 'dompurify';
 
-import { Grid, Skeleton, Box, Typography, Button, IconButton, CircularProgress } from '@mui/material';
+import { Grid, Skeleton, Box, Typography, Button, CircularProgress } from '@mui/material';
 
 // Package for date and time formatter
 import moment from 'moment';
@@ -19,9 +18,6 @@ import './StreamDashboard.css';
 // Icons
 import ArrowBackTwoToneIcon from '@mui/icons-material/ArrowBackTwoTone';
 import WarningAmberTwoToneIcon from '@mui/icons-material/WarningAmberTwoTone';
-import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import InfoIcon from '@mui/icons-material/Info';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 
 // Components
@@ -29,14 +25,16 @@ import ShareModal from "../../Components/Modal/ShareModal";
 import TraillerModal from "../../Components/Modal/TraillerModal";
 import SnackBar from "../../Components/SnackBar/SnackBar";
 import { MoviePlayModal, SeriesPlayModal } from "../../Components/Modal/PlayModal";
-
-import Loader from "../../Components/Loader/Loader";
 import LanguageListTooltip from '../../Components/Tooltip/LanguageListTooltip';
+import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
+// Config
 import { defaultInternationalServer } from "../../Config/settings.config";
 
+// Utils
 import { streamDashboardBackButton, SeparateArrayByComma, separatedSeasons, ObjectLength } from "../../Services/Utils";
 
+// Services
 import { movie_info, movie_server, movie_stream_links } from "../../Services/FlixHQService";
 
 const MovieStreamDashboard = (props) => {
@@ -143,11 +141,6 @@ const MovieStreamDashboard = (props) => {
             }
 
             setErrorMessage(message.toUpperCase());
-        },
-        onSuccess: (response) => {
-            // setSnackBarType('success');
-            // setSnackBarMessage(`Source link are available.`);
-            // setSnackBarOpen(true);
         }
     });
     
@@ -185,7 +178,7 @@ const MovieStreamDashboard = (props) => {
 
     return (
         <>
-        {process.env.REACT_APP_NODE_ENV === 'DEVELOPMENT' ? <ReactQueryDevtools initialIsOpen={false} /> : '' }
+        <ReactQueryTools/>
             <div style={{backgroundImage: isMobile ? `linear-gradient(rgba(15, 22, 34, 0.527),rgba(15, 22, 34, 0.5)) , url("${BGImage}")` : `linear-gradient(to right, rgba(15, 22, 34, 1) 20%, rgba(15, 22, 34, 0.5) 80%) , url("${BGImage}")`, objectFit: 'cover', backgroundSize: ' 100% 100%', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', width: '100%'}}>
                 <SnackBar severity={snackBarType} handleSnackBarOpen={handleSnackBarOpen} status={snackBarOpen} snackBarMessage={snackBarMessage} withLoading={snackBarWithLoading} />
                 <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={1} justifyContent="center">
@@ -226,7 +219,6 @@ const MovieStreamDashboard = (props) => {
                     <h1 style={{ marginBottom: '7px' }}>{infoValue?.title}</h1>
                     {type === 'tv' ?
                     <label className='stream-dashboard-servername'>
-                        {/* {infoValue.episodes.length > 1 ? 'EPS' + infoValue.episodes.length : 'EP' + infoValue.episodes.length} */}
                         <span className='videoq-span' style={{ backgroundColor: 'transparent', fontWeight: 'bolder', border: '1px solid white', padding: '1px', marginRight: '9px' }}>{infoValue?.video_quality}</span>
                          | {ObjectLength(seasons) > 1 ? 'Season 1 to ' + ObjectLength(seasons) : 'Season 1'} | <ShareModal infoValue={infoValue}/>
                     </label>
@@ -285,27 +277,6 @@ const MovieStreamDashboard = (props) => {
                                 <br/>
                             </>
                          : ""}
-                         {/* {serverData.isSuccess && serverValue?.data?.length > 0 ?
-                            <div>
-                                <b style={{ color: '#DC4C64', marginRight: '5px' }}>Server Providers:</b> 
-                                {serverValue.data.map((item, i) => {
-                                    return (
-                                    <>
-                                        {i === 0 ? "" : ", "}
-                                        {item.name === serverVar ?
-                                            <span key={i} style={{ fontWeight: 'bolder', textTransform: 'uppercase', textDecorationLine: 'underline' }}>
-                                                { item.name }
-                                            </span>
-                                            : 
-                                            <span key={i} style={{ textTransform: 'uppercase' }}>
-                                                { item.name }
-                                            </span>
-                                        }
-                                    </>
-                                    );
-                                })}
-                            </div>
-                         : ""} */}
                     </div>
                     <div className='stream-dashboard-servers'>
                         {serverData.isSuccess && serverValue?.data?.length > 0 ? 

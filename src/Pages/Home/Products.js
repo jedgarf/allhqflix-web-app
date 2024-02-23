@@ -1,16 +1,11 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { styled, alpha } from '@mui/material/styles';
 
 // Themes
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 
-// React Query
-import { useQuery } from 'react-query';
-
 // Material UI Components
-import { Grid, Typography, Container, Button, Badge } from "@mui/material";
+import { Grid, Typography, Container, Badge } from "@mui/material";
 
 // Icons
 import WebIcon from '@mui/icons-material/Web';
@@ -35,7 +30,6 @@ const Products = () => {
                     <Grid item xl={12} lg={12} md={12} sm={12} xs={12} style={{ marginBottom: 50 }}>
                         <center>
                             <Typography variant="h5" sx={{ marginBottom: 1, fontWeight: '550' }}><WebIcon sx={{ fontSize: 28, marginBottom: '-6px' }}/> OTHER USEFUL SITES</Typography>
-                            {/* <Typography variant="p" sx={{ fontWeight: '550', textTransform: 'uppercase' }}>GOOD FOR ALL AGES</Typography> */}
                         </center>
                     </Grid>
                     <Grid item xl={6} lg={6} md={6} sm={12} xs={12} style={{ margin: 'auto', width: '640px', padding: '10px' }}>

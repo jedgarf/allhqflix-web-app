@@ -1,36 +1,20 @@
 // Packages
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState } from "react";
 import { useQuery } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 // Material UI Components
-import {  TextField, 
-          IconButton, 
+import {  IconButton, 
           Grid, 
           Stack, 
-          Radio, 
           Typography, 
-          Button, 
-          Box, 
-          InputLabel, 
-          FormControl, 
-          NativeSelect, 
-          Container, 
-          Divider, 
-          Checkbox,
-          RadioGroup,
-          FormControlLabel,
-          FormLabel } from '@mui/material';
-import { pink, blue } from '@mui/material/colors';
-import { useSelector , useDispatch } from "react-redux";
+          Container } from '@mui/material';
 
 // Material UI Themes
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 
 // Icons
-import SearchIcon from "@mui/icons-material/Search";
 import CircularProgress from '@mui/material/CircularProgress';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
@@ -42,7 +26,9 @@ import "./css/AsianFilmsByCountry.css";
 import SideBar from "../../Components/SlideBar/SideBar";
 import Footer from "../../Components/Footer/Footer";
 import SearchResult from "../../Components/SearchResult/SearchResult";
+import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
+// Utils
 import { moveToTop } from "../../Services/Utils";
 
 // Models
@@ -50,16 +36,11 @@ import { asianfilms_bycountry } from "../../Services/ViewAsianService";
 
 function AsianFilmsByCountry() {
 
-  const navigate = useNavigate();
   const type = 'asian_films';
   const contentType = 'drama';
   document.title = 'AllHQFlix - Asian Films V2 - By Country';
-
-  const queryParams = new URLSearchParams(window.location.search);
-  // const searchKeyword = queryParams.get("keyword") === null ? "" : queryParams.get("keyword");
   
   const { country } = useParams();
-  const searchKeyword = country;
   const [page, setPage] = useState(1);
 
   // loading
@@ -93,7 +74,7 @@ function AsianFilmsByCountry() {
   return (
     <>
       <div className="search_result">
-      {process.env.REACT_APP_NODE_ENV === 'DEVELOPMENT' ? <div className="top"><ReactQueryDevtools initialIsOpen={false} /></div> : <div className="top"></div> }
+      <ReactQueryTools/>
        <div className="search_result_content">
         <div className="search__top">
           <SideBar Type={type}/>

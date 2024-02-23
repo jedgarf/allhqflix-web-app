@@ -1,29 +1,20 @@
 // Packages
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useQuery } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
-import { useParams } from "react-router-dom";
 
 // Material UI Components
-import {  TextField, 
-          IconButton, 
+import {  IconButton, 
           Grid, 
           Stack, 
           Radio, 
           Typography, 
           Button, 
-          Box, 
-          InputLabel, 
           FormControl, 
-          NativeSelect, 
           Container, 
-          Divider, 
           Checkbox,
           RadioGroup,
           FormControlLabel,
           FormLabel } from '@mui/material';
-import { pink, blue } from '@mui/material/colors';
-import { useSelector , useDispatch } from "react-redux";
 
 // Material UI Themes
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -41,9 +32,9 @@ import CloseIcon from '@mui/icons-material/Close';
 import SideBar from "../../Components/SlideBar/SideBar";
 import Footer from "../../Components/Footer/Footer";
 import SearchResult from "../../Components/SearchResult/SearchResult";
+import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
 import { asian_films_genre, asian_films_country } from "../../Config/settings.config";
-
 import { moveToTop } from "../../Services/Utils";
 
 // Models
@@ -189,7 +180,7 @@ function AdvancedFilter() {
   return (
     <>
       <div className="search_result">
-      {process.env.REACT_APP_NODE_ENV === 'DEVELOPMENT' ? <div className="top"><ReactQueryDevtools initialIsOpen={false} /></div> : <div className="top"></div> }
+      <ReactQueryTools/>
        <div className="search_result_content">
         <div className="search__top">
           <SideBar Type={type} subType={subType}/>

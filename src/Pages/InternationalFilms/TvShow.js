@@ -1,5 +1,5 @@
 // Packages
-import React, { useEffect, useState, Fragment, Suspense } from "react";
+import React, { Fragment, Suspense } from "react";
 import { Link } from "react-router-dom";
 
 // React Slick
@@ -7,10 +7,9 @@ import Slider from "react-slick";
 
 // React Query
 import { useQuery } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
 
 // Material UI Components
-import { Grid, Box, Skeleton, Container, Button } from '@mui/material';
+import { Grid, Box, Container, Button } from '@mui/material';
 
 // Icons
 import CircularProgress from '@mui/material/CircularProgress';
@@ -25,15 +24,14 @@ import SideBar from "../../Components/SlideBar/SideBar";
 import Footer from "../../Components/Footer/Footer";
 import Discovers from "../../Components/InternationalFilms/Discovers";
 import MoviesRow from "../../Components/InternationalFilms/MoviesRow";
+import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
-import { moveToTop } from "../../Services/Utils";
-import { foreign_genre, foreign_country, carousel_settings, movie_card_carousel_settings, movie_genre_carousel_settings } from "../../Config/settings.config";
+import { foreign_genre, carousel_settings, movie_card_carousel_settings, movie_genre_carousel_settings } from "../../Config/settings.config";
 import { content_carousel, series_trending, series_recent, series_popular } from "../../Services/FlixHQService";
 
 const TvShow = () => {
 
   document.title = 'AllHQFlix - International TV Series';
-
   const contentType = "TV Series";
   const urlContentType = "foreign";
   const urlContentSubType = "tv";
@@ -50,7 +48,6 @@ const TvShow = () => {
     cacheTime: 24 * 60 * 60 * 1000, // 24 hours
     refetchOnWindowFocus: false,
     notifyOnChangeProps: "tracked",
-    // enabled: discoverValue.length > 0,
   });
   let trendingValue = trendingData.data?.data?.filter( (result) => { return result.type === contentType; });
 
@@ -58,7 +55,6 @@ const TvShow = () => {
     cacheTime: 24 * 60 * 60 * 1000, // 24 hours
     refetchOnWindowFocus: false,
     notifyOnChangeProps: "tracked",
-    // enabled: discoverValue.length > 0,
   });
   let latestValue = recentData.data?.data?.filter( (result) => { return result.type === contentType; });
 
@@ -66,14 +62,13 @@ const TvShow = () => {
     cacheTime: 24 * 60 * 60 * 1000, // 24 hours
     refetchOnWindowFocus: false,
     notifyOnChangeProps: "tracked",
-    // enabled: discoverValue.length > 0,
   });
   let popularValue = popularData.data?.data?.results?.filter( (result) => { return result.type === contentType; });
 
   return (
     <>
       <div className="movies">
-      {process.env.REACT_APP_NODE_ENV === 'DEVELOPMENT' ? <div className="top"><ReactQueryDevtools initialIsOpen={false} /></div> : <div className="top"></div> }
+      <ReactQueryTools/>
         <SideBar Type={urlContentType} subType={urlContentSubType}/>
         {<>
           <Box
@@ -151,10 +146,8 @@ const TvShow = () => {
                     img={data?.image}
                     title={data?.title || data?.name || data?.aka || data?.slug}
                     release_date={data?.releaseDate || data?.Year?.name}
-                    // rate={data?.liked}
                     season={data?.season}
                     type={data?.type || data?.Type?.name}
-                    // slug={data?.slug}
                     video_quality={data?.video_quality}
                     key={i}
                   />
@@ -182,10 +175,8 @@ const TvShow = () => {
                     img={data?.image}
                     title={data?.title || data?.name || data?.aka || data?.slug}
                     release_date={data?.releaseDate || data?.Year?.name}
-                    // rate={data?.liked}
                     season={data?.season}
                     type={data?.type || data?.Type?.name}
-                    // slug={data?.slug}
                     video_quality={data?.video_quality}
                     key={i}
                   />
@@ -213,10 +204,8 @@ const TvShow = () => {
                     img={data?.image}
                     title={data?.title || data?.name || data?.aka || data?.slug}
                     release_date={data?.releaseDate || data?.Year?.name}
-                    // rate={data?.liked}
                     season={`SS ${data?.seasons}`}
                     type={data?.type || data?.Type?.name}
-                    // slug={data?.slug}
                     video_quality={data?.video_quality}
                     key={i}
                   />

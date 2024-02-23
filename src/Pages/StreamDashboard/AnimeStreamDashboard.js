@@ -9,8 +9,7 @@ import { useQuery } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 
 // Material UI Components
-import { Grid, IconButton, Skeleton, Box, Typography, Button, FormGroup, FormControlLabel, Switch } from '@mui/material';
-import LoadingButton from '@mui/lab/LoadingButton';
+import { Grid, Skeleton, Box, Typography, Button, FormControlLabel, Switch } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 // CSS
@@ -21,16 +20,15 @@ import ArrowBackTwoToneIcon from '@mui/icons-material/ArrowBackTwoTone';
 import WarningAmberTwoToneIcon from '@mui/icons-material/WarningAmberTwoTone';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import StarIcon from '@mui/icons-material/Star';
 import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 // Components
 import ShareModal from "../../Components/Modal/ShareModal";
 import TraillerModal from "../../Components/Modal/TraillerModal";
-import Loader from "../../Components/Loader/Loader";
 import SnackBar from "../../Components/SnackBar/SnackBar";
 import { AnimePlayModal } from "../../Components/Modal/PlayModal";
+import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
 // Utilities
 import { streamDashboardBackButton, SeparateArrayByComma } from "../../Services/Utils";
@@ -44,7 +42,6 @@ import { anime_info, anime_stream_links } from "../../Services/AnimeService";
 const MovieStreamDashboard = (props) => {
 
     const selectedEpisode = null;
-
     const [loadingPicture, setLoadingPicture] = useState(true);
     const [BGImage, setBGImage] = useState("");
     const [isMobile, setIsMobile] = useState(false);
@@ -111,9 +108,6 @@ const MovieStreamDashboard = (props) => {
     }
 
     const handleSnackBarOpen = (event, reason) => {
-        // if (reason === 'clickaway') {
-        //   return;
-        // }
         setSnackBarType("");
         setSnackBarOpen(false);
         setSnackBarWithLoading(false);
@@ -154,8 +148,6 @@ const MovieStreamDashboard = (props) => {
         refetchOnWindowFocus: false,
         notifyOnChangeProps: "tracked",
         enabled: episodeIdVar !== null,
-        // retry: 2,
-        // retryOnMount: false,
         onError: (error) => {
             setSnackBarType('error');
             setSnackBarMessage(`Source link not available, please try again later.`);
@@ -164,9 +156,6 @@ const MovieStreamDashboard = (props) => {
             setHideDuration(6000);
         },
         onSuccess: (response) => {
-            // setSnackBarType('success');
-            // setSnackBarMessage(`Source link are available.`);
-            // setSnackBarOpen(true);
             setSnackBarOpen(false);
         }
     });
@@ -219,7 +208,7 @@ const MovieStreamDashboard = (props) => {
 
     return (
         <>
-        {process.env.REACT_APP_NODE_ENV === 'DEVELOPMENT' ? <ReactQueryDevtools initialIsOpen={false} /> : '' }
+        <ReactQueryTools/>
             <div style={{backgroundImage: isMobile ? `linear-gradient(rgba(15, 22, 34, 0.527),rgba(15, 22, 34, 0.5)) , url("${BGImage}")` : `linear-gradient(to right, rgba(15, 22, 34, 1) 20%, rgba(15, 22, 34, 0.5) 80%) , url("${BGImage}")`, objectFit: 'cover', backgroundSize: ' 100% 100%', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', width: '100%'}}>
                 <SnackBar severity={snackBarType} handleSnackBarOpen={handleSnackBarOpen} status={snackBarOpen} snackBarMessage={snackBarMessage} withLoading={snackBarWithLoading} hideDuration={hideDuration} />
                 <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={1} justifyContent="center">
@@ -235,7 +224,6 @@ const MovieStreamDashboard = (props) => {
                     </Grid>
                 </Grid>
                 {infoData.isLoading
-                //  || resourceData.isLoading
                 ? 
                     <>
                     <Box className='stream-dashboard-content' sx={{ pl: 3, pr: 3, pt: 3, width: {xs: '100%', sm: '100%', md: '60%'} }} style={{ backgroundColor: isMobile ? 'rgba(15, 22, 34, 0.5)' : 'transparent' }}>
@@ -270,7 +258,6 @@ const MovieStreamDashboard = (props) => {
                     </label>)
                      : 
                     (<label className='stream-dashboard-servername'>
-                        {/* <span style={{ marginRight: 5 }}><StarIcon style={{ marginBottom: '-5px', color: "#E4A11B" }}/> {infoValue?.rating}</span> */}
                         <AccessTimeFilledIcon style={{ marginBottom: '-5px', color: "#54B4D3" }}/> {infoValue?.duration ? infoValue?.duration : 0} mins&nbsp;
                          |<ShareModal infoValue={infoValue}/>
                          | <FormControlLabel

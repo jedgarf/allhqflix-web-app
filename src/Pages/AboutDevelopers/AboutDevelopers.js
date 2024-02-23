@@ -12,6 +12,7 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 // Pages
 import SideBar from "../../Components/SlideBar/SideBar";
 import Footer from "../../Components/Footer/Footer";
+import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
 // Config
 import { title, dev_portfolio, fb_link, linkedin_link, github_link, site_email } from "../../Config/settings.config";
@@ -32,7 +33,7 @@ const AboutDevelopers = () => {
     return (
         <div>
             <div className="landing-page">
-            {process.env.REACT_APP_NODE_ENV === 'DEVELOPMENT' ? <div className="top"><ReactQueryDevtools initialIsOpen={false} /></div> : <div className="top"></div> }
+                <ReactQueryTools/>
                 <SideBar Type={type} subType={null} haveSearch={true} transparentBg={false} isStream={true}/>
                     <div className="divFocus" style={{backgroundImage: `linear-gradient(rgba(2, 9, 22, 0.8),rgba(2, 9, 22, 0.8))` }}>
                         <div style={{ marginTop: '70px', minHeight: 550, width: '99vw' }}>

@@ -1,36 +1,20 @@
 // Packages
 import React, { useState, useEffect, useCallback } from "react";
 import { useQuery } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
-import PropTypes from 'prop-types';
-import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import Grid from '@mui/material/Grid';
-import IconButton from '@mui/material/IconButton';
-import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import Divider from '@mui/material/Divider';
-import Chip from '@mui/material/Chip';
 
 // CSS
 import "./css/AsianDramaDashboard.css";
 
 // Icons
-import SearchIcon from "@mui/icons-material/Search";
-import StarIcon from '@mui/icons-material/Star';
-import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
-import PlayCircleIcon from '@mui/icons-material/PlayCircle';
-import PlaylistPlayIcon from '@mui/icons-material/PlaylistPlay';
-import DoubleArrowRoundedIcon from '@mui/icons-material/DoubleArrowRounded';
-import StorageIcon from '@mui/icons-material/Storage';
-import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck';
 import CircularProgress from '@mui/material/CircularProgress';
 
 // Pages
 import SideBar from "../../Components/SlideBar/SideBar";
 import Footer from "../../Components/Footer/Footer";
+import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
 import { Player } from "../../Components/Player/Player";
 import AsianDramaSeasons from "../../Components/AsianDrama/AsianDramaSeasons";
@@ -82,15 +66,6 @@ const AsianDramaDashboard = (props) => {
     );
   };
 
-  const playVideo = () => {
-    setLoadingEpisode(false);
-  }
-
-  const getFileExtention = (filename) => {
-    var ext = /^.+\.([^.]+)$/.exec(filename);
-    return ext == null ? "" : ext[1];
-  }
-
   const set_selectedSeasonEpisode = useCallback((infoValue) => {
 
     if (selectedEpisode !== null) {
@@ -108,7 +83,6 @@ const AsianDramaDashboard = (props) => {
       setSelectedEpisodeName("EP 1: " + infoValue?.episodes[0]?.title);
     }
 
-    // console.log("title", Object.keys(results?.episodes[0].title));
     setContentTitle(infoValue?.title);
 
   }, [selectedEpisode]);
@@ -207,13 +181,10 @@ const AsianDramaDashboard = (props) => {
 
   }, [contentTitle, infoData.isSuccess, infoValue, resourceData.isSuccess, resourceValue, set_selectedSeasonEpisode, set_selectedLinkSubtitle]);
 
-  // console.log("selectedEpisode", selectedEpisode);
-  // console.log("contentTitle", contentTitle);
-
   return (
     <>
       <div className="movie_dashboard">
-      {process.env.REACT_APP_NODE_ENV === 'Development' ? <div className="top"><ReactQueryDevtools initialIsOpen={false} /></div> : <div className="top"></div> }
+      <ReactQueryTools />
         <SideBar Type={contentType} subType={null}/>
         {<>
           <Grid container columnSpacing={{ xs: 1, sm: 1, md: 3, lg: 3, xl: 3 }} rowSpacing={3}>

@@ -8,8 +8,6 @@ import "./Assets/css/App.css";
 
 // Components
 import Favorite from "./Components/Favorite/Favorite";
-// import Widgets from "./Components/Widgets/Widgets";
-// import Rate from "./Pages/Home/Rate";
 
 // Pages
 import CountryFilter from './Services/CountryFilter';
@@ -23,7 +21,6 @@ import ContactUs from "./Pages/ContactUs/ContactUs";
 import { OffLimit } from "./Pages/OffLimit/OffLimit";
 import FloatingButton from './Components/FloatingButton/FloatingButton';
 
-import Login from "./Pages/Login/Login";
 import Home from "./Pages/Home/Home";
 
 import Movies from "./Pages/InternationalFilms/Movies";
@@ -195,28 +192,14 @@ const App = () => {
   //   return <UnderMaintenance/>;
   // }
 
-  function disableRightClick(e) {
-    e.preventDefault();
-  }
+  // function disableRightClick(e) {
+  //   e.preventDefault();
+  // }
 
   return (
       <QueryClientProvider client={queryClient}>
       {/* <div className="App" onContextMenu={disableRightClick}> */}
       <div className="App">
-        <Router>
-          <Routes>
-            <Route
-              path="/login"
-              element={
-                <>
-                  <CountryFilter>
-                    <Login />
-                  </CountryFilter>
-                </>
-              }
-            />
-          </Routes>
-        </Router>
         <Router>
           <Routes>
             
@@ -227,7 +210,6 @@ const App = () => {
                     <Home />
                     <FloatingButton />
                   </CountryFilter>
-                  {/* <Widgets /> */}
                 </>}
             />
             {/* --------------------------------------------------------------------------------------------------------------------------- */}

@@ -1,32 +1,15 @@
 // Packages
 import React, { useState, useEffect, useCallback } from "react";
 import { useQuery } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
-import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import Grid from '@mui/material/Grid';
-import IconButton from '@mui/material/IconButton';
-import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import Divider from '@mui/material/Divider';
-import Chip from '@mui/material/Chip';
 
 // CSS
 import "./css/AsianFilmsDashboard.css";
 
 // Icons
-import SearchIcon from "@mui/icons-material/Search";
-import StarIcon from '@mui/icons-material/Star';
-import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
-import PlayCircleIcon from '@mui/icons-material/PlayCircle';
-import PlaylistPlayIcon from '@mui/icons-material/PlaylistPlay';
-import DoubleArrowRoundedIcon from '@mui/icons-material/DoubleArrowRounded';
-import StorageIcon from '@mui/icons-material/Storage';
-import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck';
-import SubtitlesIcon from '@mui/icons-material/Subtitles';
 import CircularProgress from '@mui/material/CircularProgress';
 
 // Components
@@ -35,10 +18,7 @@ import Footer from "../../Components/Footer/Footer";
 import { Player } from "../../Components/Player/Player";
 import AsianFilmsSuggestions from "../../Components/AsianFilms/AsianFilmsSuggestions";
 import AsianEpisodesDrawer from "../../Components/BottomDrawer/AsianEpisodesDrawer";
-
-// Modals
-import ShareModal from "../../Components/Modal/ShareModal";
-import TraillerModal from "../../Components/Modal/TraillerModal";
+import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
 // Config
 import apiConfig from '../../Config/api.config';
@@ -57,7 +37,6 @@ const AsianFilmsDashboard = (props) => {
   const { id, type } = useParams();
   const indexId = type + "/" + id;
   const contentType = "asian_films";
-  const no_image = process.env.PUBLIC_URL + "/images/no_image_available.jpg";
 
   const queryParams = new URLSearchParams(window.location.search);
   const paramEpisode = queryParams.get("episode") != null ? queryParams.get("episode") : null;
@@ -272,7 +251,7 @@ const AsianFilmsDashboard = (props) => {
   return (
     <>
       <div className="movie_dashboard">
-      {process.env.REACT_APP_NODE_ENV === 'DEVELOPMENT' ? <div className="top"><ReactQueryDevtools initialIsOpen={false} /></div> : <div className="top"></div> }
+        <ReactQueryTools/>
         <SideBar Type={contentType} subType={null} transparentBg={false} isStream={true} />
         {<>
           <div className="movie_cover" style={{backgroundImage: `linear-gradient(rgba(0, 0, 10, 1),rgba(0, 0, 10, 0.5)) , url("${infoValue?.banner}")`}}>
@@ -334,7 +313,6 @@ const AsianFilmsDashboard = (props) => {
                   },
                 ],
                 controls: additionalControls,
-                // quality: videoQualities,
                 }}
                 getInstance={(art) => console.log("getInstance", art)}
               />
@@ -418,7 +396,6 @@ const AsianFilmsDashboard = (props) => {
                       </h5>
                     </Grid>
                   </Grid>
-                    {/* <TraillerModal category="asian_films" infoValue={infoValue}/> */}
                   </div>
                   <p className="movie_description" dangerouslySetInnerHTML={{ __html: infoValue?.description.trim() ? infoValue?.description.trim() : '-' }}/>
                   <table>

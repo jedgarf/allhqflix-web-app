@@ -1,15 +1,8 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import InputLabel from '@mui/material/InputLabel';
-import FormControl from '@mui/material/FormControl';
-import NativeSelect from '@mui/material/NativeSelect';
 
 // CSS
 import './css/LiveChannels.css';
@@ -19,25 +12,23 @@ import ChannelsDrawer from "../../Components/BottomDrawer/ChannelsDrawer";
 import SideBar from "../../Components/SlideBar/SideBar";
 import Footer from "../../Components/Footer/Footer";
 import { Player } from "../../Components/Player/Player";
+import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
 // Icons
 import CircularProgress from '@mui/material/CircularProgress';
 
-import apiConfig from '../../Config/api.config';
-import { moveToTop } from "../../Services/Utils";
 import { live_channel_countries, live_channel_languages, live_channel_names, live_channel_streams } from "../../Services/LiveChannelServices";
 
 const LiveChannels = () => {
 
     const urlContentType = 'live_channels';
-    const no_image = process.env.PUBLIC_URL + "/images/no_image_available.jpg";
     const allhqflix_logo = process.env.PUBLIC_URL + "/images/multimedia_hub_logo.png";
     const [defaultCountry, setDefaultCountry] = useState("US");
     const [selectedCountry, setSelectedCountry] = useState("US");
     const [selectedStreamChannelId, setSelectedStreamChannelId] = useState('AMCEast.us');
     const [selectedStreamChannelName, setSelectedStreamChannelName] = useState("");
 
-    // Paramters
+    // Parameters
     let countryData = useQuery('live_channel_countries', live_channel_countries, {
         cacheTime: 24 * 60 * 60 * 1000, // 24 hours
         refetchOnWindowFocus: false,
@@ -134,7 +125,6 @@ const LiveChannels = () => {
 
         // const streamLink = await streamValue.filter((stream) => stream.channel === channelId)[0];
         // setSelectedStreamChannel(channelData?.data?.data?.filter((item) => item.id === streamLink.channel)[0]);
-        // // console.log(streamLink.url);
         // if (streamLink.url !== undefined) {
         //     setIsPlayerLoading(true);
         //     setSelectedStreamLink(streamLink.url);
@@ -161,7 +151,7 @@ const LiveChannels = () => {
 
     return (
         <div className='live_channels'>
-        {process.env.REACT_APP_NODE_ENV === 'DEVELOPMENT' ? <div className="top"><ReactQueryDevtools initialIsOpen={false} /></div> : <div className="top"></div> }
+        <ReactQueryTools/>
         <SideBar Type={urlContentType} subType={null}/>
         <div className='live_channels_content'>
             <Grid container columnSpacing={{ xs: 5, sm: 5, md: 5, lg: 5, xl: 5 }} rowSpacing={3} justifyContent="center">

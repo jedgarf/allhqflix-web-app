@@ -1,51 +1,33 @@
 // Packages
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { useQuery } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
 
 // React Slick
 import Slider from "react-slick";
 
-import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import Grid from '@mui/material/Grid';
-import IconButton from '@mui/material/IconButton';
-import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import Divider from '@mui/material/Divider';
-import Chip from '@mui/material/Chip';
 import moment from 'moment';
-import Badge from '@mui/material/Badge';
 
 // CSS
 import "./css/MovieDashboard.css";
 
 // Icons
-import SearchIcon from "@mui/icons-material/Search";
-import StarIcon from '@mui/icons-material/Star';
-import PlayCircleIcon from '@mui/icons-material/PlayCircle';
-import PlaylistPlayIcon from '@mui/icons-material/PlaylistPlay';
 import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
-import StorageIcon from '@mui/icons-material/Storage';
-import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck';
 import CircularProgress from '@mui/material/CircularProgress';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 // Pages
 import SideBar from "../../Components/SlideBar/SideBar";
 import Footer from "../../Components/Footer/Footer";
-import { Player, artInstance } from "../../Components/Player/Player";
-import Seasons from "../../Components/InternationalFilms/Seasons";
+import { Player } from "../../Components/Player/Player";
 import Suggestions from "../../Components/InternationalFilms/Suggestions";
 import TVEpisodesDrawer from "../../Components/BottomDrawer/TVEpisodesDrawer";
 import SnackBar from "../../Components/SnackBar/SnackBar";
-
-// Modals
-import ShareModal from "../../Components/Modal/ShareModal";
-import TraillerModal from "../../Components/Modal/TraillerModal";
+import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
 // Config
 import apiConfig from '../../Config/api.config';
@@ -65,17 +47,13 @@ const MovieDashboard = (props) => {
   const { id, type } = useParams();
   const indexId = type + "/" + id;
   const contentType = type === 'movie' ? 'Movie' : 'TV Series';
-
   const seekTimeValue = useRef(0);
-
   const queryParams = new URLSearchParams(window.location.search);
   const paramSeasonId = queryParams.get("season") != null ? parseInt(queryParams.get("season")) : null;
   const paramEpisodeId = queryParams.get("episode") != null ? parseInt(queryParams.get("episode")) : null;
-
   const paramServer = queryParams.get("server") != null ? queryParams.get("server") : null;
 
   const [movieServer, setMovieServer] = useState([]);
-
   const [videoQualities, setVideoQualities] = useState([]);
   const [videoSubtitles, setVideoSubtitles] = useState([]);
   const [recommendations, setRecommendations] = useState([]);
@@ -124,8 +102,6 @@ const MovieDashboard = (props) => {
   const set_selectedSeasonEpisode = useCallback((infoValue) => {
     
     if (selectedSeason || selectedEpisode) {
-      // setSelectedSeason(selectedSeason);
-      // setSelectedEpisode(selectedEpisode);
       setTotalEpisodes(infoValue?.episodes.length);
       for (let getSelEpisodeLength = 0; getSelEpisodeLength < infoValue?.episodes.length; getSelEpisodeLength++) {
         if (infoValue?.episodes[getSelEpisodeLength].id == selectedEpisode) {
@@ -141,7 +117,6 @@ const MovieDashboard = (props) => {
       setSelectedEpisodeName(infoValue?.episodes[0].title);
     }
     setRecommendations(infoValue?.recommendations);
-    // destroyPlayM3u8();
 
   }, [selectedSeason, selectedEpisode]);
 
@@ -291,7 +266,6 @@ const MovieDashboard = (props) => {
   const previousEpisode = () => {
     seekTimeValue.current = 0;
     const selectedItemIndex = infoValue?.episodes?.indexOf(infoValue?.episodes?.find((item) => item.season == selectedSeason && item.id == selectedEpisode));
-    // alert(selectedItemIndex);
     if (selectedItemIndex > 0 && selectedItemIndex < infoValue?.episodes?.length) {
       const getTargetEpisode = infoValue?.episodes[selectedItemIndex-1];
       setLoadingEpisode(true);
@@ -306,7 +280,6 @@ const MovieDashboard = (props) => {
   const nextEpisode = () => {
     seekTimeValue.current = 0;
     const selectedItemIndex = infoValue?.episodes?.indexOf(infoValue?.episodes?.find((item) => item.season == selectedSeason && item.id == selectedEpisode));
-    // alert(selectedItemIndex); //7
     if (selectedItemIndex >= 0 && (selectedItemIndex + 1) < infoValue?.episodes?.length) {
       const getTargetEpisode = infoValue?.episodes[selectedItemIndex+1];
       setLoadingEpisode(true);
@@ -375,13 +348,6 @@ const MovieDashboard = (props) => {
     if (serverData.isSuccess) {
       setMovieServer(serverValue);
     }
-
-    // if (infoData.isLoading || serverData.isLoading || resourceData.isLoading) {
-    //     setSnackBarType('info');
-    //     setSnackBarMessage(`Please wait while fetching all resources.`);
-    //     setSnackBarOpen(true);
-    // };
-
   }, [infoData.isSuccess, 
       serverData.isSuccess, 
       serverVar, 
@@ -398,7 +364,7 @@ const MovieDashboard = (props) => {
   return (
     <>
       <div className="movie_dashboard">
-      {process.env.REACT_APP_NODE_ENV === 'DEVELOPMENT' ? <div className="top"><ReactQueryDevtools initialIsOpen={false} /></div> : <div className="top"></div> }
+        <ReactQueryTools/>
         <SideBar Type={'foreign'} subType={null} transparentBg={false} isStream={true}/>
         <SnackBar severity={snackBarType} handleSnackBarOpen={handleSnackBarOpen} status={snackBarOpen} snackBarMessage={snackBarMessage} />
         {<>
@@ -587,11 +553,6 @@ const MovieDashboard = (props) => {
                 <Grid item xl={10} lg={10} md={12} sm={12} xs={12}>
                   <h3 className='media-title' style={{ marginTop: '-30px', marginLeft: '10px' }}><b>{infoValue?.title}</b></h3>
                   <div className='media_props'>
-                    {/* {infoValue?.rating != undefined ?
-                      <Typography variant="subtitle1" style={{ verticalAlign: 'middle', marginLeft: '10px', marginRight: '15px', display: 'inline-flex' }}>
-                        <StarIcon style={{ marginRight: '8px', color: "#E4A11B" }}/> {infoValue?.rating}
-                      </Typography>
-                    : ''} */}
                     {type === 'tv' ? 
                       <Grid container alignItems="center" spacing={0.4} style={{ marginLeft: '8px' }}>
                         <Grid item>
@@ -648,10 +609,6 @@ const MovieDashboard = (props) => {
                         <th>Casts:</th>
                         <td><SeparateArrayByComma type={'google_link'} data={infoValue?.casts} link={'https://www.google.com/search?q='} /></td>
                       </tr>
-                      {/* <tr>
-                        <th>Tags:</th>
-                        <td><Tags /></td>
-                      </tr> */}
                     </tbody>
                   </table>
                 </Grid>

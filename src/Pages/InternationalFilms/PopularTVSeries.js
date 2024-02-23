@@ -1,18 +1,13 @@
 // Packages
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState } from "react";
 import { useQuery } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
-import { useParams, useNavigate } from "react-router-dom";
-import { TextField, IconButton, Grid, Stack, Radio, Typography, Button, Box, InputLabel, FormControl, NativeSelect, Container } from '@mui/material';
-import { pink, blue } from '@mui/material/colors';
-import { useSelector , useDispatch } from "react-redux";
+import { IconButton, Grid, Stack, Typography, Container } from '@mui/material';
 
 // Material UI Themes
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 
 // Icons
-import SearchIcon from "@mui/icons-material/Search";
 import CircularProgress from '@mui/material/CircularProgress';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
@@ -21,6 +16,7 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import SideBar from "../../Components/SlideBar/SideBar";
 import Footer from "../../Components/Footer/Footer";
 import SearchResult from "../../Components/SearchResult/SearchResult";
+import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
 import { moveToTop } from "../../Services/Utils";
 
@@ -71,7 +67,7 @@ function PopularTVSeries() {
   return (
     <>
       <div className="search_result">
-      {process.env.REACT_APP_NODE_ENV === 'DEVELOPMENT' ? <div className="top"><ReactQueryDevtools initialIsOpen={false} /></div> : <div className="top"></div> }
+      <ReactQueryTools/>
        <div className="search_result_content">
         <div className="search__top">
           <SideBar Type={type} subType={subType}/>

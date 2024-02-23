@@ -1,16 +1,12 @@
 // Packages
-import React, { useEffect, useState, useCallback } from "react";
-import moment from 'moment';
+import React from "react";
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { Carousel } from 'react-responsive-carousel';
 import { useQuery } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
 import Skeleton from '@mui/material/Skeleton';
 
 // Icons
-// import StarIcon from "@mui/icons-material/Star";
-import SearchIcon from "@mui/icons-material/Search";
 import CircularProgress from '@mui/material/CircularProgress';
 
 // CSS
@@ -21,20 +17,18 @@ import "../../Assets/css/carousel.css"; // requires a loader
 import SideBar from "../../Components/SlideBar/SideBar";
 import AsianDramaDiscovers from "../../Components/AsianDrama/AsianDramaDiscovers";
 import AsianDramaRow from "../../Components/AsianDrama/AsianDramaRow";
+import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
 import Footer from "../../Components/Footer/Footer";
 
-import { moveToTop } from "../../Services/Utils";
 import { asiandrama_carousel, asiandrama_popular } from "../../Services/DramaCoolService";
 
 const AsianDrama = () => {
 
   document.title = 'AllHQFlix - Asian Drama';
 
-  const currentYear = moment().format('YYYY');
   const urlContentType = "asian_drama";
   const urlContentSubType = "asian_drama";
-  const carouselPageCount = 3;
 
   let discoverData = useQuery('asiandrama_carousel', asiandrama_carousel, {
     cacheTime: 24 * 60 * 60 * 1000, // 24 hours
@@ -49,7 +43,7 @@ const AsianDrama = () => {
 
   return (
       <div className="movies">
-        {process.env.REACT_APP_NODE_ENV === 'Development' ? <div className="top"><ReactQueryDevtools initialIsOpen={false} /></div> : <div className="top"></div> }
+        <ReactQueryTools/>
         <SideBar Type={urlContentType} subType={urlContentSubType} />
         {<>
           <Box

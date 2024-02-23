@@ -1,13 +1,10 @@
 // Packages
 import React, { useState, useEffect, useCallback } from "react";
 import { useQuery } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
-import PropTypes from 'prop-types';
-import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
 // Material UI Components
-import { Grid, IconButton, Stack, Box, Typography, Button, Divider, Chip, Container, CircularProgress } from '@mui/material';
+import { Grid, Box, Container, CircularProgress } from '@mui/material';
 
 // React Slick
 import Slider from "react-slick";
@@ -16,14 +13,7 @@ import Slider from "react-slick";
 import "./css/AnimeDashboard.css";
 
 // Icons
-import SearchIcon from "@mui/icons-material/Search";
-import StarIcon from '@mui/icons-material/Star';
 import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
-import PlayCircleIcon from '@mui/icons-material/PlayCircle';
-import PlaylistPlayIcon from '@mui/icons-material/PlaylistPlay';
-import DoubleArrowRoundedIcon from '@mui/icons-material/DoubleArrowRounded';
-import StorageIcon from '@mui/icons-material/Storage';
-import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck';
 
 // Components
 import SideBar from "../../Components/SlideBar/SideBar";
@@ -32,10 +22,7 @@ import { Player } from "../../Components/Player/Player";
 import AnimeSuggestions from "../../Components/Anime/AnimeSuggestions";
 import AnimeEpisodesDrawer from "../../Components/BottomDrawer/AnimeEpisodesDrawer";
 import AnimeCharacterCard from "../../Components/Anime/AnimeCharacterCard";
-
-// Modals
-import ShareModal from "../../Components/Modal/ShareModal";
-import TraillerModal from "../../Components/Modal/TraillerModal";
+import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
 // Config
 import apiConfig from '../../Config/api.config';
@@ -59,9 +46,6 @@ const AnimeDashboard = (props) => {
   const queryParams = new URLSearchParams(window.location.search);
   const paramEpisode = queryParams.get("episode") != null ? queryParams.get("episode") : null;
   const paramDub = queryParams.get("dub") != null ? queryParams.get("dub") == 'true' : false;
-
-  // console.log("paramEpisode", paramEpisode);
-  // console.log("paramDub", paramDub);
 
   const [selectedArc, setSelectedArc] = useState("");
 
@@ -273,7 +257,7 @@ const AnimeDashboard = (props) => {
   return (
     <>
       <div className="movie_dashboard">
-      {process.env.REACT_APP_NODE_ENV === 'DEVELOPMENT' ? <div className="top"><ReactQueryDevtools initialIsOpen={false} /></div> : <div className="top"></div> }
+        <ReactQueryTools/>
         <SideBar Type={type} subType={null} transparentBg={false} isStream={true} />
         {<>
           <div className="movie_cover" style={{backgroundImage: `linear-gradient(rgba(0, 0, 10, 1),rgba(0, 0, 10, 0.5)), url("${infoValue?.cover}")`}}>

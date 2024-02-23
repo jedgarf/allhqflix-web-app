@@ -1,38 +1,24 @@
 // Packages
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState } from "react";
 import { useQuery } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
-import { useParams, useNavigate } from "react-router-dom";
 
 // Material UI Components
-import {  TextField, 
-          IconButton, 
+import {  IconButton, 
+          Container, 
           Grid, 
           Stack, 
-          Radio, 
           Typography, 
-          Button, 
           Box, 
           InputLabel, 
           FormControl, 
-          NativeSelect, 
-          Container, 
-          Divider, 
-          Checkbox,
-          RadioGroup,
-          FormControlLabel,
-          FormLabel,
           Select,
           MenuItem } from '@mui/material';
-import { pink, blue } from '@mui/material/colors';
-import { useSelector , useDispatch } from "react-redux";
 
 // Material UI Themes
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 
 // Icons
-import SearchIcon from "@mui/icons-material/Search";
 import CircularProgress from '@mui/material/CircularProgress';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
@@ -41,6 +27,7 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import SideBar from "../../Components/SlideBar/SideBar";
 import Footer from "../../Components/Footer/Footer";
 import SearchResult from "../../Components/SearchResult/SearchResult";
+import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
 import { foreign_genre } from "../../Config/settings.config";
 
@@ -52,16 +39,11 @@ import { movie_filter_by_genre } from "../../Services/FlixHQService";
 function FilterByGenre() {
 
   document.title = 'AllHQFlix - International - By Genre';
-
-  const navigate = useNavigate();
   const queryParams = new URLSearchParams(window.location.search);
-
   const type = 'foreign';
   const subType = 'foreignfilterbygenre';
-
   const defaultGenre = queryParams.get("genre") === null ? 'action' : foreign_genre.filter( (item, i) => item.name === queryParams.get("genre"))[0].code;
   const defaultPageNumber = queryParams.get("page") === null ? 1 : queryParams.get("page");
-
   const [genre, setGenre] = useState(defaultGenre);
   const [page, setPage] = useState(defaultPageNumber);
 
@@ -102,7 +84,7 @@ function FilterByGenre() {
   return (
     <>
       <div className="search_result">
-      {process.env.REACT_APP_NODE_ENV === 'DEVELOPMENT' ? <div className="top"><ReactQueryDevtools initialIsOpen={false} /></div> : <div className="top"></div> }
+      <ReactQueryTools/>
         <div className="search_result_content">
           <div className="search__top">
             <SideBar Type={type} subType={subType}/>
