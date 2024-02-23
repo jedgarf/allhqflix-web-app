@@ -3,7 +3,6 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 
@@ -13,27 +12,15 @@ import { useTheme } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import TextField from '@mui/material/TextField';
 
 import IconButton from '@mui/material/IconButton';
-import Input from '@mui/material/Input';
-import FilledInput from '@mui/material/FilledInput';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import InputAdornment from '@mui/material/InputAdornment';
-import FormHelperText from '@mui/material/FormHelperText';
-import FormControl from '@mui/material/FormControl';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import PersonIcon from '@mui/icons-material/Person';
 
 // CSS
 import "./css/Modal.css";
 
 // Pages
 import Login from "../Auth/Login";
-import SignUp from "../Auth/SignUp";
 
 const darkTheme = createTheme({
   palette: {
@@ -103,19 +90,11 @@ export default function AuthModal() {
     setValue(index);
   };
 
-  const [showPassword, setShowPassword] = React.useState(false);
-
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
-
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
-
   return (
     <div>
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-      <IconButton onClick={handleOpen}><AccountCircleIcon sx={{ color: '#DC4C64' }}/></IconButton>
+      <IconButton onClick={handleOpen}><AccountCircleIcon sx={{ color: '#DC4C64', fontSize: '25px' }}/></IconButton>
       <Modal
         open={open}
         onClose={handleClose}
@@ -139,7 +118,7 @@ export default function AuthModal() {
               variant="fullWidth"
               aria-label="full width tabs example"
             >
-              <Tab label="Login" {...a11yProps(0)} />
+              <Tab label="User Authentication" {...a11yProps(0)} />
               {/* <Tab label="Sign Up" {...a11yProps(1)} /> */}
             </Tabs>
           </AppBar>
@@ -151,9 +130,10 @@ export default function AuthModal() {
             <TabPanel value={value} index={0} dir={theme.direction}>
               <Login/>
             </TabPanel>
-            <TabPanel value={value} index={1} dir={theme.direction}>
+
+            {/* <TabPanel value={value} index={1} dir={theme.direction}>
               <SignUp/>
-            </TabPanel>
+            </TabPanel> */}
           </SwipeableViews>
         </Box>
       </Modal>

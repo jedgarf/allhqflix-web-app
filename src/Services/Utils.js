@@ -357,7 +357,7 @@ const capitalizeString = (str) => {
   // Join the words back into a string
   let result = capitalizedWords.join(' ');
 
-  console.log("capitalizedWords", capitalizedWords);
+  // console.log("capitalizedWords", capitalizedWords);
 
   return result;
 }

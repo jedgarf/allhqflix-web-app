@@ -19,7 +19,6 @@ import "./Home.css";
 // Pages
 import SideBar from "../../Components/SlideBar/SideBar";
 import Footer from "../../Components/Footer/Footer";
-import LoginModal from "../../Components/Modal/LoginModal";
 
 // partial page
 import Faq from "./Faq";

@@ -20,10 +20,12 @@ import SearchIcon from '@mui/icons-material/Search';
 import { search } from '../../Features/searchSlice';
 import AuthModal from "../Modal/AuthModal";
 import DevAlert from "../DevAlert/DevAlert";
+import AuthMenu from "../AuthMenu/AuthMenu";
 import SearchBar from "../SearchBar/SearchBar";
 import Latency from "../../Components/Latency/Latency";
 import HeaderMenu from "./HeaderMenu";
 import MobileSideBar from "./MobileSideBar";
+import Login from "../Auth/Login";
 
 // Config
 import { title, search_bar } from "../../Config/settings.config";
@@ -34,6 +36,9 @@ import header_logo from "../../Assets/images/header_logo.JPG";
 // utils
 import { moveToTop } from "../../Services/Utils";
 
+// Helpers
+import { getSession } from "../../Helpers/Sessions";
+
 // Models
 import { menus, sub_menus } from "../../Services/SettingService";
 
@@ -43,6 +48,8 @@ const SideBar = ({ Type, subType, haveSearch = true,  transparentBg = true, isSt
   const [isGetMenu, setIsGetMenu] = useState(true);
   const [isGetSubMenu, setIsGetSubMenu] = useState(true);
 
+  const [auth, setAuth] = useState(getSession('user') ? true : false);
+
   const navigate = useNavigate();
 
   const queryParams = new URLSearchParams(window.location.search);
@@ -51,6 +58,10 @@ const SideBar = ({ Type, subType, haveSearch = true,  transparentBg = true, isSt
   // Determine if mobile size
   const theme = createTheme();
   const isMobileSize = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const isAuth = (authStatus) => {
+    setAuth(authStatus);
+  }
 
   const queryHandler = (e) => {
     e.preventDefault();
@@ -223,9 +234,12 @@ const SideBar = ({ Type, subType, haveSearch = true,  transparentBg = true, isSt
             </Box> */}
             
             {/* Login Modal */}
-            {/* <Box sx={{ flexGrow: 0 }}>
-              <AuthModal/>
-            </Box> */}
+            <Box sx={{ flexGrow: 0, marginLeft: 2 }}>
+              {auth ?
+                <AuthMenu isAuth={isAuth}/>
+               : 
+                <Login isMobileSize={isMobileSize} isAuth={isAuth}/>}
+            </Box>
 
           </Toolbar>
         </Container>

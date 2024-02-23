@@ -1,16 +1,7 @@
-const facebook = {
-  appId: 'YOUR FB APP ID GOES HERE',
-  cookie: true,
-  xfbml: true,
-  version: 'v2.11',
-  scope: 'email'
+const googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+const fbAppId = process.env.REACT_APP_FB_APP_ID;
+
+export {
+  googleClientId,
+  fbAppId
 };
-
-export const facebookConfig = facebook;
-
-const google = {
-  client_id: 'YOUR GOOGLE APP ID GOES HERE',
-  scope: "https://www.googleapis.com/auth/plus.login"
-};
-
-export const googleConfig = google;
