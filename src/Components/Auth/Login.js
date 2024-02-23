@@ -1,7 +1,7 @@
 import GoogleLoginBtn from '../SocialAuth/GoogleLoginBtn';
 import { addSession } from "../../Helpers/Sessions";
 
-const Login = ({ isMobileSize, isAuth }) => {
+const Login = ({ isMobileSize, haveSearch, isAuth }) => {
 
   const handleGoogleLoginSuccess = (googleUser) => {
     // Handle successful Google sign-in
@@ -17,6 +17,7 @@ const Login = ({ isMobileSize, isAuth }) => {
   return (
       <GoogleLoginBtn
         isMobileSize={isMobileSize}
+        haveSearch={haveSearch}
         onSuccess={handleGoogleLoginSuccess}
         onFailure={handleGoogleLoginFailure}
       />

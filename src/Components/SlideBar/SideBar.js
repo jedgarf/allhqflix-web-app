@@ -238,7 +238,7 @@ const SideBar = ({ Type, subType, haveSearch = true,  transparentBg = true, isSt
               {auth ?
                 <AuthMenu isAuth={isAuth}/>
                : 
-                <Login isMobileSize={isMobileSize} isAuth={isAuth}/>}
+                <Login isMobileSize={isMobileSize} haveSearch={haveSearch} isAuth={isAuth}/>}
             </Box>
 
           </Toolbar>
