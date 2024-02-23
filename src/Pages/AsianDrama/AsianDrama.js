@@ -2,9 +2,11 @@
 import React from "react";
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import { Carousel } from 'react-responsive-carousel';
 import { useQuery } from 'react-query';
 import Skeleton from '@mui/material/Skeleton';
+
+// React Slick
+import Slider from "react-slick";
 
 // Icons
 import CircularProgress from '@mui/material/CircularProgress';
@@ -18,8 +20,10 @@ import SideBar from "../../Components/SlideBar/SideBar";
 import AsianDramaDiscovers from "../../Components/AsianDrama/AsianDramaDiscovers";
 import AsianDramaRow from "../../Components/AsianDrama/AsianDramaRow";
 import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
-
 import Footer from "../../Components/Footer/Footer";
+
+// Config
+import { carousel_settings } from "../../Config/settings.config";
 
 import { asiandrama_carousel, asiandrama_popular } from "../../Services/DramaCoolService";
 
@@ -52,7 +56,7 @@ const AsianDrama = () => {
             {discoverData.isLoading ? <center><Skeleton className="carousel-skeleton" sx={{ bgcolor: 'grey.900' }} variant="rectangular" animation="wave" width={'98%'} height={535} /></center>
              : 
             <>
-            <Carousel className="carousel" autoPlay={true} infiniteLoop={true} emulateTouch={true} showArrows={false} showStatus={false} interval={5000} transitionTime={3} stopOnHover={false}>
+            <Slider {...carousel_settings}>
               {discoverValue?.map((item, i) => (
                 <div className="movies__boxx">
                   <AsianDramaDiscovers
@@ -68,7 +72,7 @@ const AsianDrama = () => {
                   />
                 </div>
               ))}
-            </Carousel>
+            </Slider>
             </>
             }
           </Box>

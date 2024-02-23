@@ -126,7 +126,7 @@ const MovieStreamDashboard = (props) => {
             // error.response.status = http code
             // error.response.data.message = api message
             let message = "";
-            if (error.response.status == 500) {
+            if (error?.response?.status == 500) {
                 message = `Server problem occurred, please try again later.`;
                 setSnackBarType('error');
                 setSnackBarMessage(message);
