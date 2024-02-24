@@ -278,9 +278,25 @@ const Player = ({ defaultlink, infotitle, infocover, episodeNum, totalEpisodes, 
     return <div ref={artRef} {...rest}></div>;
 }
 
+const updateVideoResolutions = () => {
+    // Update the control by name
+    artInstance.controls.update({
+        name: 'quality',
+        html: '1080',
+        selector: [
+            {
+                default: true,
+                html: '1080',
+                url: '/new/video.mp4?p=1080',
+            }
+        ],
+    });
+}
+
 export {
     Player,
     destroyPlayM3u8,
     destroyPlayFlv,
-    artInstance
+    artInstance,
+    updateVideoResolutions
 }

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 
+import { updateVideoResolutions } from "../Player/Player";
+
 // Material UI Components
 import { IconButton, Badge, Menu, MenuItem, ListItemIcon, ListItemText, Avatar } from '@mui/material';
 
@@ -59,6 +61,11 @@ const AuthMenu = ({ isStream, isAuth }) => {
             } else {
               navigate(`/${type}/stream_dashboard?mediaId=${type}/${id}`);
             }
+            // try {
+            //   updateVideoResolutions();
+            // } catch (error) {
+            //   console.log(error);
+            // }
           }
           // withReactContent(Swal).fire("Saved!", "", "success");
         } else if (result.isDismissed) {

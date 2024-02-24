@@ -2,6 +2,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import GoogleLoginBtn from '../SocialAuth/GoogleLoginBtn';
 import { addSession } from "../../Helpers/Sessions";
 
+import { updateVideoResolutions } from "../Player/Player";
+
 const Login = ({ isMobileSize, haveSearch, isStream, isAuth }) => {
   
   const navigate = useNavigate();
@@ -17,6 +19,11 @@ const Login = ({ isMobileSize, haveSearch, isStream, isAuth }) => {
       } else {
         navigate(`/${type}/stream_dashboard?mediaId=${type}/${id}`);
       }
+      // try {
+      //   updateVideoResolutions();
+      // } catch (error) {
+      //   console.log(error);
+      // }
     }
   };
 
@@ -26,12 +33,14 @@ const Login = ({ isMobileSize, haveSearch, isStream, isAuth }) => {
   };
 
   return (
+    <div style={{ display: 'flex', alignItems: 'center', height: '6.5vh', justifyContent: 'right' }}>
       <GoogleLoginBtn
         isMobileSize={isMobileSize}
         haveSearch={haveSearch}
         onSuccess={handleGoogleLoginSuccess}
         onFailure={handleGoogleLoginFailure}
       />
+    </div>
   );
 }
 
