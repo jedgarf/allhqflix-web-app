@@ -1,4 +1,5 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 
 // Material UI Components
@@ -11,14 +12,16 @@ import LogoutIcon from '@mui/icons-material/Logout';
 // Sweet Alert
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
-// import '@sweetalert2/theme-borderless/borderless.css';
 
 // Helpers
 import { getSession, removeSession } from "../../Helpers/Sessions";
 // Utils
 import { capitalizeString } from "../../Services/Utils";
 
-const AuthMenu = ({ isAuth }) => {
+const AuthMenu = ({ isStream, isAuth }) => {
+
+    const navigate = useNavigate();
+    const { id, type } = useParams();
 
     const [user, setUser] = useState([]);
     const [anchorEl, setAnchorEl] = useState(null);
@@ -36,16 +39,27 @@ const AuthMenu = ({ isAuth }) => {
     const onLogoutSession = () => {
       handleTopMenuClose();
       withReactContent(Swal).fire({
-        title: "Click Yes to proceed",
+        background: 'rgba(0, 10, 20, 255)',
+        title: "<p style='color: #ccced1; font-size: 18px;'>Are you sure you want to sign out?</p>",
+        // icon: "warning",
         showDenyButton: false,
         showCancelButton: true,
-        confirmButtonText: "Yes",
-        denyButtonText: `No`,
+        confirmButtonColor: '#3B71CA',
+        cancelButtonColor: '#DC4C64',
+        confirmButtonText: 'Yes',
+        cancelButtonText: "No"
       }).then((result) => {
-        /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
+          
           removeSession('user');
           isAuth(false);
+          if (isStream) {
+            if (type == "drama") {
+              navigate(`/${type}/stream_dashboard?mediaId=${type}/${id}`);
+            } else {
+              navigate(`/${type}/stream_dashboard?mediaId=${id}`);
+            }
+          }
           // withReactContent(Swal).fire("Saved!", "", "success");
         } else if (result.isDismissed) {
           // withReactContent(Swal).fire("Changes are not saved", "", "info");
@@ -65,19 +79,18 @@ const AuthMenu = ({ isAuth }) => {
     return (
         <>
             <IconButton
-            sx={{ my: 2, color: 'white', display: 'block' }}
+            sx={{ my: 0, color: 'white', display: 'block' }}
             aria-controls={openTopMenu ? 'basic-menu' : undefined}
             aria-haspopup="true"
             aria-expanded={openTopMenu ? 'true' : undefined}
             onClick={(event) => handleTopMenuClick(event)}
             title={user?.name && capitalizeString(user.name)}
             >
-                {/* <Badge badgeContent={devAlert.length} color="primary"> */}
-                    {/* <AccountCircleIcon sx={{ color: '#DC4C64',  }} /> */}
-                    <center>
-                      <Avatar alt={'U'} sx={{ bgcolor: '#DC4C64' }} style={{ width: '35px', height: '35px' }} src={user?.picture && user.picture} />
-                    </center>
-                {/* </Badge> */}
+              {/* <Badge badgeContent={devAlert.length} color="primary"> */}
+              <center>
+                <Avatar alt={'U'} sx={{ bgcolor: '#DC4C64' }} style={{ width: '33px', height: '33px' }} src={user?.picture && user.picture} />
+              </center>
+              {/* </Badge> */}
             </IconButton>
 
             {/* Sub Menu */}
@@ -138,7 +151,7 @@ const AuthMenu = ({ isAuth }) => {
               <ListItemIcon>
                 <LogoutIcon sx={{ color: '#DC4C64' }} />
               </ListItemIcon>
-              <ListItemText className='dark-theme-text-color' sx={{ fontWeight: 'bolder' }} primary="Logout" />
+              <ListItemText className='dark-theme-text-color' sx={{ fontWeight: 'bolder' }} primary="Sign out" />
             </MenuItem>
           </Menu>
         </>

@@ -236,9 +236,9 @@ const SideBar = ({ Type, subType, haveSearch = true,  transparentBg = true, isSt
             {/* Login Modal */}
             <Box sx={{ flexGrow: 0, marginLeft: 1 }}>
               {auth ?
-                <AuthMenu isAuth={isAuth}/>
+                <AuthMenu isStream={isStream} isAuth={isAuth}/>
                : 
-                <Login isMobileSize={isMobileSize} haveSearch={haveSearch} isAuth={isAuth}/>}
+                <Login isMobileSize={isMobileSize} haveSearch={haveSearch} isStream={isStream} isAuth={isAuth}/>}
             </Box>
 
           </Toolbar>

@@ -29,7 +29,7 @@ const FloatingButton = () => {
   return (
     <HideOnScroll>
       <button className="floating-button" onClick={scrollToTop}>
-        <NorthIcon sx={{ marginBottom: '-3px', fontSize: 30 }}/>
+        <NorthIcon sx={{ fontSize: 20 }}/>
       </button>
     </HideOnScroll>
   );

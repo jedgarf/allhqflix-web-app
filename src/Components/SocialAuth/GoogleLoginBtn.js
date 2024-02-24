@@ -9,7 +9,7 @@ const GoogleLoginBtn = ({ isMobileSize, haveSearch, onSuccess, onFailure }) => {
     <GoogleOAuthProvider clientId={googleClientId}>
       <GoogleLogin
         theme="filled_blue"
-        size="large"
+        size="medium"
         type={isMobileSize ? (haveSearch ? 'icon' : 'standard') : 'standard'}
         // text="signin"
         shape='circle'
