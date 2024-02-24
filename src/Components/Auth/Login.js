@@ -12,10 +12,10 @@ const Login = ({ isMobileSize, haveSearch, isStream, isAuth }) => {
     addSession('user', JSON.stringify(googleUser.credential));
     isAuth(true);
     if (isStream) {
-      if (type == "drama") {
-        navigate(`/${type}/stream_dashboard?mediaId=${type}/${id}`);
-      } else {
+      if (type == "anime") {
         navigate(`/${type}/stream_dashboard?mediaId=${id}`);
+      } else {
+        navigate(`/${type}/stream_dashboard?mediaId=${type}/${id}`);
       }
     }
   };

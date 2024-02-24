@@ -54,10 +54,10 @@ const AuthMenu = ({ isStream, isAuth }) => {
           removeSession('user');
           isAuth(false);
           if (isStream) {
-            if (type == "drama") {
-              navigate(`/${type}/stream_dashboard?mediaId=${type}/${id}`);
-            } else {
+            if (type == "anime") {
               navigate(`/${type}/stream_dashboard?mediaId=${id}`);
+            } else {
+              navigate(`/${type}/stream_dashboard?mediaId=${type}/${id}`);
             }
           }
           // withReactContent(Swal).fire("Saved!", "", "success");
