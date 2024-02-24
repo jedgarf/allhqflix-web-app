@@ -49,7 +49,7 @@ const TermsAndConditions = () => {
                                             <Typography variant='h5' style={{ color: '#ccced1' }}>Last Updated: October 20, 2023</Typography>
                                         </Grid>
                                         <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
-                                            <Typography variant='h6' style={{ textAlign: 'justify', fontWeight: '550' }}>Please read these Terms and Conditions carefully before using {title.toLowerCase()}.com (the "Service").</Typography>
+                                            <Typography variant='h6' style={{ textAlign: 'justify', fontWeight: '550' }}>Please read these Terms and Conditions carefully before using {title.toLowerCase()}.vercel.app (the "Service").</Typography>
                                         </Grid>
 
                                         <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
