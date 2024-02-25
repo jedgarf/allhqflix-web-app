@@ -104,7 +104,7 @@ const AnimeDashboard = (props) => {
     }
 
     setContentTitle(infoValue?.title?.english || infoValue?.title?.userPreferred || infoValue?.title?.romaji || infoValue?.title?.native);
-    setRecommendations(infoValue?.recommendations);
+    setRecommendations(infoValue?.relations?.length > 0 ? infoValue?.relations : infoValue?.recommendations);
 
   }, [selectedEpisode]);
 

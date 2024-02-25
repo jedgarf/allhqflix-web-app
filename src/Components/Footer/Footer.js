@@ -4,12 +4,7 @@ import moment from 'moment';
 import { Link } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 
-// Icons
-import FacebookIcon from '@mui/icons-material/Facebook';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import GitHubIcon from '@mui/icons-material/GitHub';
-
-import { title, version, jefdev_logo_transparent, dev_portfolio, fb_link, linkedin_link, github_link } from "../../Config/settings.config";
+import { title, version } from "../../Config/settings.config";
 import { moveToTop } from "../../Services/Utils";
 
 function Footer() {
