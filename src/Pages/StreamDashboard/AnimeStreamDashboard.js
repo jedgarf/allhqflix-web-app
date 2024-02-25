@@ -251,19 +251,11 @@ const MovieStreamDashboard = (props) => {
                         Episode 1 to {infoValue?.episodes?.length}&nbsp;&nbsp;
                          {/* | <span style={{ marginRight: 5 }}><StarIcon style={{ marginBottom: '-2px', fontSize: 18, color: "#E4A11B" }}/> {infoValue?.rating}</span> */}
                          |<ShareModal infoValue={infoValue}/>
-                         | <FormControlLabel
-                                control={<Android12Switch defaultChecked={dubCheckbox} onChange={handleDubSwitch} />}
-                                label={`English ${dubCheckbox ? 'Dub' : 'Sub'}`}
-                            />
                     </label>)
                      : 
                     (<label className='stream-dashboard-servername'>
                         <AccessTimeFilledIcon style={{ marginBottom: '-5px', color: "#54B4D3" }}/> {infoValue?.duration ? infoValue?.duration : 0} mins&nbsp;
                          |<ShareModal infoValue={infoValue}/>
-                         | <FormControlLabel
-                                control={<Android12Switch defaultChecked={dubCheckbox} onChange={handleDubSwitch} />}
-                                label={`English ${dubCheckbox ? 'Dub' : 'Sub'}`}
-                            />
                     </label>)}
                     </div>
                     <p className='stream-dashboard-description' title={DOMPurify.sanitize(infoValue?.description).trim()} dangerouslySetInnerHTML={{ __html: infoValue?.description.trim() ? DOMPurify.sanitize(infoValue?.description).replace('<br>', '').replace('</br>', '').trim() : '-'}}/>
@@ -354,6 +346,13 @@ const MovieStreamDashboard = (props) => {
 
                     </div>
                 </div>}
+            </div>
+            {/* English dub switch */}
+            <div className="anime-english-dub">
+                <FormControlLabel
+                    control={<Android12Switch defaultChecked={dubCheckbox} onChange={handleDubSwitch} disabled={infoData.isLoading}/>}
+                    label={`Switch to english dub`}
+                />
             </div>
         </>
     );

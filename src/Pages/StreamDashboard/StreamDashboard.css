@@ -68,6 +68,22 @@
     font-weight: 530;
 }
 
+.anime-english-dub {
+    position: fixed;
+    background: rgba(0, 0, 0, 0.70);
+    bottom: 20px;
+    right: 0px;
+    width: 280px;
+    height: 60px;
+    padding: 10px;
+    text-transform: uppercase;
+    border-radius: 10px 0px 0px 10px;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    text-wrap: nowrap;
+}
+
 
 /* mobile size */
 
