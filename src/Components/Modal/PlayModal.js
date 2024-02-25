@@ -8,7 +8,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 // React Slick
 import Slider from "react-slick";
 
-import { Box, Button, Menu, MenuItem, Divider, IconButton, Badge, Typography, ButtonGroup, Paper, InputBase, Grid, InputAdornment, CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl, InputLabel, Select } from '@mui/material';
+import { Box, Button, Menu, MenuItem, Divider, Typography, Paper, InputBase, Grid, InputAdornment, CircularProgress, DialogActions, DialogContent, FormControl, InputLabel, Select } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
 
 // Icons
@@ -160,7 +160,7 @@ const MoviePlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ser
         <Link className='text-link-without-underline' to={`${url}?server=${serverVar}`}>
           <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
             <PlayCircleOutlineIcon />
-            PLAY
+            QUICK PLAY
           </MenuItem>
         </Link>
         <MenuItem onClick={() => handleModal(true)} style={{ fontSize: '15px' }} disableRipple>
@@ -330,6 +330,7 @@ const SeriesPlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ep
   useEffect(() => {
     setSeasons(generateSeasons(episodes));
   }, [generateSeasons, episodes])
+  console.log("episodes", episodes);
 
   return (
     <>
@@ -369,7 +370,14 @@ const SeriesPlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ep
           <Link className='text-link-without-underline' to={`${url}?season=${seasonIdVar}&episode=${episodeIdVar}&server=${serverVar}`}>
             <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
               <PlayCircleOutlineIcon />
-              PLAY (FROM THE BEGINNING)
+              FROM THE BEGINNING
+            </MenuItem>
+          </Link>
+          {/* episodes[seasons.length][episodes.length-1].id */}
+          <Link className='text-link-without-underline' to={`${url}?season=${generateSeasons(episodes).length}&episode=${episodes[generateSeasons(episodes).length][episodes[generateSeasons(episodes).length].length-1].id}&server=${serverVar}`}>
+            <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
+              <PlayCircleOutlineIcon />
+              LATEST EPISODE
             </MenuItem>
           </Link>
           <MenuItem onClick={() => handleModal(true)} style={{ fontSize: '15px' }} disableRipple>
@@ -672,13 +680,13 @@ const AnimePlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVar, ur
           <Link className='text-link-without-underline' to={`${url}&episode=${episodeIdVar}`}>
             <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
               <PlayCircleOutlineIcon />
-              PLAY (FROM THE BEGINNING)
+              FROM THE BEGINNING
             </MenuItem>
           </Link>
           <Link className='text-link-without-underline' to={`${url}&episode=${episodes[episodes.length-1].id}`}>
             <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
               <PlayCircleOutlineIcon />
-              PLAY (LATEST EPISODE)
+              LATEST EPISODE
             </MenuItem>
           </Link>
           <MenuItem onClick={() => handleModal(true)} style={{ fontSize: '15px' }} disableRipple>
@@ -868,7 +876,13 @@ const AsianDramaPlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVa
           <Link className='text-link-without-underline' to={`${url}?episode=${episodeIdVar}`}>
             <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
               <PlayCircleOutlineIcon />
-              PLAY (FROM THE BEGINNING)
+              FROM THE BEGINNING
+            </MenuItem>
+          </Link>
+          <Link className='text-link-without-underline' to={`${url}?episode=${episodes[episodes.length-1].id}`}>
+            <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
+              <PlayCircleOutlineIcon />
+              LATEST EPISODE
             </MenuItem>
           </Link>
           <MenuItem onClick={() => handleModal(true)} style={{ fontSize: '15px' }} disableRipple>

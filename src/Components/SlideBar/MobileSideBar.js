@@ -16,13 +16,12 @@ import { styled, alpha } from '@mui/material/styles';
 
 // Icons
 import MenuIcon from '@mui/icons-material/Menu';
-import LocalMoviesIcon from '@mui/icons-material/LocalMovies';
-import AndroidIcon from '@mui/icons-material/Android';
 import WebIcon from '@mui/icons-material/Web';
 import InfoIcon from '@mui/icons-material/Info';
 import PrivacyTipIcon from '@mui/icons-material/PrivacyTip';
 import PersonIcon from '@mui/icons-material/Person';
 import EmailIcon from '@mui/icons-material/Email';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
 // Components
 import SideBarListItem from "./SideBarListItem";
@@ -137,9 +136,10 @@ const MobileSideBar = ({ Type, subType, getMenu, menu, submenu }) => {
                                     <ListItemIcon>
                                         <WebIcon sx={{ color: "#3B71CA" }} />
                                     </ListItemIcon>
-                                        <StyledSubBadge badgeContent={`Beta`} color="error">
+                                        {/* <StyledSubBadge badgeContent={`Beta`} color="error"> */}
                                         <ListItemText className='sidebar-no-link-menu' primary={'MEDIA ALCHEMY'} classes={{ primary: classes.text }} />
-                                        </StyledSubBadge>
+                                        {/* </StyledSubBadge> */}
+                                        <OpenInNewIcon style={{ color: '#DC4C64' }}/>
                                 </ListItemButton>
                             </ListItem>
                         </a>

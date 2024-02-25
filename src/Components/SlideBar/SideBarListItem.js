@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -12,7 +12,6 @@ import ReactHtmlParser from 'react-html-parser';
 
 // Icons
 import LocalMoviesIcon from '@mui/icons-material/LocalMovies';
-import MovieIcon from '@mui/icons-material/Movie';
 import AndroidIcon from '@mui/icons-material/Android';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -59,7 +58,7 @@ const SideBarListItem = ({ page, subType, subPage, classes, selected }) => {
             :
             <Link to={page.link} style={{ textDecoration: 'none', fontWeight: 'bolder !important' }}>
               <ListItem key={page.id} disablePadding>
-                <ListItemButton selected={selected} style={{ color: '#DC4C64', fontWeight: '550' }}>
+                <ListItemButton selected={selected} style={{ color: selected ? '#DC4C64' : '', fontWeight: '550' }}>
                   <ListItemIcon>
                         {page.name.toLocaleUpperCase() == 'ANDROID APP' ? <AndroidIcon sx={{ color: "#14A44D" }} /> : <LocalMoviesIcon sx={{ color: "#DC4C64" }} />}
                   </ListItemIcon>
