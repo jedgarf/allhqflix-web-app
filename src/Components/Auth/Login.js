@@ -13,7 +13,7 @@ const Login = ({ isMobileSize, haveSearch, isStream, isAuth }) => {
     // Handle successful Google sign-in
     addSession('user', JSON.stringify(googleUser.credential));
     isAuth(true);
-    if (isStream) {
+    if (isStream && type !== undefined && id !== undefined) {
       if (type == "anime") {
         navigate(`/${type}/stream_dashboard?mediaId=${id}`);
       } else {

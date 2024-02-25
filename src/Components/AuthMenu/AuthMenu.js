@@ -55,7 +55,7 @@ const AuthMenu = ({ isStream, isAuth }) => {
           
           removeSession('user');
           isAuth(false);
-          if (isStream) {
+          if (isStream && type !== undefined && id !== undefined) {
             if (type == "anime") {
               navigate(`/${type}/stream_dashboard?mediaId=${id}`);
             } else {
