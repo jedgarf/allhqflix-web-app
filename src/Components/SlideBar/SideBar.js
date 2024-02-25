@@ -193,7 +193,7 @@ const SideBar = ({ Type, subType, haveSearch = true,  transparentBg = true, isSt
               
             {/* Search */}
             {search_bar === true && haveSearch ? 
-              <Box sx={{ my: 2, flexGrow: 0 }}>
+              <Box sx={{ my: 0, flexGrow: 0 }}>
                 <form onSubmit={(e) => queryHandler(e)}>
                     {/* <Toolbar>  */}
                         <Search>
