@@ -125,7 +125,7 @@ const Home = () => {
               </Grid>
               <Grid item xl={12} lg={12} md={12} sm={12} xs={12} style={{ marginBottom: 20 }}>
                 {/* <Typography variant="h5" style={{ marginBottom: 1, fontWeight: '550', color: '#ccced1 !important' }}>Watch Everywhere</Typography> */}
-                <Typography variant="p" style={{ marginBottom: 1, fontWeight: '550', color: '#ccced1 !important' }}>Watch unlimited movies and tv shows on your phone, tablet and laptop.</Typography>
+                <Typography variant="span" style={{ marginBottom: 1, fontWeight: '550', color: '#ccced1 !important' }}>Watch unlimited movies and tv shows on your phone, tablet and laptop.</Typography>
               </Grid>
               <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
                 <Box sx={{ textAlign: 'left' }} width={{ xs: '85vw', sm: '500px', md: '600px' }}>
