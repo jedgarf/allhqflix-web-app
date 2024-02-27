@@ -56,11 +56,11 @@ const AuthMenu = ({ isStream, isAuth }) => {
           removeSession('user');
           isAuth(false);
           if (isStream && type !== undefined && id !== undefined) {
-            if (type == "anime") {
-              navigate(`/${type}/stream_dashboard?mediaId=${id}`);
-            } else {
-              navigate(`/${type}/stream_dashboard?mediaId=${type}/${id}`);
-            }
+            // if (type == "anime") {
+            //   navigate(`/${type}/stream_dashboard?mediaId=${id}`);
+            // } else {
+            //   navigate(`/${type}/stream_dashboard?mediaId=${type}/${id}`);
+            // }
             // try {
             //   updateVideoResolutions();
             // } catch (error) {

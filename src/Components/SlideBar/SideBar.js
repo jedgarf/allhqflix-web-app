@@ -8,7 +8,7 @@ import { useQuery } from 'react-query';
 import './SideBar.css';
 
 // Material UI Components
-import { AppBar, Box, Toolbar, Container, InputBase, IconButton } from '@mui/material';
+import { AppBar, Box, Toolbar, Container, InputBase } from '@mui/material';
 import { styled, alpha } from '@mui/material/styles';
 
 import { useMediaQuery, createTheme } from "@material-ui/core";

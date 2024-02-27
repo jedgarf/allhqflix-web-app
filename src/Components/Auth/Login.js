@@ -14,11 +14,11 @@ const Login = ({ isMobileSize, haveSearch, isStream, isAuth }) => {
     addSession('user', JSON.stringify(googleUser.credential));
     isAuth(true);
     if (isStream && type !== undefined && id !== undefined) {
-      if (type == "anime") {
-        navigate(`/${type}/stream_dashboard?mediaId=${id}`);
-      } else {
-        navigate(`/${type}/stream_dashboard?mediaId=${type}/${id}`);
-      }
+      // if (type == "anime") {
+      //   navigate(`/${type}/stream_dashboard?mediaId=${id}`);
+      // } else {
+      //   navigate(`/${type}/stream_dashboard?mediaId=${type}/${id}`);
+      // }
       // try {
       //   updateVideoResolutions();
       // } catch (error) {

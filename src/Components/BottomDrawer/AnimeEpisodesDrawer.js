@@ -1,23 +1,20 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
+
+// Components
+import AnimeDownloadBtn from '../DownloadMedia/AnimeDownloadBtn';
 
 // Material UI Theme
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 
 // Material UI Components
-import { Toolbar, Box, Button, IconButton, Typography, Paper, InputBase, Grid, InputAdornment, CircularProgress, Drawer, Container, Divider } from '@mui/material';
-
-import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { Toolbar, Box, Button, IconButton, Typography, Grid, Drawer } from '@mui/material';
 
 // Icons
 import DownloadIcon from '@mui/icons-material/Download';
-import SearchIcon from '@mui/icons-material/Search';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import CloseIcon from '@mui/icons-material/Close';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
-import FeaturedPlayListIcon from '@mui/icons-material/FeaturedPlayList';
-import SubtitlesIcon from '@mui/icons-material/Subtitles';
 import ListIcon from '@mui/icons-material/List';
 
 export default function AnimeEpisodesDrawer({ details, downloadUrl, mediaId, episodeId, setSelectedEpisode, setLoadingEpisode, itemsPerPage, episodesCurrentPage, moveToTop, drawerAlign }) {
@@ -32,8 +29,6 @@ export default function AnimeEpisodesDrawer({ details, downloadUrl, mediaId, epi
     },
   });
   
-  // reverse one piece episodes
-  // var norm_episodes = details?.id == 21 ? details?.episodes.reverse() : details?.episodes;
   var norm_episodes = details?.episodes;
   const [drawerCurrentPage, setDrawerCurrentPage] = useState(episodesCurrentPage);
   const totalPages = Math.ceil(norm_episodes.length / itemsPerPage);
@@ -117,7 +112,7 @@ export default function AnimeEpisodesDrawer({ details, downloadUrl, mediaId, epi
               </Grid>
               <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>
                 <div style={{ textAlign: 'right' }}>
-                  {downloadUrl && <a href={downloadUrl} target='__blank'><IconButton variant="contained" color='primary' size='small' title='Download' style={{ marginRight: 10 }}><DownloadIcon /></IconButton></a>}
+                  {downloadUrl && <AnimeDownloadBtn url={downloadUrl}/>}
                   <Button className="channel_list_btn" variant="outlined" color='primary' size='small' onClick={toggleDrawer(anchor, true)} startIcon={<ListIcon/>}>EPISODES</Button>
                 </div>
               </Grid>
