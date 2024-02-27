@@ -1,0 +1,105 @@
+.anime_info {
+    margin: -70px auto auto auto !important;
+    align-items: center;
+    width: 98.5% !important;
+    color: var(--four-color);
+}
+
+.anime_info .movie_description {
+    text-align: justify;
+    font-weight: normal;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 15px;
+}
+
+.anime_info img {
+    border-radius: 5px;
+    width: 200px !important;
+    height: 300px !important;
+}
+
+.anime_info table {
+    text-align: left;
+    font-size: 15px;
+    margin-left: 6px;
+    margin-top: 10px;
+}
+
+.anime_info table th,
+td {
+    padding: 4px !important;
+    font-weight: normal;
+}
+
+@media (max-width: 1900px) {
+    .anime_info {
+        margin-top: -125px !important;
+    }
+    .anime_info .episodesBtn {
+        margin-bottom: -135px !important;
+    }
+}
+
+@media (max-width: 1800px) {
+    .anime_info {
+        margin-top: -130px !important;
+    }
+    .anime_info .episodesBtn {
+        margin-bottom: -135px !important;
+    }
+}
+
+@media (max-width: 1200px) {
+    .anime_info .media-title {
+        margin-top: 105px !important;
+    }
+    .anime_info {
+        margin-top: -5px !important;
+    }
+    .anime_info .content-details {
+        margin-top: -120px !important;
+    }
+}
+
+@media (max-width: 1000px) {
+    .movie_dashboard {
+        flex: 1;
+    }
+    .anime_info {
+        margin-top: -5px !important;
+    }
+}
+
+@media (max-width: 400px) {
+    .anime_info {
+        margin-top: -5px !important;
+    }
+}
+
+
+/* ---------------------------------------------------- */
+
+@media (max-width: 600px) {
+    .anime_info {
+        margin-top: -5px !important;
+    }
+    .anime_info .content-details {
+        margin-top: -130px !important;
+    }
+    .anime_info .media-title {
+        margin-top: 105px !important;
+    }
+    .anime_info img {
+        height: 60% !important;
+        width: 60% !important;
+    }
+    .anime_info .movie_description {
+        font-size: 15px;
+        margin-right: 10px;
+        margin-left: 10px;
+    }
+    .anime_info table {
+        font-size: 15px;
+    }
+}

@@ -148,7 +148,7 @@ td {
 }
 
 .asian_tv_info {
-    margin: -50px auto auto auto !important;
+    margin: -70px auto auto auto !important;
     align-items: center;
     width: 98.5% !important;
     color: var(--four-color);
@@ -187,7 +187,19 @@ td {
 
 @media (max-width: 1900px) {
     .asian_tv_info {
-        margin-top: -125px !important;
+        margin-top: -145px !important;
+    }
+    .asian_tv_info .episodesBtn {
+        margin-bottom: -140px !important;
+    }
+}
+
+@media (max-width: 1800px) {
+    .asian_tv_info {
+        margin-top: -130px !important;
+    }
+    .asian_tv_info .episodesBtn {
+        margin-bottom: -150px !important;
     }
 }
 
@@ -199,7 +211,7 @@ td {
         margin-top: 105px !important;
     }
     .asian_tv_info {
-        margin-top: -5px !important;
+        margin-top: -20px !important;
     }
     .asian_tv_info .content-details {
         margin-top: -120px !important;
@@ -210,12 +222,18 @@ td {
     .movie_dashboard {
         flex: 1;
     }
+    .asian_tv_info {
+        margin-top: -20px !important;
+    }
     .movie_dashboard .asian-movie {
         margin-top: -130px !important;
     }
 }
 
 @media (max-width: 400px) {
+    .asian_tv_info {
+        margin-top: -20px !important;
+    }
     .movies__boxx {
         height: 370px;
     }
@@ -354,7 +372,7 @@ td {
         margin-top: -140px !important;
     }
     .asian_tv_info {
-        margin-top: 340px !important;
+        margin-top: -20px !important;
     }
     .asian_tv_info .content-details {
         margin-top: -130px !important;

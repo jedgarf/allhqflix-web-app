@@ -1,5 +1,5 @@
 // Packages
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect, useCallback, useRef, Fragment } from "react";
 import { useQuery } from 'react-query';
 
 // React Slick
@@ -19,6 +19,7 @@ import "./css/MovieDashboard.css";
 import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
 import CircularProgress from '@mui/material/CircularProgress';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import OndemandVideoIcon from '@mui/icons-material/OndemandVideo';
 
 // Pages
 import SideBar from "../../Components/SlideBar/SideBar";
@@ -37,7 +38,7 @@ import { defaultInternationalServer, defaultInternationalVideoRes, server_status
 import { subtitleLogo, videoQuality } from "../../Config/images.config";
 
 // Utilities
-import { moveToTop, getFileExtention, SeparateArrayByComma } from "../../Services/Utils";
+import { moveToTop, getFileExtention, SeparateArrayByComma, capitalizeString } from "../../Services/Utils";
 
 // Services
 import { movie_info, movie_server, movie_stream_links } from "../../Services/FlixHQService";
@@ -162,10 +163,10 @@ const MovieDashboard = (props) => {
     if (vidRes !== undefined) {
       for (let videoQualitiesLength = 0; videoQualitiesLength < vidRes?.length; videoQualitiesLength++) {
         if (vidRes[videoQualitiesLength].quality === defaultInternationalVideoRes) {
-          setDefaultQualityToolTip(vidRes[videoQualitiesLength]?.quality === "auto" ? vidRes[videoQualitiesLength]?.quality.toLowerCase() : vidRes[videoQualitiesLength]?.quality + "p");
-          videoQualitiesContent.push({"default": true, "html": (vidRes[videoQualitiesLength]?.quality === "auto" ? vidRes[videoQualitiesLength]?.quality.toLowerCase() : vidRes[videoQualitiesLength]?.quality + "P"), "url": apiConfig.hqflix_video_link_enable_override_cors === true ? apiConfig.override_cors + vidRes[videoQualitiesLength]?.url : vidRes[videoQualitiesLength]?.url});
+          setDefaultQualityToolTip(vidRes[videoQualitiesLength]?.quality === "auto" ? capitalizeString(vidRes[videoQualitiesLength]?.quality) : vidRes[videoQualitiesLength]?.quality + "p");
+          videoQualitiesContent.push({"default": true, "html": (vidRes[videoQualitiesLength]?.quality === "auto" ? capitalizeString(vidRes[videoQualitiesLength]?.quality) : vidRes[videoQualitiesLength]?.quality + "p"), "url": apiConfig.hqflix_video_link_enable_override_cors === true ? apiConfig.override_cors + vidRes[videoQualitiesLength]?.url : vidRes[videoQualitiesLength]?.url});
         } else {
-          videoQualitiesContent.push({"default": false, "html": (vidRes[videoQualitiesLength]?.quality === "auto" ? vidRes[videoQualitiesLength]?.quality.toLowerCase() : vidRes[videoQualitiesLength]?.quality + "P"), "url": apiConfig.hqflix_video_link_enable_override_cors === true ? apiConfig.override_cors + vidRes[videoQualitiesLength]?.url : vidRes[videoQualitiesLength]?.url});
+          videoQualitiesContent.push({"default": false, "html": (vidRes[videoQualitiesLength]?.quality === "auto" ? capitalizeString(vidRes[videoQualitiesLength]?.quality) : vidRes[videoQualitiesLength]?.quality + "p"), "url": apiConfig.hqflix_video_link_enable_override_cors === true ? apiConfig.override_cors + vidRes[videoQualitiesLength]?.url : vidRes[videoQualitiesLength]?.url});
         }
       } 
     }
@@ -460,36 +461,34 @@ const MovieDashboard = (props) => {
                 <p>If current server doesn't work please try other servers below.</p>
               </div>
               <div className="movie_server_content">
-                <Grid columnSpacing={{ xs: 12, sm: 12, md: 12, lg: 12, xl: 12 }} rowSpacing={1}>
-                    <Slider {...stream_server_carousel_settings} infinite={false}>
+                    <center>
                       {movieServer?.data?.map((item, index) => {
                           return (
-                              <>
-                                  {server_status.filter((serverValue) => serverValue.code === item.name).length > 0 ? (
-                                      <>
-                                      {server_status.filter((serverValue) => serverValue.code === item.name).map((subItem, subNo) => {
-                                          return (
-                                              <>
-                                                  {subItem.status === 'stable' ?
-                                                  (<Button variant={selectedServer === item.name ? 'contained' : 'outlined'} startIcon={selectedServer === item.name ? <CheckCircleIcon/> : ''} size="small" style={{ marginInline: 8 }} onClick={() => chooseServer(item.name)}>
-                                                      {`Server ${index+1}`}
-                                                  </Button>)
-                                                  : 
-                                                  (
-                                                    <Button variant={selectedServer === item.name ? 'contained' : 'outlined'} startIcon={selectedServer === item.name ? <CheckCircleIcon/> : ''} size="small" style={{ marginInline: 8, cursor: 'not-allowed' }} color='error'>
-                                                        {`Server ${index+1}`}
-                                                    </Button>
-                                                  )}
-                                              </>
-                                          )
-                                      })}
-                                      </>
-                                  ) : ("")}        
-                              </>
+                            <Fragment key={index}>
+                              {server_status.filter((serverValue) => serverValue.code === item.name).length > 0 ? (
+                                <>
+                                {server_status.filter((serverValue) => serverValue.code === item.name).map((subItem, subNo) => {
+                                    return (
+                                        <>
+                                            {subItem.status === 'stable' ?
+                                            (<Button variant={selectedServer === item.name ? 'contained' : 'outlined'} startIcon={<OndemandVideoIcon/>} size="small" style={{ marginInline: 8 }} onClick={() => chooseServer(item.name)}>
+                                                {`Server ${index+1}`}
+                                            </Button>)
+                                            : 
+                                            (
+                                              <Button variant={selectedServer === item.name ? 'contained' : 'outlined'} startIcon={<OndemandVideoIcon/>} size="small" style={{ marginInline: 8, cursor: 'not-allowed' }} color='error'>
+                                                  {`Server ${index+1}`}
+                                              </Button>
+                                            )}
+                                        </>
+                                    )
+                                })}
+                                </>
+                              ) : ("")}        
+                            </Fragment>
                           )
                       })}
-                    </Slider>
-                </Grid>
+                    </center>
               </div>
             </div>
           : <div className={type === 'tv' ? 'movie_server_tv' : 'movie_server'}></div>}

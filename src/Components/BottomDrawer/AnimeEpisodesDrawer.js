@@ -103,73 +103,75 @@ export default function AnimeEpisodesDrawer({ details, downloadUrl, mediaId, epi
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-      <div>
-        {[drawerAlign].map((anchor) => (
-          <React.Fragment key={anchor}>
-            <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={0}>
-              <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>
+      {[drawerAlign].map((anchor) => (
+        <React.Fragment key={anchor}>
+          <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={0}>
+            <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>
+              {details?.episodes?.length > 1 && 
                 <Typography variant='big' className='selectedEpisodeContent' style={{ verticalAlign: 'middle' }}>EPISODE {norm_episodes.filter(item => item.id === episodeId)[0]?.number}</Typography>
-              </Grid>
-              <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>
-                <div style={{ textAlign: 'right' }}>
-                  {downloadUrl && <AnimeDownloadBtn url={downloadUrl}/>}
-                  <Button className="channel_list_btn" variant="outlined" color='primary' size='small' onClick={toggleDrawer(anchor, true)} startIcon={<ListIcon/>}>EPISODES</Button>
-                </div>
-              </Grid>
+              }
             </Grid>
-            <Drawer
-              className='channel_drawer'
-              PaperProps={{
-                  sx: {
-                      height: anchor === 'top' || anchor === 'bottom' ? '60%' : '100%',
-                  },
-              }}
-              anchor={anchor}
-              open={state[anchor]}
-              onClose={toggleDrawer(anchor, false)}
-              sx={{
-                overflow: 'hidden',
-                '& .MuiDrawer-paper': {
-                  overflow: 'hidden'
+            <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>
+              <div style={{ textAlign: 'right' }}>
+                {downloadUrl && <AnimeDownloadBtn url={downloadUrl}/>}
+                {details?.episodes?.length > 1 && 
+                  <Button className="channel_list_btn" variant="outlined" color='primary' size='small' onClick={toggleDrawer(anchor, true)} startIcon={<ListIcon/>}>EPISODES</Button>
                 }
-              }}
-            >
-              <div className='tv_episodes_appbar' position="fixed" color='success'>
-                <Toolbar>
-                      <Grid container direction="row" columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={0}>
-                        {/* <Grid item xl={2} lg={2} md={2} sm={2} xs={2} style={{ display: 'flex', alignItems: 'center', height: '6.5vh' }}>
-                          <IconButton title='Close' onClick={toggleDrawer(anchor, false)}><CloseIcon/></IconButton>
-                        </Grid> */}
-                        <Grid item xl={6} lg={6} md={6} sm={6} xs={6} style={{ display: 'flex', alignItems: 'center', height: '6.5vh' }}>
-                          <Typography variant='p' sx={{ fontWeight: '550' }}>EPISODES ({norm_episodes.length})</Typography>
-                        </Grid>
-                        <Grid item xl={6} lg={6} md={6} sm={6} xs={6} style={{ display: 'flex', alignItems: 'center', height: '6.5vh', justifyContent: 'right' }}>
-                          {currentData?.length > 0 && (
-                            <>
-                              <IconButton 
-                                title='Previous Page'
-                                onClick={() => handlePageChange(drawerCurrentPage - 1)}
-                                disabled={drawerCurrentPage === 1}>
-                                  <ArrowBackIosNewIcon/>
-                              </IconButton>
-                              <span>{drawerCurrentPage} of {totalPages}</span>
-                              <IconButton 
-                                title='Next Page'
-                                onClick={() => handlePageChange(drawerCurrentPage + 1)}
-                                disabled={drawerCurrentPage === totalPages}>
-                                  <ArrowForwardIosIcon/>
-                              </IconButton>
-                            </>
-                          )}
-                        </Grid>
+                </div>
+            </Grid>
+          </Grid>
+          <Drawer
+            className='channel_drawer'
+            PaperProps={{
+                sx: {
+                    height: anchor === 'top' || anchor === 'bottom' ? '60%' : '100%',
+                },
+            }}
+            anchor={anchor}
+            open={state[anchor]}
+            onClose={toggleDrawer(anchor, false)}
+            sx={{
+              overflow: 'hidden',
+              '& .MuiDrawer-paper': {
+                overflow: 'hidden'
+              }
+            }}
+          >
+            <div className='tv_episodes_appbar' position="fixed" color='success'>
+              <Toolbar>
+                    <Grid container direction="row" columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={0}>
+                      {/* <Grid item xl={2} lg={2} md={2} sm={2} xs={2} style={{ display: 'flex', alignItems: 'center', height: '6.5vh' }}>
+                        <IconButton title='Close' onClick={toggleDrawer(anchor, false)}><CloseIcon/></IconButton>
+                      </Grid> */}
+                      <Grid item xl={6} lg={6} md={6} sm={6} xs={6} style={{ display: 'flex', alignItems: 'center', height: '6.5vh' }}>
+                        <Typography variant='p' sx={{ fontWeight: '550' }}>EPISODES ({norm_episodes.length})</Typography>
                       </Grid>
-                </Toolbar>
-              </div>
-              {list(anchor)}
-            </Drawer>
-          </React.Fragment>
-        ))}
-      </div>
+                      <Grid item xl={6} lg={6} md={6} sm={6} xs={6} style={{ display: 'flex', alignItems: 'center', height: '6.5vh', justifyContent: 'right' }}>
+                        {currentData?.length > 0 && (
+                          <>
+                            <IconButton 
+                              title='Previous Page'
+                              onClick={() => handlePageChange(drawerCurrentPage - 1)}
+                              disabled={drawerCurrentPage === 1}>
+                                <ArrowBackIosNewIcon/>
+                            </IconButton>
+                            <span>{drawerCurrentPage} of {totalPages}</span>
+                            <IconButton 
+                              title='Next Page'
+                              onClick={() => handlePageChange(drawerCurrentPage + 1)}
+                              disabled={drawerCurrentPage === totalPages}>
+                                <ArrowForwardIosIcon/>
+                            </IconButton>
+                          </>
+                        )}
+                      </Grid>
+                    </Grid>
+              </Toolbar>
+            </div>
+            {list(anchor)}
+          </Drawer>
+        </React.Fragment>
+      ))}
     </ThemeProvider>
   );
 }

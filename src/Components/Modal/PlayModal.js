@@ -19,6 +19,7 @@ import SaveIcon from '@mui/icons-material/Save';
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import OndemandVideoIcon from '@mui/icons-material/OndemandVideo';
 
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
@@ -184,12 +185,12 @@ const MoviePlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ser
                                       return (
                                           <>
                                               {subItem.status === 'stable' ?
-                                              (<Button size='small' variant={server === item.name ? 'contained' : 'outlined'} startIcon={server === item.name ? <CheckCircleIcon/> : ''} style={{ marginInline: 3 }} onClick={() => onSelectServer(item.name)}>
+                                              (<Button size='small' variant={server === item.name ? 'contained' : 'outlined'} startIcon={<OndemandVideoIcon/>} style={{ marginInline: 3 }} onClick={() => onSelectServer(item.name)}>
                                                   {`Server ${index+1}`}
                                               </Button>)
                                               : 
                                               (
-                                                <Button size='small' variant={server === item.name ? 'contained' : 'outlined'} startIcon={server === item.name ? <CheckCircleIcon/> : ''} style={{ marginInline: 3, cursor: 'not-allowed' }} color='error'>
+                                                <Button size='small' variant={server === item.name ? 'contained' : 'outlined'} startIcon={<OndemandVideoIcon/>} style={{ marginInline: 3, cursor: 'not-allowed' }} color='error'>
                                                   {`Server ${index+1}`}
                                                 </Button>
                                               )}
@@ -462,13 +463,13 @@ const SeriesPlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ep
                                                   <>
                                                       {subItem.status === 'stable' ?
                                                       (
-                                                      <Button size='small' variant={server === item.name ? 'contained' : 'outlined'} startIcon={server === item.name ? <CheckCircleIcon/> : ''} style={{ marginInline: 3 }} onClick={() => onSelectServer(item.name)}>
+                                                      <Button size='small' variant={server === item.name ? 'contained' : 'outlined'} startIcon={<OndemandVideoIcon/>} style={{ marginInline: 3 }} onClick={() => onSelectServer(item.name)}>
                                                           {`Server ${index+1}`}
                                                       </Button>
                                                       )
                                                       : 
                                                       (
-                                                        <Button size='small' variant={server === item.name ? 'contained' : 'outlined'} startIcon={server === item.name ? <CheckCircleIcon/> : ''} style={{ marginInline: 3, cursor: 'not-allowed' }} color='error'>
+                                                        <Button size='small' variant={server === item.name ? 'contained' : 'outlined'} startIcon={<OndemandVideoIcon/>} style={{ marginInline: 3, cursor: 'not-allowed' }} color='error'>
                                                           {`Server ${index+1}`}
                                                         </Button>
                                                       )}

@@ -337,41 +337,36 @@ const AnimeDashboard = (props) => {
             )}
           </div>
 
-          <div className="asian_tv_info">
+          <div className="anime_info">
 
-            {infoValue?.episodes?.length > 1 ?
-              <>
-                <Box className="episodesBtn" display={{ xs: 'block', sm: 'block', md: 'none', lg: 'none' }}>
-                  <AnimeEpisodesDrawer
-                    details={infoValue}
-                    downloadUrl={resourceValue?.data?.download}
-                    mediaId={indexId}
-                    episodeId={selectedEpisode}
-                    setSelectedEpisode={setSelectedEpisode}
-                    setLoadingEpisode={setLoadingEpisode}
-                    itemsPerPage={episodesPerPage}
-                    episodesCurrentPage={episodesCurrentPage}
-                    moveToTop={moveToTop}
-                    drawerAlign={'bottom'}
-                  />
-                </Box>
-                <Box className="episodesBtn" display={{ xs: 'none', sm: 'none', md: 'block', lg: 'block' }}>
-                  <AnimeEpisodesDrawer
-                    details={infoValue}
-                    downloadUrl={resourceValue?.data?.download}
-                    mediaId={indexId}
-                    episodeId={selectedEpisode}
-                    setSelectedEpisode={setSelectedEpisode}
-                    setLoadingEpisode={setLoadingEpisode}
-                    itemsPerPage={episodesPerPage}
-                    episodesCurrentPage={episodesCurrentPage}
-                    moveToTop={moveToTop}
-                    drawerAlign={'right'}
-                  />
-                </Box>
-              </>
-            : 
-            ""}
+            <Box className="episodesBtn" display={{ xs: 'block', sm: 'block', md: 'none', lg: 'none' }}>
+              <AnimeEpisodesDrawer
+                details={infoValue}
+                downloadUrl={resourceValue?.data?.download}
+                mediaId={indexId}
+                episodeId={selectedEpisode}
+                setSelectedEpisode={setSelectedEpisode}
+                setLoadingEpisode={setLoadingEpisode}
+                itemsPerPage={episodesPerPage}
+                episodesCurrentPage={episodesCurrentPage}
+                moveToTop={moveToTop}
+                drawerAlign={'bottom'}
+              />
+            </Box>
+            <Box className="episodesBtn" display={{ xs: 'none', sm: 'none', md: 'block', lg: 'block' }}>
+              <AnimeEpisodesDrawer
+                details={infoValue}
+                downloadUrl={resourceValue?.data?.download}
+                mediaId={indexId}
+                episodeId={selectedEpisode}
+                setSelectedEpisode={setSelectedEpisode}
+                setLoadingEpisode={setLoadingEpisode}
+                itemsPerPage={episodesPerPage}
+                episodesCurrentPage={episodesCurrentPage}
+                moveToTop={moveToTop}
+                drawerAlign={'right'}
+              />
+            </Box>
 
             <div className={infoValue?.episodes?.length > 1 ? 'content-details' : 'content-details asian-movie'}>
               <Grid container columnSpacing={{ xs: 1, sm: 2, md: 5, lg: 5, xl: 5 }} rowSpacing={5}>

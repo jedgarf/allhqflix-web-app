@@ -254,7 +254,7 @@ const MovieStreamDashboard = (props) => {
                     </label>)
                      : 
                     (<label className='stream-dashboard-servername'>
-                        <AccessTimeFilledIcon style={{ marginBottom: '-5px', color: "#54B4D3" }}/> {infoValue?.duration ? infoValue?.duration : 0} mins&nbsp;
+                        {infoValue?.duration ? infoValue?.duration : 0} MINS&nbsp;
                          |<ShareModal infoValue={infoValue}/>
                     </label>)}
                     </div>
