@@ -78,6 +78,18 @@ const random_ads = (items) => {
     return items[Math.floor(Math.random() * items.length)];
 }
 
+// {
+//     html: `<p>${infotitle}</p>`,
+//     style: {
+//         position: 'absolute',
+//         width: '100%',
+//         top: '15px',
+//         left: '20px',
+//         fontSize: '1vw',
+//         opacity: '.7',
+//     },
+// }, 
+
 // ----------------------------------------------------------------------------------------------------------
 
 const Player = ({ defaultlink, infotitle, infocover, episodeNum, totalEpisodes, nextEpisode, seekTime, option, ...rest }) => {
@@ -110,7 +122,7 @@ const Player = ({ defaultlink, infotitle, infocover, episodeNum, totalEpisodes, 
             autoOrientation: true,
             fastForward: true,
             url: defaultlink,
-            type: getFileExtention(defaultlink), // 'm3u8'
+            type: getFileExtention(defaultlink),
             customType: {
                 m3u8: playM3u8,
                 flv: playFlv
@@ -155,16 +167,6 @@ const Player = ({ defaultlink, infotitle, infocover, episodeNum, totalEpisodes, 
             }, ],
             layers: [
                 {
-                    html: `<p>${infotitle}</p>`,
-                    style: {
-                        position: 'absolute',
-                        width: '100%',
-                        top: '15px',
-                        left: '20px',
-                        fontSize: '1vw',
-                        opacity: '.7',
-                    },
-                }, {
                     html: `<img src="${mainLogo}">`,
                     click: function() {
                         // window.open('https://jedgarfdev.vercel.app');
