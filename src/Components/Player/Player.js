@@ -153,20 +153,32 @@ const Player = ({ defaultlink, infotitle, infocover, episodeNum, totalEpisodes, 
                     contextmenu.show = false;
                 },
             }, ],
-            layers: [{
-                html: `<img src="${mainLogo}">`,
-                click: function() {
-                    // window.open('https://jedgarfdev.vercel.app');
-                    console.info('You clicked on the custom layer');
-                },
-                style: {
-                    position: 'absolute',
-                    width: '50px',
-                    top: '3px',
-                    right: '0px',
-                    opacity: '.7',
-                },
-            }, ],
+            layers: [
+                {
+                    html: `<p>${infotitle}</p>`,
+                    style: {
+                        position: 'absolute',
+                        width: '100%',
+                        top: '15px',
+                        left: '20px',
+                        fontSize: '1vw',
+                        opacity: '.7',
+                    },
+                }, {
+                    html: `<img src="${mainLogo}">`,
+                    click: function() {
+                        // window.open('https://jedgarfdev.vercel.app');
+                        console.info('You clicked on the custom layer');
+                    },
+                    style: {
+                        position: 'absolute',
+                        width: '50px',
+                        top: '3px',
+                        right: '0px',
+                        opacity: '.7',
+                    },
+                }
+            ],
             // thumbnails: {
             //     url: '/images/multimedia_hub_logo.png',
             //     number: 60,

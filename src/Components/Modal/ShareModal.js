@@ -48,9 +48,9 @@ const ShareModal = ({ infoValue, size = '18px' }) => {
     const [modalQROpen, setModalQROpen] = useState(false);
     const handleModalQRClose = () => setModalQROpen(false);
 
-     const copyLink = (link) => {
+    const copyLink = (link) => {
         copyMovieLink(link);
-     }
+    }
 
     const modalQRStyle = {
         position: 'absolute',
@@ -62,7 +62,7 @@ const ShareModal = ({ infoValue, size = '18px' }) => {
         bgcolor: '#0f1622',
         borderRadius: '4px',
         // p: 4,
-      };
+    };
       
     return (
         <ThemeProvider theme={darkTheme}>

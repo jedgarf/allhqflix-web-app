@@ -456,28 +456,28 @@ const SeriesPlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ep
                           {serverList.map((item, index) => {
                               return (
                                   <>
-                                      {server_status.filter((serverValue) => serverValue.code === item.name).length > 0 ? (
-                                          <>
-                                          {server_status.filter((serverValue) => serverValue.code === item.name).map((subItem, subNo) => {
-                                              return (
-                                                  <>
-                                                      {subItem.status === 'stable' ?
-                                                      (
-                                                      <Button size='small' variant={server === item.name ? 'contained' : 'outlined'} startIcon={<OndemandVideoIcon/>} style={{ marginInline: 3 }} onClick={() => onSelectServer(item.name)}>
-                                                          {`Server ${index+1}`}
+                                    {server_status.filter((serverValue) => serverValue.code === item.name).length > 0 ? (
+                                        <>
+                                        {server_status.filter((serverValue) => serverValue.code === item.name).map((subItem, subNo) => {
+                                            return (
+                                                <>
+                                                    {subItem.status === 'stable' ?
+                                                    (
+                                                    <Button size='small' variant={server === item.name ? 'contained' : 'outlined'} startIcon={<OndemandVideoIcon/>} style={{ marginInline: 3 }} onClick={() => onSelectServer(item.name)}>
+                                                        {`Server ${index+1}`}
+                                                    </Button>
+                                                    )
+                                                    : 
+                                                    (
+                                                      <Button size='small' variant={server === item.name ? 'contained' : 'outlined'} startIcon={<OndemandVideoIcon/>} style={{ marginInline: 3, cursor: 'not-allowed' }} color='error'>
+                                                        {`Server ${index+1}`}
                                                       </Button>
-                                                      )
-                                                      : 
-                                                      (
-                                                        <Button size='small' variant={server === item.name ? 'contained' : 'outlined'} startIcon={<OndemandVideoIcon/>} style={{ marginInline: 3, cursor: 'not-allowed' }} color='error'>
-                                                          {`Server ${index+1}`}
-                                                        </Button>
-                                                      )}
-                                                  </>
-                                              )
-                                          })}
-                                          </>
-                                      ) : ("")}        
+                                                    )}
+                                                </>
+                                            )
+                                        })}
+                                        </>
+                                    ) : ("")}        
                                   </>
                               )
                           })}
