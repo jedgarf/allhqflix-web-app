@@ -113,7 +113,7 @@ const AnimeDashboard = (props) => {
     // Default Link
     let defLink = resourceValue?.data?.sources?.filter( (result) => { return result.quality === "default"; });
     defLink = defLink?.length > 0 ? defLink[0]?.url : "";
-    setDefaultLink(apiConfig.anime_video_link_enable_override_cors === true ? `${apiConfig.override_cors}${defLink}` : defLink);
+    setDefaultLink(apiConfig.anime_video_link_enable_override_cors === true ? `${apiConfig.override_cors}${defLink.replace("https://", "")}` : defLink);
 
     // video qualities
     let videoQualitiesContent = [];

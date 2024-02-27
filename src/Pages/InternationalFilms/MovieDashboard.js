@@ -1,10 +1,6 @@
 // Packages
 import React, { useState, useEffect, useCallback, useRef, Fragment } from "react";
 import { useQuery } from 'react-query';
-
-// React Slick
-import Slider from "react-slick";
-
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import Grid from '@mui/material/Grid';
@@ -18,7 +14,6 @@ import "./css/MovieDashboard.css";
 // Icons
 import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
 import CircularProgress from '@mui/material/CircularProgress';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import OndemandVideoIcon from '@mui/icons-material/OndemandVideo';
 
 // Pages
@@ -32,7 +27,7 @@ import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
 // Config
 import apiConfig from '../../Config/api.config';
-import { defaultInternationalServer, defaultInternationalVideoRes, server_status, stream_server_carousel_settings } from "../../Config/settings.config";
+import { defaultInternationalServer, defaultInternationalVideoRes, server_status } from "../../Config/settings.config";
 
 // Images
 import { subtitleLogo, videoQuality } from "../../Config/images.config";
@@ -153,7 +148,7 @@ const MovieDashboard = (props) => {
     let defLink = resourceValue.data?.sources?.filter( (result) => { return result.quality === "auto"; });
     defLink = defLink?.length > 0 ? defLink[0]?.url : "";
     if (apiConfig.hqflix_video_link_enable_override_cors === true) {
-      defLink = `${selectedServer === "vidcloud" ? apiConfig.override_cors2 : apiConfig.override_cors}${defLink}`;
+      defLink = `${selectedServer === "vidcloud" ? apiConfig.override_cors2 + defLink : apiConfig.override_cors + defLink.replace("https://", "")}`;
     }
     setDefaultLink(defLink);
 

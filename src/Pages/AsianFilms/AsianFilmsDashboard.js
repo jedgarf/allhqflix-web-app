@@ -91,7 +91,7 @@ const AsianFilmsDashboard = (props) => {
     // Default Link
     let defLink = resourceValue?.data?.sources?.slice(0, 1);
     defLink = defLink?.length > 0 ? defLink[0]?.url : "";
-    setDefaultLink(apiConfig.asian_drama_video_link_enable_override_cors === true ? `${apiConfig.override_cors}${defLink}` : defLink);
+    setDefaultLink(apiConfig.asian_drama_video_link_enable_override_cors === true ? `${apiConfig.override_cors}${defLink.replace("https://", "")}` : defLink);
 
      // Default Subtitle
      let defSubtitle = resourceValue?.data?.subtitles;
