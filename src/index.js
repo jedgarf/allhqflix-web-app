@@ -9,8 +9,8 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
 import { init } from 'console-ban';
 import { disableReactDevTools } from '@fvilers/disable-react-devtools';
-import ReactGA from 'react-ga';
-ReactGA.initialize(process.env.REACT_APP_TRACKING_ID);
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 
 if (process.env.REACT_APP_NODE_ENV === 'PRODUCTION') {
   init({
@@ -45,6 +45,8 @@ ReactDOM.render(
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
           <App/>
+          <Analytics />
+          <SpeedInsights />
       </PersistGate>
     </Provider>
   </React.StrictMode>,

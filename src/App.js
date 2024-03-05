@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, useParams } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { Analytics } from '@vercel/analytics/react';
 
 // CSS
 import "./Assets/css/App.css";
@@ -479,7 +478,6 @@ const App = () => {
           </Routes>
         </Router>
       </div>
-      <Analytics />
       </QueryClientProvider>
   );
 }
