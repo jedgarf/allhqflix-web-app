@@ -108,9 +108,9 @@ const HeaderMenu = ({ Type, subType,getMenu, menu, submenu }) => {
                     >
                         {page.is_dev === 1 ?
                         <StyledBadge badgeContent={page.badge_message} color="error">
-                            {page.name} {openTopMenu && activeMenu === page.id ? <ExpandLessIcon style={{ color: '#DC4C64', marginBottom: '-7px' }} /> : <ExpandMoreIcon style={{ color: '#DC4C64', marginBottom: '-7px' }} />}
+                            {page.name} {openTopMenu && activeMenu === page.id ? <ExpandLessIcon style={{ color: 'white', marginBottom: '-7px' }} /> : <ExpandMoreIcon style={{ color: '#DC4C64', marginBottom: '-7px' }} />}
                         </StyledBadge>
-                        : <>{page.name} {openTopMenu && activeMenu === page.id ? <ExpandLessIcon style={{ color: '#DC4C64', marginBottom: '-7px' }} /> : <ExpandMoreIcon style={{ color: '#DC4C64', marginBottom: '-7px' }} />}</>}
+                        : <>{page.name} {openTopMenu && activeMenu === page.id ? <ExpandLessIcon style={{ color: 'white', marginBottom: '-7px' }} /> : <ExpandMoreIcon style={{ color: '#DC4C64', marginBottom: '-7px' }} />}</>}
                     </Button>
                     </div>
                     :
