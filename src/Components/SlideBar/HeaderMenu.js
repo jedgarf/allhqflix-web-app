@@ -1,20 +1,26 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 // Custom CSS
 import './SideBar.css';
 
 // Material UI Components
-import { AppBar, Box, Typography, Menu, Button, MenuItem, Badge, CircularProgress } from '@mui/material';
-import { styled, alpha } from '@mui/material/styles';
+import { Box, Typography, Menu, Button, MenuItem, Badge, CircularProgress } from '@mui/material';
+import { styled } from '@mui/material/styles';
+
+// Icons
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 const HeaderMenu = ({ Type, subType,getMenu, menu, submenu }) => {
 
     const [selectedSubMenu, setSelectedSubMenu] = useState([]);
     const [anchorEl, setAnchorEl] = useState(null);
+    const [activeMenu, setActiveMenu] = useState(null);
     const openTopMenu = Boolean(anchorEl);
   
     const handleTopMenuClick = (event, menu_id) => {
+      setActiveMenu(menu_id);
       setSelectedSubMenu(submenu?.filter((item) => item.menu_id === menu_id));
       setAnchorEl(event.currentTarget);
     };
@@ -66,9 +72,9 @@ const HeaderMenu = ({ Type, subType,getMenu, menu, submenu }) => {
                     >
                         {page.is_dev === 1 ?
                         <StyledBadge badgeContent={page.badge_message} color="error">
-                            {page.name}
+                            {page.name} {openTopMenu && activeMenu === page.id ? <ExpandLessIcon style={{ color: '#DC4C64', marginBottom: '-7px' }} /> : <ExpandMoreIcon style={{ color: '#DC4C64', marginBottom: '-7px' }} />}
                         </StyledBadge>
-                        : <>{page.name}</>}
+                        : <>{page.name} {openTopMenu && activeMenu === page.id ? <ExpandLessIcon style={{ color: '#DC4C64', marginBottom: '-7px' }} /> : <ExpandMoreIcon style={{ color: '#DC4C64', marginBottom: '-7px' }} />}</>}
                     </Button>
                     </div>
                     :
@@ -79,7 +85,6 @@ const HeaderMenu = ({ Type, subType,getMenu, menu, submenu }) => {
                         aria-controls={openTopMenu ? 'basic-menu' : undefined}
                         aria-haspopup="true"
                         aria-expanded={openTopMenu ? 'true' : undefined}
-                        onClick={(event) => handleTopMenuClick(event, page.id)}
                     >
                         {page.is_dev === 1 ?
                         <StyledBadge badgeContent={page.badge_message} color="error">
@@ -103,9 +108,9 @@ const HeaderMenu = ({ Type, subType,getMenu, menu, submenu }) => {
                     >
                         {page.is_dev === 1 ?
                         <StyledBadge badgeContent={page.badge_message} color="error">
-                            {page.name}
+                            {page.name} {openTopMenu && activeMenu === page.id ? <ExpandLessIcon style={{ color: '#DC4C64', marginBottom: '-7px' }} /> : <ExpandMoreIcon style={{ color: '#DC4C64', marginBottom: '-7px' }} />}
                         </StyledBadge>
-                        : <>{page.name}</>}
+                        : <>{page.name} {openTopMenu && activeMenu === page.id ? <ExpandLessIcon style={{ color: '#DC4C64', marginBottom: '-7px' }} /> : <ExpandMoreIcon style={{ color: '#DC4C64', marginBottom: '-7px' }} />}</>}
                     </Button>
                     </div>
                     :
@@ -116,7 +121,6 @@ const HeaderMenu = ({ Type, subType,getMenu, menu, submenu }) => {
                         aria-controls={openTopMenu ? 'basic-menu' : undefined}
                         aria-haspopup="true"
                         aria-expanded={openTopMenu ? 'true' : undefined}
-                        onClick={(event) => handleTopMenuClick(event, page.id)}
                     >
                         {page.is_dev === 1 ?
                         <StyledBadge badgeContent={page.badge_message} color="error">
@@ -176,9 +180,9 @@ const HeaderMenu = ({ Type, subType,getMenu, menu, submenu }) => {
                 <MenuItem onClick={handleTopMenuClose} selected>
                     {subPage.is_dev === 1 ?
                     <StyledSubBadge badgeContent={subPage.badge_message} color="error">
-                        <Typography className='sub-menu-text sub-menu-active' textAlign="left">{subPage.name.toUpperCase()}</Typography>
+                        <Typography className='sub-menu-text sub-menu-active' textAlign="left" sx={{ color: '#DC4C64 !important' }}>{subPage.name.toUpperCase()}</Typography>
                     </StyledSubBadge>
-                    : <Typography className='sub-menu-text sub-menu-active' textAlign="left">{subPage.name.toUpperCase()}</Typography>}
+                    : <Typography className='sub-menu-text sub-menu-active' textAlign="left" sx={{ color: '#DC4C64 !important' }}>{subPage.name.toUpperCase()}</Typography>}
                 </MenuItem>
                 </Link>
                 : 
