@@ -63,7 +63,7 @@ function Footer() {
                     <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
                         <div className="lower-footer">
                             <div className="copyRight">
-                                © {title} 2023 All Rights Reserved.
+                                &copy; 2023 {title}. All Rights Reserved.
                                 {/* {moment().format('YYYY')} */}
                             </div>
                         </div>
