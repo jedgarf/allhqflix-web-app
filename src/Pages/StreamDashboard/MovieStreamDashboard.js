@@ -121,6 +121,7 @@ const MovieStreamDashboard = (props) => {
         cacheTime: 24 * 60 * 60 * 1000, // 24 hours
         refetchOnWindowFocus: false,
         notifyOnChangeProps: "tracked",
+        retry: 3, // Number of retries
         enabled: indexId !== null && episodeIdVar !== null && serverVar !== null,
         onError: (error) => {
             // error.response.status = http code

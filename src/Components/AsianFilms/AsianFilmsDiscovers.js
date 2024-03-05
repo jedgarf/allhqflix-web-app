@@ -31,7 +31,7 @@ function AsianFilmsDiscovers({ banner, title, des, id, year, season, genres, epi
         <div className="asian_discover__img">
           {/* <img src={`${banner}`} alt={title} /> */}
           <Suspense fallback={<Skeleton className="img-carousel-skeleton" sx={{ bgcolor: 'grey.900' }} variant="rectangular" animation="wave" />}>
-            <MovieCarousel src={banner} title={title} />
+            <MovieCarousel src={banner} title={title} category="drama" />
           </Suspense>
         </div>
         

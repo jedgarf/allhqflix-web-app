@@ -11,7 +11,23 @@ import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 // Images
 import { noImagePlaceholder } from "../../Config/images.config";
 
-const MovieCarousel = ({ src, title }) => {
+// API
+import apiConfig from "../../Config/api.config";
+
+const MovieCarousel = ({ src, title, category }) => {
+
+    switch (category) {
+        case 'movie':
+            src = `${apiConfig.media_proxy_cors}/image-proxy?url=${encodeURIComponent(src)}&headers=${encodeURIComponent(JSON.stringify({ Referer: apiConfig.flixhq_referer }))}`;
+            break;
+        case 'anime':
+            break;
+        case 'drama':
+            break;
+        default:
+            break;
+    }
+
     return (
         <div class="image-containerx" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 'auto' }}>
             <LazyLoadImage 
