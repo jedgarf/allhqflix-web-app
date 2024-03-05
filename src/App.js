@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, useParams } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from 'react-query';
-import ReactGA from 'react-ga';
+import { Analytics } from '@vercel/analytics/react';
 
 // CSS
 import "./Assets/css/App.css";
@@ -73,8 +73,6 @@ import AsianFilmsDashboard from "./Pages/AsianFilms/AsianFilmsDashboard";
 
 // Create a client
 const queryClient = new QueryClient();
-
-ReactGA.initialize(process.env.REACT_APP_TRACKING_ID);
 
 const GenreFilter = () => {
   
@@ -172,7 +170,6 @@ const App = () => {
   const [orientation, setOrientation] = useState(window.orientation);
 
   useEffect(() => {
-    ReactGA.pageview(window.location.pathname + window.location.search);
 
     const handleOrientationChange = () => {
       setOrientation(window.orientation);
@@ -482,6 +479,7 @@ const App = () => {
           </Routes>
         </Router>
       </div>
+      <Analytics />
       </QueryClientProvider>
   );
 }
