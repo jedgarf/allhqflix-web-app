@@ -113,8 +113,8 @@ function PopularAnime() {
                       {popularValue.length > 0 ? (
                       <div className="movie_result_data">
                         <Grid container columnSpacing={{ xs: 2, sm: 2, md: 2, lg: 2, xl: 2 }} rowSpacing={2} justifyContent="center">
-                          {popularValue.map((data) => (
-                            <Grid item xl={'auto'} lg={'auto'} md={'auto'} sm={'auto'} xs={'auto'}>
+                          {popularValue.map((data, index) => (
+                            <Grid item xl={'auto'} lg={'auto'} md={'auto'} sm={'auto'} xs={'auto'} key={index}>
                               <SearchResult
                                 isloadImage={isloadPicture}
                                 contentType={contentType}

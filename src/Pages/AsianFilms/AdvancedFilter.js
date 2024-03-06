@@ -1,5 +1,5 @@
 // Packages
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, Fragment } from "react";
 import { useQuery } from 'react-query';
 
 // Material UI Components
@@ -250,7 +250,9 @@ function AdvancedFilter() {
                                 <FormControlLabel value="all" control={<Radio size="small" sx={{ color: '#353b45' }} onChange={handleReleaseYearChange} />} label="All" />
                                 {releasedDates.map((item, i) => {
                                     return(
+                                      <Fragment key={i}>
                                         <FormControlLabel value={item} control={<Radio size="small" sx={{ color: '#353b45' }} onChange={handleReleaseYearChange} />} label={item} />
+                                      </Fragment>
                                     )
                                 })}
                                 <FormControlLabel value={`older-${releasedDates[releasedDates.length - 1]}`} control={<Radio size="small" sx={{ color: '#353b45' }} onChange={handleReleaseYearChange} />} label="Older" />
@@ -270,7 +272,9 @@ function AdvancedFilter() {
                                 {/* <FormControlLabel value="all" control={<Checkbox size="small" sx={{ color: '#353b45' }} onChange={handleGenreChange} />} label="All" /> */}
                                 {asian_films_genre.map((item, i) => {
                                     return(
+                                      <Fragment key={i}>
                                         <FormControlLabel value={item.genre_id} control={<Checkbox size="small" sx={{ color: '#353b45' }} onChange={handleGenreChange} />} label={item.name} />
+                                      </Fragment>
                                     )
                                 })}
                                 </RadioGroup>
@@ -289,7 +293,9 @@ function AdvancedFilter() {
                                 {/* <FormControlLabel value="all" control={<Checkbox size="small" sx={{ color: '#353b45' }} onChange={handleCountryChange} />} label="All" /> */}
                                 {asian_films_country.map((item, i) => {
                                     return(
+                                      <Fragment key={i}>
                                         <FormControlLabel value={item.country_id} control={<Checkbox size="small" sx={{ color: '#353b45' }} onChange={handleCountryChange} />} label={item.name} />
+                                      </Fragment>
                                     )
                                 })}
                                 </RadioGroup>
@@ -334,8 +340,8 @@ function AdvancedFilter() {
                     {generalValue?.length > 0 ? (
                     <div className="movie_result_data">
                       <Grid container columnSpacing={{ xs: 2, sm: 2, md: 2, lg: 2, xl: 2 }} rowSpacing={2} justifyContent="center">
-                        {generalValue.map((data) => (
-                          <Grid item xl={'auto'} lg={'auto'} md={'auto'} sm={'auto'} xs={'auto'}>
+                        {generalValue.map((data, index) => (
+                          <Grid item xl={'auto'} lg={'auto'} md={'auto'} sm={'auto'} xs={'auto'} key={index}>
                             <SearchResult
                               isloadImage={isloadPicture}
                               contentType={type}

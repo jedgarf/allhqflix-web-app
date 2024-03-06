@@ -116,8 +116,8 @@ function FilterByGenre() {
                         // renderValue={(value) => `⚠️  - ${value}`}
                       >
                         <MenuItem value={'PH'}>{'Philippines'}</MenuItem>
-                        {foreign_country.map((item, no) => {
-                            return <MenuItem value={item.code}>{item.name}</MenuItem>
+                        {foreign_country.map((item, index) => {
+                            return <MenuItem key={index} value={item.code}>{item.name}</MenuItem>
                         })}
                       </Select>
                     </FormControl>
@@ -152,8 +152,8 @@ function FilterByGenre() {
                     {countryValue?.length > 0 ? (
                     <div className="movie_result_data">
                       <Grid container columnSpacing={{ xs: 3, sm: 2, md: 2, lg: 2, xl: 2 }} rowSpacing={3} justifyContent="center">
-                        {countryValue.map((data) => (
-                          <Grid item xl={'auto'} lg={'auto'} md={'auto'} sm={'auto'} xs={'auto'}>
+                        {countryValue.map((data, index) => (
+                          <Grid item xl={'auto'} lg={'auto'} md={'auto'} sm={'auto'} xs={'auto'} key={index}>
                             <SearchResult
                               isloadImage={isloadPicture}
                               contentType={type}

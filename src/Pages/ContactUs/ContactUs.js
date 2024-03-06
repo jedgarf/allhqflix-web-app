@@ -123,7 +123,7 @@ const ContactUs = () => {
     useEffect(() => {
         document.getElementsByClassName('divFocus')[0].focus();
         setUser(getSession('user') ? jwtDecode(getSession('user')) : null);
-        setEmail(user?.email);
+        setEmail(user?.email || '');
     }, [email, user?.email])
 
     return (
@@ -147,7 +147,7 @@ const ContactUs = () => {
                             </Grid>
                             <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
                                 <center>
-                                    <Container fluid maxWidth='md'>
+                                    <Container fluid="true" maxWidth='md'>
                                         <Grid container rowSpacing={5}>
                                             <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
                                                 <p>Have question and need to talk to us? Please complete this form and we will get in touch as soon as possible.</p>
@@ -191,7 +191,7 @@ const ContactUs = () => {
                                                         label="Message *"
                                                         multiline
                                                         rows={4}
-                                                        defaultValue=""
+                                                        // defaultValue=""
                                                         variant="filled"
                                                         fullWidth
                                                         size='small'
@@ -207,7 +207,7 @@ const ContactUs = () => {
                                                 </Box>
                                             </Grid>
                                             <Grid item xl={5} lg={5} md={5} sm={12} xs={12}>
-                                                <Container fluid>
+                                                <Container fluid="true">
                                                     <Grid container rowSpacing={0}>
                                                         <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
                                                             <center>

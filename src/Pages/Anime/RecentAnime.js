@@ -112,8 +112,8 @@ function RecentAnime() {
                     {recentValue.length > 0 ? (
                     <div className="movie_result_data">
                       <Grid container columnSpacing={{ xs: 3, sm: 2, md: 2, lg: 2, xl: 2 }} rowSpacing={3} justifyContent="center">
-                        {recentValue.map((data) => (
-                          <Grid item xl={'auto'} lg={'auto'} md={'auto'} sm={'auto'} xs={'auto'}>
+                        {recentValue.map((data, index) => (
+                          <Grid item xl={'auto'} lg={'auto'} md={'auto'} sm={'auto'} xs={'auto'} key={index}>
                             <SearchResult
                               isloadImage={isloadPicture}
                               contentType={contentType}

@@ -36,7 +36,6 @@ import { asianfilms_bycountry, asianfilms_advancedfilter, asianfilms_carousel } 
 const AsianDrama = () => {
 
   document.title = 'AllHQFlix - Asian Drama';
-
   const urlContentType = "asian_films";
   const urlContentSubType = "asian_films";
 
@@ -84,19 +83,21 @@ const AsianDrama = () => {
                 <CircularProgress sx={{ fontSize: 100 }} />
               </div>}>
                 <Slider {...carousel_settings}>
-                  {discoverValue?.map((item, i) => (
-                    <Fragment className="movies__boxx">
-                      <AsianFilmsDiscovers
-                        id={item?.id}
-                        banner={item?.banner}
-                        title={item?.title}
-                        des={item?.description}
-                        year={item?.releaseDate}
-                        genres={item?.genre}
-                        episode={item?.episodes?.length}
-                        slug={item?.type}
-                        key={item?.id}
-                      />
+                  {discoverValue?.map((item, index) => (
+                    <Fragment key={index}>
+                      <div className="movies__boxx">
+                        <AsianFilmsDiscovers
+                          id={item?.id}
+                          banner={item?.banner}
+                          title={item?.title}
+                          des={item?.description}
+                          year={item?.releaseDate}
+                          genres={item?.genre}
+                          episode={item?.episodes?.length}
+                          slug={item?.type}
+                          key={item?.id}
+                        />
+                      </div>
                     </Fragment>
                   ))}
                 </Slider>
@@ -114,7 +115,7 @@ const AsianDrama = () => {
                   <Slider {...movie_genre_carousel_settings} style={{ marginInline: "13px" }}>
                     {asian_films_genre.map((item, index) => {
                       return (
-                        <Fragment>
+                        <Fragment key={index}>
                           <Link className="text-link-without-underline genre-carousel" to={`/asian_films/genre_filter?genre=${item.name}`}>
                             <Button variant="" size="small" color="error" style={{ margin: '5px', color: 'whitesmoke', fontSize: 15, fontWeight: 550 }}>{item.name}</Button>
                           </Link>
@@ -145,7 +146,7 @@ const AsianDrama = () => {
               </div><br/>
               <Slider {...movie_card_carousel_settings} style={{ marginInline: '30px' }}>
                 {featuredValue.map((data, i) => (
-                  <Fragment>
+                  <Fragment key={i}>
                     <AsianFilmsRow
                       cat={"default"}
                       id={data?.id}
@@ -172,7 +173,7 @@ const AsianDrama = () => {
               </div><br/>
               <Slider {...movie_card_carousel_settings} style={{ marginInline: '30px' }}>
                 {koreanValue.map((data, i) => (
-                  <Fragment>
+                  <Fragment key={i}>
                     <AsianFilmsRow
                       cat={"default"}
                       id={data?.id}
@@ -199,7 +200,7 @@ const AsianDrama = () => {
               </div><br/>
               <Slider {...movie_card_carousel_settings} style={{ marginInline: '30px' }}>
                 {philippineValue.map((data, i) => (
-                  <Fragment>
+                  <Fragment key={i}>
                     <AsianFilmsRow
                       cat={"default"}
                       id={data?.id}

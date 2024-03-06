@@ -49,7 +49,7 @@ const AboutDevelopers = () => {
                                 </Card>
                             </Grid>
                             <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
-                                <Container fluid style={{ marginBlock: `15vh` }}>
+                                <Container fluid="true" style={{ marginBlock: `15vh` }}>
                                     <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={3} style={{ fontWeight: 'normal', fontSize: '16px' }}>
 
                                         <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>

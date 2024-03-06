@@ -126,7 +126,7 @@ const AuthMenu = ({ isStream, isAuth }) => {
                     display: 'block',
                     position: 'absolute',
                     top: 0,
-                    right: 28,
+                    right: 20,
                     width: 10,
                     height: 10,
                     // bgcolor: 'background.paper',

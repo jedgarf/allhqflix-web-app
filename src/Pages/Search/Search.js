@@ -173,8 +173,8 @@ function Search() {
                         onChange={handleRadioChange}
                         // renderValue={(value) => `⚠️  - ${value}`}
                       >
-                        {menu?.sort((a, b) => { return a.sequence - b.sequence }).filter((item) => { return item.search_code !== '' && item.is_active === true }).map((item, no) => {
-                            return <MenuItem value={item.search_code}>{item.name}</MenuItem>
+                        {menu?.sort((a, b) => { return a.sequence - b.sequence }).filter((item) => { return item.search_code !== '' && item.is_active === true }).map((item, index) => {
+                            return <MenuItem key={index} value={item.search_code}>{item.name}</MenuItem>
                         })}
                       </Select>
                     </FormControl>
@@ -208,8 +208,8 @@ function Search() {
                 {content.data?.results?.length > 0 ? (
                   <div className="movie_result_data">
                     <Grid container columnSpacing={{ xs: 2, sm: 2, md: 2, lg: 2, xl: 2 }} rowSpacing={2} justifyContent="center">
-                      {content.data.results.map((data) => (
-                        <Grid item xl={'auto'} lg={'auto'} md={'auto'} sm={'auto'} xs={'auto'}>
+                      {content.data.results.map((data, index) => (
+                        <Grid item xl={'auto'} lg={'auto'} md={'auto'} sm={'auto'} xs={'auto'} key={index}>
                           <SearchResult
                             isloadImage={isloadPicture}
                             contentType={contentType}

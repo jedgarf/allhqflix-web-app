@@ -1,5 +1,5 @@
 // Packages
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, Fragment } from "react";
 import { useQuery } from 'react-query';
 
 // Material UI Components
@@ -281,9 +281,9 @@ function AdvancedFilter() {
                                       defaultValue={defaultReleaseYear}
                                   >
                                   <FormControlLabel value="all" control={<Radio size="small" sx={{ color: '#353b45' }} onChange={handleReleaseYearChange} />} label="All" />
-                                  {releasedDates.map((item, i) => {
+                                  {releasedDates.map((item, index) => {
                                       return(
-                                          <FormControlLabel value={item} control={<Radio size="small" sx={{ color: '#353b45' }} onChange={handleReleaseYearChange} />} label={item} />
+                                          <FormControlLabel key={index} value={item} control={<Radio size="small" sx={{ color: '#353b45' }} onChange={handleReleaseYearChange} />} label={item} />
                                       )
                                   })}
                                   <FormControlLabel value={`older-${releasedDates[releasedDates.length - 1]}`} control={<Radio size="small" sx={{ color: '#353b45' }} onChange={handleReleaseYearChange} />} label="Older" />
@@ -300,14 +300,14 @@ function AdvancedFilter() {
                                       name="row-radio-buttons-group"
                                       sx={{ color: '#ccced1' }}
                                   >
-                                  {foreign_genre.map((item, i) => {
+                                  {foreign_genre.map((item, index) => {
                                       return(
-                                          <>
+                                          <Fragment key={index}>
                                             {item.genre_id === defaultGenre ? 
                                             (<FormControlLabel value={item.genre_id} control={<Checkbox size="small" sx={{ color: '#353b45' }} onChange={handleGenreChange} checked/>} label={item.name} />)
                                             : 
                                             (<FormControlLabel value={item.genre_id} control={<Checkbox size="small" sx={{ color: '#353b45' }} onChange={handleGenreChange}/>} label={item.name} />)}
-                                          </>
+                                          </Fragment>
                                       )
                                   })}
                                   </RadioGroup>
@@ -323,14 +323,14 @@ function AdvancedFilter() {
                                       name="row-radio-buttons-group"
                                       sx={{ color: '#ccced1' }}
                                   >
-                                  {foreign_country.map((item, i) => {
+                                  {foreign_country.map((item, index) => {
                                       return(
-                                          <>
+                                          <Fragment key={index}>
                                             {item.country_id === defaultCountry ? 
                                             (<FormControlLabel value={item.country_id} control={<Checkbox size="small" sx={{ color: '#353b45' }} onChange={handleCountryChange} checked/>} label={item.name} />)
                                             : 
                                             (<FormControlLabel value={item.country_id} control={<Checkbox size="small" sx={{ color: '#353b45' }} onChange={handleCountryChange} />} label={item.name} />)}
-                                          </>
+                                          </Fragment>
                                       )
                                   })}
                                   </RadioGroup>
@@ -376,8 +376,8 @@ function AdvancedFilter() {
                       {generalValue?.length > 0 ? (
                         <div className="movie_result_data">
                           <Grid container columnSpacing={{ xs: 3, sm: 2, md: 2, lg: 2, xl: 2 }} rowSpacing={3} justifyContent="center">
-                            {generalValue.map((data) => (
-                              <Grid item xl={'auto'} lg={'auto'} md={'auto'} sm={'auto'} xs={'auto'}>
+                            {generalValue.map((data, index) => (
+                              <Grid item xl={'auto'} lg={'auto'} md={'auto'} sm={'auto'} xs={'auto'} key={index}>
                                 <SearchResult
                                   isloadImage={isloadPicture}
                                   contentType={type}

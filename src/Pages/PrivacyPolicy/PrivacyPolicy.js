@@ -42,7 +42,7 @@ const PrivacyPolicy = () => {
                                 </Card>
                             </Grid>
                             <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
-                                <Container fluid>
+                                <Container fluid="true">
                                     <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={3} style={{ fontWeight: 'normal', fontSize: '14px' }}>
 
                                         <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>

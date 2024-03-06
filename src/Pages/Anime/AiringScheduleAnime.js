@@ -111,8 +111,8 @@ function AiringScheduleAnime() {
                   {airingScheduleValue.length > 0 ? (
                     <div className="movie_result_data">
                       <Grid container columnSpacing={{ xs: 2, sm: 2, md: 2, lg: 2, xl: 2 }} rowSpacing={2} justifyContent="center">
-                        {airingScheduleValue.map((data) => (
-                          <Grid item xl={'auto'} lg={'auto'} md={'auto'} sm={'auto'} xs={'auto'}>
+                        {airingScheduleValue.map((data, index) => (
+                          <Grid item xl={'auto'} lg={'auto'} md={'auto'} sm={'auto'} xs={'auto'} key={index}>
                             <SearchResult
                               isloadImage={isloadPicture}
                               contentType={contentType}

@@ -77,18 +77,20 @@ const Anime = () => {
               </div>}>
                 <Slider {...carousel_settings}>
                   {trendingValue?.map((item, i) => (
-                    <Fragment className="movies__boxx">
-                      <AnimeDiscovers
-                        id={item?.id}
-                        banner={item?.cover}
-                        title={item?.title.english || item?.title.userPreferred || item?.title.romaji}
-                        des={item?.description}
-                        year={item?.releaseDate}
-                        genres={item?.genres}
-                        episode={item?.totalEpisodes}
-                        slug={item?.type}
-                        key={item?.id}
-                      />
+                    <Fragment key={i}>
+                      <div className="movies__boxx">
+                        <AnimeDiscovers
+                          id={item?.id}
+                          banner={item?.cover}
+                          title={item?.title.english || item?.title.userPreferred || item?.title.romaji}
+                          des={item?.description}
+                          year={item?.releaseDate}
+                          genres={item?.genres}
+                          episode={item?.totalEpisodes}
+                          slug={item?.type}
+                          key={item?.id}
+                        />
+                      </div>
                     </Fragment>
                   ))}
                 </Slider>
@@ -106,7 +108,7 @@ const Anime = () => {
                   <Slider {...movie_genre_carousel_settings} style={{ marginInline: "13px" }}>
                     {anime_genres.map((item, index) => {
                       return (
-                        <Fragment>
+                        <Fragment key={index}>
                           <Link className="text-link-without-underline genre-carousel" to={`/anime/genre_filter?genre=${item}`}>
                             <Button variant="" size="small" color="error" style={{ margin: '5px', color: 'whitesmoke', fontSize: 15, fontWeight: 550 }}>{item}</Button>
                           </Link>
@@ -137,7 +139,7 @@ const Anime = () => {
                 </div><br/>
                 <Slider {...movie_card_carousel_settings} style={{ marginInline: '30px' }}>
                   {popularValue?.map((data, i) => (
-                    <Fragment>
+                    <Fragment key={i}>
                       <AnimeRow
                         isloadImage={true}
                         cat={"default"}
@@ -165,7 +167,7 @@ const Anime = () => {
                 </div><br/>
                 <Slider {...movie_card_carousel_settings} style={{ marginInline: '30px' }}>
                     {trendingValue?.map((data, i) => (
-                      <Fragment>
+                      <Fragment key={i}>
                         <AnimeRow
                           isloadImage={true}
                           cat={'default'}
@@ -193,7 +195,7 @@ const Anime = () => {
                 </div><br/>
                 <Slider {...movie_card_carousel_settings} style={{ marginInline: '30px' }}>
                   {recentValue?.map((data, i) => (
-                    <Fragment>
+                    <Fragment key={i}>
                       <AnimeRow
                         isloadImage={true}
                         cat={'default'}
@@ -221,7 +223,7 @@ const Anime = () => {
               </div><br/>
               <Slider {...movie_card_carousel_settings} style={{ marginInline: '30px' }}>
                   {airingValue?.map((data, i) => (
-                    <Fragment>
+                    <Fragment key={i}>
                       <AnimeRow
                         isloadImage={true}
                         cat={'default'}

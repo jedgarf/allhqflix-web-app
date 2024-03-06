@@ -113,8 +113,8 @@ function AnimeFilterByGenre() {
                           style={{ height: 35, fontSize: 14 }}
                           // renderValue={(value) => `⚠️  - ${value}`}
                         >
-                          {anime_genres.map((item, no) => {
-                              return <MenuItem value={item}>{item}</MenuItem>
+                          {anime_genres.map((item, index) => {
+                              return <MenuItem key={index} value={item}>{item}</MenuItem>
                           })}
                         </Select>
                       </FormControl>
@@ -150,8 +150,8 @@ function AnimeFilterByGenre() {
                       {genreValue?.length > 0 ? (
                       <div className="movie_result_data">
                         <Grid container columnSpacing={{ xs: 2, sm: 2, md: 2, lg: 2, xl: 2 }} rowSpacing={2} justifyContent="center">
-                          {genreValue.map((data) => (
-                            <Grid item xl={'auto'} lg={'auto'} md={'auto'} sm={'auto'} xs={'auto'}>
+                          {genreValue.map((data, index) => (
+                            <Grid item xl={'auto'} lg={'auto'} md={'auto'} sm={'auto'} xs={'auto'} key={index}>
                               <SearchResult
                                 isloadImage={isloadPicture}
                                 contentType={type}
