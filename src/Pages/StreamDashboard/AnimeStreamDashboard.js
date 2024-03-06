@@ -9,7 +9,7 @@ import { useQuery } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 
 // Material UI Components
-import { Grid, Skeleton, Box, Typography, Button, FormControlLabel, Switch } from '@mui/material';
+import { Grid, Skeleton, Box, Typography, Button, FormControlLabel, Switch, CircularProgress } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 // CSS
@@ -347,6 +347,16 @@ const MovieStreamDashboard = (props) => {
                     </div>
                 </div>}
             </div>
+            {/* refetching count */}
+            {resourceData?.failureCount > 0 && 
+                <div className="retry-display" style={{ display: ((resourceData?.isError && resourceData?.failureCount === 3) || resourceData?.isSuccess ? 'none' : 'block') }}>
+                    <CircularProgress 
+                        sx={{ color: 'white' }} 
+                        size={13}
+                        thickness={5}
+                    /> Refetching... {resourceData?.failureCount}/3
+                </div>
+            }
             {/* English dub switch */}
             <div className="anime-english-dub">
                 <FormControlLabel

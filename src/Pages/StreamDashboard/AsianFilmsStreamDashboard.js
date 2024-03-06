@@ -7,7 +7,7 @@ import DOMPurify from 'dompurify';
 import { useQuery } from 'react-query';
 
 // Material UI Components
-import { Grid, Skeleton, Box, Typography, Button } from '@mui/material';
+import { Grid, Skeleton, Box, Typography, Button, CircularProgress } from '@mui/material';
 
 // CSS
 import './StreamDashboard.css';
@@ -213,6 +213,16 @@ const AsianFilmsStreamDashboard = (props) => {
                     </div>
                 </div>}
             </div>
+            {/* refetching count */}
+            {resourceData?.failureCount > 0 && 
+                <div className="retry-display" style={{ display: ((resourceData?.isError && resourceData?.failureCount === 3) || resourceData?.isSuccess ? 'none' : 'block') }}>
+                    <CircularProgress 
+                        sx={{ color: 'white' }} 
+                        size={13}
+                        thickness={5}
+                    /> Refetching... {resourceData?.failureCount}/3
+                </div>
+            }
         </>
     );
 };
