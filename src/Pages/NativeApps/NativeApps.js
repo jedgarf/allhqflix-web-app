@@ -15,24 +15,19 @@ import SideBar from "../../Components/SlideBar/SideBar";
 import Footer from "../../Components/Footer/Footer";
 import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
+// Images
 import { homeBackground, appPhoto } from "../../Config/images.config";
-
-const darkTheme = createTheme({
-    palette: {
-      mode: 'dark',
-    },
-});
 
 const NativeApps = () => {
 
     document.title = 'AllHQFlix - Native Apps';
-
     const type = 'native_apps';
 
-    const notAvailable = (e) => {
-        e.preventDefault();
-        alert("Not Available.");
-    }
+    const darkTheme = createTheme({
+        palette: {
+          mode: 'dark',
+        },
+    });
 
     return (
         <div>
@@ -42,55 +37,53 @@ const NativeApps = () => {
                     <div className="divFocus">
                         <ThemeProvider theme={darkTheme}>
                             <CssBaseline />
-                            <div style={{ marginTop: '77px', minHeight: 300, width: '99vw' }}>
-                                {/* <Container maxWidth={'xxl'} style={{ marginBottom: '20px' }}>
-                                    <Stack sx={{ width: '100%' }} spacing={0}>
-                                        <Alert severity="info">Exciting news! Our official mobile app development is underway. In the meantime, feel free to enjoy the temporary hybrid app experience. Stay tuned for the enhanced features coming your way soon!</Alert>
-                                    </Stack>
-                                </Container> */}
-                                <Container maxWidth={'md'} style={{ marginTop: '30px' }}>
-                                    <div className="appdownload" style={{ backgroundImage: `linear-gradient(rgba(2, 9, 22, 0.8),rgba(2, 9, 22, 0.8)) , url("${homeBackground}")`, borderRadius: 10, padding: 40, minHeight: '450px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                        <div className="apd-container">
-                                            <div className="apdc-content">
-                                                <Grid container direction="row" columnSpacing={{ xs: 2, sm: 2, md: 2, lg: 2, xl: 2 }} rowSpacing={2}>
-                                                    <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
-                                                        <center>
-                                                            <div className="app-demo">
-                                                                <div className="app-screen"><img src={appPhoto} alt='' width={260}/></div>
+                            <div style={{ marginBlock: `10vh` }}>
+                                <div style={{ width: '99vw' }}>
+
+                                    <Container maxWidth={'md'}>
+                                        <div className="appdownloads" style={{ backgroundImage: `linear-gradient(rgba(2, 9, 22, 0.8),rgba(2, 9, 22, 0.8)) , url("${homeBackground}")`, borderRadius: 10, padding: 40, minHeight: '450px', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '130px' }}>
+                                            <div className="apd-container">
+                                                <div className="apdc-content">
+                                                    <Grid container direction="row" columnSpacing={{ xs: 2, sm: 2, md: 2, lg: 2, xl: 2 }} rowSpacing={2}>
+                                                        <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
+                                                            <center>
+                                                                <div className="app-demo">
+                                                                    <div className="app-screen"><img src={appPhoto} alt='' width={260}/></div>
+                                                                </div>
+                                                            </center>
+                                                        </Grid>
+                                                        <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
+                                                            <h1 className="app-heading"><strong>AllHQFLix Official Mobile App</strong></h1><br/>
+                                                            {/* <div className="app-heading-sub">Official Android App of AllHQFLix</div><br/> */}
+                                                            <div className="app-desc">
+                                                                <ul>
+                                                                    <li>Free HD Movies and TV Series for Android Phones and Android TV.</li>
+                                                                    {/* <li>Multiple languages of Subtitles.</li> */}
+                                                                    <li>Absolutely No Ads.</li>
+                                                                    <li>Fast streaming speed than on the website.</li>
+                                                                    <li>Daily update on both Movies and Shows.</li>
+                                                                </ul>
                                                             </div>
-                                                        </center>
-                                                    </Grid>
-                                                    <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
-                                                        <h1 className="app-heading"><strong>AllHQFLix Official Mobile App</strong></h1><br/>
-                                                        {/* <div className="app-heading-sub">Official Android App of AllHQFLix</div><br/> */}
-                                                        <div className="app-desc">
-                                                            <ul>
-                                                                <li>Free HD Movies and TV Series for Android Phones and Android TV.</li>
-                                                                {/* <li>Multiple languages of Subtitles.</li> */}
-                                                                <li>Absolutely No Ads.</li>
-                                                                <li>Fast streaming speed than on the website.</li>
-                                                                <li>Daily update on both Movies and Shows.</li>
-                                                            </ul>
-                                                        </div>
-                                                        <br/><br/>
-                                                        <div className="app-btn" style={{ textAlign: 'center' }}>
-                                                            {/* https://dl.getmenow.click/onstream-latest.apk?ref=289 */}
-                                                            {/* <a href="https://drive.google.com/file/d/1C3GxpI17MdX5_yRoWzhRRIUAUOkuLUe6/view" target='__blank' className='text-link-without-underline' style={{ maxWidth: '100px' }}>
-                                                                <Button variant='contained' color='primary' style={{ color: 'black !important' }} size='small' fullWidth startIcon={<PhoneAndroidIcon/>}>
-                                                                    Download for hybrid android app
+                                                            <br/><br/>
+                                                            <div className="app-btn" style={{ textAlign: 'center' }}>
+                                                                {/* https://dl.getmenow.click/onstream-latest.apk?ref=289 */}
+                                                                {/* <a href="https://drive.google.com/file/d/1C3GxpI17MdX5_yRoWzhRRIUAUOkuLUe6/view" target='__blank' className='text-link-without-underline' style={{ maxWidth: '100px' }}>
+                                                                    <Button variant='contained' color='primary' style={{ color: 'black !important' }} size='small' fullWidth startIcon={<PhoneAndroidIcon/>}>
+                                                                        Download for hybrid android app
+                                                                    </Button>
+                                                                </a><br/> */}
+                                                                <Button variant='contained' color='primary' style={{ color: 'black !important' }} size='small' fullWidth startIcon={<PhoneAndroidIcon/>} disabled={true}>
+                                                                    Download (Soon)
                                                                 </Button>
-                                                            </a><br/> */}
-                                                            <Button variant='contained' color='primary' style={{ color: 'black !important' }} size='small' fullWidth startIcon={<PhoneAndroidIcon/>} disabled={true}>
-                                                                Download (Soon)
-                                                            </Button>
-                                                        </div>
+                                                            </div>
+                                                        </Grid>
                                                     </Grid>
-                                                </Grid>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </Container>
+                                    </Container>
 
+                                </div>
                             </div>
                         </ThemeProvider>
                         <Footer />

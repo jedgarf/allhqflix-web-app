@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 
 const shortenTextHeight = (string, num) => {
@@ -84,6 +84,33 @@ const useContainerDimensions = myRef => {
   
     return dimensions;
   };
+
+  const getWindowSize = () => {
+    const {innerWidth, innerHeight} = window;
+    return {innerWidth, innerHeight};
+  }
+
+  const useScreenDimensions = () => {
+    const [windowSize, setWindowSize] = useState(getWindowSize());
+
+    useEffect(() => {
+      function handleWindowResize() {
+        setWindowSize(getWindowSize());
+      }
+  
+      window.addEventListener('resize', handleWindowResize);
+  
+      return () => {
+        window.removeEventListener('resize', handleWindowResize);
+      };
+    }, []);
+
+    return {
+      pxWidth: windowSize.innerWidth,
+      pxHeight: windowSize.innerHeight
+    }
+
+  }
 
   const getFileExtention = (filename) => {
     var ext = /^.+\.([^.]+)$/.exec(filename);
@@ -373,6 +400,8 @@ export { shortenTextHeight,
          moveToClassName, 
          copyMovieLink, 
          useContainerDimensions, 
+         getWindowSize, 
+         useScreenDimensions, 
          getFileExtention, 
          destroyHls, 
          SeparateArrayByComma, 
