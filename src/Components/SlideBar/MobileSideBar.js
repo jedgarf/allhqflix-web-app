@@ -115,9 +115,9 @@ const MobileSideBar = ({ Type, subType, getMenu, menu, submenu }) => {
                     }>
                         {menu?.filter((item) => { return item.is_active === true }).sort((a, b) => { return a.sequence - b.sequence }).map((page, index) => {
                             return page.code === Type ? 
-                            <SideBarListItem page={page} subType={subType} subPage={submenu} classes={classes} selected={true} />
+                            <SideBarListItem page={page} subType={subType} subPage={submenu} classes={classes} selected={true} key={index} />
                             :
-                            <SideBarListItem page={page} subType={subType} subPage={submenu} classes={classes} selected={false} />
+                            <SideBarListItem page={page} subType={subType} subPage={submenu} classes={classes} selected={false} key={index} />
                         })}
                     </List>
                 </div>

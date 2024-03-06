@@ -80,19 +80,21 @@ const Movies = () => {
               </div>}>
                   <Slider {...carousel_settings}>
                     {discoverValue.map((item, i) => (
-                      <Fragment className="movies__boxx">
-                        <Discovers
-                          id={item.id}
-                          banner={item.cover}
-                          title={item.title}
-                          des={item.description}
-                          year={item.releaseDate}
-                          genres={item.genres}
-                          slug={item.slug}
-                          video_quality={item.video_quality}
-                          urlContentSubType={urlContentSubType}
-                          key={i}
-                        />
+                      <Fragment key={i}>
+                        <div className="movies__boxx">
+                          <Discovers
+                            id={item.id}
+                            banner={item.cover}
+                            title={item.title}
+                            des={item.description}
+                            year={item.releaseDate}
+                            genres={item.genres}
+                            slug={item.slug}
+                            video_quality={item.video_quality}
+                            urlContentSubType={urlContentSubType}
+                            key={i}
+                          />
+                        </div>
                       </Fragment>
                     ))}
                   </Slider>
@@ -112,7 +114,7 @@ const Movies = () => {
                   <Slider {...movie_genre_carousel_settings} style={{ marginInline: "13px" }}>
                     {foreign_genre.map((item, index) => {
                       return (
-                        <Fragment>
+                        <Fragment key={index}>
                           <Link className="text-link-without-underline genre-carousel" to={`/foreign/advanced_filter?type=movie&genre=${item.genre_id}`}>
                             <Button variant="" size="small" color="error" style={{ margin: '5px', color: 'whitesmoke', fontSize: 15, fontWeight: 550 }}>{item.name}</Button>
                           </Link>
@@ -139,7 +141,7 @@ const Movies = () => {
                 <div className="heading content__heading">TRENDING MOVIES</div><br/>
                 <Slider {...movie_card_carousel_settings} style={{ marginInline: '30px' }}>
                   {trendingValue.map((data, i) => (
-                    <Fragment>
+                    <Fragment key={i}>
                       <MoviesRow
                         isloadImage={true}
                         cat={'default'}
@@ -169,7 +171,7 @@ const Movies = () => {
                 </div><br/>
                   <Slider {...movie_card_carousel_settings} style={{ marginInline: '30px' }}>
                     {latestValue.map((data, i) => (
-                      <Fragment>
+                      <Fragment key={i}>
                         <MoviesRow
                           isloadImage={true}
                           cat={'default'}
@@ -199,7 +201,7 @@ const Movies = () => {
                 </div><br/>
                   <Slider {...movie_card_carousel_settings} style={{ marginInline: '30px' }}>
                     {popularValue.map((data, i) => (
-                      <Fragment>
+                      <Fragment key={i}>
                         <MoviesRow
                           isloadImage={true}
                           cat={'default'}

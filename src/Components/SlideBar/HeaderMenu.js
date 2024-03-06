@@ -57,9 +57,9 @@ const HeaderMenu = ({ Type, subType,getMenu, menu, submenu }) => {
             </>
             : 
             <>
-            {menu?.filter((item) => { return item.is_active === true }).sort((a, b) => { return a.sequence - b.sequence }).map((page) => {
+            {menu?.filter((item) => { return item.is_active === true }).sort((a, b) => { return a.sequence - b.sequence }).map((page, index) => {
                 return page.code === Type ?
-                <>
+                <React.Fragment key={index}>
                     {page.link === '' ? 
                     <div style={{ textDecoration: 'none', fontWeight: 'bolder !important', marginRight: '20px' }}>
                     <Button
@@ -93,9 +93,9 @@ const HeaderMenu = ({ Type, subType,getMenu, menu, submenu }) => {
                         : <>{page.name}</>}
                     </Button>
                     </Link>}
-                </>
+                </React.Fragment>
                 :
-                <>
+                <React.Fragment key={index}>
                     {page.link === '' ? 
                     <div style={{ textDecoration: 'none', fontWeight: 'bolder !important', borderBottom: 'none', marginRight: '20px' }}>
                     <Button
@@ -129,7 +129,7 @@ const HeaderMenu = ({ Type, subType,getMenu, menu, submenu }) => {
                         : <>{page.name}</>}
                     </Button>
                     </Link>}
-                </>
+                </React.Fragment>
             })}
             </>
             }
@@ -174,9 +174,9 @@ const HeaderMenu = ({ Type, subType,getMenu, menu, submenu }) => {
                 'aria-labelledby': 'basic-button',
             }}
             >
-            {selectedSubMenu.filter((item) => { return item.is_active === true }).sort((a, b) => { return a.sequence - b.sequence }).map((subPage) => {
+            {selectedSubMenu.filter((item) => { return item.is_active === true }).sort((a, b) => { return a.sequence - b.sequence }).map((subPage, index) => {
                 return subPage.code === subType ? 
-                <Link to={subPage.link} style={{ textDecoration: 'none', fontWeight: 'bolder' }}>
+                <Link to={subPage.link} style={{ textDecoration: 'none', fontWeight: 'bolder' }} key={index}>
                 <MenuItem onClick={handleTopMenuClose} selected>
                     {subPage.is_dev === 1 ?
                     <StyledSubBadge badgeContent={subPage.badge_message} color="error">
@@ -186,7 +186,7 @@ const HeaderMenu = ({ Type, subType,getMenu, menu, submenu }) => {
                 </MenuItem>
                 </Link>
                 : 
-                <Link to={subPage.link} style={{ textDecoration: 'none', fontWeight: 'bolder' }}>
+                <Link to={subPage.link} style={{ textDecoration: 'none', fontWeight: 'bolder' }} key={index}>
                 <MenuItem onClick={handleTopMenuClose}>
                     {subPage.is_dev === 1 ?
                     <StyledSubBadge badgeContent={subPage.badge_message} color="error">

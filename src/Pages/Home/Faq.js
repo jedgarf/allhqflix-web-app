@@ -43,7 +43,8 @@ const Faq = () => {
                                 <p>Only available in 
                                 {
                                     allowed_countries.map((country, index) => {
-                                        return (<>
+                                        return (
+                                        <React.Fragment key={index}>
                                             {index + 1 !== allowed_countries.length ?
                                             <>
                                             {index + 1 === allowed_countries.length - 1 ?
@@ -53,7 +54,7 @@ const Faq = () => {
                                             </>
                                             : 
                                             ` and ${country}`}
-                                        </>);
+                                        </React.Fragment>);
                                     })
                                 }
                                 .</p>
@@ -248,7 +249,7 @@ const Faq = () => {
                                                 </tr>
                                                 <tr>
                                                 <th>
-                                                    <span><b>Android/IOS/Desktop App</b> <span style={{ color: '#3B71CA', fontWeight: 'bolder' }}>(Soon)</span></span>
+                                                    <span><b>Mobile App</b> <span style={{ color: '#3B71CA', fontWeight: 'bolder' }}>(Soon)</span></span>
                                                 </th>
                                                 <td>
                                                     <ul className="main_features_text">

@@ -61,11 +61,11 @@ const MediaCategories = () => {
 
                     <Grid item xl={6} lg={6} md={6} sm={12} xs={12} style={{ margin: 'auto', width: '640px', padding: '10px' }}>
                         <center>
-                            <Container fluid sx={{ width: '100%' }}>
+                            <Container fluid="true" sx={{ width: '100%' }}>
                                 <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={1} justifyContent="center">
                                 {submenu?.filter((item) => parseInt(item.is_main) === 1).map((item, index) => {
                                     return (
-                                    <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                                    <Grid item xl={12} lg={12} md={12} sm={12} xs={12} key={index}>
                                         <Link to={item.link}>
                                         <Button className="provider-links" variant="contained" color={item.is_dev ? 'error' : 'primary'} fullWidth={true} style={{ fontWeight: '550' }}>{item.full_name} {item.is_dev ? '('+item.badge_message+')' : ''}</Button>
                                         </Link>

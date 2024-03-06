@@ -9,8 +9,6 @@ import "./css/Discovers.css";
 
 // Icons
 import Button from '@mui/material/Button';
-import PlayCircleIcon from '@mui/icons-material/PlayCircle';
-import LiveTvTwoToneIcon from '@mui/icons-material/LiveTvTwoTone';
 
 // Utilities
 import { SeparateArrayButtons } from "../../Services/Utils";
@@ -31,11 +29,9 @@ function Discovers({ banner, title, des, id, year, season, genres, slug, video_q
   };
   
   return (
-    <>
       <div className="discovers" key={id}>
       
         <div className="discover__img">
-          {/* <img src={`${banner}`} alt={title} /> */}
           <Suspense fallback={<Skeleton className="img-carousel-skeleton" sx={{ bgcolor: 'grey.900' }} variant="rectangular" animation="wave" />}>
             <MovieCarousel src={banner} title={title} category="movie" />
           </Suspense>
@@ -60,7 +56,6 @@ function Discovers({ banner, title, des, id, year, season, genres, slug, video_q
           </div>
         </div>
       </div>
-    </>
   );
 }
 

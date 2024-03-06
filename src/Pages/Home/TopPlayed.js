@@ -47,13 +47,13 @@ const TopPlayed = () => {
                                 <Fragment>
                                     <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={2}>
                                         <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
-                                            Watch the latest One Piece: Egghead Arc.
+                                            Watch the latest One Piece: Egghead Island Arc.
                                         </Grid>
                                         <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
                                             <Link className='text-link-without-underline' to={`anime/stream_dashboard?mediaId=21`}>
-                                                <div class="image-container">
+                                                <div className="image-container">
                                                     <img src={`${onePieceBanner}`} alt={''} width={'auto'} effect="blur" style={{ borderRadius: 10 }} />
-                                                    <div class="overlay" title='Play'>
+                                                    <div className="overlay" title='Play'>
                                                         <PlayCircleIcon sx={{ fontSize: '60px' }}/>
                                                     </div>
                                                 </div>
@@ -68,9 +68,9 @@ const TopPlayed = () => {
                                         </Grid>
                                         <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
                                             <Link className='text-link-without-underline' to={`drama/stream_dashboard?mediaId=drama/one-piece`}>
-                                                <div class="image-container">
+                                                <div className="image-container">
                                                     <img src={`${onePieceNetflixBanner}`} alt={''} width={'auto'} effect="blur" style={{ borderRadius: 10 }} />
-                                                    <div class="overlay" title='Play'>
+                                                    <div className="overlay" title='Play'>
                                                         <PlayCircleIcon sx={{ fontSize: '60px' }}/>
                                                     </div>
                                                 </div>
@@ -85,9 +85,9 @@ const TopPlayed = () => {
                                         </Grid>
                                         <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
                                             <Link className='text-link-without-underline' to={`drama/stream_dashboard?mediaId=drama/yu-yu-hakusho`}>
-                                                <div class="image-container">
+                                                <div className="image-container">
                                                     <img src={`${yuYuHakushoBanner}`} alt={''} width={'auto'} effect="blur" style={{ borderRadius: 10 }} />
-                                                    <div class="overlay" title='Play'>
+                                                    <div className="overlay" title='Play'>
                                                         <PlayCircleIcon sx={{ fontSize: '60px' }}/>
                                                     </div>
                                                 </div>
@@ -100,7 +100,7 @@ const TopPlayed = () => {
                     </Grid>
                     <Grid item xl={6} lg={6} md={12} sm={12} xs={12} hidden>
                         <center>
-                            <iframe width="560" height="315" src="https://www.youtube.com/embed/xPyJ2XhSKOI?si=nMJ_g1G-s8cNMw7m" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/xPyJ2XhSKOI?si=nMJ_g1G-s8cNMw7m" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
                         </center>
                     </Grid>
 

@@ -8,12 +8,12 @@ import { noImagePlaceholder } from "../../Config/images.config";
 
 const TVCard = ({ src, title }) => {
     return (
-        <div class="image-container">
+        <div className="image-container">
             <img src={`${src}`} alt={title} width={'100%'} height={'245'} effect="blur" onError={({ currentTarget }) => {
               currentTarget.onerror = null; // prevents looping
               currentTarget.src = noImagePlaceholder;
             }} />
-            <div class="overlay">
+            <div className="overlay">
                 <PlayCircleIcon sx={{ fontSize: '60px' }}/>
             </div>
         </div>

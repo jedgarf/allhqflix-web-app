@@ -16,20 +16,20 @@ import apiConfig from "../../Config/api.config";
 
 const MovieCarousel = ({ src, title, category }) => {
 
-    switch (category) {
-        case 'movie':
-            src = `${apiConfig.media_proxy_cors}/image-proxy?url=${encodeURIComponent(src)}&headers=${encodeURIComponent(JSON.stringify({ Referer: apiConfig.flixhq_referer }))}`;
-            break;
-        case 'anime':
-            break;
-        case 'drama':
-            break;
-        default:
-            break;
-    }
+    // switch (category) {
+    //     case 'movie':
+    //         src = `${apiConfig.media_proxy_cors}/image-proxy?url=${encodeURIComponent(src)}&headers=${encodeURIComponent(JSON.stringify({ Referer: apiConfig.flixhq_referer }))}`;
+    //         break;
+    //     case 'anime':
+    //         break;
+    //     case 'drama':
+    //         break;
+    //     default:
+    //         break;
+    // }
 
     return (
-        <div class="image-containerx" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 'auto' }}>
+        <div className="image-containerx" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 'auto' }}>
             <LazyLoadImage 
                 src={src} 
                 placeholder={<Skeleton className="img-carousel-skeleton" sx={{ bgcolor: 'gray.900' }} variant="rectangular" animation="wave" />} 
@@ -38,13 +38,6 @@ const MovieCarousel = ({ src, title, category }) => {
                 currentTarget.src = noImagePlaceholder;
                 }}
             />
-            {/* <Skeleton className="img-carousel-skeleton" sx={{ bgcolor: 'blue.900' }} variant="rectangular" animation="wave" /> */}
-            {/* <div className="img-carousel-skeleton" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                <CircularProgress sx={{ fontSize: 100 }} />
-            </div> */}
-            {/* <div class="overlay">
-                <PlayCircleIcon sx={{ fontSize: '60px' }}/>
-            </div> */}
         </div>
     );
 };

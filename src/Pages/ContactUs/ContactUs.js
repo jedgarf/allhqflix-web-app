@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { jwtDecode } from 'jwt-decode';
 
 // Themes
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -9,6 +10,9 @@ import { Grid, Container, Card, CardContent, Typography, Button, Box, TextField 
 
 // Icons
 import SendIcon from '@mui/icons-material/Send';
+
+// Helpers
+import { getSession } from "../../Helpers/Sessions";
 
 // Pages
 import SideBar from "../../Components/SlideBar/SideBar";
@@ -37,6 +41,7 @@ const ContactUs = () => {
         },
     });
 
+    const [user, setUser] = useState(null);
     const [email, setEmail] = useState('');
     const [subject, setSubject] = useState('');
     const [message, setMessage] = useState('');
@@ -117,7 +122,9 @@ const ContactUs = () => {
 
     useEffect(() => {
         document.getElementsByClassName('divFocus')[0].focus();
-    })
+        setUser(getSession('user') ? jwtDecode(getSession('user')) : null);
+        setEmail(user?.email);
+    }, [email, user?.email])
 
     return (
         <div className="landing-page">

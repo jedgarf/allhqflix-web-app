@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from "react-dom/client";
 import './Assets/css/index.css';
 import App from './App';
 
@@ -40,7 +40,8 @@ let persistor = persistStore(store);
 //   });
 // }
 
-ReactDOM.render(
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
@@ -49,8 +50,7 @@ ReactDOM.render(
           <SpeedInsights />
       </PersistGate>
     </Provider>
-  </React.StrictMode>,
-  document.getElementById('root')
+  </React.StrictMode>
 );
 
 
