@@ -8,7 +8,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 
 // Icons
-import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
+import InstallMobileIcon from '@mui/icons-material/InstallMobile';
 
 // Pages
 import SideBar from "../../Components/SlideBar/SideBar";
@@ -54,13 +54,10 @@ const NativeApps = () => {
                                                         </Grid>
                                                         <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
                                                             <h1 className="app-heading"><strong>AllHQFLix Official Mobile App</strong></h1><br/>
-                                                            {/* <div className="app-heading-sub">Official Android App of AllHQFLix</div><br/> */}
                                                             <div className="app-desc">
                                                                 <ul>
                                                                     <li>Free HD Movies and TV Series for Android Phones and Android TV.</li>
-                                                                    {/* <li>Multiple languages of Subtitles.</li> */}
                                                                     <li>Absolutely No Ads.</li>
-                                                                    <li>Fast streaming speed than on the website.</li>
                                                                     <li>Daily update on both Movies and Shows.</li>
                                                                 </ul>
                                                             </div>
@@ -68,11 +65,11 @@ const NativeApps = () => {
                                                             <div className="app-btn" style={{ textAlign: 'center' }}>
                                                                 {/* https://dl.getmenow.click/onstream-latest.apk?ref=289 */}
                                                                 {/* <a href="https://drive.google.com/file/d/1C3GxpI17MdX5_yRoWzhRRIUAUOkuLUe6/view" target='__blank' className='text-link-without-underline' style={{ maxWidth: '100px' }}>
-                                                                    <Button variant='contained' color='primary' style={{ color: 'black !important' }} size='small' fullWidth startIcon={<PhoneAndroidIcon/>}>
+                                                                    <Button variant='contained' color='primary' style={{ color: 'black !important' }} size='small' fullWidth startIcon={<InstallMobileIcon/>}>
                                                                         Download for hybrid android app
                                                                     </Button>
                                                                 </a><br/> */}
-                                                                <Button variant='contained' color='primary' style={{ color: 'black !important' }} size='small' fullWidth startIcon={<PhoneAndroidIcon/>} disabled={true}>
+                                                                <Button variant='contained' color='primary' style={{ color: 'black !important' }} size='small' fullWidth startIcon={<InstallMobileIcon/>} disabled={true}>
                                                                     Download (Soon)
                                                                 </Button>
                                                             </div>
