@@ -12,7 +12,7 @@ import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import { noImagePlaceholder } from "../../Config/images.config";
 
 // API
-import apiConfig from "../../Config/api.config";
+// import apiConfig from "../../Config/api.config";
 
 const MovieCarousel = ({ src, title, category }) => {
 
@@ -30,14 +30,31 @@ const MovieCarousel = ({ src, title, category }) => {
 
     return (
         <div className="image-containerx" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 'auto' }}>
-            <LazyLoadImage 
+            <img 
                 src={src} 
                 placeholder={<Skeleton className="img-carousel-skeleton" sx={{ bgcolor: 'gray.900' }} variant="rectangular" animation="wave" />} 
-                alt={title} width={'100%'} height={'auto'} effect="blur" onError={({ currentTarget }) => {
-                currentTarget.onerror = null; // prevents looping
-                currentTarget.src = noImagePlaceholder;
-                }}
+                alt={title} 
+                width={'100%'} 
+                height={'auto'}
+                onError={({ currentTarget }) => {
+                        currentTarget.onerror = null; // prevents looping
+                        currentTarget.src = noImagePlaceholder;
+                    }
+                }
             />
+            {/* <LazyLoadImage 
+                src={src} 
+                placeholder={<Skeleton className="img-carousel-skeleton" sx={{ bgcolor: 'gray.900' }} variant="rectangular" animation="wave" />} 
+                alt={title} 
+                width={'100%'} 
+                height={'auto'} 
+                effect="blur" 
+                onError={({ currentTarget }) => {
+                        currentTarget.onerror = null; // prevents looping
+                        currentTarget.src = noImagePlaceholder;
+                    }
+                }
+            /> */}
         </div>
     );
 };

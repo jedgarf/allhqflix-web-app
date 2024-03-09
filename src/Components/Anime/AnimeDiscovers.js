@@ -30,7 +30,6 @@ function AnimeDiscovers({ banner, title, des, id, year, season, genres, episode,
       <div className="discovers" key={id}>
       
         <div className="discover__img">
-          {/* <img src={`${banner}`} alt={title} /> */}
           <Suspense fallback={<Skeleton className="img-carousel-skeleton" sx={{ bgcolor: 'grey.900' }} variant="rectangular" animation="wave" />}>
             <MovieCarousel src={banner} title={title} category="anime" />
           </Suspense>

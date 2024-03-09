@@ -32,7 +32,7 @@ import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 import { defaultInternationalServer } from "../../Config/settings.config";
 
 // Utils
-import { streamDashboardBackButton, SeparateArrayByComma, separatedSeasons, ObjectLength } from "../../Services/Utils";
+import { streamDashboardBackButton, SeparateArrayByComma, separatedSeasons, ObjectLength, convertMinutesToHoursAndMinutes } from "../../Services/Utils";
 
 // Services
 import { movie_info, movie_server, movie_stream_links } from "../../Services/FlixHQService";
@@ -226,7 +226,7 @@ const MovieStreamDashboard = (props) => {
                      : 
                     <label className='stream-dashboard-servername'>
                         <span className='videoq-span' style={{ backgroundColor: 'transparent', fontWeight: 'bolder', border: '1px solid white', padding: '1px', marginRight: '9px' }}>{infoValue?.video_quality}</span> 
-                        | {infoValue?.duration.toUpperCase()}S |<ShareModal infoValue={infoValue}/>
+                        | {convertMinutesToHoursAndMinutes(infoValue?.duration.replace('min', ''))} |<ShareModal infoValue={infoValue}/>
                         </label> }
                     </div>
                     {infoValue?.description.replace(/\s+/g,'') !== "" ?

@@ -31,7 +31,7 @@ import { AnimePlayModal } from "../../Components/Modal/PlayModal";
 import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
 // Utilities
-import { streamDashboardBackButton, SeparateArrayByComma } from "../../Services/Utils";
+import { streamDashboardBackButton, SeparateArrayByComma, convertMinutesToHoursAndMinutes } from "../../Services/Utils";
 
 // Config
 import { foreign_country } from "../../Config/settings.config";
@@ -254,7 +254,7 @@ const MovieStreamDashboard = (props) => {
                     </label>)
                      : 
                     (<label className='stream-dashboard-servername'>
-                        {infoValue?.duration ? infoValue?.duration : 0} MINS&nbsp;
+                        {infoValue?.duration ? convertMinutesToHoursAndMinutes(infoValue?.duration) : ''}&nbsp;
                          |<ShareModal infoValue={infoValue}/>
                     </label>)}
                     </div>

@@ -393,6 +393,13 @@ const replaceUnderscoreToSpace = (str) => {
   return str.replace(/_/g, ' ');
 }
 
+const convertMinutesToHoursAndMinutes = (minutes) => {
+  minutes = typeof minutes === 'number' && !isNaN(minutes) ? minutes : parseFloat(minutes);
+  var hours = Math.floor(minutes / 60);
+  var remainingMinutes = minutes % 60;
+  return hours + "h " + remainingMinutes + "m";
+}
+
 
 export { shortenTextHeight, 
          streamDashboardBackButton, 
@@ -419,4 +426,5 @@ export { shortenTextHeight,
          channelSearchLike,
          parseM3U,
          capitalizeString,
-         replaceUnderscoreToSpace };
+         replaceUnderscoreToSpace, 
+         convertMinutesToHoursAndMinutes };
