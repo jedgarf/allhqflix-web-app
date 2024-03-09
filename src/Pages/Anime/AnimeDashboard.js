@@ -32,7 +32,7 @@ import { foreign_country, anime_character_carousel_settings } from "../../Config
 import { subtitleLogo, videoQuality } from "../../Config/images.config";
 
 // Services
-import { moveToTop, SeparateArrayByComma } from "../../Services/Utils";
+import { moveToTop, SeparateArrayByComma, convertMinutesToHoursAndMinutes } from "../../Services/Utils";
 import { anime_info, anime_stream_links } from "../../Services/AnimeService";
 
 // Static Data
@@ -404,7 +404,7 @@ const AnimeDashboard = (props) => {
                         <AccessTimeFilledIcon style={{ fontSize: 16, marginBottom: -1, color: "#54B4D3" }}/>
                       </Grid>
                       <Grid item>
-                        <h5>{infoValue?.duration} MINS</h5>
+                        <h5>{convertMinutesToHoursAndMinutes(infoValue?.duration)}</h5>
                       </Grid>
                       {/* <Grid item>
                         <ShareModal infoValue={infoValue}/>

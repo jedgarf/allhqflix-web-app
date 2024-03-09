@@ -394,6 +394,7 @@ const replaceUnderscoreToSpace = (str) => {
 }
 
 const convertMinutesToHoursAndMinutes = (minutes) => {
+  if (!minutes) return '';
   minutes = typeof minutes === 'number' && !isNaN(minutes) ? minutes : parseFloat(minutes);
   var hours = Math.floor(minutes / 60);
   var remainingMinutes = minutes % 60;

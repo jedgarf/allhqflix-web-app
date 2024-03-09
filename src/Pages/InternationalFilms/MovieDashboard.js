@@ -33,7 +33,7 @@ import { defaultInternationalServer, defaultInternationalVideoRes, server_status
 import { subtitleLogo, videoQuality } from "../../Config/images.config";
 
 // Utilities
-import { moveToTop, getFileExtention, SeparateArrayByComma, capitalizeString } from "../../Services/Utils";
+import { moveToTop, getFileExtention, SeparateArrayByComma, capitalizeString, convertMinutesToHoursAndMinutes } from "../../Services/Utils";
 
 // Services
 import { movie_info, movie_server, movie_stream_links } from "../../Services/FlixHQService";
@@ -566,7 +566,7 @@ const MovieDashboard = (props) => {
                           <AccessTimeFilledIcon style={{ fontSize: 16, marginBottom: -2, color: "#54B4D3" }}/>
                         </Grid>
                         <Grid item>
-                          <h5>{infoValue?.duration.toUpperCase()}S</h5>
+                          <h5>{convertMinutesToHoursAndMinutes(infoValue?.duration.replace('min', ''))}</h5>
                         </Grid>
                       </Grid>}
                   </div>
