@@ -1,5 +1,5 @@
 // Packages
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useQuery } from 'react-query';
 
 // Material UI Components
@@ -21,12 +21,18 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 // Pages
 import SideBar from "../../Components/SlideBar/SideBar";
 import Footer from "../../Components/Footer/Footer";
+import FloatingButton from '../../Components/FloatingButton/FloatingButton';
+import LoadingPage from "../../Components/LoadingPage/LoadingPage";
 import SearchResult from "../../Components/SearchResult/SearchResult";
 import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
+// Config
+import { pageLoadMS } from "../../Config/settings.config";
+
+// Utils
 import { moveToTop } from "../../Services/Utils";
 
-// Models
+// Services
 import { popular_anime } from "../../Services/AnimeService";
 
 function PopularAnime() {
@@ -36,6 +42,7 @@ function PopularAnime() {
   const contentType = 'anime';
   document.title = 'AllHQFlix - Anime - Popular Anime';
   
+  const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(1);
 
   // loading
@@ -66,11 +73,19 @@ function PopularAnime() {
     moveToTop();
   }
 
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, pageLoadMS);
+  }, []);
+
   return (
-    <>
-      <div className="search_result">
+    isLoading ? 
+      <LoadingPage/>
+    : 
+    <div className="search_result">
       <ReactQueryTools/>
-       <div className="search_result_content">
+      <div className="search_result_content">
         <div className="search__top">
           <SideBar Type={type} subType={subType}/>
         </div>
@@ -159,11 +174,10 @@ function PopularAnime() {
               </Grid>
             </Container>
         </ThemeProvider>
-
-       </div>
-      <Footer/>
       </div>
-    </>
+      <FloatingButton/>
+      <Footer/>
+    </div>
   );
 }
 

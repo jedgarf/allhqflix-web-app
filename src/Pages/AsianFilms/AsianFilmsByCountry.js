@@ -1,5 +1,5 @@
 // Packages
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useQuery } from 'react-query';
 import { useParams } from "react-router-dom";
 
@@ -25,13 +25,18 @@ import "./css/AsianFilmsByCountry.css";
 // Pages
 import SideBar from "../../Components/SlideBar/SideBar";
 import Footer from "../../Components/Footer/Footer";
+import FloatingButton from '../../Components/FloatingButton/FloatingButton';
+import LoadingPage from "../../Components/LoadingPage/LoadingPage";
 import SearchResult from "../../Components/SearchResult/SearchResult";
 import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
+
+// Config
+import { pageLoadMS } from "../../Config/settings.config";
 
 // Utils
 import { moveToTop } from "../../Services/Utils";
 
-// Models
+// Services
 import { asianfilms_bycountry } from "../../Services/ViewAsianService";
 
 function AsianFilmsByCountry() {
@@ -41,9 +46,10 @@ function AsianFilmsByCountry() {
   document.title = 'AllHQFlix - Asian Films V2 - By Country';
   
   const { country } = useParams();
+  const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(1);
 
-  // loading
+  // Picture loading
   const [isloadPicture, setIsloadPicture] = useState(true);
 
   const darkTheme = createTheme({
@@ -71,11 +77,19 @@ function AsianFilmsByCountry() {
     moveToTop();
   }
 
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, pageLoadMS);
+  }, []);
+
   return (
-    <>
-      <div className="search_result">
+    isLoading ? 
+      <LoadingPage/>
+    : 
+    <div className="search_result">
       <ReactQueryTools/>
-       <div className="search_result_content">
+      <div className="search_result_content">
         <div className="search__top">
           <SideBar Type={type}/>
         </div>
@@ -159,11 +173,10 @@ function AsianFilmsByCountry() {
             </Grid>
           </Container>
         </ThemeProvider>
-
-       </div>
-      <Footer/>
       </div>
-    </>
+      <FloatingButton/>
+      <Footer/>
+    </div>
   );
 }
 

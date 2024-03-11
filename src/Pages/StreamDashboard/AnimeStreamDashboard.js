@@ -24,6 +24,7 @@ import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 // Components
+import LoadingPage from "../../Components/LoadingPage/LoadingPage";
 import ShareModal from "../../Components/Modal/ShareModal";
 import TraillerModal from "../../Components/Modal/TraillerModal";
 import SnackBar from "../../Components/SnackBar/SnackBar";
@@ -34,7 +35,7 @@ import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 import { streamDashboardBackButton, SeparateArrayByComma, convertMinutesToHoursAndMinutes } from "../../Services/Utils";
 
 // Config
-import { foreign_country } from "../../Config/settings.config";
+import { pageLoadMS, foreign_country } from "../../Config/settings.config";
 
 // Services
 import { anime_info, anime_stream_links } from "../../Services/AnimeService";
@@ -42,6 +43,10 @@ import { anime_info, anime_stream_links } from "../../Services/AnimeService";
 const MovieStreamDashboard = (props) => {
 
     const selectedEpisode = null;
+
+    const [isLoading, setIsLoading] = useState(true);
+
+    // Picture loading
     const [loadingPicture, setLoadingPicture] = useState(true);
     const [BGImage, setBGImage] = useState("");
     const [isMobile, setIsMobile] = useState(false);
@@ -204,11 +209,18 @@ const MovieStreamDashboard = (props) => {
             setHideDuration(null);
         }
 
+        setTimeout(() => {
+            setIsLoading(false);
+        }, pageLoadMS);
+
     }, [handleResize, infoData.isSuccess, infoData.isLoading, resourceData.isLoading, infoData.isRefetching, resourceData.isRefetching, infoValue?.title?.english, infoValue?.title?.userPreferred, infoValue?.title?.romaji, infoValue?.title?.native]);
 
     return (
+        isLoading ? 
+            <LoadingPage/>
+        : 
         <>
-        <ReactQueryTools/>
+            <ReactQueryTools/>
             <div style={{backgroundImage: isMobile ? `linear-gradient(rgba(15, 22, 34, 0.527),rgba(15, 22, 34, 0.5)) , url("${BGImage}")` : `linear-gradient(to right, rgba(15, 22, 34, 1) 20%, rgba(15, 22, 34, 0.5) 80%) , url("${BGImage}")`, objectFit: 'cover', backgroundSize: ' 100% 100%', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', width: '100%'}}>
                 <SnackBar severity={snackBarType} handleSnackBarOpen={handleSnackBarOpen} status={snackBarOpen} snackBarMessage={snackBarMessage} withLoading={snackBarWithLoading} hideDuration={hideDuration} />
                 <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={1} justifyContent="center">

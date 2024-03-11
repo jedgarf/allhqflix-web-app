@@ -98,7 +98,7 @@ const Faq = () => {
                         </Accordion>
                     </Grid>
 
-                    <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                    <Grid item xl={12} lg={12} md={12} sm={12} xs={12} hidden>
                         <Accordion className="home_accordion" expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
                             <AccordionSummary
                             expandIcon={<ExpandMoreIcon style={{ color: '#dddddd' }} />}
@@ -114,65 +114,65 @@ const Faq = () => {
                                         <table border={1} width="100%">
                                             <tbody>
                                                 <tr>
-                                                <th>
-                                                    <span>1. <b>Movies</b></span>
-                                                </th>
-                                                <td>
-                                                    <ul className="main_features_text">
-                                                    <li>International Movies (including Netflix Movies)</li>
-                                                    </ul>
-                                                </td>
+                                                    <th>
+                                                        <span>1. <b>Japanese Anime</b></span>
+                                                    </th>
+                                                    <td>
+                                                        <ul className="main_features_text">
+                                                        <li>Anime Series</li>
+                                                        <li>Anime Movies</li>
+                                                        <li>Anime Special Episodes</li>
+                                                        <li>Anime Airing Schedule</li>
+                                                        </ul>
+                                                    </td>
                                                 </tr>
                                                 <tr>
-                                                <th>
-                                                    <span>2. <b>TV Series</b></span>
-                                                </th>
-                                                <td>
-                                                    <ul className="main_features_text">
-                                                    <li>International TV Series (including Netflix Series)</li>
-                                                    </ul>
-                                                </td>
-                                                </tr>
-                                                <tr>
-                                                <th>
-                                                    <span>3. <b>Japanese Anime</b></span>
-                                                </th>
-                                                <td>
-                                                    <ul className="main_features_text">
-                                                    <li>Anime Series</li>
-                                                    <li>Anime Movies</li>
-                                                    <li>Anime Special Episodes</li>
-                                                    <li>Anime Airing Schedule</li>
-                                                    </ul>
-                                                </td>
-                                                </tr>
-                                                <tr>
-                                                <th>
-                                                    <span>4. <b>Asian Films (Movies and Series)</b></span>
-                                                </th>
-                                                <td>
-                                                    <ul className="main_features_text" hidden>
-                                                    <li><b>V1</b></li>
-                                                    <ul className="main_features_text">
-                                                        <li>Korean</li>
+                                                    <th>
+                                                        <span>2. <b>Asian Films (Movies and Series)</b></span>
+                                                    </th>
+                                                    <td>
+                                                        <ul className="main_features_text" hidden>
+                                                        <li><b>V1</b></li>
+                                                        <ul className="main_features_text">
+                                                            <li>Korean</li>
+                                                            <li>Japanese</li>
+                                                            <li>Taiwanese</li>
+                                                            <li>Chinese Mainland</li>
+                                                            <li>Thailand</li>
+                                                        </ul>
+                                                        </ul>
+                                                        <ul className="main_features_text">
+                                                        <li>Chinese</li>
+                                                        <li>Hong Kong</li>
+                                                        {/* <li>Indian</li> */}
                                                         <li>Japanese</li>
+                                                        <li>Korean</li>
+                                                        <li>Philippine</li>
                                                         <li>Taiwanese</li>
-                                                        <li>Chinese Mainland</li>
                                                         <li>Thailand</li>
-                                                    </ul>
-                                                    </ul>
-                                                    <ul className="main_features_text">
-                                                    <li>Chinese</li>
-                                                    <li>Hong Kong</li>
-                                                    {/* <li>Indian</li> */}
-                                                    <li>Japanese</li>
-                                                    <li>Korean</li>
-                                                    <li>Philippine</li>
-                                                    <li>Taiwanese</li>
-                                                    <li>Thailand</li>
-                                                    <li>Other Asian Countries</li>
-                                                    </ul>
-                                                </td>
+                                                        <li>Other Asian Countries</li>
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>
+                                                        <span>3. <b>Movies</b></span>
+                                                    </th>
+                                                    <td>
+                                                        <ul className="main_features_text">
+                                                        <li>International Movies (including Netflix Movies)</li>
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>
+                                                        <span>4. <b>TV Series</b></span>
+                                                    </th>
+                                                    <td>
+                                                        <ul className="main_features_text">
+                                                        <li>International TV Series (including Netflix Series)</li>
+                                                        </ul>
+                                                    </td>
                                                 </tr>
                                                 <tr hidden>
                                                 <th>
@@ -184,7 +184,7 @@ const Faq = () => {
                                                     </ul>
                                                 </td>
                                                 </tr>
-                                                <tr>
+                                                <tr hidden>
                                                 <th>
                                                     <span>5. <b>Live Channels (IPTV)</b></span>
                                                 </th>
@@ -229,6 +229,7 @@ const Faq = () => {
                                                         <li><a className='text-link' href={`${googleSearch}Javascript`} target='__blank'>Javascript ES5/ES6</a></li>
                                                         <li><a className='text-link' href={`${googleSearch}ReactJS`} target='__blank'>ReactJS CRA</a></li>
                                                         <li><a className='text-link' href={`${googleSearch}TanStack Query`} target='__blank'>TanStack Query (Caching Management)</a></li>
+                                                        <li><a className='text-link' href={`${googleSearch}TanStack Query`} target='__blank'>Redux (State Management)</a></li>
                                                         <li><a className='text-link' href={`${googleSearch}progressive web application (pwa)`} target='__blank'>Progressive Web Application</a></li>
                                                     </ul>
                                                 </td>

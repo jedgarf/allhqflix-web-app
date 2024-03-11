@@ -1,20 +1,26 @@
 import React from 'react';
 import ReactDOM from "react-dom/client";
 import './Assets/css/index.css';
-import App from './App';
 
+// Routes
+import AppRoutes from './AppRoutes';
+
+// Redux toolkit
 import store from './App/store';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
+
+// Production console and devtools ban
 import { init } from 'console-ban';
 import { disableReactDevTools } from '@fvilers/disable-react-devtools';
+
+// Vercel monitoring
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 
-if (process.env.REACT_APP_NODE_ENV === 'PRODUCTION') {
+if (process.env.NODE_ENV === 'production') {
   init({
-    // write: ConsoleBanPage,
     redirect: '/off_limit',
   })
   disableReactDevTools();
@@ -45,7 +51,7 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-          <App/>
+          <AppRoutes/>
           <Analytics />
           <SpeedInsights />
       </PersistGate>

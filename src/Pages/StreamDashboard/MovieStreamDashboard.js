@@ -21,6 +21,7 @@ import WarningAmberTwoToneIcon from '@mui/icons-material/WarningAmberTwoTone';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 
 // Components
+import LoadingPage from "../../Components/LoadingPage/LoadingPage";
 import ShareModal from "../../Components/Modal/ShareModal";
 import TraillerModal from "../../Components/Modal/TraillerModal";
 import SnackBar from "../../Components/SnackBar/SnackBar";
@@ -29,7 +30,7 @@ import LanguageListTooltip from '../../Components/Tooltip/LanguageListTooltip';
 import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
 // Config
-import { defaultInternationalServer } from "../../Config/settings.config";
+import { pageLoadMS, defaultInternationalServer } from "../../Config/settings.config";
 
 // Utils
 import { streamDashboardBackButton, SeparateArrayByComma, separatedSeasons, ObjectLength, convertMinutesToHoursAndMinutes } from "../../Services/Utils";
@@ -47,7 +48,7 @@ const MovieStreamDashboard = (props) => {
     const indexId = queryParams.get("mediaId").replace("ttps://flixhq.pe/", "");
     const isShare = queryParams.get("share");
 
-
+    const [isLoading, setIsLoading] = useState(true);
     const [BGImage, setBGImage] = useState("");
     const [isMobile, setIsMobile] = useState(false);
 
@@ -175,11 +176,18 @@ const MovieStreamDashboard = (props) => {
             setSnackBarWithLoading(true);
         };
 
+        setTimeout(() => {
+            setIsLoading(false);
+        }, pageLoadMS);
+
     }, [type, handleResize, infoData.isSuccess, infoValue?.title, resourceData.isLoading, infoData.isLoading, serverData.isLoading]);
 
     return (
+        isLoading ? 
+            <LoadingPage/>
+        : 
         <>
-        <ReactQueryTools/>
+            <ReactQueryTools/>
             <div style={{backgroundImage: isMobile ? `linear-gradient(rgba(15, 22, 34, 0.527),rgba(15, 22, 34, 0.5)) , url("${BGImage}")` : `linear-gradient(to right, rgba(15, 22, 34, 1) 20%, rgba(15, 22, 34, 0.5) 80%) , url("${BGImage}")`, objectFit: 'cover', backgroundSize: ' 100% 100%', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', width: '100%'}}>
                 <SnackBar severity={snackBarType} handleSnackBarOpen={handleSnackBarOpen} status={snackBarOpen} snackBarMessage={snackBarMessage} withLoading={snackBarWithLoading} />
                 <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={1} justifyContent="center">
@@ -221,9 +229,9 @@ const MovieStreamDashboard = (props) => {
                     {type === 'tv' ?
                     <label className='stream-dashboard-servername'>
                         <span className='videoq-span' style={{ backgroundColor: 'transparent', fontWeight: 'bolder', border: '1px solid white', padding: '1px', marginRight: '9px' }}>{infoValue?.video_quality}</span>
-                         | {ObjectLength(seasons) > 1 ? 'Season 1 to ' + ObjectLength(seasons) : 'Season 1'} | <ShareModal infoValue={infoValue}/>
+                            | {ObjectLength(seasons) > 1 ? 'Season 1 to ' + ObjectLength(seasons) : 'Season 1'} | <ShareModal infoValue={infoValue}/>
                     </label>
-                     : 
+                        : 
                     <label className='stream-dashboard-servername'>
                         <span className='videoq-span' style={{ backgroundColor: 'transparent', fontWeight: 'bolder', border: '1px solid white', padding: '1px', marginRight: '9px' }}>{infoValue?.video_quality}</span> 
                         | {convertMinutesToHoursAndMinutes(infoValue?.duration.replace('min', ''))} |<ShareModal infoValue={infoValue}/>
@@ -231,7 +239,7 @@ const MovieStreamDashboard = (props) => {
                     </div>
                     {infoValue?.description.replace(/\s+/g,'') !== "" ?
                     <div className='stream-dashboard-description' title={DOMPurify.sanitize(infoValue?.description).trim()}>{DOMPurify.sanitize(infoValue?.description).trim()}</div>
-                     : <div className='stream-dashboard-description'>{`-`}</div>}
+                        : <div className='stream-dashboard-description'>{`-`}</div>}
 
                     <div className='stream-dashboard-description-details'>
                         <b style={{ color: '#DC4C64', marginRight: '5px' }}>Released Date:</b> 
@@ -246,15 +254,15 @@ const MovieStreamDashboard = (props) => {
                             <SeparateArrayByComma type={'google_link'} data={infoValue?.casts} link={'https://www.google.com/search?q='} />
                             <br/>
                         </>
-                         : ""}
-                         
+                            : ""}
+                            
                         {infoValue?.genres?.length > 0 ?
                             <>
                                 <b style={{ color: '#DC4C64', marginRight: '5px' }}>Genres:</b>
                                 <SeparateArrayByComma type={'site_link'} data={infoValue?.genres} link={'/foreign/genre_filter?genre='} />
                                 <br/>
                             </>
-                         : ""}
+                            : ""}
                         {type === 'movie' && resourceData.isSuccess && resourceValue?.data?.sources?.filter((item) => item.quality !== "auto").length > 0 ?
                             <>
                                 <b style={{ color: '#DC4C64', marginRight: '5px' }}>Video Resolutions:</b> 
@@ -267,8 +275,8 @@ const MovieStreamDashboard = (props) => {
                                 })}
                                 <br/>
                             </>
-                         : ""}
-                         {type === 'movie' && resourceData.isSuccess ?
+                            : ""}
+                            {type === 'movie' && resourceData.isSuccess ?
                             <>
                                 <b style={{ color: '#DC4C64', marginRight: '5px' }}>Subtitles:</b> 
                                     {resourceValue?.data?.subtitles?.map((item, i) => {
@@ -277,12 +285,12 @@ const MovieStreamDashboard = (props) => {
                                     { subtitleCount > 0 ? <><b>{subtitleCount}</b> <LanguageListTooltip text={<VisibilityIcon sx={{ fontSize: '18px', marginBottom: '-3px', color: '#3B71CA' }}/>} languages={resourceValue?.data?.subtitles}/></> : "No available subtitle" }
                                 <br/>
                             </>
-                         : ""}
+                            : ""}
                     </div>
                     <div className='stream-dashboard-servers'>
                         {serverData.isSuccess && serverValue?.data?.length > 0 ? 
                         ""
-                         : 
+                            : 
                         <>
                             <Typography variant="subtitle1" style={{ verticalAlign: 'middle', display: 'inline-flex', fontWeight: 'bolder' }}>
                                 <WarningAmberTwoToneIcon style={{ marginRight: '8px', color: "#DC4C64", fontSize: 30 }}/> NO SERVER AVAILABLE.
@@ -302,7 +310,7 @@ const MovieStreamDashboard = (props) => {
                     <div className='stream-dashboard-video-qualities'>
                         {resourceData.isSuccess && resourceValue?.data?.sources?.length > 0 ? 
                         ""
-                         : 
+                            : 
                         <>
                             <div className='stream-dashboard-resource-links'>
                                 <Typography variant="subtitle1" style={{ verticalAlign: 'middle', display: 'inline-flex', fontWeight: 'bolder' }}>
@@ -318,7 +326,7 @@ const MovieStreamDashboard = (props) => {
 
                         {resourceData.isLoading ? 
                             <CircularProgress sx={{ color: 'white', fontSize: 10 }} />
-                         : ""}
+                            : ""}
                         
                         {infoData.isSuccess && serverData.isSuccess ? 
                         <>

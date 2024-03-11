@@ -19,6 +19,8 @@ import OndemandVideoIcon from '@mui/icons-material/OndemandVideo';
 // Pages
 import SideBar from "../../Components/SlideBar/SideBar";
 import Footer from "../../Components/Footer/Footer";
+import FloatingButton from '../../Components/FloatingButton/FloatingButton';
+import LoadingPage from "../../Components/LoadingPage/LoadingPage";
 import { Player } from "../../Components/Player/Player";
 import Suggestions from "../../Components/InternationalFilms/Suggestions";
 import TVEpisodesDrawer from "../../Components/BottomDrawer/TVEpisodesDrawer";
@@ -27,7 +29,7 @@ import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
 // Config
 import apiConfig from '../../Config/api.config';
-import { defaultInternationalServer, defaultInternationalVideoRes, server_status } from "../../Config/settings.config";
+import { pageLoadMS, defaultInternationalServer, defaultInternationalVideoRes, server_status } from "../../Config/settings.config";
 
 // Images
 import { subtitleLogo, videoQuality } from "../../Config/images.config";
@@ -49,6 +51,7 @@ const MovieDashboard = (props) => {
   const paramEpisodeId = queryParams.get("episode") != null ? parseInt(queryParams.get("episode")) : null;
   const paramServer = queryParams.get("server") != null ? queryParams.get("server") : null;
 
+  const [isLoading, setIsLoading] = useState(true);
   const [movieServer, setMovieServer] = useState([]);
   const [videoQualities, setVideoQualities] = useState([]);
   const [videoSubtitles, setVideoSubtitles] = useState([]);
@@ -59,7 +62,7 @@ const MovieDashboard = (props) => {
   const [snackBarMessage, setSnackBarMessage] = useState("");
   const [snackBarOpen, setSnackBarOpen] = useState(false);
 
-  // loading
+  // Picture loading
   const [loadingEpisode, setLoadingEpisode] = useState(true);
 
   // Default data load
@@ -290,7 +293,6 @@ const MovieDashboard = (props) => {
   // previous | next
   var additionalControls = [];
   if (type === 'tv') {
-
     // Previous Episode
     const selectedItemPrevIndex = infoValue?.episodes?.indexOf(infoValue?.episodes?.find((item) => item.season == selectedSeason && item.id == selectedEpisode));
     if (selectedItemPrevIndex > 0 && selectedItemPrevIndex < infoValue?.episodes?.length) {
@@ -307,7 +309,6 @@ const MovieDashboard = (props) => {
         },
       });
     }
-
     // Next Episode
     const selectedItemNextIndex = infoValue?.episodes?.indexOf(infoValue?.episodes?.find((item) => item.season == selectedSeason && item.id == selectedEpisode));
     if (selectedItemNextIndex >= 0 && (selectedItemNextIndex + 1) < infoValue?.episodes?.length) {
@@ -324,7 +325,6 @@ const MovieDashboard = (props) => {
         },
       });
     }
-
   }
 
   useEffect(() => {
@@ -344,6 +344,11 @@ const MovieDashboard = (props) => {
     if (serverData.isSuccess) {
       setMovieServer(serverValue);
     }
+
+    setTimeout(() => {
+      setIsLoading(false);
+    }, pageLoadMS);
+
   }, [infoData.isSuccess, 
       serverData.isSuccess, 
       serverVar, 
@@ -358,272 +363,270 @@ const MovieDashboard = (props) => {
       set_selectedLinkSubtitle]);
 
   return (
-    <>
-      <div className="movie_dashboard">
-        <ReactQueryTools/>
-        <SideBar Type={'foreign'} subType={null} transparentBg={false} isStream={true}/>
-        <SnackBar severity={snackBarType} handleSnackBarOpen={handleSnackBarOpen} status={snackBarOpen} snackBarMessage={snackBarMessage} />
-        {<>
+    isLoading ? 
+      <LoadingPage/>
+    : 
+    <div className="movie_dashboard">
+      <ReactQueryTools/>
+      <SideBar Type={'foreign'} subType={null} transparentBg={false} isStream={true}/>
+      <SnackBar severity={snackBarType} handleSnackBarOpen={handleSnackBarOpen} status={snackBarOpen} snackBarMessage={snackBarMessage} />
 
-          <div className="movie_cover" style={{backgroundImage: `linear-gradient(rgba(0, 0, 10, 1),rgba(0, 0, 10, 0.5)), url("${infoValue?.cover}")`}}>
-            <div className="heading cheading movie-stream-title">
-              <h6></h6>
-            </div>
-            {loadingEpisode ? (
-              <div>
-                <Box className="playButton" display="flex" justifyContent="center" alignItems="center">
-                  <CircularProgress sx={{ fontSize: 100 }} />
-                </Box>
-              </div>
-            ) : (
-              <Player
-                className="movie_player"
-                defaultlink={defaultLink}
-                infotitle={type === 'tv' ? `${infoValue?.title} - Season ${selectedSeason} / ${selectedEpisodeName}` : `${infoValue?.title}`}
-                infocover={infoValue?.cover}
-                episodeNum={episodeNum}
-                totalEpisodes={totalEpisodes}
-                nextEpisode={nextEpisode}
-                seekTime={seekTimeValue.current}
-                option={{
-                  enableAds: true,
-                  setting: true,
-                  hotkey: true,
-                  settings: [
-                  {
-                    html: 'Video Resolutions',
-                    width: 300,
-                    tooltip: defaultQualityToolTip || "No selected",
-                    icon: `<img width="22" heigth="22" src="${videoQuality}">`,
-                    selector: videoQualities,
-                    onSelect: function (item, $dom, event) {
-                        console.info(item, $dom, event);
-                        this.switchQuality(item.url, item.html);
-                        return item.html;
+      <div className="movie_cover" style={{backgroundImage: `linear-gradient(rgba(0, 0, 10, 1),rgba(0, 0, 10, 0.5)), url("${infoValue?.cover}")`}}>
+        <div className="heading cheading movie-stream-title">
+          <h6></h6>
+        </div>
+        {loadingEpisode ? (
+          <div>
+            <Box className="playButton" display="flex" justifyContent="center" alignItems="center">
+              <CircularProgress sx={{ fontSize: 100 }} />
+            </Box>
+          </div>
+        ) : (
+          <Player
+            className="movie_player"
+            defaultlink={defaultLink}
+            infotitle={type === 'tv' ? `${infoValue?.title} - Season ${selectedSeason} / ${selectedEpisodeName}` : `${infoValue?.title}`}
+            infocover={infoValue?.cover}
+            episodeNum={episodeNum}
+            totalEpisodes={totalEpisodes}
+            nextEpisode={nextEpisode}
+            seekTime={seekTimeValue.current}
+            option={{
+              enableAds: true,
+              setting: true,
+              hotkey: true,
+              settings: [
+              {
+                html: 'Video Resolutions',
+                width: 300,
+                tooltip: defaultQualityToolTip || "No selected",
+                icon: `<img width="22" heigth="22" src="${videoQuality}">`,
+                selector: videoQualities,
+                onSelect: function (item, $dom, event) {
+                    console.info(item, $dom, event);
+                    this.switchQuality(item.url, item.html);
+                    return item.html;
+                },
+              },
+              {
+                html: 'Subtitles',
+                width: 300,
+                tooltip: defaultSubtitleToolTip || "No selected",
+                icon: `<img width="22" heigth="22" src="${subtitleLogo}">`,
+                selector: [
+                {
+                    html: 'Display',
+                    tooltip: 'Show',
+                    switch: true,
+                    onSwitch: function (item) {
+                        item.tooltip = item.switch ? 'Hide' : 'Show';
+                        this.subtitle.show = !item.switch;
+                        return !item.switch;
                     },
-                  },
-                  {
-                    html: 'Subtitles',
-                    width: 300,
-                    tooltip: defaultSubtitleToolTip || "No selected",
-                    icon: `<img width="22" heigth="22" src="${subtitleLogo}">`,
-                    selector: [
-                    {
-                        html: 'Display',
-                        tooltip: 'Show',
-                        switch: true,
-                        onSwitch: function (item) {
-                            item.tooltip = item.switch ? 'Hide' : 'Show';
-                            this.subtitle.show = !item.switch;
-                            return !item.switch;
-                        },
-                    },
-                    ...videoSubtitles
-                    ],
-                    onSelect: function (item) {
-                        this.subtitle.switch(item.url, {
-                            name: item.html,
-                        });
-                        return item.html;
-                    },
-                  },
+                },
+                ...videoSubtitles
                 ],
-                // quality: videoQualities,
-                subtitle: {
-                    url: defaultSubtitle,
-                    type: getFileExtention(defaultSubtitle),
-                    style: {
-                        color: '#fe9200',
-                        fontSize: '20px',
-                    },
-                    encoding: 'utf-8',
+                onSelect: function (item) {
+                    this.subtitle.switch(item.url, {
+                        name: item.html,
+                    });
+                    return item.html;
                 },
-                headers: {
-                  Referer: 'https://flixhq.to/',
-                  Origin: 'https://flixhq.to/'
+              },
+            ],
+            // quality: videoQualities,
+            subtitle: {
+                url: defaultSubtitle,
+                type: getFileExtention(defaultSubtitle),
+                style: {
+                    color: '#fe9200',
+                    fontSize: '20px',
                 },
-                controls: additionalControls,
-                }}
-                getInstance={(art) => console.info(art.getCurrentTime)}
-              />
-            )}
-          </div>
-
-
-          {selectedServer !== null && movieServer?.data?.length > 0 ? 
-            <div className={type === 'tv' ? 'movie_server_tv' : 'movie_server'} hidden={server_status.filter(item => item.status === 'stable').length > 1 || movieServer?.data[0].name === 'vidcloud' ? false : true }>
-              <div className="movie_server_content_note">
-                <p>If current server doesn't work please try other servers below.</p>
-              </div>
-              <div className="movie_server_content">
-                    <center>
-                      {movieServer?.data?.map((item, index) => {
-                          return (
-                            <Fragment key={index}>
-                              {server_status.filter((serverValue) => serverValue.code === item.name).length > 0 ? (
-                                <>
-                                {server_status.filter((serverValue) => serverValue.code === item.name).map((subItem, subNo) => {
-                                    return (
-                                        <>
-                                            {subItem.status === 'stable' ?
-                                            (<Button variant={selectedServer === item.name ? 'contained' : 'outlined'} startIcon={<OndemandVideoIcon/>} size="small" style={{ marginInline: 8 }} onClick={() => chooseServer(item.name)}>
-                                                {`Server ${index+1}`}
-                                            </Button>)
-                                            : 
-                                            (
-                                              <Button variant={selectedServer === item.name ? 'contained' : 'outlined'} startIcon={<OndemandVideoIcon/>} size="small" style={{ marginInline: 8, cursor: 'not-allowed' }} color='error'>
-                                                  {`Server ${index+1}`}
-                                              </Button>
-                                            )}
-                                        </>
-                                    )
-                                })}
-                                </>
-                              ) : ("")}        
-                            </Fragment>
-                          )
-                      })}
-                    </center>
-              </div>
-            </div>
-          : <div className={type === 'tv' ? 'movie_server_tv' : 'movie_server'}></div>}
-
-          <div className={type === 'tv' ? 'tv_info' : 'movie_info'}>
-          
-            {type === 'tv' ?
-            <>
-              <Box className="episodesBtn" display={{ xs: 'block', sm: 'block', md: 'none', lg: 'none' }}>
-                <TVEpisodesDrawer
-                  movieInfo={infoValue} 
-                  mediaId={indexId} 
-                  seasonId={selectedSeason}
-                  episodeId={selectedEpisode} 
-                  server={selectedServer}
-                  setSelectedSeason={setSelectedSeason}
-                  setSelectedEpisode={setSelectedEpisode}
-                  setSelectedServer={setSelectedServer}
-                  setSelectedEpisodeName={setSelectedEpisodeName}
-                  setLoadingEpisode={setLoadingEpisode}
-                  moveToTop={moveToTop}
-                  lowerEpisodeList={true}
-                  seekTimeValue={seekTimeValue}
-                  drawerAlign={'bottom'}
-                />
-              </Box>
-              <Box className="episodesBtn" display={{ xs: 'none', sm: 'none', md: 'block', lg: 'block' }}>
-                <TVEpisodesDrawer
-                  movieInfo={infoValue} 
-                  mediaId={indexId} 
-                  seasonId={selectedSeason}
-                  episodeId={selectedEpisode} 
-                  server={selectedServer}
-                  setSelectedSeason={setSelectedSeason}
-                  setSelectedEpisode={setSelectedEpisode}
-                  setSelectedServer={setSelectedServer}
-                  setSelectedEpisodeName={setSelectedEpisodeName}
-                  setLoadingEpisode={setLoadingEpisode}
-                  moveToTop={moveToTop}
-                  lowerEpisodeList={true}
-                  seekTimeValue={seekTimeValue}
-                  drawerAlign={'right'}
-                />
-              </Box>
-            </>
-             :  <Box display={{ xs: 'none', sm: 'none', md: 'block', lg: 'block', xl: 'block' }}>
-                  <br/><br/><br/>
-                </Box>}
-            <div className="content-details">
-              <Grid container columnSpacing={{ xs: 1, sm: 2, md: 5, lg: 5, xl: 5 }} rowSpacing={5}>
-                <Grid item xl={12} lg={12} md={12} sm={12} xs={12} display={{ xs: 'none', sm: 'none', md: 'none', lg: 'block' }}>
-                  <div className="heading cheading">
-                    <h6>{type === "tv" ? 'TV Show' : 'Movie'} Details</h6>
-                  </div>
-                </Grid>
-                <Grid item xl={2} lg={2} md={0} sm={0} xs={0} display={{ xs: 'none', sm: 'none', md: 'none', lg: 'block' }}>
-                    <center>
-                      <img src={infoValue?.image} alt={infoValue?.title} style={{ marginTop: '-30px', marginBottom: '30px' }} />
-                    </center>
-                </Grid>
-                <Grid item xl={10} lg={10} md={12} sm={12} xs={12}>
-                  <h3 className='media-title' style={{ marginTop: '-30px', marginLeft: '10px' }}><b>{infoValue?.title}</b></h3>
-                  <div className='media_props'>
-                    {type === 'tv' ? 
-                      <Grid container alignItems="center" spacing={0.4} style={{ marginLeft: '8px' }}>
-                        <Grid item>
-                          <h5 style={{ marginRight: 10 }}>
-                            <span className='stream-video-quality-span' style={{ backgroundColor: 'transparent', fontWeight: 'bolder', border: '1.5px solid white' }}>{infoValue?.video_quality}</span>
-                          </h5>
-                        </Grid>
-                      </Grid>
-                      : 
-                      <Grid container alignItems="center" spacing={0.4} style={{ marginLeft: '8px' }}>
-                        <Grid item>
-                          <h5 style={{ marginRight: 10 }}>
-                            <span className='stream-video-quality-span' style={{ backgroundColor: 'transparent', fontWeight: 'bolder', border: '1.5px solid white' }}>{infoValue?.video_quality}</span>
-                          </h5>
-                        </Grid>
-                        <Grid item>
-                          <AccessTimeFilledIcon style={{ fontSize: 16, marginBottom: -2, color: "#54B4D3" }}/>
-                        </Grid>
-                        <Grid item>
-                          <h5>{convertMinutesToHoursAndMinutes(infoValue?.duration.replace('min', ''))}</h5>
-                        </Grid>
-                      </Grid>}
-                  </div>
-                  {infoValue?.description.trim() !== "" ? (
-                    <p className="movie_description" dangerouslySetInnerHTML={{ __html: infoValue?.description}}/>
-                  ) : (
-                    <p className="movie_description">
-                      -
-                    </p>
-                  )}
-                  <table>
-                    <tbody>
-                      <tr>
-                        <th>Country:</th>
-                        <td><Link className='text-link' style={{ cursor: 'pointer' }} title={`${infoValue?.country}`} to={`/foreign/country_filter?country=${infoValue?.country}`}>{infoValue?.country}</Link></td>
-                      </tr>
-                      <tr>
-                        <th>Genre:</th>
-                        <td><SeparateArrayByComma type={'site_link'} data={infoValue?.genres} link={'/foreign/genre_filter?genre='} /></td>
-                      </tr>
-                      <tr>
-                        <th>Released:</th>
-                        <td>{infoValue?.releaseDate == null ? infoValue?.releaseDate : moment(infoValue?.releaseDate).format('MMMM D, YYYY') }</td>
-                      </tr>
-                      <tr>
-                        <th>Production:</th>
-                        <td>
-                          <a className='text-link' href={`https://www.google.com/search?q=${infoValue?.production}`} alt={infoValue?.production} title={infoValue?.production} rel='noreferrer' target='_blank' style={{ color: '#ccced1', cursor: 'pointer' }}>
-                            {infoValue?.production}
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th>Casts:</th>
-                        <td><SeparateArrayByComma type={'google_link'} data={infoValue?.casts} link={'https://www.google.com/search?q='} /></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </Grid>
-
-              </Grid>
-            </div>
-          </div>
-          <br/><br/>
-          {recommendations.filter((item) => item.type == contentType).length > 0 ?
-              <>
-                <div className="heading bheading">
-                  <h6>You May Also Like</h6>
-                </div>
-                <Suggestions Suggest={recommendations} Type={type} />
-              </>
-            : ""}
-
-          <Footer/>
-        </>}
+                encoding: 'utf-8',
+            },
+            headers: {
+              Referer: 'https://flixhq.to/',
+              Origin: 'https://flixhq.to/'
+            },
+            controls: additionalControls,
+            }}
+            getInstance={(art) => console.info(art.getCurrentTime)}
+          />
+        )}
       </div>
-    </>
+
+      {selectedServer !== null && movieServer?.data?.length > 0 ? 
+        <div className={type === 'tv' ? 'movie_server_tv' : 'movie_server'} hidden={server_status.filter(item => item.status === 'stable').length > 1 || movieServer?.data[0].name === 'vidcloud' ? false : true }>
+          <div className="movie_server_content_note">
+            <p>If current server doesn't work please try other servers below.</p>
+          </div>
+          <div className="movie_server_content">
+                <center>
+                  {movieServer?.data?.map((item, index) => {
+                      return (
+                        <Fragment key={index}>
+                          {server_status.filter((serverValue) => serverValue.code === item.name).length > 0 ? (
+                            <>
+                            {server_status.filter((serverValue) => serverValue.code === item.name).map((subItem, subNo) => {
+                                return (
+                                    <>
+                                        {subItem.status === 'stable' ?
+                                        (<Button variant={selectedServer === item.name ? 'contained' : 'outlined'} startIcon={<OndemandVideoIcon/>} size="small" style={{ marginInline: 8 }} onClick={() => chooseServer(item.name)}>
+                                            {`Server ${index+1}`}
+                                        </Button>)
+                                        : 
+                                        (
+                                          <Button variant={selectedServer === item.name ? 'contained' : 'outlined'} startIcon={<OndemandVideoIcon/>} size="small" style={{ marginInline: 8, cursor: 'not-allowed' }} color='error'>
+                                              {`Server ${index+1}`}
+                                          </Button>
+                                        )}
+                                    </>
+                                )
+                            })}
+                            </>
+                          ) : ("")}        
+                        </Fragment>
+                      )
+                  })}
+                </center>
+          </div>
+        </div>
+      : <div className={type === 'tv' ? 'movie_server_tv' : 'movie_server'}></div>}
+
+      <div className={type === 'tv' ? 'tv_info' : 'movie_info'}>
+      
+        {type === 'tv' ?
+        <>
+          <Box className="episodesBtn" display={{ xs: 'block', sm: 'block', md: 'none', lg: 'none' }}>
+            <TVEpisodesDrawer
+              movieInfo={infoValue} 
+              mediaId={indexId} 
+              seasonId={selectedSeason}
+              episodeId={selectedEpisode} 
+              server={selectedServer}
+              setSelectedSeason={setSelectedSeason}
+              setSelectedEpisode={setSelectedEpisode}
+              setSelectedServer={setSelectedServer}
+              setSelectedEpisodeName={setSelectedEpisodeName}
+              setLoadingEpisode={setLoadingEpisode}
+              moveToTop={moveToTop}
+              lowerEpisodeList={true}
+              seekTimeValue={seekTimeValue}
+              drawerAlign={'bottom'}
+            />
+          </Box>
+          <Box className="episodesBtn" display={{ xs: 'none', sm: 'none', md: 'block', lg: 'block' }}>
+            <TVEpisodesDrawer
+              movieInfo={infoValue} 
+              mediaId={indexId} 
+              seasonId={selectedSeason}
+              episodeId={selectedEpisode} 
+              server={selectedServer}
+              setSelectedSeason={setSelectedSeason}
+              setSelectedEpisode={setSelectedEpisode}
+              setSelectedServer={setSelectedServer}
+              setSelectedEpisodeName={setSelectedEpisodeName}
+              setLoadingEpisode={setLoadingEpisode}
+              moveToTop={moveToTop}
+              lowerEpisodeList={true}
+              seekTimeValue={seekTimeValue}
+              drawerAlign={'right'}
+            />
+          </Box>
+        </>
+          :  <Box display={{ xs: 'none', sm: 'none', md: 'block', lg: 'block', xl: 'block' }}>
+              <br/><br/><br/>
+            </Box>}
+        <div className="content-details">
+          <Grid container columnSpacing={{ xs: 1, sm: 2, md: 5, lg: 5, xl: 5 }} rowSpacing={5}>
+            <Grid item xl={12} lg={12} md={12} sm={12} xs={12} display={{ xs: 'none', sm: 'none', md: 'none', lg: 'block' }}>
+              <div className="heading cheading">
+                <h6>{type === "tv" ? 'TV Show' : 'Movie'} Details</h6>
+              </div>
+            </Grid>
+            <Grid item xl={2} lg={2} md={0} sm={0} xs={0} display={{ xs: 'none', sm: 'none', md: 'none', lg: 'block' }}>
+                <center>
+                  <img src={infoValue?.image} alt={infoValue?.title} style={{ marginTop: '-30px', marginBottom: '30px' }} />
+                </center>
+            </Grid>
+            <Grid item xl={10} lg={10} md={12} sm={12} xs={12}>
+              <h3 className='media-title' style={{ marginTop: '-30px', marginLeft: '10px' }}><b>{infoValue?.title}</b></h3>
+              <div className='media_props'>
+                {type === 'tv' ? 
+                  <Grid container alignItems="center" spacing={0.4} style={{ marginLeft: '8px' }}>
+                    <Grid item>
+                      <h5 style={{ marginRight: 10 }}>
+                        <span className='stream-video-quality-span' style={{ backgroundColor: 'transparent', fontWeight: 'bolder', border: '1.5px solid white' }}>{infoValue?.video_quality}</span>
+                      </h5>
+                    </Grid>
+                  </Grid>
+                  : 
+                  <Grid container alignItems="center" spacing={0.4} style={{ marginLeft: '8px' }}>
+                    <Grid item>
+                      <h5 style={{ marginRight: 10 }}>
+                        <span className='stream-video-quality-span' style={{ backgroundColor: 'transparent', fontWeight: 'bolder', border: '1.5px solid white' }}>{infoValue?.video_quality}</span>
+                      </h5>
+                    </Grid>
+                    <Grid item>
+                      <AccessTimeFilledIcon style={{ fontSize: 16, marginBottom: -2, color: "#54B4D3" }}/>
+                    </Grid>
+                    <Grid item>
+                      <h5>{convertMinutesToHoursAndMinutes(infoValue?.duration.replace('min', ''))}</h5>
+                    </Grid>
+                  </Grid>}
+              </div>
+              {infoValue?.description.trim() !== "" ? (
+                <p className="movie_description" dangerouslySetInnerHTML={{ __html: infoValue?.description}}/>
+              ) : (
+                <p className="movie_description">
+                  -
+                </p>
+              )}
+              <table>
+                <tbody>
+                  <tr>
+                    <th>Country:</th>
+                    <td><Link className='text-link' style={{ cursor: 'pointer' }} title={`${infoValue?.country}`} to={`/foreign/country_filter?country=${infoValue?.country}`}>{infoValue?.country}</Link></td>
+                  </tr>
+                  <tr>
+                    <th>Genre:</th>
+                    <td><SeparateArrayByComma type={'site_link'} data={infoValue?.genres} link={'/foreign/genre_filter?genre='} /></td>
+                  </tr>
+                  <tr>
+                    <th>Released:</th>
+                    <td>{infoValue?.releaseDate == null ? infoValue?.releaseDate : moment(infoValue?.releaseDate).format('MMMM D, YYYY') }</td>
+                  </tr>
+                  <tr>
+                    <th>Production:</th>
+                    <td>
+                      <a className='text-link' href={`https://www.google.com/search?q=${infoValue?.production}`} alt={infoValue?.production} title={infoValue?.production} rel='noreferrer' target='_blank' style={{ color: '#ccced1', cursor: 'pointer' }}>
+                        {infoValue?.production}
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Casts:</th>
+                    <td><SeparateArrayByComma type={'google_link'} data={infoValue?.casts} link={'https://www.google.com/search?q='} /></td>
+                  </tr>
+                </tbody>
+              </table>
+            </Grid>
+
+          </Grid>
+        </div>
+      </div>
+      <br/><br/>
+      {recommendations.filter((item) => item.type == contentType).length > 0 ?
+          <>
+            <div className="heading bheading">
+              <h6>You May Also Like</h6>
+            </div>
+            <Suggestions Suggest={recommendations} Type={type} />
+          </>
+        : ""}
+      <FloatingButton/>
+      <Footer/>
+    </div>
   );
 }
 

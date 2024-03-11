@@ -1,0 +1,56 @@
+.loading-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 85vh;
+    width: 100%;
+}
+
+.page-loading-logo {
+    margin-bottom: 5px;
+}
+
+.page-loading-text {
+    margin-top: 3px !important;
+    color: var(--four-color);
+}
+
+.page-loading-linear-progress {
+    margin-bottom: 8px;
+}
+
+.page-image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.page-zoom-in-out {
+    animation: zoomInOut 1.5s infinite alternate ease-in-out;
+    width: 280px;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.page-logo-spin {
+    animation: spinAnimation 3s initial linear;
+}
+
+@keyframes spinAnimation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes zoomInOut {
+    0% {
+        transform: scale(0.9);
+    }
+    100% {
+        transform: scale(1);
+    }
+}

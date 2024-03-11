@@ -1,5 +1,5 @@
 // Packages
-import React, { Fragment, Suspense } from "react";
+import React, { useState, useEffect, Fragment, Suspense } from "react";
 import { Link } from "react-router-dom";
 
 // React Query
@@ -22,22 +22,27 @@ import "slick-carousel/slick/slick-theme.css";
 // Components
 import SideBar from "../../Components/SlideBar/SideBar";
 import Footer from "../../Components/Footer/Footer";
+import FloatingButton from '../../Components/FloatingButton/FloatingButton';
+import LoadingPage from "../../Components/LoadingPage/LoadingPage";
 import AnimeDiscovers from "../../Components/Anime/AnimeDiscovers";
 import AnimeRow from "../../Components/Anime/AnimeRow";
 import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
-import { carousel_settings, movie_card_carousel_settings, movie_genre_carousel_settings, anime_genres } from "../../Config/settings.config";
+// Config
+import { pageLoadMS, carousel_settings, movie_card_carousel_settings, movie_genre_carousel_settings, anime_genres } from "../../Config/settings.config";
 
+// Services
 import { trending_anime, popular_anime, recent_anime_episodes, anime_airing_schedule } from "../../Services/AnimeService";
 
 const Anime = () => {
 
   document.title = 'AllHQFlix - Anime';
-
   const urlContentType = "anime";
   const urlContentSubType = "anime";
   const defaultPageNumber = 1;
   const defaultPerPage = 20;
+
+  const [isLoading, setIsLoading] = useState(true);
 
   let discoverData = useQuery(['popular_anime', {page: defaultPageNumber, perPage: defaultPerPage}], popular_anime, {
     cacheTime: 24 * 60 * 60 * 1000, // 24 hours
@@ -63,187 +68,196 @@ const Anime = () => {
   });
   let airingValue = airingData.data?.data?.results;
 
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, pageLoadMS);
+  }, []);
+
   return (
-      <div className="movies">
-        <ReactQueryTools/>
-        <SideBar Type={urlContentType} subType={urlContentSubType} />
-        {<>
-          <Box
-            display={{ xs: 'block', md: 'block' }}
-          >
-            {trendingData.isSuccess ?
-              <Suspense fallback={<div className="carousel-skeleton" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                <CircularProgress sx={{ fontSize: 100 }} />
-              </div>}>
-                <Slider {...carousel_settings}>
-                  {trendingValue?.map((item, i) => (
-                    <Fragment key={i}>
-                      <div className="movies__boxx">
-                        <AnimeDiscovers
-                          id={item?.id}
-                          banner={item?.cover}
-                          title={item?.title.english || item?.title.userPreferred || item?.title.romaji}
-                          des={item?.description}
-                          year={item?.releaseDate}
-                          genres={item?.genres}
-                          episode={item?.totalEpisodes}
-                          slug={item?.type}
-                          key={item?.id}
-                        />
-                      </div>
-                    </Fragment>
-                  ))}
-                </Slider>
-              </Suspense>
-            : <div className="carousel-skeleton" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                <CircularProgress sx={{ fontSize: 100 }} />
-              </div>}
-          </Box>
-
-            {/* Genres */}
-            {anime_genres.length > 0 ?
-            (
-              <div style={{ marginTop: '5px', marginBottom: '5px' }}>
-                <Container maxWidth={'xxl'} display={{ xs: "block", sm: "block", md: "block", lg: "block", xl: "block" }}>
-                  <Slider {...movie_genre_carousel_settings} style={{ marginInline: "13px" }}>
-                    {anime_genres.map((item, index) => {
-                      return (
-                        <Fragment key={index}>
-                          <Link className="text-link-without-underline genre-carousel" to={`/anime/genre_filter?genre=${item}`}>
-                            <Button variant="" size="small" color="error" style={{ margin: '5px', color: 'whitesmoke', fontSize: 15, fontWeight: 550 }}>{item}</Button>
-                          </Link>
-                        </Fragment>
-                      )
-                    })} 
-                  </Slider>
-                </Container>
-              </div>
-            )
-            : <></>}
-
-            {discoverData.isLoading && trendingData.isLoading && recentData.isLoading ?
-            <div className="top_content">
-              <div style={{ minHeight: '350px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                <CircularProgress sx={{ fontSize: 100 }} />
-              </div>
-            </div>
-            : ''}
-            
-            {discoverData.isSuccess ? 
-              <div style={{ margin: 'auto' }}>
-                <div className="heading">
-                  POPULAR ANIMES
-                  <Link className="text-link-without-underline" to="/anime/popular_anime" style={{ float: 'right', fontSize: '20px', marginRight: 10 }}>
-                    <Button variant="contained" size="small" color="primary">MORE</Button>
-                  </Link>
-                </div><br/>
-                <Slider {...movie_card_carousel_settings} style={{ marginInline: '30px' }}>
-                  {popularValue?.map((data, i) => (
-                    <Fragment key={i}>
-                      <AnimeRow
-                        isloadImage={true}
-                        cat={"default"}
-                        id={data?.id}
-                        img={data?.image}
-                        title={data?.title.english || data?.title.userPreferred || data?.title.romaji}
-                        release_date={data?.releaseDate}
-                        type={data?.type}
-                        rate={data?.rating}
-                        episode={data?.totalEpisodes}
-                        key={i}
+    isLoading ? 
+      <LoadingPage/>
+    : 
+    <div className="movies">
+      <ReactQueryTools/>
+      <SideBar Type={urlContentType} subType={urlContentSubType} />
+        <Box
+          display={{ xs: 'block', md: 'block' }}
+        >
+          {trendingData.isSuccess ?
+            <Suspense fallback={<div className="carousel-skeleton" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+              <CircularProgress sx={{ fontSize: 100 }} />
+            </div>}>
+              <Slider {...carousel_settings}>
+                {trendingValue?.map((item, i) => (
+                  <Fragment key={i}>
+                    <div className="movies__boxx">
+                      <AnimeDiscovers
+                        id={item?.id}
+                        banner={item?.cover}
+                        title={item?.title.english || item?.title.userPreferred || item?.title.romaji}
+                        des={item?.description}
+                        year={item?.releaseDate}
+                        genres={item?.genres}
+                        episode={item?.totalEpisodes}
+                        slug={item?.type}
+                        key={item?.id}
                       />
-                    </Fragment>
-                  ))}
-                </Slider>
-              </div> : <></> }
-            
-            {trendingData.isSuccess ? 
-              <div className="top_content">
-                <div className="heading">
-                  TRENDING ANIMES
-                  <Link className="text-link-without-underline" to="/anime/trending_anime" style={{ float: 'right', fontSize: '20px', marginRight: 10 }}>
-                    <Button variant="contained" size="small" color="primary">MORE</Button>
-                  </Link>
-                </div><br/>
-                <Slider {...movie_card_carousel_settings} style={{ marginInline: '30px' }}>
-                    {trendingValue?.map((data, i) => (
-                      <Fragment key={i}>
-                        <AnimeRow
-                          isloadImage={true}
-                          cat={'default'}
-                          id={data?.id}
-                          img={data?.image}
-                          title={data?.title.english || data?.title.userPreferred || data?.title.romaji}
-                          release_date={data?.releaseDate}
-                          type={data?.type}
-                          rate={data?.rating}
-                          episode={data?.totalEpisodes}
-                          key={i}
-                        />
-                      </Fragment>
-                    ))}
-                </Slider>
-              </div> : <></> }
-            
-            {recentData.isSuccess && recentValue?.length > 0 ? 
-              <div className="top_content">
-                <div className="heading">
-                  RECENT ANIMES
-                  <Link className="text-link-without-underline" to="/anime/recent_anime" style={{ float: 'right', fontSize: '20px', marginRight: 10 }}>
-                    <Button variant="contained" size="small" color="primary">MORE</Button>
-                  </Link>
-                </div><br/>
-                <Slider {...movie_card_carousel_settings} style={{ marginInline: '30px' }}>
-                  {recentValue?.map((data, i) => (
-                    <Fragment key={i}>
-                      <AnimeRow
-                        isloadImage={true}
-                        cat={'default'}
-                        id={data?.id}
-                        img={data?.image}
-                        title={data?.title.english || data?.title.userPreferred || data?.title.romaji}
-                        release_date={data?.releaseDate}
-                        type={data?.type}
-                        rate={data?.rating}
-                        episode={data?.totalEpisodes}
-                        key={i}
-                      />
-                    </Fragment>
-                  ))}
-                </Slider>
-              </div> : "" }
-            
-            {airingData.isSuccess && airingValue?.length > 0 ? (
-            <div className="top_content">
-              <div className="heading">
-                AIRING SCHEDULE
-                <Link className="text-link-without-underline" to="/anime/airing_schedule" style={{ float: 'right', fontSize: '20px', marginRight: 10 }}>
-                  <Button variant="contained" size="small" color="primary">MORE</Button>
-                </Link>
-              </div><br/>
-              <Slider {...movie_card_carousel_settings} style={{ marginInline: '30px' }}>
-                  {airingValue?.map((data, i) => (
-                    <Fragment key={i}>
-                      <AnimeRow
-                        isloadImage={true}
-                        cat={'default'}
-                        id={data?.id}
-                        img={data?.image}
-                        title={data?.title.english || data?.title.userPreferred || data?.title.romaji}
-                        release_date={data?.releaseDate}
-                        type={data?.type}
-                        rate={data?.rating}
-                        episode={data?.episode}
-                        key={i}
-                      />
-                    </Fragment>
-                  ))}
+                    </div>
+                  </Fragment>
+                ))}
               </Slider>
-            </div>
-            ) : ("")}
-          <Footer />
-        </>}
-      </div>
+            </Suspense>
+          : <div className="carousel-skeleton" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+              <CircularProgress sx={{ fontSize: 100 }} />
+            </div>}
+        </Box>
+
+        {/* Genres */}
+        {anime_genres.length > 0 ?
+        (
+          <div style={{ marginTop: '5px', marginBottom: '5px' }}>
+            <Container maxWidth={'xxl'} display={{ xs: "block", sm: "block", md: "block", lg: "block", xl: "block" }}>
+              <Slider {...movie_genre_carousel_settings} style={{ marginInline: "13px" }}>
+                {anime_genres.map((item, index) => {
+                  return (
+                    <Fragment key={index}>
+                      <Link className="text-link-without-underline genre-carousel" to={`/anime/genre_filter?genre=${item}`}>
+                        <Button variant="" size="small" color="error" style={{ margin: '5px', color: 'whitesmoke', fontSize: 15, fontWeight: 550 }}>{item}</Button>
+                      </Link>
+                    </Fragment>
+                  )
+                })} 
+              </Slider>
+            </Container>
+          </div>
+        )
+        : <></>}
+
+        {discoverData.isLoading && trendingData.isLoading && recentData.isLoading ?
+        <div className="top_content">
+          <div style={{ minHeight: '350px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <CircularProgress sx={{ fontSize: 100 }} />
+          </div>
+        </div>
+        : ''}
+        
+        {discoverData.isSuccess ? 
+          <div style={{ margin: 'auto' }}>
+            <div className="heading">
+              POPULAR ANIMES
+              <Link className="text-link-without-underline" to="/anime/popular_anime" style={{ float: 'right', fontSize: '20px', marginRight: 10 }}>
+                <Button variant="contained" size="small" color="primary">MORE</Button>
+              </Link>
+            </div><br/>
+            <Slider {...movie_card_carousel_settings} style={{ marginInline: '30px' }}>
+              {popularValue?.map((data, i) => (
+                <Fragment key={i}>
+                  <AnimeRow
+                    isloadImage={true}
+                    cat={"default"}
+                    id={data?.id}
+                    img={data?.image}
+                    title={data?.title.english || data?.title.userPreferred || data?.title.romaji}
+                    release_date={data?.releaseDate}
+                    type={data?.type}
+                    rate={data?.rating}
+                    episode={data?.totalEpisodes}
+                    key={i}
+                  />
+                </Fragment>
+              ))}
+            </Slider>
+          </div> : <></> }
+        
+        {trendingData.isSuccess ? 
+          <div className="top_content">
+            <div className="heading">
+              TRENDING ANIMES
+              <Link className="text-link-without-underline" to="/anime/trending_anime" style={{ float: 'right', fontSize: '20px', marginRight: 10 }}>
+                <Button variant="contained" size="small" color="primary">MORE</Button>
+              </Link>
+            </div><br/>
+            <Slider {...movie_card_carousel_settings} style={{ marginInline: '30px' }}>
+                {trendingValue?.map((data, i) => (
+                  <Fragment key={i}>
+                    <AnimeRow
+                      isloadImage={true}
+                      cat={'default'}
+                      id={data?.id}
+                      img={data?.image}
+                      title={data?.title.english || data?.title.userPreferred || data?.title.romaji}
+                      release_date={data?.releaseDate}
+                      type={data?.type}
+                      rate={data?.rating}
+                      episode={data?.totalEpisodes}
+                      key={i}
+                    />
+                  </Fragment>
+                ))}
+            </Slider>
+          </div> : <></> }
+        
+        {recentData.isSuccess && recentValue?.length > 0 ? 
+          <div className="top_content">
+            <div className="heading">
+              RECENT ANIMES
+              <Link className="text-link-without-underline" to="/anime/recent_anime" style={{ float: 'right', fontSize: '20px', marginRight: 10 }}>
+                <Button variant="contained" size="small" color="primary">MORE</Button>
+              </Link>
+            </div><br/>
+            <Slider {...movie_card_carousel_settings} style={{ marginInline: '30px' }}>
+              {recentValue?.map((data, i) => (
+                <Fragment key={i}>
+                  <AnimeRow
+                    isloadImage={true}
+                    cat={'default'}
+                    id={data?.id}
+                    img={data?.image}
+                    title={data?.title.english || data?.title.userPreferred || data?.title.romaji}
+                    release_date={data?.releaseDate}
+                    type={data?.type}
+                    rate={data?.rating}
+                    episode={data?.totalEpisodes}
+                    key={i}
+                  />
+                </Fragment>
+              ))}
+            </Slider>
+          </div> : "" }
+        
+        {airingData.isSuccess && airingValue?.length > 0 ? (
+        <div className="top_content">
+          <div className="heading">
+            AIRING SCHEDULE
+            <Link className="text-link-without-underline" to="/anime/airing_schedule" style={{ float: 'right', fontSize: '20px', marginRight: 10 }}>
+              <Button variant="contained" size="small" color="primary">MORE</Button>
+            </Link>
+          </div><br/>
+          <Slider {...movie_card_carousel_settings} style={{ marginInline: '30px' }}>
+              {airingValue?.map((data, i) => (
+                <Fragment key={i}>
+                  <AnimeRow
+                    isloadImage={true}
+                    cat={'default'}
+                    id={data?.id}
+                    img={data?.image}
+                    title={data?.title.english || data?.title.userPreferred || data?.title.romaji}
+                    release_date={data?.releaseDate}
+                    type={data?.type}
+                    rate={data?.rating}
+                    episode={data?.episode}
+                    key={i}
+                  />
+                </Fragment>
+              ))}
+          </Slider>
+        </div>
+        ) : ("")}
+        
+      <FloatingButton/>
+      <Footer />
+    </div>
   );
 }
 

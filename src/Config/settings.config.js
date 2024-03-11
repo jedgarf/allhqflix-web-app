@@ -12,6 +12,8 @@ const search_bar = true;
 const defaultInternationalServer = process.env.REACT_APP_INTNL_DEFAULT_SERVER || 'upcloud';
 const defaultInternationalVideoRes = "360";
 
+const pageLoadMS = 2000;
+
 const pages = [ {'id': 1, 'icon': '', 'code': 'movie', 'search_code': 'movie', 'name': 'Movies', 'link': '/movies', 'enable': true}, 
                 {'id': 2, 'icon': '', 'code': 'tv', 'search_code': 'tv', 'name': 'TV Series', 'link': '/tvshow', 'enable': true}, 
                 {'id': 3, 'icon': '', 'code': 'anime', 'search_code': 'anime', 'name': 'Anime', 'link': '/anime', 'enable': true}, 
@@ -2020,6 +2022,7 @@ export {  title,
           search_bar, 
           defaultInternationalServer, 
           defaultInternationalVideoRes, 
+          pageLoadMS, 
           pages, 
           misc_pages, 
           account_pages, 

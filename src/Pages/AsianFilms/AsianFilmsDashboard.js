@@ -15,6 +15,8 @@ import CircularProgress from '@mui/material/CircularProgress';
 // Components
 import SideBar from "../../Components/SlideBar/SideBar";
 import Footer from "../../Components/Footer/Footer";
+import FloatingButton from '../../Components/FloatingButton/FloatingButton';
+import LoadingPage from "../../Components/LoadingPage/LoadingPage";
 import { Player } from "../../Components/Player/Player";
 import AsianFilmsSuggestions from "../../Components/AsianFilms/AsianFilmsSuggestions";
 import AsianEpisodesDrawer from "../../Components/BottomDrawer/AsianEpisodesDrawer";
@@ -22,6 +24,7 @@ import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
 // Config
 import apiConfig from '../../Config/api.config';
+import { pageLoadMS } from "../../Config/settings.config";
 
 // Images
 import { subtitleLogo, videoQuality } from "../../Config/images.config";
@@ -41,11 +44,12 @@ const AsianFilmsDashboard = (props) => {
   const queryParams = new URLSearchParams(window.location.search);
   const paramEpisode = queryParams.get("episode") != null ? queryParams.get("episode") : null;
 
+  const [isLoading, setIsLoading] = useState(true);
   const [videoQualities, setVideoQualities] = useState([]);
   const [videoSubtitles, setVideoSubtitles] = useState([]);
   const [recommendations, setRecommendations] = useState([]);
 
-  // loading
+  // Picture loading
   const [loadingEpisode, setLoadingEpisode] = useState(true);
 
   // Default data load
@@ -246,200 +250,204 @@ const AsianFilmsDashboard = (props) => {
     }
     setEpisodesCurrentPage(currentPage);
 
+    setTimeout(() => {
+      setIsLoading(false);
+    }, pageLoadMS);
+
   }, [contentTitle, infoData.isSuccess, infoValue, resourceData.isSuccess, resourceValue, episodeNum, set_selectedSeasonEpisode, set_selectedLinkSubtitle]);
 
   return (
-    <>
-      <div className="movie_dashboard">
-        <ReactQueryTools/>
-        <SideBar Type={contentType} subType={null} transparentBg={false} isStream={true} />
-        {<>
-          <div className="movie_cover" style={{backgroundImage: `linear-gradient(rgba(0, 0, 10, 1),rgba(0, 0, 10, 0.5)) , url("${infoValue?.banner}")`}}>
-            <div className="heading cheading movie-stream-title">
-              <h6></h6>
-            </div>
-            {!loadingEpisode ? (
-              <>
-              <Player
-                className="movie_player"
-                defaultlink={defaultLink}
-                infotitle={totalEpisodes > 1 ? `${contentTitle} - Episode ${episodeNum}` : `${contentTitle}`}
-                infocover={infoValue?.banner}
-                episodeNum={episodeNum}
-                totalEpisodes={totalEpisodes}
-                nextEpisode={nextEpisode}
-                seekTime={0}
-                option={{
-                  enableAds: true,
-                  hotkey: true,
-                  setting: true,
-                  settings: [
+    isLoading ? 
+      <LoadingPage/>
+    : 
+    <div className="movie_dashboard">
+      <ReactQueryTools/>
+      <SideBar Type={contentType} subType={null} transparentBg={false} isStream={true} />
+      <div className="movie_cover" style={{backgroundImage: `linear-gradient(rgba(0, 0, 10, 1),rgba(0, 0, 10, 0.5)) , url("${infoValue?.banner}")`}}>
+        <div className="heading cheading movie-stream-title">
+          <h6></h6>
+        </div>
+        {!loadingEpisode ? (
+          <>
+          <Player
+            className="movie_player"
+            defaultlink={defaultLink}
+            infotitle={totalEpisodes > 1 ? `${contentTitle} - Episode ${episodeNum}` : `${contentTitle}`}
+            infocover={infoValue?.banner}
+            episodeNum={episodeNum}
+            totalEpisodes={totalEpisodes}
+            nextEpisode={nextEpisode}
+            seekTime={0}
+            option={{
+              enableAds: true,
+              hotkey: true,
+              setting: true,
+              settings: [
+              {
+                  html: 'Sources',
+                  width: 300,
+                  tooltip: defaultQualityToolTip || "No selected",
+                  icon: `<img width="22" heigth="22" src="${videoQuality}">`,
+                  selector: videoQualities,
+                  onSelect: function (item, $dom, event) {
+                      console.info(item, $dom, event);
+                      this.switchQuality(item.url, item.html);
+                      return item.html;
+                  },
+              },
+              {
+                width: 300,
+                html: 'Subtitles',
+                tooltip: defaultSubtitleToolTip || "No selected",
+                icon: `<img width="22" heigth="22" src="${subtitleLogo}">`,
+                selector: [
                   {
-                      html: 'Sources',
-                      width: 300,
-                      tooltip: defaultQualityToolTip || "No selected",
-                      icon: `<img width="22" heigth="22" src="${videoQuality}">`,
-                      selector: videoQualities,
-                      onSelect: function (item, $dom, event) {
-                          console.info(item, $dom, event);
-                          this.switchQuality(item.url, item.html);
-                          return item.html;
+                      html: 'Display',
+                      tooltip: 'Show',
+                      switch: true,
+                      onSwitch: function (item) {
+                          item.tooltip = item.switch ? 'Hide' : 'Show';
+                          this.subtitle.show = !item.switch;
+                          return !item.switch;
                       },
                   },
-                  {
-                    width: 300,
-                    html: 'Subtitles',
-                    tooltip: defaultSubtitleToolTip || "No selected",
-                    icon: `<img width="22" heigth="22" src="${subtitleLogo}">`,
-                    selector: [
-                      {
-                          html: 'Display',
-                          tooltip: 'Show',
-                          switch: true,
-                          onSwitch: function (item) {
-                              item.tooltip = item.switch ? 'Hide' : 'Show';
-                              this.subtitle.show = !item.switch;
-                              return !item.switch;
-                          },
-                      },
-                      ...videoSubtitles
-                      ],
-                      onSelect: function (item) {
-                        this.subtitle.switch(item.url, {
-                            name: item.html,
-                        });
-                        return item.html;
-                    },
-                  },
-                ],
-                controls: additionalControls,
-                }}
-                getInstance={(art) => console.log("getInstance", art)}
-              />
-            </>
-            ) : (
-              <div>
-                <Box className="playButton" display="flex" justifyContent="center" alignItems="center">
-                  <CircularProgress sx={{ fontSize: 100 }} />
-                </Box>
-              </div>
-            )}
+                  ...videoSubtitles
+                  ],
+                  onSelect: function (item) {
+                    this.subtitle.switch(item.url, {
+                        name: item.html,
+                    });
+                    return item.html;
+                },
+              },
+            ],
+            controls: additionalControls,
+            }}
+            getInstance={(art) => console.log("getInstance", art)}
+          />
+        </>
+        ) : (
+          <div>
+            <Box className="playButton" display="flex" justifyContent="center" alignItems="center">
+              <CircularProgress sx={{ fontSize: 100 }} />
+            </Box>
           </div>
-
-          <div className="asian_tv_info">
-            
-            {infoValue?.episodes?.length > 1 ?
-              <>
-                <Box className="episodesBtn" display={{ xs: 'block', sm: 'block', md: 'none', lg: 'none' }}>
-                  <AsianEpisodesDrawer
-                    details={infoValue} 
-                    subtitles={resourceValue?.data?.subtitles}
-                    mediaId={indexId}
-                    episodeId={selectedEpisode}
-                    setSelectedEpisode={setSelectedEpisode}
-                    setLoadingEpisode={setLoadingEpisode}
-                    itemsPerPage={episodesPerPage}
-                    episodesCurrentPage={episodesCurrentPage}
-                    moveToTop={moveToTop}
-                    drawerAlign={'bottom'}
-                  />
-                </Box>
-                <Box className="episodesBtn" display={{ xs: 'none', sm: 'none', md: 'block', lg: 'block' }}>
-                  <AsianEpisodesDrawer
-                    details={infoValue} 
-                    subtitles={resourceValue?.data?.subtitles} 
-                    mediaId={indexId}
-                    episodeId={selectedEpisode}
-                    setSelectedEpisode={setSelectedEpisode}
-                    setLoadingEpisode={setLoadingEpisode}
-                    itemsPerPage={episodesPerPage}
-                    episodesCurrentPage={episodesCurrentPage}
-                    moveToTop={moveToTop}
-                    drawerAlign={'right'}
-                  />
-                </Box>
-              </>
-            : 
-            ''}
-            
-            <div className={infoValue?.episodes?.length > 1 ? 'content-details' : 'content-details asian-movie'}>
-              <Grid container columnSpacing={{ xs: 1, sm: 2, md: 5, lg: 5, xl: 5 }} rowSpacing={5}>
-                <Grid item xl={12} lg={12} md={12} sm={12} xs={12} display={{ xs: 'none', sm: 'none', md: 'none', lg: 'block' }}>
-                <Box display={{ xs: 'none', sm: 'none', md: 'block', lg: 'block', xl: 'none' }}>
-                  <br/>
-                </Box>
-                  <div className="heading cheading">
-                    <h6>Details</h6>
-                  </div>
-                </Grid>
-                <Grid item xl={2} lg={2} md={0} sm={0} xs={0} display={{ xs: 'none', sm: 'none', md: 'none', lg: 'block' }}>
-                    <center>
-                      <img src={infoValue?.banner} alt={infoValue?.title} style={{ marginTop: '-30px', marginBottom: '30px' }} />
-                    </center>
-                </Grid>
-                <Grid item xl={10} lg={10} md={12} sm={12} xs={12}>
-                  <h3 className='media-title' style={{ marginTop: '-30px', marginLeft: '10px' }}><b>{contentTitle}</b></h3>
-                  <div className="media_props">
-                  <Grid container spacing={0.4} style={{ marginLeft: '5px' }}>
-                    <Grid item>
-                      <h5 style={{ marginRight: 10 }}>
-                        <span className='stream-video-quality-span' style={{ color: 'rgba(129,181,223,255)', backgroundColor: 'transparent', fontWeight: 'bolder', border: '1.5px solid' }}>
-                          Original Dub
-                        </span>
-                      </h5>
-                    </Grid>
-                    <Grid item>
-                      <h5 style={{ marginRight: 10 }}>
-                        <span className='stream-video-quality-span' style={{ color: 'rgba(129,181,223,255)', backgroundColor: 'transparent', fontWeight: 'bolder', border: '1.5px solid' }}>
-                          English Subtitle
-                        </span>
-                      </h5>
-                    </Grid>
-                  </Grid>
-                  </div>
-                  <p className="movie_description" dangerouslySetInnerHTML={{ __html: infoValue?.description.trim() ? infoValue?.description.trim() : '-' }}/>
-                  <table>
-                    <tbody>
-                      <tr>
-                        <th>Country:</th>
-                        <td><Link className='text-link' to={`/asian_films/country_filter?country=${infoValue?.country}`}>{infoValue?.country}</Link></td>
-                      </tr>
-                      <tr>
-                        <th>Other Names:</th>
-                        <td><SeparateArrayByComma type={'google_link'} data={infoValue?.otherNames} link={'https://www.google.com/search?q='} /></td>
-                      </tr>
-                      <tr>
-                        <th>Genre:</th>
-                        <td><SeparateArrayByComma type={'site_link'} data={infoValue?.genre} link={'/asian_films/genre_filter?genre='} /></td>
-                      </tr>
-                      <tr>
-                        <th>Director:</th>
-                        <td>{ infoValue?.director ? (<a className='text-link' href={`https://www.google.com/search?q=${infoValue?.director}`} target="__blank">{infoValue?.director}</a>) : "-" }</td>
-                      </tr>
-                      <tr>
-                        <th>Released:</th>
-                        <td>{infoValue?.releaseDate ? infoValue?.releaseDate : '-'}</td>
-                      </tr>
-                      <tr>
-                        <th>Status:</th>
-                        <td>{infoValue?.status ? infoValue?.status : '-'}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </Grid>
-
-              </Grid>
-            </div>
-          </div>
-          <br/><br/>
-            <div className="heading bheading">
-              <h6>You May Also Like</h6>
-            </div>
-            <AsianFilmsSuggestions infoValue={infoValue} Type={type} />
-          <Footer/>
-        </>}
+        )}
       </div>
-    </>
+
+      <div className="asian_tv_info">
+        
+        {infoValue?.episodes?.length > 1 ?
+          <>
+            <Box className="episodesBtn" display={{ xs: 'block', sm: 'block', md: 'none', lg: 'none' }}>
+              <AsianEpisodesDrawer
+                details={infoValue} 
+                subtitles={resourceValue?.data?.subtitles}
+                mediaId={indexId}
+                episodeId={selectedEpisode}
+                setSelectedEpisode={setSelectedEpisode}
+                setLoadingEpisode={setLoadingEpisode}
+                itemsPerPage={episodesPerPage}
+                episodesCurrentPage={episodesCurrentPage}
+                moveToTop={moveToTop}
+                drawerAlign={'bottom'}
+              />
+            </Box>
+            <Box className="episodesBtn" display={{ xs: 'none', sm: 'none', md: 'block', lg: 'block' }}>
+              <AsianEpisodesDrawer
+                details={infoValue} 
+                subtitles={resourceValue?.data?.subtitles} 
+                mediaId={indexId}
+                episodeId={selectedEpisode}
+                setSelectedEpisode={setSelectedEpisode}
+                setLoadingEpisode={setLoadingEpisode}
+                itemsPerPage={episodesPerPage}
+                episodesCurrentPage={episodesCurrentPage}
+                moveToTop={moveToTop}
+                drawerAlign={'right'}
+              />
+            </Box>
+          </>
+        : 
+        ''}
+        
+        <div className={infoValue?.episodes?.length > 1 ? 'content-details' : 'content-details asian-movie'}>
+          <Grid container columnSpacing={{ xs: 1, sm: 2, md: 5, lg: 5, xl: 5 }} rowSpacing={5}>
+            <Grid item xl={12} lg={12} md={12} sm={12} xs={12} display={{ xs: 'none', sm: 'none', md: 'none', lg: 'block' }}>
+            <Box display={{ xs: 'none', sm: 'none', md: 'block', lg: 'block', xl: 'none' }}>
+              <br/>
+            </Box>
+              <div className="heading cheading">
+                <h6>Details</h6>
+              </div>
+            </Grid>
+            <Grid item xl={2} lg={2} md={0} sm={0} xs={0} display={{ xs: 'none', sm: 'none', md: 'none', lg: 'block' }}>
+                <center>
+                  <img src={infoValue?.banner} alt={infoValue?.title} style={{ marginTop: '-30px', marginBottom: '30px' }} />
+                </center>
+            </Grid>
+            <Grid item xl={10} lg={10} md={12} sm={12} xs={12}>
+              <h3 className='media-title' style={{ marginTop: '-30px', marginLeft: '10px' }}><b>{contentTitle}</b></h3>
+              <div className="media_props">
+              <Grid container spacing={0.4} style={{ marginLeft: '5px' }}>
+                <Grid item>
+                  <h5 style={{ marginRight: 10 }}>
+                    <span className='stream-video-quality-span' style={{ color: 'rgba(129,181,223,255)', backgroundColor: 'transparent', fontWeight: 'bolder', border: '1.5px solid' }}>
+                      Original Dub
+                    </span>
+                  </h5>
+                </Grid>
+                <Grid item>
+                  <h5 style={{ marginRight: 10 }}>
+                    <span className='stream-video-quality-span' style={{ color: 'rgba(129,181,223,255)', backgroundColor: 'transparent', fontWeight: 'bolder', border: '1.5px solid' }}>
+                      English Subtitle
+                    </span>
+                  </h5>
+                </Grid>
+              </Grid>
+              </div>
+              <p className="movie_description" dangerouslySetInnerHTML={{ __html: infoValue?.description.trim() ? infoValue?.description.trim() : '-' }}/>
+              <table>
+                <tbody>
+                  <tr>
+                    <th>Country:</th>
+                    <td><Link className='text-link' to={`/asian_films/country_filter?country=${infoValue?.country}`}>{infoValue?.country}</Link></td>
+                  </tr>
+                  <tr>
+                    <th>Other Names:</th>
+                    <td><SeparateArrayByComma type={'google_link'} data={infoValue?.otherNames} link={'https://www.google.com/search?q='} /></td>
+                  </tr>
+                  <tr>
+                    <th>Genre:</th>
+                    <td><SeparateArrayByComma type={'site_link'} data={infoValue?.genre} link={'/asian_films/genre_filter?genre='} /></td>
+                  </tr>
+                  <tr>
+                    <th>Director:</th>
+                    <td>{ infoValue?.director ? (<a className='text-link' href={`https://www.google.com/search?q=${infoValue?.director}`} target="__blank">{infoValue?.director}</a>) : "-" }</td>
+                  </tr>
+                  <tr>
+                    <th>Released:</th>
+                    <td>{infoValue?.releaseDate ? infoValue?.releaseDate : '-'}</td>
+                  </tr>
+                  <tr>
+                    <th>Status:</th>
+                    <td>{infoValue?.status ? infoValue?.status : '-'}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </Grid>
+
+          </Grid>
+        </div>
+      </div>
+      <br/><br/>
+      <div className="heading bheading">
+        <h6>You May Also Like</h6>
+      </div>
+      <AsianFilmsSuggestions infoValue={infoValue} Type={type} />
+      <FloatingButton/>
+      <Footer/>
+    </div>
   );
 }
 

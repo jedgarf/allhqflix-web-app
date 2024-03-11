@@ -31,13 +31,18 @@ import CloseIcon from '@mui/icons-material/Close';
 // Pages
 import SideBar from "../../Components/SlideBar/SideBar";
 import Footer from "../../Components/Footer/Footer";
+import FloatingButton from '../../Components/FloatingButton/FloatingButton';
+import LoadingPage from "../../Components/LoadingPage/LoadingPage";
 import SearchResult from "../../Components/SearchResult/SearchResult";
 import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
-import { asian_films_genre, asian_films_country } from "../../Config/settings.config";
+// Config
+import { pageLoadMS, asian_films_genre, asian_films_country } from "../../Config/settings.config";
+
+// Utils
 import { moveToTop } from "../../Services/Utils";
 
-// Models
+// Services
 import { asianfilms_advancedfilter } from "../../Services/ViewAsianService";
 
 function AdvancedFilter() {
@@ -46,6 +51,7 @@ function AdvancedFilter() {
   const subType = 'asianfilmsadvancedfilter';
   document.title = 'AllHQFlix - Asian Films - Advanced Filter';
 
+  const [isLoading, setIsLoading] = useState(true);
   const [releasedDates, setReleasedDates] = useState([]);
   const [smovieType, setsMovieType] = useState('all');
   const [sreleaseYear, setsReleaseYear] = useState('all');
@@ -175,13 +181,19 @@ function AdvancedFilter() {
     for (let yearLength = 0; yearLength < yearCount; yearLength++) {
         setReleasedDates(releasedDates => [...releasedDates, currentYear - yearLength]);
     }
+
+    setTimeout(() => {
+      setIsLoading(false);
+    }, pageLoadMS);
   }, [currentYear]);
 
   return (
-    <>
-      <div className="search_result">
+    isLoading ? 
+      <LoadingPage/>
+    : 
+    <div className="search_result">
       <ReactQueryTools/>
-       <div className="search_result_content">
+      <div className="search_result_content">
         <div className="search__top">
           <SideBar Type={type} subType={subType}/>
         </div>
@@ -384,11 +396,10 @@ function AdvancedFilter() {
             </Grid>
           </Container>
         </ThemeProvider>
-
-       </div>
-      <Footer/>
       </div>
-    </>
+      <FloatingButton/>
+      <Footer/>
+    </div>
   );
 }
 

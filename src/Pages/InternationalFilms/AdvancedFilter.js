@@ -31,11 +31,13 @@ import CloseIcon from '@mui/icons-material/Close';
 // Pages
 import SideBar from "../../Components/SlideBar/SideBar";
 import Footer from "../../Components/Footer/Footer";
+import FloatingButton from '../../Components/FloatingButton/FloatingButton';
+import LoadingPage from "../../Components/LoadingPage/LoadingPage";
 import SearchResult from "../../Components/SearchResult/SearchResult";
 import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
 // Config
-import { foreign_genre, foreign_country } from "../../Config/settings.config";
+import { pageLoadMS, foreign_genre, foreign_country } from "../../Config/settings.config";
 
 // Utils
 import { moveToTop } from "../../Services/Utils";
@@ -46,10 +48,8 @@ import { movie_advanced_filter } from "../../Services/FlixHQService";
 function AdvancedFilter() {
 
   document.title = 'AllHQFlix - International - Advanced Filter';
-
   const type = 'foreign';
   const subType = 'foreignadvancedfliter';
-
   const queryParams = new URLSearchParams(window.location.search);
   const defaultMovieType = queryParams.get("type") || 'all';
   const defaultQuality = queryParams.get("quality") || 'all';
@@ -65,6 +65,7 @@ function AdvancedFilter() {
     paramCount++;
   }
 
+  const [isLoading, setIsLoading] = useState(true);
   const [releasedDates, setReleasedDates] = useState([]);
   const [smovieType, setsMovieType] = useState(defaultMovieType);
   const [squality, setsQuality] = useState(defaultQuality);
@@ -83,7 +84,7 @@ function AdvancedFilter() {
   genre.current = genre.current.filter(item => item !== defaultGenre );
   country.current = country.current.filter(item => item !== defaultCountry );
 
-  // loading
+  // Picture loading
   const [isloadPicture, setIsloadPicture] = useState(true);
 
   const darkTheme = createTheme({
@@ -198,13 +199,20 @@ function AdvancedFilter() {
     for (let yearLength = 0; yearLength < yearCount; yearLength++) {
         setReleasedDates(releasedDates => [...releasedDates, currentYear - yearLength]);
     }
+
+    setTimeout(() => {
+      setIsLoading(false);
+    }, pageLoadMS);
+
   }, [currentYear]);
 
   return (
-    <>
-      <div className="search_result">
-      <ReactQueryTools/>
-       <div className="search_result_content">
+    isLoading ? 
+      <LoadingPage/>
+    : 
+    <div className="search_result">
+    <ReactQueryTools/>
+      <div className="search_result_content">
         <div className="search__top">
           <SideBar Type={type} subType={subType}/>
         </div>
@@ -421,11 +429,10 @@ function AdvancedFilter() {
               </Grid>
             </Container>
         </ThemeProvider>
-        
-       </div>
-      <Footer/>
       </div>
-    </>
+    <FloatingButton/>
+    <Footer/>
+    </div>
   );
 }
 

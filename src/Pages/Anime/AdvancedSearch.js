@@ -23,15 +23,18 @@ import CloseIcon from '@mui/icons-material/Close';
 // Pages
 import SideBar from "../../Components/SlideBar/SideBar";
 import Footer from "../../Components/Footer/Footer";
+import FloatingButton from '../../Components/FloatingButton/FloatingButton';
+import LoadingPage from "../../Components/LoadingPage/LoadingPage";
 import SearchResult from "../../Components/SearchResult/SearchResult";
 import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
-import {anime_genres,
-        anime_types, 
-        anime_formats, 
-        anime_sorts, 
-        anime_statuses, 
-        anime_seasons} from "../../Config/settings.config";
+import { pageLoadMS,  
+         anime_genres,
+         anime_types, 
+         anime_formats, 
+         anime_sorts, 
+         anime_statuses, 
+         anime_seasons } from "../../Config/settings.config";
 
 // Utilities
 import { moveToTop, capitalizeString, replaceUnderscoreToSpace } from "../../Services/Utils";
@@ -47,11 +50,12 @@ function AdvancedSearch() {
   const yearCount = 10;
   const perPage = 32;
   const currentYear = new Date().getFullYear();
-
+  
+  const [isLoading, setIsLoading] = useState(true);
   const [isFilterPanelOpen, setIsFilterPanelOpen] = useState(false);
   const [releasedDates, setReleasedDates] = useState([]);
 
-   // loading
+   // Picture loading
    const [isloadPicture, setIsloadPicture] = useState(true);
 
   const [squery, setsQuery] = useState("");
@@ -233,9 +237,16 @@ function AdvancedSearch() {
     for (let yearLength = 0; yearLength < yearCount; yearLength++) {
         setReleasedDates(releasedDates => [...releasedDates, currentYear - yearLength]);
     }
+
+    setTimeout(() => {
+        setIsLoading(false);
+    }, pageLoadMS);
   }, [currentYear]);
 
   return (
+    isLoading ? 
+        <LoadingPage/>
+    : 
     <div className="search_result">
         <ReactQueryTools/>
         <div className="search_result_content">
@@ -520,6 +531,7 @@ function AdvancedSearch() {
                 </Container>
             </ThemeProvider>
         </div>
+        <FloatingButton/>
         <Footer/>
     </div>
   );

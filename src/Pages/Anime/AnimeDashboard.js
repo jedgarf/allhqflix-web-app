@@ -18,6 +18,8 @@ import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
 // Components
 import SideBar from "../../Components/SlideBar/SideBar";
 import Footer from "../../Components/Footer/Footer";
+import FloatingButton from '../../Components/FloatingButton/FloatingButton';
+import LoadingPage from "../../Components/LoadingPage/LoadingPage";
 import { Player } from "../../Components/Player/Player";
 import AnimeSuggestions from "../../Components/Anime/AnimeSuggestions";
 import AnimeEpisodesDrawer from "../../Components/BottomDrawer/AnimeEpisodesDrawer";
@@ -26,7 +28,7 @@ import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
 // Config
 import apiConfig from '../../Config/api.config';
-import { foreign_country, anime_character_carousel_settings } from "../../Config/settings.config";
+import { pageLoadMS, foreign_country, anime_character_carousel_settings } from "../../Config/settings.config";
 
 // Images
 import { subtitleLogo, videoQuality } from "../../Config/images.config";
@@ -47,12 +49,12 @@ const AnimeDashboard = (props) => {
   const paramEpisode = queryParams.get("episode") != null ? queryParams.get("episode") : null;
   const paramDub = queryParams.get("dub") != null ? queryParams.get("dub") == 'true' : false;
 
+  const [isLoading, setIsLoading] = useState(true);
   const [selectedArc, setSelectedArc] = useState("");
-
   const [videoQualities, setVideoQualities] = useState([]);
   const [recommendations, setRecommendations] = useState([]);
 
-  // loading
+  // Picture loading
   const [loadingEpisode, setLoadingEpisode] = useState(true);
 
   // Default data load
@@ -252,230 +254,235 @@ const AnimeDashboard = (props) => {
     }
     setEpisodesCurrentPage(currentPage);
 
+    setTimeout(() => {
+      setIsLoading(false);
+    }, pageLoadMS);
+
   }, [contentTitle, infoData.isSuccess, resourceData.isSuccess, infoValue, resourceValue, episodeNum, set_selectedSeasonEpisode, set_selectedLinkSubtitle]);
 
   return (
-    <>
-      <div className="movie_dashboard">
-        <ReactQueryTools/>
-        <SideBar Type={type} subType={null} transparentBg={false} isStream={true} />
-        {<>
-          <div className="movie_cover" style={{backgroundImage: `linear-gradient(rgba(0, 0, 10, 1),rgba(0, 0, 10, 0.5)), url("${infoValue?.cover}")`}}>
-            <div className="heading cheading movie-stream-title">
-              <h6></h6>
-            </div>
-            {infoData.isSuccess && resourceData.isSuccess && defaultLink !== "" && videoQualities.length > 0 && !loadingEpisode ? (
-              <>
-                <Player
-                  className="movie_player"
-                  defaultlink={defaultLink}
-                  infotitle={totalEpisodes > 1 ? `${contentTitle} - Episode ${episodeNum} ${infoValue?.subOrDub === 'dub' ? '(English Dub)' : ''}` : `${contentTitle} ${infoValue?.subOrDub === 'dub' ? '(English Dub)' : ''}`}
-                  infocover={infoValue?.cover}
-                  episodeNum={episodeNum}
-                  totalEpisodes={totalEpisodes}
-                  nextEpisode={nextEpisode}
-                  seekTime={0}
-                  option={{
-                    enableAds: true,
-                    hotkey: true,
-                    setting: true,
-                    settings: [
-                    {
-                        html: 'Video Resolutions',
-                        width: 300,
-                        tooltip: defaultQualityToolTip,
-                        icon: `<img width="22" heigth="22" src="${videoQuality}">`,
-                        selector: videoQualities,
-                        onSelect: function (item, $dom, event) {
-                            console.info(item, $dom, event);
-                            this.switchQuality(item.url, item.html);
-                            return item.html;
-                        },
+    isLoading ? 
+      <LoadingPage/>
+    : 
+    <div className="movie_dashboard">
+      <ReactQueryTools/>
+      <SideBar Type={type} subType={null} transparentBg={false} isStream={true} />
+      <div className="movie_cover" style={{backgroundImage: `linear-gradient(rgba(0, 0, 10, 1),rgba(0, 0, 10, 0.5)), url("${infoValue?.cover}")`}}>
+        <div className="heading cheading movie-stream-title">
+          <h6></h6>
+        </div>
+        {infoData.isSuccess && resourceData.isSuccess && defaultLink !== "" && videoQualities.length > 0 && !loadingEpisode ? (
+          <>
+            <Player
+              className="movie_player"
+              defaultlink={defaultLink}
+              infotitle={totalEpisodes > 1 ? `${contentTitle} - Episode ${episodeNum} ${infoValue?.subOrDub === 'dub' ? '(English Dub)' : ''}` : `${contentTitle} ${infoValue?.subOrDub === 'dub' ? '(English Dub)' : ''}`}
+              infocover={infoValue?.cover}
+              episodeNum={episodeNum}
+              totalEpisodes={totalEpisodes}
+              nextEpisode={nextEpisode}
+              seekTime={0}
+              option={{
+                enableAds: true,
+                hotkey: true,
+                setting: true,
+                settings: [
+                {
+                    html: 'Video Resolutions',
+                    width: 300,
+                    tooltip: defaultQualityToolTip,
+                    icon: `<img width="22" heigth="22" src="${videoQuality}">`,
+                    selector: videoQualities,
+                    onSelect: function (item, $dom, event) {
+                        console.info(item, $dom, event);
+                        this.switchQuality(item.url, item.html);
+                        return item.html;
                     },
-                    {
-                      html: 'Subtitles',
-                      width: 300,
-                      tooltip: "No selected",
-                      icon: `<img width="22" height="22" src="${subtitleLogo}">`,
-                      selector: [
-                      {
-                          html: 'Display',
-                          tooltip: 'Show',
-                          switch: true,
-                          onSwitch: function (item) {
-                              item.tooltip = item.switch ? 'Hide' : 'Show';
-                              this.subtitle.show = !item.switch;
-                              return !item.switch;
-                          },
+                },
+                {
+                  html: 'Subtitles',
+                  width: 300,
+                  tooltip: "No selected",
+                  icon: `<img width="22" height="22" src="${subtitleLogo}">`,
+                  selector: [
+                  {
+                      html: 'Display',
+                      tooltip: 'Show',
+                      switch: true,
+                      onSwitch: function (item) {
+                          item.tooltip = item.switch ? 'Hide' : 'Show';
+                          this.subtitle.show = !item.switch;
+                          return !item.switch;
                       },
-                      {"default": false, "html": "Add Subtitle", "url": "add.vtt"},
-                      ],
-                      onSelect: function (item) {
-                          if (item.html === 'Add Subtitle') {
-                            alert('Under Development.');
-                          } else {
-                            this.subtitle.switch(item.url, {
-                              name: item.html,
-                            }); 
-                            return item.html;
-                          }
-                      },
-                    },
+                  },
+                  {"default": false, "html": "Add Subtitle", "url": "add.vtt"},
                   ],
-                  controls: additionalControls,
-                  // quality: videoQualities,
-                  }}
-                  getInstance={(art) => console.log("getInstance", art)}
-                />
-              </>
-            ) : (
-              <div>
-                <Box className="playButton" display="flex" justifyContent="center" alignItems="center" height="inherit">
-                  <CircularProgress sx={{ fontSize: 100 }} />
-                </Box>
-              </div>
-            )}
-          </div>
-
-          <div className="anime_info">
-
-            <Box className="episodesBtn" display={{ xs: 'block', sm: 'block', md: 'none', lg: 'none' }}>
-              <AnimeEpisodesDrawer
-                details={infoValue}
-                downloadUrl={resourceValue?.data?.download}
-                mediaId={indexId}
-                episodeId={selectedEpisode}
-                setSelectedEpisode={setSelectedEpisode}
-                setLoadingEpisode={setLoadingEpisode}
-                itemsPerPage={episodesPerPage}
-                episodesCurrentPage={episodesCurrentPage}
-                moveToTop={moveToTop}
-                drawerAlign={'bottom'}
-              />
+                  onSelect: function (item) {
+                      if (item.html === 'Add Subtitle') {
+                        alert('Under Development.');
+                      } else {
+                        this.subtitle.switch(item.url, {
+                          name: item.html,
+                        }); 
+                        return item.html;
+                      }
+                  },
+                },
+              ],
+              controls: additionalControls,
+              // quality: videoQualities,
+              }}
+              getInstance={(art) => console.log("getInstance", art)}
+            />
+          </>
+        ) : (
+          <div>
+            <Box className="playButton" display="flex" justifyContent="center" alignItems="center" height="inherit">
+              <CircularProgress sx={{ fontSize: 100 }} />
             </Box>
-            <Box className="episodesBtn" display={{ xs: 'none', sm: 'none', md: 'block', lg: 'block' }}>
-              <AnimeEpisodesDrawer
-                details={infoValue}
-                downloadUrl={resourceValue?.data?.download}
-                mediaId={indexId}
-                episodeId={selectedEpisode}
-                setSelectedEpisode={setSelectedEpisode}
-                setLoadingEpisode={setLoadingEpisode}
-                itemsPerPage={episodesPerPage}
-                episodesCurrentPage={episodesCurrentPage}
-                moveToTop={moveToTop}
-                drawerAlign={'right'}
-              />
-            </Box>
-
-            <div className={infoValue?.episodes?.length > 1 ? 'content-details' : 'content-details asian-movie'}>
-              <Grid container columnSpacing={{ xs: 1, sm: 2, md: 5, lg: 5, xl: 5 }} rowSpacing={5}>
-                <Grid item xl={12} lg={12} md={12} sm={12} xs={12} display={{ xs: 'none', sm: 'none', md: 'none', lg: 'block' }}>
-                  {infoValue?.episodes?.length > 1 ? 
-                    ''
-                  :
-                  <Box display={{ xs: 'none', sm: 'none', md: 'block', lg: 'block', xl: 'none' }}>
-                    <br/>
-                  </Box>}
-                  <div className="heading cheading">
-                    <h6>Anime Details</h6>
-                  </div>
-                </Grid>
-                <Grid item xl={2} lg={2} md={0} sm={0} xs={0} display={{ xs: 'none', sm: 'none', md: 'none', lg: 'block' }}>
-                    <center>
-                      <img src={infoValue?.image} alt={contentTitle} style={{ marginTop: '-30px', marginBottom: '30px' }} />
-                    </center>
-                </Grid>
-                <Grid item xl={10} lg={10} md={12} sm={12} xs={12}>
-                  <h3 className='media-title' style={{ marginTop: '-30px', marginLeft: '10px' }}><b>{contentTitle}{indexId == 21 ? `: ${selectedArc}` : ''}</b></h3>
-                  <div className="media_props">
-                    {/* <Typography variant="subtitle1" style={{ verticalAlign: 'middle', marginLeft: '10px', marginRight: '15px', display: 'inline-flex' }}>
-                        <StarIcon style={{ marginRight: '8px', color: "#E4A11B" }}/> {infoValue?.rating}
-                    </Typography> */}
-                    <Grid container spacing={0.4} style={{ marginLeft: '5px' }}>
-                      <Grid item>
-                        <h5 style={{ marginRight: 10 }}>
-                          <span className='stream-video-quality-span' style={{ color: 'rgba(129,181,223,255)', backgroundColor: 'transparent', fontWeight: 'bolder', border: '1.5px solid' }}>
-                            {infoValue?.subOrDub === 'dub' ? 'English Dub' : 'English Subtitle'}
-                          </span>
-                        </h5>
-                      </Grid>
-                      <Grid item>
-                        <AccessTimeFilledIcon style={{ fontSize: 16, marginBottom: -1, color: "#54B4D3" }}/>
-                      </Grid>
-                      <Grid item>
-                        <h5>{convertMinutesToHoursAndMinutes(infoValue?.duration)}</h5>
-                      </Grid>
-                      {/* <Grid item>
-                        <ShareModal infoValue={infoValue}/>
-                      </Grid> */}
-                    </Grid>
-                    {/* <TraillerModal category="anime" infoValue={infoValue}/> */}
-                  </div>
-                  <p className="movie_description" dangerouslySetInnerHTML={{ __html: infoValue?.description === "" ? "-" : infoValue?.description }}/>
-                  <table>
-                    <tbody>
-                      <tr>
-                        <th>Country:</th>
-                        <td>{foreign_country.filter((item) => item.code === infoValue?.countryOfOrigin).length > 0 ? foreign_country.filter((item) => item.code === infoValue?.countryOfOrigin)[0].name : '-'}</td>
-                      </tr>
-                      <tr>
-                        <th>Synonyms:</th>
-                        <td><SeparateArrayByComma type={'google_link'} data={infoValue?.synonyms} link={'https://www.google.com/search?q='} /></td>
-                      </tr>
-                      <tr>
-                        <th>Season:</th>
-                        <td>{infoValue?.season}</td>
-                      </tr>
-                      <tr>
-                        <th>Genre:</th>
-                        <td><SeparateArrayByComma type={'site_link'} data={infoValue?.genres} link={'/anime/genre_filter?genre='} /></td>
-                      </tr>
-                      <tr>
-                        <th>Released:</th>
-                        <td>{infoValue?.releaseDate}</td>
-                      </tr>
-                      <tr>
-                        <th>Status:</th>
-                        <td>{infoValue?.status}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </Grid>
-                <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
-                  <div style={{ marginLeft: '-13px' }}>
-                    <div className="heading bheading">
-                      <h6>CHARACTERS</h6>
-                    </div><br/>
-                      <Container maxWidth={'xxl'}>
-                        <Box sx={{ marginInline: '20px', marginTop: '-20px' }} display={{ xs: "block", sm: "block", md: "block", lg: "block", xl: "block" }}>
-                          <Slider {...anime_character_carousel_settings}>
-                            {infoValue?.characters?.map((item, index) => {
-                              return (
-                                <AnimeCharacterCard characterInfo={item}/>
-                              )
-                            })}
-                          </Slider>
-                        </Box>
-                      </Container>
-                  </div>
-                </Grid>
-              </Grid>
-            </div>
           </div>
-          <br/><br/><br/>
-          {recommendations?.length > 0 ?
-            <>
-              <div className="heading bheading">
-                <h6>You May Also Like</h6>
-              </div>
-              <AnimeSuggestions Suggest={recommendations} />
-            </>
-          : ""}
-          <Footer/>
-        </>}
+        )}
       </div>
-    </>
+
+      <div className="anime_info">
+
+        <Box className="episodesBtn" display={{ xs: 'block', sm: 'block', md: 'none', lg: 'none' }}>
+          <AnimeEpisodesDrawer
+            details={infoValue}
+            downloadUrl={resourceValue?.data?.download}
+            mediaId={indexId}
+            episodeId={selectedEpisode}
+            setSelectedEpisode={setSelectedEpisode}
+            setLoadingEpisode={setLoadingEpisode}
+            itemsPerPage={episodesPerPage}
+            episodesCurrentPage={episodesCurrentPage}
+            moveToTop={moveToTop}
+            drawerAlign={'bottom'}
+          />
+        </Box>
+        <Box className="episodesBtn" display={{ xs: 'none', sm: 'none', md: 'block', lg: 'block' }}>
+          <AnimeEpisodesDrawer
+            details={infoValue}
+            downloadUrl={resourceValue?.data?.download}
+            mediaId={indexId}
+            episodeId={selectedEpisode}
+            setSelectedEpisode={setSelectedEpisode}
+            setLoadingEpisode={setLoadingEpisode}
+            itemsPerPage={episodesPerPage}
+            episodesCurrentPage={episodesCurrentPage}
+            moveToTop={moveToTop}
+            drawerAlign={'right'}
+          />
+        </Box>
+
+        <div className={infoValue?.episodes?.length > 1 ? 'content-details' : 'content-details asian-movie'}>
+          <Grid container columnSpacing={{ xs: 1, sm: 2, md: 5, lg: 5, xl: 5 }} rowSpacing={5}>
+            <Grid item xl={12} lg={12} md={12} sm={12} xs={12} display={{ xs: 'none', sm: 'none', md: 'none', lg: 'block' }}>
+              {infoValue?.episodes?.length > 1 ? 
+                ''
+              :
+              <Box display={{ xs: 'none', sm: 'none', md: 'block', lg: 'block', xl: 'none' }}>
+                <br/>
+              </Box>}
+              <div className="heading cheading">
+                <h6>Anime Details</h6>
+              </div>
+            </Grid>
+            <Grid item xl={2} lg={2} md={0} sm={0} xs={0} display={{ xs: 'none', sm: 'none', md: 'none', lg: 'block' }}>
+                <center>
+                  <img src={infoValue?.image} alt={contentTitle} style={{ marginTop: '-30px', marginBottom: '30px' }} />
+                </center>
+            </Grid>
+            <Grid item xl={10} lg={10} md={12} sm={12} xs={12}>
+              <h3 className='media-title' style={{ marginTop: '-30px', marginLeft: '10px' }}><b>{contentTitle}{indexId == 21 ? `: ${selectedArc}` : ''}</b></h3>
+              <div className="media_props">
+                {/* <Typography variant="subtitle1" style={{ verticalAlign: 'middle', marginLeft: '10px', marginRight: '15px', display: 'inline-flex' }}>
+                    <StarIcon style={{ marginRight: '8px', color: "#E4A11B" }}/> {infoValue?.rating}
+                </Typography> */}
+                <Grid container spacing={0.4} style={{ marginLeft: '5px' }}>
+                  <Grid item>
+                    <h5 style={{ marginRight: 10 }}>
+                      <span className='stream-video-quality-span' style={{ color: 'rgba(129,181,223,255)', backgroundColor: 'transparent', fontWeight: 'bolder', border: '1.5px solid' }}>
+                        {infoValue?.subOrDub === 'dub' ? 'English Dub' : 'English Subtitle'}
+                      </span>
+                    </h5>
+                  </Grid>
+                  <Grid item>
+                    <AccessTimeFilledIcon style={{ fontSize: 16, marginBottom: -1, color: "#54B4D3" }}/>
+                  </Grid>
+                  <Grid item>
+                    <h5>{convertMinutesToHoursAndMinutes(infoValue?.duration)}</h5>
+                  </Grid>
+                  {/* <Grid item>
+                    <ShareModal infoValue={infoValue}/>
+                  </Grid> */}
+                </Grid>
+                {/* <TraillerModal category="anime" infoValue={infoValue}/> */}
+              </div>
+              <p className="movie_description" dangerouslySetInnerHTML={{ __html: infoValue?.description === "" ? "-" : infoValue?.description }}/>
+              <table>
+                <tbody>
+                  <tr>
+                    <th>Country:</th>
+                    <td>{foreign_country.filter((item) => item.code === infoValue?.countryOfOrigin).length > 0 ? foreign_country.filter((item) => item.code === infoValue?.countryOfOrigin)[0].name : '-'}</td>
+                  </tr>
+                  <tr>
+                    <th>Synonyms:</th>
+                    <td><SeparateArrayByComma type={'google_link'} data={infoValue?.synonyms} link={'https://www.google.com/search?q='} /></td>
+                  </tr>
+                  <tr>
+                    <th>Season:</th>
+                    <td>{infoValue?.season}</td>
+                  </tr>
+                  <tr>
+                    <th>Genre:</th>
+                    <td><SeparateArrayByComma type={'site_link'} data={infoValue?.genres} link={'/anime/genre_filter?genre='} /></td>
+                  </tr>
+                  <tr>
+                    <th>Released:</th>
+                    <td>{infoValue?.releaseDate}</td>
+                  </tr>
+                  <tr>
+                    <th>Status:</th>
+                    <td>{infoValue?.status}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </Grid>
+            <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+              <div style={{ marginLeft: '-13px' }}>
+                <div className="heading bheading">
+                  <h6>CHARACTERS</h6>
+                </div><br/>
+                  <Container maxWidth={'xxl'}>
+                    <Box sx={{ marginInline: '20px', marginTop: '-20px' }} display={{ xs: "block", sm: "block", md: "block", lg: "block", xl: "block" }}>
+                      <Slider {...anime_character_carousel_settings}>
+                        {infoValue?.characters?.map((item, index) => {
+                          return (
+                            <AnimeCharacterCard characterInfo={item}/>
+                          )
+                        })}
+                      </Slider>
+                    </Box>
+                  </Container>
+              </div>
+            </Grid>
+          </Grid>
+        </div>
+      </div>
+      <br/><br/><br/>
+      {recommendations?.length > 0 ?
+        <>
+          <div className="heading bheading">
+            <h6>You May Also Like</h6>
+          </div>
+          <AnimeSuggestions Suggest={recommendations} />
+        </>
+      : ""}
+      
+      <FloatingButton/>
+      <Footer/>
+    </div>
   );
 }
 

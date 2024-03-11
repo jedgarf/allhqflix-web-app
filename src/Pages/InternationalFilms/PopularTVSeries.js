@@ -1,5 +1,5 @@
 // Packages
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useQuery } from 'react-query';
 import { IconButton, Grid, Stack, Typography, Container } from '@mui/material';
 
@@ -15,24 +15,30 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 // Pages
 import SideBar from "../../Components/SlideBar/SideBar";
 import Footer from "../../Components/Footer/Footer";
+import FloatingButton from '../../Components/FloatingButton/FloatingButton';
+import LoadingPage from "../../Components/LoadingPage/LoadingPage";
 import SearchResult from "../../Components/SearchResult/SearchResult";
 import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
+// Config
+import { pageLoadMS } from "../../Config/settings.config";
+
+// Utils
 import { moveToTop } from "../../Services/Utils";
 
-// Models
+// Services
 import { series_popular } from "../../Services/FlixHQService";
 
 function PopularTVSeries() {
 
   document.title = 'AllHQFlix - International - Popular TV Series';
-
   const queryParams = new URLSearchParams(window.location.search);
-
   const type = 'foreign';
   const subType = 'popular_tv_series';
   const contentType = 'tv';
   
+  const [isLoading, setIsLoading] = useState(true);
+
   const defaultPageNumber = queryParams.get("page") === null ? 1 : queryParams.get("page");
   const [page, setPage] = useState(defaultPageNumber);
 
@@ -64,11 +70,19 @@ function PopularTVSeries() {
     moveToTop();
   }
 
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, pageLoadMS);
+  }, []);
+
   return (
-    <>
-      <div className="search_result">
-      <ReactQueryTools/>
-       <div className="search_result_content">
+    isLoading ? 
+      <LoadingPage/>
+    : 
+    <div className="search_result">
+    <ReactQueryTools/>
+      <div className="search_result_content">
         <div className="search__top">
           <SideBar Type={type} subType={subType}/>
         </div>
@@ -156,11 +170,10 @@ function PopularTVSeries() {
             </Grid>
           </Container>
         </ThemeProvider>
-
-       </div>
-      <Footer/>
       </div>
-    </>
+    <FloatingButton/>
+    <Footer/>
+    </div>
   );
 }
 

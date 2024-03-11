@@ -32,14 +32,14 @@ const streamDashboardBackButton = (navigate, type, isShare) => {
 
 const moveToClassName = (className) => {
   const element = document.getElementsByClassName(className);
-  if (element) {
+  if (element.length > 0) {
   element[0].scrollIntoView({ behavior: "smooth" });
   }
 };
 
 const moveToTop = () => {
     const element = document.getElementsByClassName('top');
-    if (element) {
+    if (element.length > 0) {
     element[0].scrollIntoView({ behavior: "smooth" });
     }
 };
@@ -396,8 +396,8 @@ const replaceUnderscoreToSpace = (str) => {
 const convertMinutesToHoursAndMinutes = (minutes) => {
   if (!minutes) return '';
   minutes = typeof minutes === 'number' && !isNaN(minutes) ? minutes : parseFloat(minutes);
-  var hours = Math.floor(minutes / 60);
-  var remainingMinutes = minutes % 60;
+  const hours = Math.floor(minutes / 60);
+  const remainingMinutes = minutes % 60;
   return hours + "h " + remainingMinutes + "m";
 }
 

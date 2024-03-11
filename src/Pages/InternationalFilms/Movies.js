@@ -1,5 +1,5 @@
 // Packages
-import React, { Fragment, Suspense } from "react";
+import React, { useEffect, useState, Fragment, Suspense } from "react";
 import { Link } from "react-router-dom";
 
 // React Slick
@@ -19,9 +19,14 @@ import "./css/Movies.css";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 
+// Config
+import { pageLoadMS } from "../../Config/settings.config";
+
 // Pages
 import SideBar from "../../Components/SlideBar/SideBar";
 import Footer from "../../Components/Footer/Footer";
+import FloatingButton from '../../Components/FloatingButton/FloatingButton';
+import LoadingPage from "../../Components/LoadingPage/LoadingPage";
 import Discovers from "../../Components/InternationalFilms/Discovers";
 import MoviesRow from "../../Components/InternationalFilms/MoviesRow";
 import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
@@ -37,6 +42,8 @@ const Movies = () => {
   const urlContentType = "foreign";
   const urlContentSubType = "movie";
   const currentYear = new Date().getFullYear();
+
+  const [isLoading, setIsLoading] = useState(true);
 
   let discoverData = useQuery(['movie_carousel', { type: urlContentSubType }], content_carousel, {
     cacheTime: 24 * 60 * 60 * 1000, // 24 hours
@@ -66,7 +73,16 @@ const Movies = () => {
   });
   let popularValue = popularData?.data?.data?.results?.filter( (result) => { return result.type === contentType; });
 
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, pageLoadMS);
+  }, []);
+
   return (
+      isLoading ? 
+        <LoadingPage/>
+      : 
       <div className="movies">
       <ReactQueryTools/>
       <SideBar Type={urlContentType} subType={urlContentSubType}/>
@@ -219,7 +235,7 @@ const Movies = () => {
                       ))}
                   </Slider>
               </div> : <></> }
-
+          <FloatingButton/>
           <Footer />
         </>}
       </div>

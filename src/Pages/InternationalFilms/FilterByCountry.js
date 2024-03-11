@@ -1,5 +1,5 @@
 // Packages
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useQuery } from 'react-query';
 
 // Material UI Components
@@ -26,14 +26,18 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 // Pages
 import SideBar from "../../Components/SlideBar/SideBar";
 import Footer from "../../Components/Footer/Footer";
+import FloatingButton from '../../Components/FloatingButton/FloatingButton';
+import LoadingPage from "../../Components/LoadingPage/LoadingPage";
 import SearchResult from "../../Components/SearchResult/SearchResult";
 import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
-import { foreign_country } from "../../Config/settings.config";
+// Config
+import { pageLoadMS, foreign_country } from "../../Config/settings.config";
 
+// Utils
 import { moveToTop } from "../../Services/Utils";
 
-// Models
+// Services
 import { movie_filter_by_country } from "../../Services/FlixHQService";
 
 const darkTheme = createTheme({
@@ -48,14 +52,14 @@ function FilterByGenre() {
   const queryParams = new URLSearchParams(window.location.search);
   const type = 'foreign';
   const subType = 'foreignfilterbycountry';
-
   const defaultCountry = queryParams.get("country") === null ? 'PH' : foreign_country.filter( (item, i) => item.name === queryParams.get("country"))[0].code;
   const defaultPageNumber = queryParams.get("page") === null ? 1 : queryParams.get("page");
 
+  const [isLoading, setIsLoading] = useState(true);
   const [country, setCountry] = useState(defaultCountry);
   const [page, setPage] = useState(defaultPageNumber);
 
-  // loading
+  // Picture loading
   const [isloadPicture, setIsloadPicture] = useState(true);
 
   let countryData = useQuery(['movie_filter_by_country', { country: country, page: page }], movie_filter_by_country, {
@@ -83,11 +87,19 @@ function FilterByGenre() {
     moveToTop();
   }
 
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, pageLoadMS);
+  }, []);
+
   return (
-    <>
-      <div className="search_result">
-      <ReactQueryTools/>
-       <div className="search_result_content">
+    isLoading ? 
+      <LoadingPage/>
+    : 
+    <div className="search_result">
+    <ReactQueryTools/>
+      <div className="search_result_content">
         <div className="search__top">
           <SideBar Type={type} subType={subType}/>
         </div>
@@ -197,11 +209,10 @@ function FilterByGenre() {
             </Grid>
             </Container>
         </ThemeProvider>
-
-       </div>
-      <Footer/>
       </div>
-    </>
+    <FloatingButton/>
+    <Footer/>
+    </div>
   );
 }
 

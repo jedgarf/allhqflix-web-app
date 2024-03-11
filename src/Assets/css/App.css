@@ -1,5 +1,4 @@
-.App {
-    /* user-select: none; */
+.app-routes {
     display: flex;
     height: 100vh;
     overflow: hidden;

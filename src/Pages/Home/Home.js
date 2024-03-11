@@ -1,5 +1,5 @@
 // Packages
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 
 // Material UI Componenets
@@ -16,6 +16,8 @@ import "./Home.css";
 // Pages
 import SideBar from "../../Components/SlideBar/SideBar";
 import Footer from "../../Components/Footer/Footer";
+import LoadingPage from "../../Components/LoadingPage/LoadingPage";
+import FloatingButton from '../../Components/FloatingButton/FloatingButton';
 import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
 // partial page
@@ -30,7 +32,7 @@ import { search } from '../../Features/searchSlice';
 import { moveToClassName } from "../../Services/Utils";
 
 // Config
-import { title } from "../../Config/settings.config";
+import { title, pageLoadMS } from "../../Config/settings.config";
 
 // Images
 import { mainLogo, homeBackground } from "../../Config/images.config";
@@ -38,12 +40,12 @@ import { mainLogo, homeBackground } from "../../Config/images.config";
 const Home = () => {
 
   document.title = title;
-
   var searchText = "";
   const type = 'home';
-
   const queryParams = new URLSearchParams(window.location.search);
   const searchKeyword = queryParams.get("keyword") === null ? "" : queryParams.get("keyword");
+
+  const [isLoading, setIsLoading] = useState(true);
 
   const navigate = useNavigate();
 
@@ -105,7 +107,16 @@ const Home = () => {
 
   // --------------------------------------------------------------------------------------------------- 
 
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, pageLoadMS);
+  }, []);
+  
   return (
+    isLoading ? 
+      <LoadingPage/>
+     : 
     <div className="landing-page">
       <ReactQueryTools/>
       <SideBar Type={type} subType={null} haveSearch={false}/>
@@ -183,7 +194,7 @@ const Home = () => {
           </Grid>
         </Grid>
       </div>
-      
+      <FloatingButton/>
       <Footer />
     </div>
   );

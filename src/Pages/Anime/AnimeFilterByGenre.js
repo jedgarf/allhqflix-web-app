@@ -1,5 +1,5 @@
 // Packages
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useQuery } from 'react-query';
 
 // Material UI Components
@@ -26,14 +26,18 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 // Pages
 import SideBar from "../../Components/SlideBar/SideBar";
 import Footer from "../../Components/Footer/Footer";
+import FloatingButton from '../../Components/FloatingButton/FloatingButton';
+import LoadingPage from "../../Components/LoadingPage/LoadingPage";
 import SearchResult from "../../Components/SearchResult/SearchResult";
 import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
-import { anime_genres } from "../../Config/settings.config";
+// Config
+import { pageLoadMS, anime_genres } from "../../Config/settings.config";
 
+// Utils
 import { moveToTop } from "../../Services/Utils";
 
-// Models
+// Services
 import { anime_bygenre } from "../../Services/AnimeService";
 
 function AnimeFilterByGenre() {
@@ -44,10 +48,11 @@ function AnimeFilterByGenre() {
   const defaultGenre = queryParams.get("genre") === null ? 'Action' : (anime_genres.filter(item => item === queryParams.get("genre")).length > 0 ? anime_genres.filter(item => item === queryParams.get("genre"))[0] : "");
   document.title = 'AllHQFlix - Animes - By Genre';
 
+  const [isLoading, setIsLoading] = useState(true);
   const [genre, setGenre] = useState(defaultGenre);
   const [page, setPage] = useState(1);
 
-  // loading
+  // Picture loading
   const [isloadPicture, setIsloadPicture] = useState(true);
 
   const darkTheme = createTheme({
@@ -81,11 +86,19 @@ function AnimeFilterByGenre() {
     moveToTop();
   }
 
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, pageLoadMS);
+  }, []);
+
   return (
-    <>
-      <div className="search_result">
+    isLoading ? 
+      <LoadingPage/>
+    : 
+    <div className="search_result">
       <ReactQueryTools/>
-       <div className="search_result_content">
+      <div className="search_result_content">
         <div className="search__top">
           <SideBar Type={type} subType={subType}/>
         </div>
@@ -195,11 +208,10 @@ function AnimeFilterByGenre() {
               </Grid>
             </Container>
         </ThemeProvider>
-
-       </div>
-      <Footer/>
       </div>
-    </>
+      <FloatingButton/>
+      <Footer/>
+    </div>
   );
 }
 

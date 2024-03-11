@@ -1,5 +1,5 @@
 // Packages
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useQuery } from 'react-query';
 import { IconButton, Grid, Stack, Typography } from '@mui/material';
 
@@ -15,10 +15,16 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 // Pages
 import SideBar from "../../Components/SlideBar/SideBar";
 import Footer from "../../Components/Footer/Footer";
+import FloatingButton from '../../Components/FloatingButton/FloatingButton';
+import LoadingPage from "../../Components/LoadingPage/LoadingPage";
 import SearchResult from "../../Components/SearchResult/SearchResult";
 import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
+// Utils
 import { moveToTop } from "../../Services/Utils";
+
+// Config
+import { pageLoadMS } from "../../Config/settings.config";
 
 // Models
 import { movie_popular } from "../../Services/FlixHQService";
@@ -32,6 +38,7 @@ function PopularMovies() {
   const contentType = 'movie';
   document.title = 'AllHQFlix - International - Popular Movies';
   
+  const [isLoading, setIsLoading] = useState(true);
   const defaultPageNumber = queryParams.get("page") === null ? 1 : queryParams.get("page");
   const [page, setPage] = useState(defaultPageNumber);
 
@@ -63,8 +70,16 @@ function PopularMovies() {
     moveToTop();
   }
 
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, pageLoadMS);
+  }, []);
+
   return (
-    <>
+    isLoading ? 
+        <LoadingPage/>
+      : 
       <div className="search_result">
         <ReactQueryTools/>
         <div className="search_result_content">
@@ -156,9 +171,9 @@ function PopularMovies() {
           </ThemeProvider>
             
         </div>
+        <FloatingButton />
         <Footer/>
       </div>
-    </>
   );
 }
 

@@ -18,11 +18,15 @@ import WarningAmberTwoToneIcon from '@mui/icons-material/WarningAmberTwoTone';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 
 // Components
+import LoadingPage from "../../Components/LoadingPage/LoadingPage";
 import ShareModal from "../../Components/Modal/ShareModal";
 import TraillerModal from "../../Components/Modal/TraillerModal";
 import SnackBar from "../../Components/SnackBar/SnackBar";
 import { AsianDramaPlayModal } from "../../Components/Modal/PlayModal";
 import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
+
+// Config
+import { pageLoadMS } from "../../Config/settings.config";
 
 // Utilities
 import { streamDashboardBackButton, SeparateArrayByComma } from "../../Services/Utils";
@@ -33,6 +37,8 @@ import { asianfilms_info, asianfilms_stream_links } from "../../Services/ViewAsi
 const AsianFilmsStreamDashboard = (props) => {
 
     const selectedEpisode = null;
+
+    const [isLoading, setIsLoading] = useState(true);
     const [isMobile, setIsMobile] = useState(false);
     const [episodeIdVar, setEpisodeIdVar] = useState(selectedEpisode);
 
@@ -109,11 +115,18 @@ const AsianFilmsStreamDashboard = (props) => {
             setSnackBarWithLoading(true);
         };
 
+        setTimeout(() => {
+            setIsLoading(false);
+        }, pageLoadMS);
+
     }, [handleResize, infoData.isSuccess, infoValue?.title, infoData.isLoading, resourceData.isLoading]);
 
     return (
+        isLoading ? 
+            <LoadingPage/>
+        : 
         <>
-        <ReactQueryTools/>
+            <ReactQueryTools/>
             <div style={{ backgroundColor: 'rgba(15, 22, 34, 1)', backgroundImage: isMobile ? `linear-gradient(rgba(15, 22, 34, 0.527),rgba(15, 22, 34, 0.5)) , url("${infoValue?.banner}")` : `linear-gradient(90deg, rgba(15, 22, 34, 1) 10%, rgba(15, 22, 34, 0.5) 90%) , url("${infoValue?.banner}")`, backgroundSize: isMobile ? '100% 100%' : '900px 100%', backgroundPosition: isMobile ? 'center' : 'right', backgroundRepeat: 'no-repeat', width: '99.9%'}}>
                 <SnackBar severity={snackBarType} handleSnackBarOpen={handleSnackBarOpen} status={snackBarOpen} snackBarMessage={snackBarMessage} withLoading={snackBarWithLoading} />
                 <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={1} justifyContent="center">

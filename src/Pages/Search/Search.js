@@ -29,15 +29,20 @@ import "./Search.css";
 
 // Pages
 import SideBar from "../../Components/SlideBar/SideBar";
-import SearchResult from "../../Components/SearchResult/SearchResult";
 import Footer from "../../Components/Footer/Footer";
+import FloatingButton from '../../Components/FloatingButton/FloatingButton';
+import LoadingPage from "../../Components/LoadingPage/LoadingPage";
+import SearchResult from "../../Components/SearchResult/SearchResult";
 import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
+// Config
+import { pageLoadMS } from "../../Config/settings.config";
+
+// Utils
 import { moveToTop } from "../../Services/Utils";
 
-// Models
+// Services
 import { menus } from "../../Services/SettingService";
-
 import { movie_search } from "../../Services/FlixHQService";
 import { anime_search } from "../../Services/AnimeService";
 import { asiandrama_search } from "../../Services/DramaCoolService";
@@ -140,13 +145,19 @@ function Search() {
     document.title = 'AllHQFlix - Search';
     getInfo();
 
+    setTimeout(() => {
+      setIsLoading(false);
+    }, pageLoadMS);
+
   }, [getInfo]);
 
   return (
-    <>
-      <div className="search_result">
+    isLoading ? 
+      <LoadingPage/>
+    : 
+    <div className="search_result">
       <ReactQueryTools/>
-       <div className="search_result_content">
+      <div className="search_result_content">
         <div className="search__top">
           <SideBar Type={type} subType={null}/>
         </div>
@@ -253,11 +264,10 @@ function Search() {
             </Grid>
           </Container>
         </ThemeProvider>
-
       </div>
+      <FloatingButton/>
       <Footer/>
-      </div>
-    </>
+    </div>
   );
 }
 
