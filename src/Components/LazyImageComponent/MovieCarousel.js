@@ -9,7 +9,7 @@ import 'react-lazy-load-image-component/src/effects/blur.css'; // Import the CSS
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 
 // Images
-import { noImagePlaceholder } from "../../Config/images.config";
+import { carouselNoImagePlaceholder } from "../../Config/images.config";
 
 // API
 // import apiConfig from "../../Config/api.config";
@@ -38,7 +38,7 @@ const MovieCarousel = ({ src, title, category }) => {
                 height={'auto'}
                 onError={({ currentTarget }) => {
                         currentTarget.onerror = null; // prevents looping
-                        currentTarget.src = noImagePlaceholder;
+                        currentTarget.src = carouselNoImagePlaceholder;
                     }
                 }
             />
@@ -51,7 +51,7 @@ const MovieCarousel = ({ src, title, category }) => {
                 effect="blur" 
                 onError={({ currentTarget }) => {
                         currentTarget.onerror = null; // prevents looping
-                        currentTarget.src = noImagePlaceholder;
+                        currentTarget.src = carouselNoImagePlaceholder;
                     }
                 }
             /> */}

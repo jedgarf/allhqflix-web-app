@@ -18,6 +18,7 @@ import appPhoto from "../Assets/images/android_app_photo.png";
 
 // No Image Available
 import noImagePlaceholder from "../Assets/images/no-image-placeholder.png";
+import carouselNoImagePlaceholder from "../Assets/images/carousel_no_image.png";
 
 // 404 not found
 import notFoundImage from "../Assets/images/error_404.png";
@@ -36,4 +37,4 @@ import videoQuality from "../Assets/images/video_quality.png";
 import iptv from "../Assets/images/iptv.png";
 
 
-export { mainLogo, headerLogo, homeBackground, jefdevLogoTransparent, consumetLogo, familyWatching, mediaAlchemyLogo, onePieceBanner, onePieceNetflixBanner, yuYuHakushoBanner, appPhoto, noImagePlaceholder, notFoundImage, offLimits, customLoadingFileName, subtitleLogo, videoQuality, iptv };
+export { mainLogo, headerLogo, homeBackground, jefdevLogoTransparent, consumetLogo, familyWatching, mediaAlchemyLogo, onePieceBanner, onePieceNetflixBanner, yuYuHakushoBanner, appPhoto, noImagePlaceholder, carouselNoImagePlaceholder, notFoundImage, offLimits, customLoadingFileName, subtitleLogo, videoQuality, iptv };
