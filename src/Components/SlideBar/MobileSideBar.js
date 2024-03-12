@@ -172,7 +172,7 @@ const MobileSideBar = ({ Type, subType, getMenu, menu, submenu }) => {
                                 </ListItemButton>
                             </ListItem>
                         </Link>
-                        <Link to={`/about_developers`} style={{ textDecoration: 'none', fontWeight: 'bolder !important' }}>
+                        {/* <Link to={`/about_developers`} style={{ textDecoration: 'none', fontWeight: 'bolder !important' }}>
                             <ListItem disablePadding>
                                 <ListItemButton selected={Type === "about_developers" ? true : false} style={{ color: '#DC4C64', fontWeight: '550' }}>
                                 <ListItemIcon>
@@ -181,7 +181,7 @@ const MobileSideBar = ({ Type, subType, getMenu, menu, submenu }) => {
                                     <ListItemText className='sidebar-no-link-menu' primary={'ABOUT THE DEVELOPERS'} classes={{ primary: classes.text }} />
                                 </ListItemButton>
                             </ListItem>
-                        </Link>
+                        </Link> */}
                         <Link to={`/contact_us`} style={{ textDecoration: 'none', fontWeight: 'bolder !important' }}>
                             <ListItem disablePadding>
                                 <ListItemButton selected={Type === "contact_us" ? true : false} style={{ color: '#DC4C64', fontWeight: '550' }}>

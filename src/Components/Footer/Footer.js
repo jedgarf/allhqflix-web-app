@@ -48,7 +48,7 @@ function Footer() {
                                 <div className="footer_links">
                                     <ul type='none'>
                                         <li><Link className="text-link" to="/native_apps">Mobile App</Link></li>
-                                        <li><Link className="text-link" to="/about_developers">About the Developers</Link></li>
+                                        {/* <li><Link className="text-link" to="/about_developers">About the Developers</Link></li> */}
                                         <li><Link className="text-link" to="/terms_and_conditions">Terms & Conditions</Link></li>
                                         <li><Link className="text-link" to="/privacy_policy">Privacy Policy</Link></li>
                                         <li><Link className="text-link" to="/contact_us">Contact Us</Link></li>
