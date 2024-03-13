@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from "react-router-dom";
 
 // Material UI Components
 import { Grid, Container, Card, CardContent, Typography } from '@mui/material';
@@ -9,7 +10,7 @@ import Footer from "../../Components/Footer/Footer";
 import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
 // Config
-import { title, site_email } from "../../Config/settings.config";
+import { title } from "../../Config/settings.config";
 
 // Images
 import { homeBackground } from "../../Config/images.config";
@@ -28,7 +29,7 @@ const TermsAndConditions = () => {
             <div className="landing-page">
                 <ReactQueryTools/>
                 <SideBar Type={type} subType={null} haveSearch={true} transparentBg={false} isStream={true}/>
-                    <div className="divFocus" style={{backgroundImage: `linear-gradient(rgba(2, 9, 22, 0.8),rgba(2, 9, 22, 0.8))`, color: '#ccced1' }}>
+                    <div className="divFocus" style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5))`, color: '#ccced1' }}>
                         <div style={{ marginTop: '70px', minHeight: 500, width: '99vw' }}>
 
                         <Grid container rowSpacing={9}>
@@ -87,7 +88,7 @@ const TermsAndConditions = () => {
 
                                         <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
                                             <Typography variant='h6' style={{ marginBottom: '5px', fontWeight: '550' }}>7. Contact Us</Typography>
-                                            <p style={{ textAlign: 'justify' }}>If you have any questions about these Terms and Conditions, please contact us at <a className='text-link' href={`mailto:${site_email}`} title={site_email}>{site_email}</a></p>
+                                            <p style={{ textAlign: 'justify' }}>If you have any questions about these Terms and Conditions, please click <Link className='text-link' to={`/contact_us`}>here</Link> to contact us.</p>
                                         </Grid>
                                     </Grid>
                                 </Container>

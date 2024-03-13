@@ -121,7 +121,7 @@ const Home = () => {
       <ReactQueryTools/>
       <SideBar Type={type} subType={null} haveSearch={false}/>
 
-      <div className="divFocus" style={{backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 1)), url("${homeBackground}")`, height: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <div className="divFocus" style={{backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 1)), url("${homeBackground}")`, height: '100vh', display: 'flex', flexDirection: 'column' }}>
         <center>
           <Container>
             <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={0} justifyContent="center">
@@ -136,7 +136,7 @@ const Home = () => {
               </Grid>
               <Grid item xl={12} lg={12} md={12} sm={12} xs={12} style={{ marginBottom: 20 }}>
                 {/* <Typography variant="h5" style={{ marginBottom: 1, fontWeight: '550', color: '#ccced1 !important' }}>Watch Everywhere</Typography> */}
-                <Typography variant="span" style={{ marginBottom: 1, fontWeight: '550', color: '#ccced1 !important' }}>Watch unlimited movies and tv shows on your phone, tablet and laptop.</Typography>
+                <Typography variant="p" className="text-white" style={{ marginBottom: 1, fontWeight: '550' }}>Watch unlimited movies and tv shows on your phone, tablet and laptop.</Typography>
               </Grid>
               <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
                 <Box sx={{ textAlign: 'left' }} width={{ xs: '85vw', sm: '500px', md: '600px' }}>
@@ -156,7 +156,7 @@ const Home = () => {
                 </Box>
 
                 <Box display={{ xs: 'block', md: 'none' }} style={{ marginTop: '100px', marginBottom: '-100px' }}>
-                  <div style={{ cursor: 'pointer' }} onClick={() => moveToClassName('media-categories-divider')}><ArrowDownwardIcon sx={{ fontSize: '23px', marginBottom: '-5px' }}/> See More</div>
+                  <div className="text-white" style={{ cursor: 'pointer' }} onClick={() => moveToClassName('media-categories-divider')}><ArrowDownwardIcon sx={{ fontSize: '23px', marginBottom: '-5px' }}/> See More</div>
                 </Box>
               </Grid>
             </Grid>

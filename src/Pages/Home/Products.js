@@ -29,7 +29,7 @@ const Products = () => {
 
                     <Grid item xl={12} lg={12} md={12} sm={12} xs={12} style={{ marginBottom: 50 }}>
                         <center>
-                            <Typography variant="h5" sx={{ marginBottom: 1, fontWeight: '550' }}><WebIcon sx={{ fontSize: 28, marginBottom: '-6px' }}/> OTHER USEFUL SITES</Typography>
+                            <Typography variant="h5" className='text-white' sx={{ marginBottom: 1, fontWeight: '550' }}><WebIcon sx={{ fontSize: 28, marginBottom: '-6px' }}/> OTHER USEFUL SITES</Typography>
                         </center>
                     </Grid>
                     <Grid item xl={6} lg={6} md={6} sm={12} xs={12} style={{ margin: 'auto', width: '640px', padding: '10px' }}>

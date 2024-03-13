@@ -26,7 +26,7 @@ const Faq = () => {
                 <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={1} style={{ margin: '85px auto 85px auto', padding: '0px' }}>
 
                     <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
-                        <Typography variant="h5" sx={{ marginBottom: 3, fontWeight: '550' }}><QuestionAnswerIcon sx={{ fontSize: 28, marginBottom: '-6px' }}/> FREQUENTLY ASKED QUESTIONS</Typography>
+                        <Typography variant="h5" className='text-white' sx={{ marginBottom: 3, fontWeight: '550' }}><QuestionAnswerIcon sx={{ fontSize: 28, marginBottom: '-6px' }}/> FREQUENTLY ASKED QUESTIONS</Typography>
                         <Accordion className="home_accordion" expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
                             <AccordionSummary
                             expandIcon={<ExpandMoreIcon style={{ color: '#dddddd' }} />}
@@ -229,7 +229,7 @@ const Faq = () => {
                                                         <li><a className='text-link' href={`${googleSearch}Javascript`} target='__blank'>Javascript ES5/ES6</a></li>
                                                         <li><a className='text-link' href={`${googleSearch}ReactJS`} target='__blank'>ReactJS CRA</a></li>
                                                         <li><a className='text-link' href={`${googleSearch}TanStack Query`} target='__blank'>TanStack Query (Caching Management)</a></li>
-                                                        <li><a className='text-link' href={`${googleSearch}TanStack Query`} target='__blank'>Redux (State Management)</a></li>
+                                                        <li><a className='text-link' href={`${googleSearch}Redux`} target='__blank'>Redux (State Management)</a></li>
                                                         <li><a className='text-link' href={`${googleSearch}progressive web application (pwa)`} target='__blank'>Progressive Web Application</a></li>
                                                     </ul>
                                                 </td>
@@ -255,8 +255,8 @@ const Faq = () => {
                                                 <td>
                                                     <ul className="main_features_text">
                                                     <li><a className='text-link' href={`${googleSearch}Dart Programming`} target='__blank'>Dart Programming</a></li>
-                                                    <li><a className='text-link' href={`${googleSearch}Flutter`} target='__blank'>Flutter UI Software Development Kit</a></li>
-                                                    <li><a className='text-link' href={`${googleSearch}Flutter GetX`} target='__blank'>Flutter GetX (State and Route Management)</a></li>
+                                                    <li><a className='text-link' href={`${googleSearch}Flutter`} target='__blank'>Flutter (UI Software Development Kit)</a></li>
+                                                    <li><a className='text-link' href={`${googleSearch}flutter BLoC`} target='__blank'>Flutter BLoC (State Management Pattern)</a></li>
                                                     </ul>
                                                 </td>
                                                 </tr>

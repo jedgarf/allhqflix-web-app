@@ -54,9 +54,9 @@ const NativeApps = () => {
                         <div style={{ width: '99vw' }}>
 
                             <Container maxWidth={'md'}>
-                                <div className="appdownloads" style={{ backgroundImage: `linear-gradient(rgba(2, 9, 22, 0.8),rgba(2, 9, 22, 0.8)) , url("${homeBackground}")`, borderRadius: 10, padding: 40, minHeight: '450px', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '130px' }}>
+                                <div className="appdownloads" style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)) , url("${homeBackground}")`, borderRadius: 10, padding: 40, minHeight: '450px', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '130px' }}>
                                     <div className="apd-container">
-                                        <div className="apdc-content">
+                                        <div className="apdc-content text-white">
                                             <Grid container direction="row" columnSpacing={{ xs: 2, sm: 2, md: 2, lg: 2, xl: 2 }} rowSpacing={2}>
                                                 <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
                                                     <center>

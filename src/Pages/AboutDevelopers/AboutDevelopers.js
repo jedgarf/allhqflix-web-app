@@ -35,7 +35,7 @@ const AboutDevelopers = () => {
             <div className="landing-page">
                 <ReactQueryTools/>
                 <SideBar Type={type} subType={null} haveSearch={true} transparentBg={false} isStream={true}/>
-                    <div className="divFocus" style={{backgroundImage: `linear-gradient(rgba(2, 9, 22, 0.8),rgba(2, 9, 22, 0.8))` }}>
+                    <div className="divFocus" style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5))` }}>
                         <div style={{ marginTop: '70px', minHeight: 550, width: '99vw' }}>
 
                         <Grid container rowSpacing={9}>

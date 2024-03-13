@@ -43,6 +43,10 @@ body {
     transition: .3s;
 }
 
+.text-white {
+    color: var(--four-color) !important;
+}
+
 html {
     overflow: hidden;
 }

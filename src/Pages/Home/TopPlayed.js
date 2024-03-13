@@ -37,7 +37,7 @@ const TopPlayed = () => {
 
                     <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
                         <center>
-                            <Typography variant="h5" sx={{ marginBottom: 1, fontWeight: '550' }}><LiveTvIcon sx={{ fontSize: 28, marginBottom: '-4px' }}/> MOST WATCHED</Typography>
+                            <Typography variant="h5" className='text-white' sx={{ marginBottom: 1, fontWeight: '550' }}><LiveTvIcon sx={{ fontSize: 28, marginBottom: '-4px' }}/> MOST WATCHED</Typography>
                         </center>
                     </Grid>
 
@@ -46,7 +46,7 @@ const TopPlayed = () => {
                             <Slider {...top_played_carousel_settings} style={{ maxWidth: '800px' }}>
                                 <Fragment>
                                     <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={2}>
-                                        <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                                        <Grid item xl={12} lg={12} md={12} sm={12} xs={12} className='text-white'>
                                             Watch the latest One Piece: Egghead Island Arc.
                                         </Grid>
                                         <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
@@ -63,7 +63,7 @@ const TopPlayed = () => {
                                 </Fragment>
                                 <Fragment>
                                     <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={2}>
-                                        <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                                        <Grid item xl={12} lg={12} md={12} sm={12} xs={12} className='text-white'>
                                             Watch the first season of One Piece live action.
                                         </Grid>
                                         <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
@@ -80,7 +80,7 @@ const TopPlayed = () => {
                                 </Fragment>
                                 <Fragment>
                                     <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={2}>
-                                        <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                                        <Grid item xl={12} lg={12} md={12} sm={12} xs={12} className='text-white'>
                                             Watch the first season of Yu Yu Hakusho live action.
                                         </Grid>
                                         <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
