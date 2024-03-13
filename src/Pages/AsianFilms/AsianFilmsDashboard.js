@@ -393,13 +393,6 @@ const AsianFilmsDashboard = (props) => {
                 <Grid item>
                   <h5 style={{ marginRight: 10 }}>
                     <span className='stream-video-quality-span' style={{ color: 'rgba(129,181,223,255)', backgroundColor: 'transparent', fontWeight: 'bolder', border: '1.5px solid' }}>
-                      Original Dub
-                    </span>
-                  </h5>
-                </Grid>
-                <Grid item>
-                  <h5 style={{ marginRight: 10 }}>
-                    <span className='stream-video-quality-span' style={{ color: 'rgba(129,181,223,255)', backgroundColor: 'transparent', fontWeight: 'bolder', border: '1.5px solid' }}>
                       English Subtitle
                     </span>
                   </h5>
