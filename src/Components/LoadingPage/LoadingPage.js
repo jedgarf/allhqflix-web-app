@@ -4,11 +4,11 @@ import './css/styles.css';
 import { Typography, LinearProgress } from "@mui/material";
 
 // Images
-import { mainLogo } from "../../Config/images.config";
+import { mainLogo, homeBackground } from "../../Config/images.config";
 
 const LoadingPage = () => {
   return (
-    <div className="loading-page">
+    <div className="loading-page"style={{backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)), url("${homeBackground}")`, height: '100vh', display: 'flex', flexDirection: 'column' }}>
       <div className="page-image-container">
         <center>
           <div className='page-loading-logo'>
