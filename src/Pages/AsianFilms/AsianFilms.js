@@ -150,7 +150,7 @@ const AsianDrama = () => {
       {featuredData.isSuccess ? 
       <div style={{ margin: 'auto' }}>
         <div className="heading">
-          LATEST
+          LATEST RELEASED
           <Link className="text-link-without-underline" to="/asian_films/featured_drama" style={{ float: 'right', fontSize: '20px', marginRight: 10 }}>
               <Button variant="contained" size="small" color="primary">MORE</Button>
           </Link>
