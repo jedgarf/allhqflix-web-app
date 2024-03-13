@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 
-import { Player, artInstance } from "../Player/Player";
+import { Player } from "../Player/Player";
 
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
@@ -42,7 +42,7 @@ const SubtitleModal = ({ subtitles, isMobile }) => {
             const subtitleName = subtitleNameRef.current.value;
             const subtitleFile = subtitleFileRef.current.value;
 
-            artInstance.subtitles = [{language: subtitleName, url: subtitleFile}];
+            // artInstance.subtitles = [{language: subtitleName, url: subtitleFile}];
             // alert(subtitleName + " - " + subtitleFile);
         }
     }

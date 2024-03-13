@@ -106,90 +106,91 @@ const Player = ({ defaultlink, infotitle, infocover, episodeNum, totalEpisodes, 
 
         let isAutoPlay = true;
 
-        if (process.env.REACT_APP_NODE_ENV === 'DEVELOPMENT') {
+        if (process.env.NODE_ENV == 'production') {
+            Artplayer.DEBUG = false;
+        } else {
             Artplayer.DEBUG = true;
             isAutoPlay = false;
-        } else {
-            Artplayer.DEBUG = false;
         }
 
-        Artplayer.ASPECT_RATIO = ['Default', '1:1', '2:1', '4:3', '6:5'];
+        Artplayer.ASPECT_RATIO = ['default', '1:1', '2:1', '4:3', '6:5'];
         Artplayer.TOUCH_MOVE_RATIO = 0.5;
+        
+        var art;
 
-        var art = new Artplayer({
-            ...option,
-            container: artRef.current,
-            autoOrientation: true,
-            fastForward: true,
-            url: defaultlink,
-            type: getFileExtention(defaultlink),
-            customType: {
-                m3u8: playM3u8,
-                flv: playFlv
-            },
-            title: infotitle || "Unknown Title",
-            poster: infocover || "",
-            volume: 1,
-            muted: false,
-            autoplay: isAutoPlay,
-            pip: false,
-            autoSize: false,
-            autoMini: true,
-            // screenshot: true,
-            loop: false,
-            flip: true,
-            playbackRate: true,
-            aspectRatio: true,
-            fullscreen: true,
-            // fullscreenWeb: true,
-            subtitleOffset: false,
-            miniProgressBar: true,
-            lock: true,
-            // mutex: true,
-            backdrop: true,
-            playsInline: true,
-            autoPlayback: true,
-            airplay: false,
-            theme: '#DC4C64',
-            lang: navigator.language.toLowerCase(),
-            whitelist: ['*'],
-            moreVideoAttr: {
-                // crossOrigin: 'anonymous',
-                preload: 'none', // metadata
-                playsInline: true,
-            },
-            contextmenu: [{
-                html: 'Custom menu',
-                click: function(contextmenu) {
-                    console.info('You clicked on the custom menu');
-                    contextmenu.show = false;
+        try {
+            art = new Artplayer({
+                ...option,
+                container: artRef.current,
+                autoOrientation: true,
+                fastForward: true,
+                url: defaultlink,
+                type: getFileExtention(defaultlink),
+                customType: {
+                    m3u8: playM3u8,
+                    flv: playFlv
                 },
-            }, ],
-            layers: [
-                {
-                    html: `<img src="${mainLogo}">`,
-                    click: function() {
-                        // window.open('https://jedgarfdev.vercel.app');
-                        console.info('You clicked on the custom layer');
+                title: infotitle || "Unknown Title",
+                poster: infocover || "",
+                volume: 1,
+                muted: false,
+                autoplay: isAutoPlay,
+                pip: false,
+                autoSize: false,
+                autoMini: true,
+                // screenshot: true,
+                loop: false,
+                flip: true,
+                playbackRate: true,
+                aspectRatio: true,
+                fullscreen: true,
+                // fullscreenWeb: true,
+                subtitleOffset: false,
+                miniProgressBar: true,
+                lock: true,
+                // mutex: true,
+                backdrop: true,
+                playsInline: true,
+                autoPlayback: true,
+                airplay: false,
+                theme: '#DC4C64',
+                lang: navigator.language.toLowerCase(),
+                whitelist: ['*'],
+                moreVideoAttr: {
+                    crossOrigin: 'anonymous',
+                    // preload: 'none', // metadata
+                    // playsInline: true,
+                },
+                contextmenu: [{
+                    html: 'Custom menu',
+                    click: function(contextmenu) {
+                        console.info('You clicked on the custom menu');
+                        contextmenu.show = false;
                     },
-                    style: {
-                        position: 'absolute',
-                        width: '50px',
-                        top: '3px',
-                        right: '0px',
-                        opacity: '.7',
-                    },
-                }
-            ],
-            // thumbnails: {
-            //     url: '/images/multimedia_hub_logo.png',
-            //     number: 60,
-            //     column: 10,
-            // },
-            icons: customIcons,
-        });
+                }, ],
+                layers: [
+                    {
+                        html: `<img src="${mainLogo}">`,
+                        click: function() {
+                            // window.open('https://jedgarfdev.vercel.app');
+                            console.info('You clicked on the custom layer');
+                        },
+                        style: {
+                            position: 'absolute',
+                            width: '50px',
+                            top: '3px',
+                            right: '0px',
+                            opacity: '.7',
+                        },
+                    }
+                ],
+                icons: customIcons,
+            });
+        } catch (error) {
+            console.error(error);
+        }
 
-        if (option.enableAds === true && process.env.REACT_APP_ENABLE_ADS == true) {
+        // if (option.enableAds === true && process.env.REACT_APP_ENABLE_ADS == true) {
             // art.plugins.add(artplayerPluginAds({
             //     html: `<img src="${mainLogo}">`,
             //     video: '/ads/' + cads.video,
@@ -213,104 +214,53 @@ const Player = ({ defaultlink, infotitle, infocover, episodeNum, totalEpisodes, 
             // art.on('artplayerPluginAds:skip', (ads) => {
             //     console.info('Ad was skipped', ads);
             // });
-        }
-
-        art.on('waiting', () => {
-
-            // m3u8 checher
-            // fetch(defaultlink)
-            // .then((response) => {
-            //     if (!response.ok) {
-            //         if (response.status === 500) {
-            //             art.notice.show = 'The M3U8 file returned an HTTP 500 error.';
-            //         } else {
-            //             art.notice.show = 'An error occurred while fetching the M3U8 file.';
-            //         }
-            //     }
-            // })
-            // .catch((error) => {
-            //     art.notice.show = 'An error occurred while fetching the M3U8 file.';
-            // });
+        // }
+        if (art) {
+            art.on('waiting', () => {
             
-            // Show the loading message after 5 seconds
-            setTimeout(() => {
-                art.notice.show = 'Please switch to another server.';
-            }, 5000);
-
-        });
-
-        art.on('ready', () => {
-            if (totalEpisodes > 1) {
-                art.notice.show = infotitle;
-            }
-
-            // art.subtitle.style({
-            //     fontSize: '150%',
-            //     width: 'inherit',
-            //     backgroundColor: 'rgba(0, 0, 0, 0.50)',
-            //     marginBottom: 20,
-            //     borderRadius: 5,
-            //     padding: 5
-            // });
-
-            // Seek time
-            if (seekTime > 0) {
-                art.seek = seekTime;   
-            }
-
-        });
-
-        art.on('pause', () => {
-            art.notice.show = infotitle;
-        });
-
-        // art.on('play', () => {
-        //     art.notice.hide();
-        // });
-
-        if (totalEpisodes > 1) {
-            // auto next function
-            art.on('video:ended', () => {
-                nextEpisode();
+                // Show the loading message after 5 seconds
+                setTimeout(() => {
+                    art.notice.show = 'Please switch to another server.';
+                }, 5000);
+    
             });
+    
+            art.on('ready', () => {
+                if (totalEpisodes > 1) {
+                    art.notice.show = infotitle;
+                }
+    
+                // Seek time
+                if (seekTime > 0) {
+                    art.seek = seekTime;   
+                }
+    
+            });
+    
+            art.on('pause', () => {
+                art.notice.show = infotitle;
+            });
+    
+            if (totalEpisodes > 1) {
+                // auto next function
+                art.on('video:ended', () => {
+                    nextEpisode();
+                });
+            }
+    
+            art.on('error', (error, reconnectTime) => {
+                // console.info(error, reconnectTime);
+                art.notice.show = 'Error loading Link, please switch to another server.';
+            });   
         }
-
-        art.on('error', (error, reconnectTime) => {
-            console.info(error, reconnectTime);
-            art.notice.show = 'Error loading Link, please switch to another server.';
-        });
-
-        // Assign the player instance to the ref
-        artInstance = art;
-
-        return () => {
-            // artInstance.destroy();
-        };
 
     }, []);
 
     return <div ref={artRef} {...rest}></div>;
 }
 
-const updateVideoResolutions = () => {
-    // Update the control by name
-    artInstance.controls.update({
-        name: 'quality',
-        html: '1080',
-        selector: [
-            {
-                default: true,
-                html: '1080',
-                url: '/new/video.mp4?p=1080',
-            }
-        ],
-    });
-}
-
 export {
     Player,
     destroyPlayM3u8,
-    destroyPlayFlv,
-    artInstance,
-    updateVideoResolutions
+    destroyPlayFlv
 }

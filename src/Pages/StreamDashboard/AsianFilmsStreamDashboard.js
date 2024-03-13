@@ -166,7 +166,7 @@ const AsianFilmsStreamDashboard = (props) => {
                     <div className='stream-dashboard-title'><h1>{ infoValue?.title }</h1>
 
                     <label className='stream-dashboard-servername'>
-                        <span className='stream-video-quality-span' style={{ fontSize: '14px', backgroundColor: 'transparent', fontWeight: 'bolder', border: '1.5px solid' }}>
+                        <span className='stream-video-quality-span' style={{ fontSize: '14px', backgroundColor: 'transparent', fontWeight: 'bolder', border: '1.5px solid', marginRight: '5px' }}>
                             English Subtitle
                         </span> | {infoValue?.episodes?.length > 1 ? `Episode 1 to ${infoValue?.episodes?.length} |` : ''}<ShareModal infoValue={infoValue}/></label>
 
