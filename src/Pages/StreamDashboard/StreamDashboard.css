@@ -117,6 +117,7 @@
 @media (max-width: 600px) {
     .stream-dashboard-content {
         top: 45% !important;
+        width: 100% !important;
     }
     .stream-dashboard-title {
         font-size: 13px !important;

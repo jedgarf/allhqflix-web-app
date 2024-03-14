@@ -304,18 +304,7 @@ const MovieStreamDashboard = (props) => {
 
                         <div className='stream-dashboard-video-qualities'>
                             {resourceData.isSuccess && resourceValue?.data?.sources?.length > 0 ? 
-                            <>
-                                {infoValue?.episodes?.length === 1 && 
-                                <>
-                                    <b style={{ color: '#DC4C64', marginRight: '5px'}}>Video Resolution/s: </b>
-                                    {resourceValue?.data?.sources?.filter((item) => item.quality !== "default").filter((item) => item.quality !== "backup").map((item, i) => {
-                                        return (
-                                            <span key={i}>{i === 0 ? " " : ", "}{item.quality.toLowerCase()}</span>
-                                        )
-                                    })}
-                                </>
-                                }
-                            </>
+                            <></>
                             :
                             <>
                                 {infoData.isFetching || resourceData.isFetching ? ('') : 
@@ -360,7 +349,7 @@ const MovieStreamDashboard = (props) => {
                 </div>}
             </div>
             {/* refetching count */}
-            {resourceData?.failureCount > 0 && 
+            {(resourceData?.failureCount > 0 && resourceData?.failureCount <= 3) && 
                 <div className="retry-display" style={{ display: ((resourceData?.isError && resourceData?.failureCount === 3) || resourceData?.isSuccess ? 'none' : 'block') }}>
                     <CircularProgress 
                         sx={{ color: 'white' }} 

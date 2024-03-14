@@ -354,7 +354,7 @@ const MovieStreamDashboard = (props) => {
                 }
             </div>
             {/* refetching count */}
-            {resourceData?.failureCount > 0 && 
+            {(resourceData?.failureCount > 0 && resourceData?.failureCount <= 3) && 
                 <div className="retry-display" style={{ display: ((resourceData?.isError && resourceData?.failureCount === 3) || resourceData?.isSuccess ? 'none' : 'block') }}>
                     <CircularProgress 
                         sx={{ color: 'white' }} 
