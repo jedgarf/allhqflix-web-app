@@ -135,7 +135,7 @@ const MovieStreamDashboard = (props) => {
                 setSnackBarOpen(true);
                 setSnackBarWithLoading(false);
             } else {
-                message = `Source link not available in ${serverVar}, please switch to another server.`;
+                message = `Source link not available in current server, please switch to another server.`;
                 setSnackBarType('error');
                 setSnackBarMessage(message);
                 setSnackBarOpen(true);
