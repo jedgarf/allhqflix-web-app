@@ -174,3 +174,8 @@
         font-size: 11px;
     }
 }
+
+.media-categories-divider {
+    color: var(--body) !important;
+    background-color: var(--body) !important;
+}

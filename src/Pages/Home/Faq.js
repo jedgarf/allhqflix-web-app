@@ -220,7 +220,7 @@ const Faq = () => {
                                             <tbody>
                                                 <tr>
                                                 <th>
-                                                    <span><b>Front-End</b></span>
+                                                    <span><b>Front-End (<a className='text-link' href={`${googleSearch}progressive web app`} target='__blank'>Progressive Web App</a>)</b></span>
                                                 </th>
                                                 <td>
                                                     <ul className="main_features_text">
@@ -230,19 +230,19 @@ const Faq = () => {
                                                         <li><a className='text-link' href={`${googleSearch}ReactJS`} target='__blank'>ReactJS CRA</a></li>
                                                         <li><a className='text-link' href={`${googleSearch}TanStack Query`} target='__blank'>TanStack Query (Caching Management)</a></li>
                                                         <li><a className='text-link' href={`${googleSearch}Redux`} target='__blank'>Redux (State Management)</a></li>
-                                                        <li><a className='text-link' href={`${googleSearch}progressive web application (pwa)`} target='__blank'>Progressive Web Application</a></li>
                                                     </ul>
                                                 </td>
                                                 </tr>
                                                 <tr>
                                                 <th>
-                                                    <span><b>Back-End (REST API)</b></span>
+                                                    <span><b>Back-End (<a className='text-link' href={`${googleSearch}REST API`} target='__blank'>REST API</a>)</b></span>
                                                 </th>
                                                 <td>
                                                     <ul className="main_features_text">
                                                     <li><a className='text-link' href={`${googleSearch}Javascript`} target='__blank'>Javascript ES5/ES6</a></li>
-                                                    <li><a className='text-link' href={`${googleSearch}NodeJS`} target='__blank'>NodeJS</a></li>
-                                                    <li><a className='text-link' href={`${googleSearch}ExpressJS`} target='__blank'>ExpressJS Framework</a></li>
+                                                    <li><a className='text-link' href={`${googleSearch}NodeJS`} target='__blank'>NodeJS v.20</a></li>
+                                                    <li><a className='text-link' href={`${googleSearch}ExpressJS`} target='__blank'>ExpressJS (REST API Framework)</a></li>
+                                                    <li><a className='text-link' href={`${googleSearch}Firebase`} target='__blank'>Firebase (Storage Management)</a></li>
                                                     {/* <li><a className='text-link' href={`${googleSearch}MySQL`} target='__blank'>MySQL Database</a></li>
                                                     <li><a className='text-link' href={`${googleSearch}Sequelize`} target='__blank'>Sequelize (ORM)</a></li> */}
                                                     </ul>

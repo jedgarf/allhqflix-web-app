@@ -165,7 +165,7 @@ const Home = () => {
       </div>
 
       {/* #ccced1 */}
-      <hr className="media-categories-divider" style={{ color: 'rgba(0, 0, 0, 255)', backgroundColor: 'rgba(0, 0, 0, 255)', marginInline: '30px', height: 0, width: 0 }}/>
+      <hr className="media-categories-divider" style={{ height: 0, width: 0 }}/>
 
       <div className="media-categories">
         <MediaCategories/>
