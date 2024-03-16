@@ -225,11 +225,12 @@ const Faq = () => {
                                                 <td>
                                                     <ul className="main_features_text">
                                                         <li><a className='text-link' href={`${googleSearch}HTML5`} target='__blank'>HTML5</a></li>
-                                                        <li><a className='text-link' href={`${googleSearch}CSS3`} target='__blank'>CSS3</a>/<a className='text-link' href={`${googleSearch}Material UI`} target='__blank'>Material UI</a></li>
+                                                        <li><a className='text-link' href={`${googleSearch}CSS3`} target='__blank'>CSS3</a>/<a className='text-link' href={`${googleSearch}Material UI`} target='__blank'>Material UI Design</a></li>
                                                         <li><a className='text-link' href={`${googleSearch}Javascript`} target='__blank'>Javascript ES5/ES6</a></li>
-                                                        <li><a className='text-link' href={`${googleSearch}ReactJS`} target='__blank'>ReactJS CRA</a></li>
+                                                        <li><a className='text-link' href={`${googleSearch}ReactJS`} target='__blank'>ReactJS CRA (Front-End Framework)</a></li>
+                                                        <li><a className='text-link' href={`${googleSearch}Google OAuth 2.0 API`} target='__blank'>Google OAuth 2.0 API</a></li>
                                                         <li><a className='text-link' href={`${googleSearch}TanStack Query`} target='__blank'>TanStack Query (Caching Management)</a></li>
-                                                        <li><a className='text-link' href={`${googleSearch}Redux`} target='__blank'>Redux (State Management)</a></li>
+                                                        <li><a className='text-link' href={`${googleSearch}Redux`} target='__blank'>Redux Toolkit (State Management)</a></li>
                                                     </ul>
                                                 </td>
                                                 </tr>
