@@ -49,40 +49,36 @@ function MoviesRow({isloadImage, cat, img, id, title, type, release_date, rate, 
   };
 
   return (
-    <>
-      <Box className='movie_card' key={id}>
-        <Link to={`/${contentType}/stream_dashboard?mediaId=${id}`}>
-          <Suspense fallback={<Skeleton className="img-card-skeleton" sx={{ bgcolor: 'grey.900' }} variant="rectangular" animation="wave" />}>
-            <MovieCard src={img} title={title} />
-          </Suspense>
-        </Link>
+    <Box className='movie_card' key={id}>
+      <Link to={`/${contentType}/stream_dashboard?mediaId=${id}`}>
+        <MovieCard src={img} title={title} />
+      </Link>
 
-        <div className="fav" onClick={() => FavHanlder()} hidden>
-          {icon}
-        </div>
+      <div className="fav" onClick={() => FavHanlder()} hidden>
+        {icon}
+      </div>
 
-        <div className="vidq">
-          {video_quality}
-        </div>
+      <div className="vidq">
+        {video_quality}
+      </div>
 
-        <div className={'movies__info inn'}>
-          <div className="movie__name" style={{ marginTop: cat === "suggestions" ? '-3px' : '-3px' }}>
-            <Typography variant="h3" className="movie_name" title={title}>{title}</Typography>
-          </div>
-          <div className="movie__other">
-            <p>
-              <span>
-                {release_date ? year.getFullYear() : ''}
-                {release_date && season ? ' · ' : ''}
-                {season}
-                {/* <StarIcon /> */}
-              </span>
-            </p>
-            <p>{type}</p>
-          </div>
+      <div className={'movies__info inn'}>
+        <div className="movie__name" style={{ marginTop: cat === "suggestions" ? '-3px' : '-3px' }}>
+          <Typography variant="h3" className="movie_name" title={title}>{title}</Typography>
         </div>
-      </Box>
-    </>
+        <div className="movie__other">
+          <p>
+            <span>
+              {release_date ? year.getFullYear() : ''}
+              {release_date && season ? ' · ' : ''}
+              {season}
+              {/* <StarIcon /> */}
+            </span>
+          </p>
+          <p>{type}</p>
+        </div>
+      </div>
+    </Box>
   );
 }
 

@@ -4,7 +4,7 @@ import { useQuery } from 'react-query';
 import { useParams } from "react-router-dom";
 
 // Material UI Components
-import { Grid, Box, Container, CircularProgress } from '@mui/material';
+import { Grid, Box, Container } from '@mui/material';
 
 // React Slick
 import Slider from "react-slick";
@@ -20,6 +20,7 @@ import SideBar from "../../Components/SlideBar/SideBar";
 import Footer from "../../Components/Footer/Footer";
 import FloatingButton from '../../Components/FloatingButton/FloatingButton';
 import LoadingPage from "../../Components/LoadingPage/LoadingPage";
+import InitPlayerLoading from "../../Components/InitPlayerLoading/InitPlayerLoading";
 import { Player } from "../../Components/Player/Player";
 import AnimeSuggestions from "../../Components/Anime/AnimeSuggestions";
 import AnimeEpisodesDrawer from "../../Components/BottomDrawer/AnimeEpisodesDrawer";
@@ -261,13 +262,10 @@ const AnimeDashboard = (props) => {
   }, [contentTitle, infoData.isSuccess, resourceData.isSuccess, infoValue, resourceValue, episodeNum, set_selectedSeasonEpisode, set_selectedLinkSubtitle]);
 
   return (
-    isLoading ? 
-      <LoadingPage/>
-    : 
     <div className="movie_dashboard">
       <ReactQueryTools/>
       <SideBar Type={type} subType={null} transparentBg={false} isStream={true} />
-      <div className="movie_cover" style={{backgroundImage: `linear-gradient(rgba(0, 0, 10, 1),rgba(0, 0, 10, 0.5)), url("${infoValue?.cover}")`}}>
+      <div className="movie_cover" style={{backgroundImage: `linear-gradient(rgba(0, 0, 10, 1),rgba(0, 0, 10, 0.5), rgba(0, 0, 10, 0.2)), url("${infoValue?.cover}")`}}>
         <div className="heading cheading movie-stream-title">
           <h6></h6>
         </div>
@@ -336,11 +334,7 @@ const AnimeDashboard = (props) => {
             />
           </>
         ) : (
-          <div>
-            <Box className="playButton" display="flex" justifyContent="center" alignItems="center" height="inherit">
-              <CircularProgress sx={{ fontSize: 100 }} />
-            </Box>
-          </div>
+          <InitPlayerLoading />
         )}
       </div>
 

@@ -17,6 +17,7 @@
     --body: rgba(0, 0, 0, 255);
     --body-content: rgba(45, 45, 45, 255);
     --body-content-contain: rgba(25, 25, 45, 255);
+    --skeleton-loader-transparent: rgba(10, 12, 15, 0.8);
 }
 
 body {

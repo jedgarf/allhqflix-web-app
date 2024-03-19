@@ -1,5 +1,5 @@
-import React, { useState, Suspense } from "react";
-import { Skeleton, Typography } from '@mui/material';
+import React, { useState } from "react";
+import { Typography } from '@mui/material';
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
@@ -46,9 +46,7 @@ function AsianFilmsRow({ isloadImage, cat, img, id, title, type, release_date, r
       <div className='movie_card' key={id}>
 
         <Link to={`/${contentType}/stream_dashboard?mediaId=${id}`}>
-          <Suspense fallback={<Skeleton className="img-card-skeleton" sx={{ bgcolor: 'grey.900' }} variant="rectangular" animation="wave" />}>
-            <MovieCard src={img} title={title} />
-          </Suspense>
+          <MovieCard src={img} title={title} />
         </Link>
 
         <div className="fav" onClick={() => FavHanlder()} hidden>

@@ -20,7 +20,6 @@ import "./css/AnimeSeasons.css";
 
 // Icons
 import CircularProgress from '@mui/material/CircularProgress';
-import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import PlaylistPlayIcon from '@mui/icons-material/PlaylistPlay';
 import MovieIcon from '@mui/icons-material/Movie';
 
@@ -34,11 +33,6 @@ const AnimeSeasons = ({details, mediaId, episodeId, setSelectedEpisode, setLoadi
     setInSelectedEpisode(epId);
     setSelectedEpisode(epId);
     moveToTop();
-  };
-
-
-  const truncate = (string, num) => {
-    return string?.length > num ? string.substr(0, num - 1) + "..." : string;
   };
 
   useEffect(() => {

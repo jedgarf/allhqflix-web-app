@@ -21,6 +21,7 @@ import SideBar from "../../Components/SlideBar/SideBar";
 import Footer from "../../Components/Footer/Footer";
 import FloatingButton from '../../Components/FloatingButton/FloatingButton';
 import LoadingPage from "../../Components/LoadingPage/LoadingPage";
+import InitPlayerLoading from "../../Components/InitPlayerLoading/InitPlayerLoading";
 import { Player } from "../../Components/Player/Player";
 import Suggestions from "../../Components/InternationalFilms/Suggestions";
 import TVEpisodesDrawer from "../../Components/BottomDrawer/TVEpisodesDrawer";
@@ -363,24 +364,17 @@ const MovieDashboard = (props) => {
       set_selectedLinkSubtitle]);
 
   return (
-    isLoading ? 
-      <LoadingPage/>
-    : 
     <div className="movie_dashboard">
       <ReactQueryTools/>
       <SideBar Type={'foreign'} subType={null} transparentBg={false} isStream={true}/>
       <SnackBar severity={snackBarType} handleSnackBarOpen={handleSnackBarOpen} status={snackBarOpen} snackBarMessage={snackBarMessage} />
 
-      <div className="movie_cover" style={{backgroundImage: `linear-gradient(rgba(0, 0, 10, 1),rgba(0, 0, 10, 0.5)), url("${infoValue?.cover}")`}}>
+      <div className="movie_cover" style={{backgroundImage: `linear-gradient(rgba(0, 0, 10, 1),rgba(0, 0, 10, 0.5),rgba(0, 0, 10, 0.2)), url("${infoValue?.cover}")`}}>
         <div className="heading cheading movie-stream-title">
           <h6></h6>
         </div>
         {loadingEpisode ? (
-          <div>
-            <Box className="playButton" display="flex" justifyContent="center" alignItems="center">
-              <CircularProgress sx={{ fontSize: 100 }} />
-            </Box>
-          </div>
+          <InitPlayerLoading/>
         ) : (
           <Player
             className="movie_player"
