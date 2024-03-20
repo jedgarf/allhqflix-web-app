@@ -123,7 +123,7 @@ const ContactUs = () => {
     useEffect(() => {
         document.getElementsByClassName('divFocus')[0].focus();
         setUser(getSession('user') ? jwtDecode(getSession('user')) : null);
-        setEmail(user?.email || '');
+        if (user?.email) setEmail(user?.email);
     }, [email, user?.email])
 
     return (
