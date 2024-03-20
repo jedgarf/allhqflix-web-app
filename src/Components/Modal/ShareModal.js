@@ -220,7 +220,7 @@ const ShareModal = ({ infoValue, size = '18px' }) => {
                                     <EmailShareButton
                                         url={`${shareLink}`}
                                         subject={`AllHQFlix - ${typeof infoValue?.title == 'object' ? infoValue?.title?.english || infoValue?.title?.native : infoValue?.title}`}
-                                        body={`${shareLink}`}
+                                        body={`#supportAllHQFlix`}
                                         separator=""
                                     >
                                         <EmailIcon size={40} round />
