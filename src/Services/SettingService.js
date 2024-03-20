@@ -21,7 +21,7 @@ const receiveEmail = async (email, subject, message) => {
     const formData = {
         from: `ALLHQFLIX Viewer <${email}>`,
         subject: subject,
-        message: message,
+        message: email + "<br/>" + message,
     };
 
     try {
