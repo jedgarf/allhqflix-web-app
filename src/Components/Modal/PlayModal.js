@@ -893,7 +893,7 @@ const AsianDramaPlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVa
             onClose={handleClose}
           >
           {getCookie(decodeURIComponent(mediaId)) && 
-            <Link className='text-link-without-underline' to={`${url}?dub=${JSON.parse(getCookie(decodeURIComponent(mediaId))).dub}&episode=${JSON.parse(getCookie(decodeURIComponent(mediaId))).episodeId}`}>
+            <Link className='text-link-without-underline' to={`${url}?episode=${JSON.parse(getCookie(decodeURIComponent(mediaId))).episodeId}`}>
               <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
                 <PlayCircleOutlineIcon />
                 CONTINUE ({episodes.length > 1 ? `EP ${JSON.parse(getCookie(decodeURIComponent(mediaId))).episodeNumber} - ${secondsToHMS(JSON.parse(getCookie(decodeURIComponent(mediaId))).time)}` : `${secondsToHMS(JSON.parse(getCookie(decodeURIComponent(mediaId))).time)}`})
