@@ -696,18 +696,18 @@ const AnimePlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVar, ur
             </MenuItem>
           </Link>
           {episodes.length > 1 &&
-          <>
             <Link className='text-link-without-underline' to={`${url}?dub=${isDub}&episode=${episodes[episodes.length-1].id}`} onClick={() => deleteCookie(mediaId)}>
               <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
                 <PlayCircleOutlineIcon />
                 LATEST EPISODE
               </MenuItem>
             </Link>
+          }
+          {episodes.length > 1 &&
             <MenuItem onClick={() => handleModal(true)} style={{ fontSize: '15px' }} disableRipple>
               <TuneOutlinedIcon/>
               EPISODE SELECTION
             </MenuItem>
-          </>
           }
         </StyledMenu>
 
@@ -811,6 +811,9 @@ const AsianDramaPlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVa
   const [findEpisodeValue, setFindEpisodeValue] = useState("");
   const [anchorEl, setAnchorEl] = React.useState(null);
 
+  const queryParams = new URLSearchParams(window.location.search);
+  const mediaId = queryParams.get("mediaId");
+
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -855,7 +858,7 @@ const AsianDramaPlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVa
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
 
-        {episodes.length > 1 ? (
+        {episodes.length > 1 || getCookie(mediaId) ? (
           <Button
             id="demo-customized-button"
             size='small'
@@ -889,22 +892,34 @@ const AsianDramaPlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVa
             open={open}
             onClose={handleClose}
           >
-          <Link className='text-link-without-underline' to={`${url}?episode=${episodeIdVar}`}>
+          {getCookie(decodeURIComponent(mediaId)) && 
+            <Link className='text-link-without-underline' to={`${url}?dub=${JSON.parse(getCookie(decodeURIComponent(mediaId))).dub}&episode=${JSON.parse(getCookie(decodeURIComponent(mediaId))).episodeId}`}>
+              <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
+                <PlayCircleOutlineIcon />
+                CONTINUE ({episodes.length > 1 ? `EP ${JSON.parse(getCookie(decodeURIComponent(mediaId))).episodeNumber} - ${secondsToHMS(JSON.parse(getCookie(decodeURIComponent(mediaId))).time)}` : `${secondsToHMS(JSON.parse(getCookie(decodeURIComponent(mediaId))).time)}`})
+              </MenuItem>
+            </Link>
+          }
+          <Link className='text-link-without-underline' to={`${url}?episode=${episodeIdVar}`} onClick={() => deleteCookie(mediaId)}>
             <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
               <PlayCircleOutlineIcon />
               FROM THE BEGINNING
             </MenuItem>
           </Link>
-          <Link className='text-link-without-underline' to={`${url}?episode=${episodes[episodes.length-1].id}`}>
-            <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
-              <PlayCircleOutlineIcon />
-              LATEST EPISODE
+          {episodes.length > 1 &&
+            <Link className='text-link-without-underline' to={`${url}?episode=${episodes[episodes.length-1].id}`} onClick={() => deleteCookie(mediaId)}>
+              <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
+                <PlayCircleOutlineIcon />
+                LATEST EPISODE
+              </MenuItem>
+            </Link>
+          }
+          {episodes.length > 1 &&
+            <MenuItem onClick={() => handleModal(true)} style={{ fontSize: '15px' }} disableRipple>
+              <TuneOutlinedIcon/>
+              EPISODE SELECTION
             </MenuItem>
-          </Link>
-          <MenuItem onClick={() => handleModal(true)} style={{ fontSize: '15px' }} disableRipple>
-            <TuneOutlinedIcon/>
-            EPISODE SELECTION
-          </MenuItem>
+          }
         </StyledMenu>
 
         {/* Modal */}
@@ -951,7 +966,7 @@ const AsianDramaPlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVa
             <Divider/>
             <DialogActions>
               <Button size='small' variant='outlined' color='error' startIcon={<CloseIcon/>} onClick={() => handleModal(false)}>Close</Button>
-              <Link className='text-link-without-underline' to={`${url}?episode=${episodeNumber}`}>
+              <Link className='text-link-without-underline' to={`${url}?episode=${episodeNumber}`} onClick={() => deleteCookie(mediaId)}>
                 <Button size='small' variant='contained' color='primary' startIcon={<PlayCircleOutlineIcon/>}>Play</Button>
               </Link>
             </DialogActions>
