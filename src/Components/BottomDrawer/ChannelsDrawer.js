@@ -71,7 +71,7 @@ export default function ChannelsDrawer({ countryValue, selectedCountry, handleCo
                             {channelValue?.length > 0 ?
                             <List>
                                 {channelValue?.map((item, i) => (
-                                    <>
+                                    <React.Fragment key={i}>
                                     {streamValue ?
                                         <>
                                             {item.id === selectedStreamChannelId ?
@@ -100,7 +100,7 @@ export default function ChannelsDrawer({ countryValue, selectedCountry, handleCo
                                             }
                                         </>
                                     : ''}
-                                    </>
+                                    </React.Fragment>
                                 ))}
                             </List>
                             : 
@@ -154,11 +154,7 @@ export default function ChannelsDrawer({ countryValue, selectedCountry, handleCo
                         }}
                     >
                     {countryValue?.map((item, no) => {
-                        return (
-                        <>
-                        <option value={item.code}>{item.flag} {item.name}</option>
-                        </>
-                        )
+                        return <option key={no} value={item.code}>{item.flag} {item.name}</option>;
                     })}
                     </NativeSelect>
                     </FormControl>

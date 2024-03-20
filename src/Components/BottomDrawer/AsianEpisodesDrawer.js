@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, Fragment } from 'react';
 
 // Material UI Theme
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -86,7 +86,7 @@ export default function AsianEpisodesDrawer({ details, subtitles, mediaId, episo
             <Grid container columnSpacing={{ xs: 2, sm: 2, md: 2, lg: 2, xl: 2 }} rowSpacing={2} justifyContent="center">
               {currentData?.map((item, i) => {
                     return (
-                        <>
+                        <Fragment key={i}>
                           <Grid item xl={'auto'} lg={'auto'} md={'auto'} sm={'auto'} xs={'auto'}>
                             {item.id === episodeId ?
                               <Button variant='contained' color='primary' size='small' title={item.title} startIcon={<PlayCircleIcon/>} style={{ fontSize: '12px', fontWeight: '650', minWidth: '80px' }}>EP {item.episode}</Button>
@@ -94,7 +94,7 @@ export default function AsianEpisodesDrawer({ details, subtitles, mediaId, episo
                               <Button variant='outlined' color='primary' size='small' title={item.title} onClick={(e) => handleChangeEpisode(e, item.id, anchor)} style={{ fontSize: '12px', fontWeight: '650', minWidth: '80px' }}>EP {item.episode}</Button>
                             }
                           </Grid>
-                        </>
+                        </Fragment>
                     );
                 })}
             </Grid>

@@ -33,6 +33,9 @@ import { subtitleLogo, videoQuality } from "../../Config/images.config";
 // Utilities
 import { moveToTop, SeparateArrayByComma } from "../../Services/Utils";
 
+// Helpers
+import { getCookie } from "../../Helpers/Cookies";
+
 // Models
 import { asianfilms_info, asianfilms_stream_links } from "../../Services/ViewAsianService";
 
@@ -275,7 +278,9 @@ const AsianFilmsDashboard = (props) => {
             episodeNum={episodeNum}
             totalEpisodes={totalEpisodes}
             nextEpisode={nextEpisode}
-            seekTime={0}
+            seekTime={getCookie(indexId) && JSON.parse(getCookie(indexId)).episodeId === selectedEpisode ? JSON.parse(getCookie(indexId)).time : 0}
+            mediaId={indexId}
+            episodeId={selectedEpisode}
             option={{
               enableAds: true,
               hotkey: true,

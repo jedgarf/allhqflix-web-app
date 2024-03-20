@@ -1,4 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
+import _ from 'lodash';
+import { SpinnerDotted } from 'spinners-react';
 
 // ArtPlayerJS
 import Artplayer from 'artplayer';
@@ -23,9 +25,11 @@ import { mainLogo, customLoadingFileName } from "../../Config/images.config";
 // Utilities
 import { getFileExtention } from "../../Services/Utils";
 
-// ------------------------------------------------------------------------------------------------------------
+// Helpers
+import { addCookie } from "../../Helpers/Cookies";
+import { encryptData, decryptData } from "../../Helpers/Crypto";
 
-var artInstance;
+// ------------------------------------------------------------------------------------------------------------
 
 const playFlv = (video, url, art) => {
     if (flvjs.isSupported()) {
@@ -78,28 +82,23 @@ const random_ads = (items) => {
     return items[Math.floor(Math.random() * items.length)];
 }
 
-// {
-//     html: `<p>${infotitle}</p>`,
-//     style: {
-//         position: 'absolute',
-//         width: '100%',
-//         top: '15px',
-//         left: '20px',
-//         fontSize: '1vw',
-//         opacity: '.7',
-//     },
-// }, 
+const PlayerLoading = () => {
+    return <SpinnerDotted size={39} thickness={180} speed={121} color="rgba(220, 76, 100, 1)" />;
+}
 
 // ----------------------------------------------------------------------------------------------------------
 
-const Player = ({ defaultlink, infotitle, infocover, episodeNum, totalEpisodes, nextEpisode, seekTime, option, ...rest }) => {
+const Player = ({ defaultlink, infotitle, infocover, episodeNum, totalEpisodes, nextEpisode, seekTime, mediaId, episodeId, option, ...rest }) => {
 
     // const cads = random_ads(ads);
+    const queryParams = new URLSearchParams(window.location.search);
+    const paramDub = queryParams.get("dub") != null ? queryParams.get("dub") == 'true' : false;
 
     const artRef = useRef();
 
     useEffect(() => {
-
+        
+        // <img width="100" src="${customLoadingFileName}">
         var customIcons = {
             loading: `<img width="100" src="${customLoadingFileName}">`,
         };
@@ -184,7 +183,7 @@ const Player = ({ defaultlink, infotitle, infocover, episodeNum, totalEpisodes, 
                         },
                     }
                 ],
-                icons: customIcons,
+                icons: customIcons
             });
         } catch (error) {
             console.error(error);
@@ -216,13 +215,31 @@ const Player = ({ defaultlink, infotitle, infocover, episodeNum, totalEpisodes, 
             // });
         // }
         if (art) {
+
+             // Throttled function to save progress every 5 seconds
+            const saveProgress = _.throttle((currentTime) => {
+                // Save progress (you can replace this with your save logic)
+                console.log('Saving progress:', currentTime);
+                // Example: You can save progress using localStorage
+                const mediaProgress = {
+                    dub: paramDub,
+                    episodeId: episodeId,
+                    episodeNumber: episodeNum,
+                    time: currentTime,
+                };
+                addCookie(mediaId, JSON.stringify(mediaProgress), 30);
+            }, 5000);
+
+            // Save progress
+            art.on('video:timeupdate', () => {
+                saveProgress(art.currentTime);
+            });
+
             art.on('waiting', () => {
-            
                 // Show the loading message after 5 seconds
                 setTimeout(() => {
                     art.notice.show = 'Please switch to another server.';
                 }, 5000);
-    
             });
     
             art.on('ready', () => {

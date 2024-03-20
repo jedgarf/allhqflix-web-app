@@ -43,7 +43,7 @@ function AnimeRow({ isloadImage, cat, img, id, title, type, release_date, rate, 
     <div className='movie_card' key={id}>
 
       <Link to={`/${contentType}/stream_dashboard?mediaId=${id}`}>
-        <MovieCard src={img} title={title} />
+        <MovieCard src={img} title={title} contentType={contentType} />
       </Link>
 
       <div className="fav" onClick={() => FavHanlder()} hidden>

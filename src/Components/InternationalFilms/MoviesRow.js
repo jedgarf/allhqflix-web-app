@@ -19,7 +19,7 @@ import { favAdd } from "../../Features/favSlice";
 // Components
 const MovieCard = React.lazy(() => import('../LazyImageComponent/MovieCard'));
 
-function MoviesRow({isloadImage, cat, img, id, title, type, release_date, rate, season, grid, slug, duration, video_quality }) {
+const MoviesRow = ({isloadImage, cat, img, id, title, type, release_date, rate, season, grid, slug, duration, video_quality }) => {
 
   var contentType = "movie";
 
@@ -48,11 +48,19 @@ function MoviesRow({isloadImage, cat, img, id, title, type, release_date, rate, 
     );
   };
 
+  const movieNotAvailable = () => {
+    console.log("Not available at this time.");
+  }
+
   return (
     <Box className='movie_card' key={id}>
       <Link to={`/${contentType}/stream_dashboard?mediaId=${id}`}>
-        <MovieCard src={img} title={title} />
+        <MovieCard src={img} title={title} contentType={contentType} />
       </Link>
+
+      {/* <Link onClick={() => movieNotAvailable()}>
+        <MovieCard src={img} title={title} contentType={contentType} />
+      </Link> */}
 
       <div className="fav" onClick={() => FavHanlder()} hidden>
         {icon}

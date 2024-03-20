@@ -31,10 +31,10 @@ export default function AnimeEpisodesDrawer({ details, downloadUrl, mediaId, epi
   
   var norm_episodes = details?.episodes;
   const [drawerCurrentPage, setDrawerCurrentPage] = useState(episodesCurrentPage);
-  const totalPages = Math.ceil(norm_episodes.length / itemsPerPage);
+  const totalPages = Math.ceil(norm_episodes?.length / itemsPerPage);
   const startIndex = (drawerCurrentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const currentData = norm_episodes.slice(startIndex, endIndex);
+  const currentData = norm_episodes?.slice(startIndex, endIndex);
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -77,7 +77,7 @@ export default function AnimeEpisodesDrawer({ details, downloadUrl, mediaId, epi
                 <Grid container columnSpacing={{ xs: 2, sm: 2, md: 2, lg: 2, xl: 2 }} rowSpacing={2} justifyContent="center">
                   {currentData?.map((item, i) => {
                         return (
-                            <>
+                            <React.Fragment key={i}>
                               <Grid item xl={'auto'} lg={'auto'} md={'auto'} sm={'auto'} xs={'auto'}>
                                 {item.id === episodeId ?
                                   <Button variant='contained' color='primary' size='small' title={item.title} startIcon={<PlayCircleIcon/>} style={{ fontSize: '12px', fontWeight: '650', minWidth: '80px' }}>EP {item.number}</Button>
@@ -85,7 +85,7 @@ export default function AnimeEpisodesDrawer({ details, downloadUrl, mediaId, epi
                                   <Button variant='outlined' color='primary' size='small' title={item.title} onClick={(e) => handleChangeEpisode(e, item.id, anchor)} style={{ fontSize: '12px', fontWeight: '650', minWidth: '80px' }}>EP {item.number}</Button>
                                 }
                               </Grid>
-                            </>
+                            </React.Fragment>
                         );
                     })}
                 </Grid>
@@ -108,7 +108,7 @@ export default function AnimeEpisodesDrawer({ details, downloadUrl, mediaId, epi
           <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={0}>
             <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>
               {details?.episodes?.length > 1 && 
-                <Typography variant='big' className='selectedEpisodeContent' style={{ verticalAlign: 'middle' }}>EPISODE {norm_episodes.filter(item => item.id === episodeId)[0]?.number}</Typography>
+                <Typography variant='big' className='selectedEpisodeContent' style={{ verticalAlign: 'middle' }}>EPISODE {norm_episodes?.filter(item => item.id === episodeId)[0]?.number}</Typography>
               }
             </Grid>
             <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>
@@ -144,7 +144,7 @@ export default function AnimeEpisodesDrawer({ details, downloadUrl, mediaId, epi
                         <IconButton title='Close' onClick={toggleDrawer(anchor, false)}><CloseIcon/></IconButton>
                       </Grid> */}
                       <Grid item xl={6} lg={6} md={6} sm={6} xs={6} style={{ display: 'flex', alignItems: 'center', height: '6.5vh' }}>
-                        <Typography variant='p' sx={{ fontWeight: '550' }}>EPISODES ({norm_episodes.length})</Typography>
+                        <Typography variant='p' sx={{ fontWeight: '550' }}>EPISODES ({norm_episodes?.length})</Typography>
                       </Grid>
                       <Grid item xl={6} lg={6} md={6} sm={6} xs={6} style={{ display: 'flex', alignItems: 'center', height: '6.5vh', justifyContent: 'right' }}>
                         {currentData?.length > 0 && (

@@ -11,8 +11,13 @@ import ShareIcon from '@mui/icons-material/Share';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import CloseIcon from '@mui/icons-material/Close';
 
+// Social media config
+import { fbAppId } from "../../Config/socialMedia.config";
+
 import {
+    FacebookShareCount, 
     FacebookShareButton,
+    FacebookMessengerShareButton,
     LinkedinShareButton,
     TwitterShareButton,
     TelegramShareButton,
@@ -22,6 +27,7 @@ import {
     ViberShareButton,
     EmailShareButton,
     FacebookIcon,
+    FacebookMessengerIcon,
     TwitterIcon,
     TelegramIcon,
     WhatsappIcon,
@@ -129,19 +135,19 @@ const ShareModal = ({ infoValue, size = '18px' }) => {
                                     </Paper>
                                 </Grid>
                                 <Grid item xl={3} lg={3} md={3} sm={3} xs={3}>
-                                    <EmailShareButton
+                                    <FacebookMessengerShareButton
                                         url={`${shareLink}`}
-                                        subject={`AllHQFlix - ${infoValue?.title}`}
-                                        body=""
-                                        separator=""
+                                        appId={fbAppId}
+                                        redirectUri={``}
+                                        to={``}
                                     >
-                                        <EmailIcon size={40} round />
-                                    </EmailShareButton>
+                                        <FacebookMessengerIcon size={40} round />
+                                    </FacebookMessengerShareButton>
                                 </Grid>
                                 <Grid item xl={3} lg={3} md={3} sm={3} xs={3}>
                                     <FacebookShareButton
                                         url={`${shareLink}`}
-                                        quote={`AllHQFlix - ${infoValue?.title}`}
+                                        quote={`AllHQFlix - ${typeof infoValue?.title == 'object' ? infoValue?.title?.english || infoValue?.title?.native : infoValue?.title}`}
                                         hashtags="#allhqflix"
                                     >
                                         <FacebookIcon size={40} round />
@@ -150,7 +156,7 @@ const ShareModal = ({ infoValue, size = '18px' }) => {
                                 <Grid item xl={3} lg={3} md={3} sm={3} xs={3}>
                                     <TwitterShareButton
                                         url={`${shareLink}`}
-                                        title={`AllHQFlix - ${infoValue?.title}`}
+                                        title={`AllHQFlix - ${typeof infoValue?.title == 'object' ? infoValue?.title?.english || infoValue?.title?.native : infoValue?.title}`}
                                         via=""
                                         hashtags={["allhqflix", "freemovies"]}
                                     >
@@ -160,6 +166,9 @@ const ShareModal = ({ infoValue, size = '18px' }) => {
                                 <Grid item xl={3} lg={3} md={3} sm={3} xs={3}>
                                     <LinkedinShareButton
                                         url={`${shareLink}`}
+                                        title={`AllHQFlix - ${typeof infoValue?.title == 'object' ? infoValue?.title?.english || infoValue?.title?.native : infoValue?.title}`}
+                                        summary='Via AllHQFlix'
+                                        source={`${shareLink}`}
                                     >
                                         <LinkedinIcon size={40} round />
                                     </LinkedinShareButton>
@@ -167,7 +176,7 @@ const ShareModal = ({ infoValue, size = '18px' }) => {
                                 <Grid item xl={3} lg={3} md={3} sm={3} xs={3}>
                                     <ViberShareButton
                                         url={`${shareLink}`}
-                                        title={`AllHQFlix - ${infoValue?.title}`}
+                                        title={`AllHQFlix - ${typeof infoValue?.title == 'object' ? infoValue?.title?.english || infoValue?.title?.native : infoValue?.title}`}
                                         separator=""
                                     >
                                         <ViberIcon size={40} round />
@@ -176,7 +185,7 @@ const ShareModal = ({ infoValue, size = '18px' }) => {
                                 <Grid item xl={3} lg={3} md={3} sm={3} xs={3}>
                                     <TelegramShareButton
                                         url={`${shareLink}`}
-                                        title={`AllHQFlix - ${infoValue?.title}`}
+                                        title={`AllHQFlix - ${typeof infoValue?.title == 'object' ? infoValue?.title?.english || infoValue?.title?.native : infoValue?.title}`}
                                     >
                                         <TelegramIcon size={40} round />
                                     </TelegramShareButton>
@@ -184,7 +193,7 @@ const ShareModal = ({ infoValue, size = '18px' }) => {
                                 <Grid item xl={3} lg={3} md={3} sm={3} xs={3}>
                                     <WhatsappShareButton
                                         url={`${shareLink}`}
-                                        title={`AllHQFlix - ${infoValue?.title}`}
+                                        title={`AllHQFlix - ${typeof infoValue?.title == 'object' ? infoValue?.title?.english || infoValue?.title?.native : infoValue?.title}`}
                                         separator=""
                                     >
                                         <WhatsappIcon size={40} round />
@@ -194,7 +203,7 @@ const ShareModal = ({ infoValue, size = '18px' }) => {
                                     <PinterestShareButton
                                         url={`${shareLink}`}
                                         media={`${shareLink}`}
-                                        description={`AllHQFlix - ${infoValue?.title}`}
+                                        description={`AllHQFlix - ${typeof infoValue?.title == 'object' ? infoValue?.title?.english || infoValue?.title?.native : infoValue?.title}`}
                                     >
                                         <PinterestIcon size={40} round />
                                     </PinterestShareButton>
@@ -202,10 +211,20 @@ const ShareModal = ({ infoValue, size = '18px' }) => {
                                 <Grid item xl={3} lg={3} md={3} sm={3} xs={3}>
                                     <RedditShareButton
                                         url={`${shareLink}`}
-                                        title={`AllHQFlix - ${infoValue?.title}`}
+                                        title={`AllHQFlix - ${typeof infoValue?.title == 'object' ? infoValue?.title?.english || infoValue?.title?.native : infoValue?.title}`}
                                     >
                                         <RedditIcon size={40} round />
                                     </RedditShareButton>
+                                </Grid>
+                                <Grid item xl={3} lg={3} md={3} sm={3} xs={3}>
+                                    <EmailShareButton
+                                        url={`${shareLink}`}
+                                        subject={`AllHQFlix - ${typeof infoValue?.title == 'object' ? infoValue?.title?.english || infoValue?.title?.native : infoValue?.title}`}
+                                        body={`${shareLink}`}
+                                        separator=""
+                                    >
+                                        <EmailIcon size={40} round />
+                                    </EmailShareButton>
                                 </Grid>
                             </Grid>
                         </Grid>

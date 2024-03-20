@@ -36,6 +36,9 @@ import Latency from "../../Components/Latency/Latency";
 // Utilties
 import { allowOnlyNumbers, seriesSearchLike, animeSearchLike, animeSearchNumberBetween, asianFilmsSearchLike } from "../../Services/Utils";
 
+// Helpers
+import { getCookie } from "../../Helpers/Cookies";
+
 // Services
 import { movie_server } from "../../Services/FlixHQService";
 
@@ -659,7 +662,7 @@ const AnimePlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVar, ur
                 PLAY
               </Button>
             ) : (
-              <Link title='Play' to={`${url}&episode=${episodeIdVar}`} disabled={isLoadPlayButton}>
+              <Link title='Play' to={`${url}?dub=${isDub}&episode=${episodeIdVar}`} disabled={isLoadPlayButton}>
                   <Button aria-label='Play' variant='contained' size='small' style={{ marginRight: '10px' }} startIcon={<PlayCircleOutlineIcon/>}>
                       PLAY
                   </Button>
@@ -678,13 +681,21 @@ const AnimePlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVar, ur
             open={open}
             onClose={handleClose}
           >
-          <Link className='text-link-without-underline' to={`${url}&episode=${episodeIdVar}`}>
+          {getCookie(mediaId) && 
+            <Link className='text-link-without-underline' to={`${url}?dub=${JSON.parse(getCookie(mediaId)).dub}&episode=${JSON.parse(getCookie(mediaId)).episodeId}`}>
+              <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
+                <PlayCircleOutlineIcon />
+                CONTINUE (EP {JSON.parse(getCookie(mediaId)).episodeNumber})
+              </MenuItem>
+            </Link>
+          }
+          <Link className='text-link-without-underline' to={`${url}?dub=${isDub}&episode=${episodeIdVar}`}>
             <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
               <PlayCircleOutlineIcon />
               FROM THE BEGINNING
             </MenuItem>
           </Link>
-          <Link className='text-link-without-underline' to={`${url}&episode=${episodes[episodes.length-1].id}`}>
+          <Link className='text-link-without-underline' to={`${url}?dub=${isDub}&episode=${episodes[episodes.length-1].id}`}>
             <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
               <PlayCircleOutlineIcon />
               LATEST EPISODE
@@ -775,7 +786,7 @@ const AnimePlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVar, ur
               </Grid>
               <Grid item xl={6} lg={6} md={6} sm={6} xs={6} style={{ textAlign: 'right' }}>
                 <Button size='small' variant='outlined' color='error' style={{ marginRight: '5px' }} startIcon={<CloseIcon/>} onClick={() => handleModal(false)}>Close</Button>
-                <Link to={`${url}&episode=${episodeNumber}`}>
+                <Link to={`${url}?dub=${isDub}&episode=${episodeNumber}`}>
                   <Button size='small' variant='contained' color='primary' startIcon={<PlayCircleOutlineIcon/>}>Play</Button>
                 </Link>
               </Grid>

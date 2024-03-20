@@ -38,6 +38,9 @@ import { subtitleLogo, videoQuality } from "../../Config/images.config";
 // Utilities
 import { moveToTop, getFileExtention, SeparateArrayByComma, capitalizeString, convertMinutesToHoursAndMinutes } from "../../Services/Utils";
 
+// Helpers
+import { getCookie } from "../../Helpers/Cookies";
+
 // Services
 import { movie_info, movie_server, movie_stream_links } from "../../Services/FlixHQService";
 
@@ -384,7 +387,9 @@ const MovieDashboard = (props) => {
             episodeNum={episodeNum}
             totalEpisodes={totalEpisodes}
             nextEpisode={nextEpisode}
-            seekTime={seekTimeValue.current}
+            seekTime={getCookie(indexId) && JSON.parse(getCookie(indexId)).episodeId === selectedEpisode ? JSON.parse(getCookie(indexId)).time : 0}
+            mediaId={indexId}
+            episodeId={selectedEpisode}
             option={{
               enableAds: true,
               setting: true,

@@ -54,7 +54,7 @@ export default function AsianFilmsSuggestions({ infoValue }) {
             <Slider {...suggestion_movie_card_carousel_settings} style={{ marginInline: '30px' }}>
                 {philippineValue?.map((data, i) => {
                     return (
-                        <Fragment>
+                        <Fragment key={i}>
                             <AsianFilmsRow
                                 isloadImage={true}
                                 cat={"suggestions"}

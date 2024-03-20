@@ -152,6 +152,7 @@ const MovieStreamDashboard = (props) => {
         cacheTime: 24 * 60 * 60 * 1000, // 24 hours
         refetchOnWindowFocus: false,
         notifyOnChangeProps: "tracked",
+        retry: 1, // Number of retries
         enabled: episodeIdVar !== null,
         onError: (error) => {
             setSnackBarType('error');
@@ -235,7 +236,7 @@ const MovieStreamDashboard = (props) => {
                         </Link>
                     </Grid>
                 </Grid>
-                {infoData.isLoading
+                {infoData.isLoading || resourceData.isRefetching
                 ? 
                     <>
                     <Box className='stream-dashboard-content' sx={{ pl: 3, pr: 3, pt: 3, width: {xs: '100%', sm: '100%', md: '60%'} }} style={{ backgroundColor: isMobile ? 'rgba(15, 22, 34, 0.5)' : 'transparent' }}>
@@ -325,7 +326,7 @@ const MovieStreamDashboard = (props) => {
                         {infoData.isSuccess && resourceData.isSuccess ?
                          (<>
                             {infoValue?.episodes?.length > 0 && resourceValue?.data?.sources?.length > 0 && 
-                                <AnimePlayModal infoValue={infoValue} episodes={infoValue?.episodes} episodeIdVar={episodeIdVar} setEpisodeIdVar={setEpisodeIdVar} isDub={dubCheckbox} url={`/watch/${type}/${indexId}?dub=${dubCheckbox}`} isDisabled={false} />
+                                <AnimePlayModal infoValue={infoValue} episodes={infoValue?.episodes} episodeIdVar={episodeIdVar} setEpisodeIdVar={setEpisodeIdVar} isDub={dubCheckbox} url={`/watch/${type}/${indexId}`} isDisabled={false} />
                             }   
                         </>) : (
                             <Button 
@@ -349,13 +350,13 @@ const MovieStreamDashboard = (props) => {
                 </div>}
             </div>
             {/* refetching count */}
-            {(resourceData?.failureCount > 0 && resourceData?.failureCount <= 3) && 
-                <div className="retry-display" style={{ display: ((resourceData?.isError && resourceData?.failureCount === 3) || resourceData?.isSuccess ? 'none' : 'block') }}>
+            {(resourceData?.failureCount > 0 && resourceData?.failureCount <= 2) && 
+                <div className="retry-display" style={{ display: ((resourceData?.isError && resourceData?.failureCount === 2) || resourceData?.isSuccess ? 'none' : 'block') }}>
                     <CircularProgress 
                         sx={{ color: 'white' }} 
                         size={13}
                         thickness={5}
-                    /> Refetching... {resourceData?.failureCount}/3
+                    /> Refetching... {resourceData?.failureCount}/2
                 </div>
             }
             {/* English dub switch */}

@@ -122,7 +122,7 @@ const MovieStreamDashboard = (props) => {
         cacheTime: 24 * 60 * 60 * 1000, // 24 hours
         refetchOnWindowFocus: false,
         notifyOnChangeProps: "tracked",
-        retry: 2, // Number of retries
+        retry: 1, // Number of retries
         enabled: indexId !== null && episodeIdVar !== null && serverVar !== null,
         onError: (error) => {
             // error.response.status = http code
@@ -354,13 +354,13 @@ const MovieStreamDashboard = (props) => {
                 }
             </div>
             {/* refetching count */}
-            {(resourceData?.failureCount > 0 && resourceData?.failureCount <= 3) && 
-                <div className="retry-display" style={{ display: ((resourceData?.isError && resourceData?.failureCount === 3) || resourceData?.isSuccess ? 'none' : 'block') }}>
+            {(resourceData?.failureCount > 0 && resourceData?.failureCount <= 2) && 
+                <div className="retry-display" style={{ display: ((resourceData?.isError && resourceData?.failureCount === 2) || resourceData?.isSuccess ? 'none' : 'block') }}>
                     <CircularProgress 
                         sx={{ color: 'white' }} 
                         size={13}
                         thickness={5}
-                    /> Refetching... {resourceData?.failureCount}/3
+                    /> Refetching... {resourceData?.failureCount}/2
                 </div>
             }
         </>

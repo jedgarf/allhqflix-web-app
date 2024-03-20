@@ -1,5 +1,5 @@
 // Packages
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, Fragment } from "react";
 import { useQuery } from 'react-query';
 import { useParams } from "react-router-dom";
 
@@ -24,12 +24,16 @@ import InitPlayerLoading from "../../Components/InitPlayerLoading/InitPlayerLoad
 import { Player } from "../../Components/Player/Player";
 import AnimeSuggestions from "../../Components/Anime/AnimeSuggestions";
 import AnimeEpisodesDrawer from "../../Components/BottomDrawer/AnimeEpisodesDrawer";
+import OnePieceEpisodesDrawer from "../../Components/BottomDrawer/OnePieceEpisodesDrawer";
 import AnimeCharacterCard from "../../Components/Anime/AnimeCharacterCard";
 import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
 // Config
 import apiConfig from '../../Config/api.config';
 import { pageLoadMS, foreign_country, anime_character_carousel_settings } from "../../Config/settings.config";
+
+// Helpers
+import { getCookie } from "../../Helpers/Cookies";
 
 // Images
 import { subtitleLogo, videoQuality } from "../../Config/images.config";
@@ -279,7 +283,9 @@ const AnimeDashboard = (props) => {
               episodeNum={episodeNum}
               totalEpisodes={totalEpisodes}
               nextEpisode={nextEpisode}
-              seekTime={0}
+              seekTime={getCookie(indexId) && JSON.parse(getCookie(indexId)).episodeId === selectedEpisode ? JSON.parse(getCookie(indexId)).time : 0}
+              mediaId={indexId}
+              episodeId={selectedEpisode}
               option={{
                 enableAds: true,
                 hotkey: true,
@@ -341,32 +347,60 @@ const AnimeDashboard = (props) => {
       <div className="anime_info">
 
         <Box className="episodesBtn" display={{ xs: 'block', sm: 'block', md: 'none', lg: 'none' }}>
-          <AnimeEpisodesDrawer
-            details={infoValue}
-            downloadUrl={resourceValue?.data?.download}
-            mediaId={indexId}
-            episodeId={selectedEpisode}
-            setSelectedEpisode={setSelectedEpisode}
-            setLoadingEpisode={setLoadingEpisode}
-            itemsPerPage={episodesPerPage}
-            episodesCurrentPage={episodesCurrentPage}
-            moveToTop={moveToTop}
-            drawerAlign={'bottom'}
-          />
+          {indexId == '21' ?
+            <OnePieceEpisodesDrawer
+              details={infoValue}
+              downloadUrl={resourceValue?.data?.download}
+              mediaId={indexId}
+              episodeId={selectedEpisode}
+              setSelectedEpisode={setSelectedEpisode}
+              setLoadingEpisode={setLoadingEpisode}
+              itemsPerPage={episodesPerPage}
+              episodesCurrentPage={episodesCurrentPage}
+              moveToTop={moveToTop}
+              drawerAlign={'bottom'}
+            />
+           : 
+           <AnimeEpisodesDrawer
+              details={infoValue}
+              downloadUrl={resourceValue?.data?.download}
+              mediaId={indexId}
+              episodeId={selectedEpisode}
+              setSelectedEpisode={setSelectedEpisode}
+              setLoadingEpisode={setLoadingEpisode}
+              itemsPerPage={episodesPerPage}
+              episodesCurrentPage={episodesCurrentPage}
+              moveToTop={moveToTop}
+              drawerAlign={'bottom'}
+            />}
         </Box>
         <Box className="episodesBtn" display={{ xs: 'none', sm: 'none', md: 'block', lg: 'block' }}>
-          <AnimeEpisodesDrawer
-            details={infoValue}
-            downloadUrl={resourceValue?.data?.download}
-            mediaId={indexId}
-            episodeId={selectedEpisode}
-            setSelectedEpisode={setSelectedEpisode}
-            setLoadingEpisode={setLoadingEpisode}
-            itemsPerPage={episodesPerPage}
-            episodesCurrentPage={episodesCurrentPage}
-            moveToTop={moveToTop}
-            drawerAlign={'right'}
-          />
+          {indexId == '21' ?
+            <OnePieceEpisodesDrawer
+              details={infoValue}
+              downloadUrl={resourceValue?.data?.download}
+              mediaId={indexId}
+              episodeId={selectedEpisode}
+              setSelectedEpisode={setSelectedEpisode}
+              setLoadingEpisode={setLoadingEpisode}
+              itemsPerPage={episodesPerPage}
+              episodesCurrentPage={episodesCurrentPage}
+              moveToTop={moveToTop}
+              drawerAlign={'right'}
+            />
+           : 
+            <AnimeEpisodesDrawer
+              details={infoValue}
+              downloadUrl={resourceValue?.data?.download}
+              mediaId={indexId}
+              episodeId={selectedEpisode}
+              setSelectedEpisode={setSelectedEpisode}
+              setLoadingEpisode={setLoadingEpisode}
+              itemsPerPage={episodesPerPage}
+              episodesCurrentPage={episodesCurrentPage}
+              moveToTop={moveToTop}
+              drawerAlign={'right'}
+            />}
         </Box>
 
         <div className={infoValue?.episodes?.length > 1 ? 'content-details' : 'content-details asian-movie'}>
@@ -453,7 +487,9 @@ const AnimeDashboard = (props) => {
                       <Slider {...anime_character_carousel_settings}>
                         {infoValue?.characters?.map((item, index) => {
                           return (
-                            <AnimeCharacterCard characterInfo={item}/>
+                            <Fragment key={index}>
+                              <AnimeCharacterCard characterInfo={item}/>
+                            </Fragment>
                           )
                         })}
                       </Slider>

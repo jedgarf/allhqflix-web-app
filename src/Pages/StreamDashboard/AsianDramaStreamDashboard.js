@@ -55,7 +55,7 @@ const MovieStreamDashboard = (props) => {
         refetchOnWindowFocus: false,
         notifyOnChangeProps: "tracked",
         enabled: episodeIdVar !== null,
-        retry: 2,
+        retry: 1, // Number of retries
         retryOnMount: false,
     });
     
@@ -70,7 +70,7 @@ const MovieStreamDashboard = (props) => {
             document.title = `AllHQFlix - ${ infoValue?.title }`;
             setLoadingPicture(false);
         }
-    }, [infoData.isSuccess]);
+    }, [infoData.isSuccess, infoValue?.title]);
 
     return (
         <>

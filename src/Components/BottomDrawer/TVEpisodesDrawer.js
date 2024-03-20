@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, Fragment } from 'react';
 
 // Material UI Theme
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -102,7 +102,7 @@ export default function TVEpisodesDrawer({ movieInfo, mediaId, seasonId, episode
               <Grid container columnSpacing={{ xs: 2, sm: 2, md: 2, lg: 2, xl: 2 }} rowSpacing={2} justifyContent="center">
                 {episodes[inselectedSeason]?.map((item, i) => {
                     return (
-                        <>
+                        <Fragment key={i}>
                           <Grid item xl={'auto'} lg={'auto'} md={'auto'} sm={'auto'} xs={'auto'}>
                             {item.number === 0 ?
                             <>
@@ -121,7 +121,7 @@ export default function TVEpisodesDrawer({ movieInfo, mediaId, seasonId, episode
                               }
                             </>}
                           </Grid>
-                        </>
+                        </Fragment>
                     );
                 })}
               </Grid>
@@ -187,7 +187,7 @@ export default function TVEpisodesDrawer({ movieInfo, mediaId, seasonId, episode
                             // renderValue={(value) => `⚠️  - ${value}`}
                           >
                             {seasons.map((item, no) => {
-                                return <MenuItem value={item.id}>{item.season}</MenuItem>
+                                return <MenuItem key={no} value={item.id}>{item.season}</MenuItem>
                             })}
                           </Select>
                         </FormControl>

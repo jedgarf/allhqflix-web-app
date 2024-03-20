@@ -12,19 +12,18 @@ export const sanitizeCookieName = (cookieName) => {
     return sanitizedCookieName;
 };
 
-export const addCookie = (cookieName, cookieValue, options = {}) => {
-  Cookies.set(cookieName, cookieValue, { expires: DEFAULT_EXPIRATION_DAYS, ...options });
+export const addCookie = (cookieName, cookieValue, expiryDays = '', options = {}) => {
+  Cookies.set(cookieName, cookieValue, { expires: expiryDays ? expiryDays : DEFAULT_EXPIRATION_DAYS, ...options });
 };
 
 export const getCookie = (cookieName) => {
   return Cookies.get(cookieName);
 };
 
-export const editCookie = (cookieName, newCookieValue, options = {}) => {
+export const editCookie = (cookieName, newCookieValue, expiryDays = '', options = {}) => {
   const currentCookieValue = getCookie(cookieName);
-  if (currentCookieValue !== undefined) {
-    addCookie(cookieName, newCookieValue, options);
-  }
+  if (currentCookieValue == undefined) deleteCookie(cookieName);
+  addCookie(cookieName, newCookieValue, { expires: expiryDays ? expiryDays : DEFAULT_EXPIRATION_DAYS, ...options });
 };
 
 export const deleteCookie = (cookieName) => {

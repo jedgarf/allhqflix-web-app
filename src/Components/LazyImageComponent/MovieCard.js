@@ -11,7 +11,7 @@ import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 // Images
 import { noImagePlaceholder } from "../../Config/images.config";
 
-const MovieCard = ({ src, title }) => {
+const MovieCard = ({ src, title, contentType }) => {
     return (
         <div className="image-container">
             <LazyLoadImage src={`${src}`} placeholder={<Skeleton className="img-card-skeleton" sx={{ bgcolor: 'grey.900' }} variant="rectangular" animation="wave" />} alt={title} effect="blur" onError={({ currentTarget }) => {

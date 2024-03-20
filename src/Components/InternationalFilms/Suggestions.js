@@ -1,7 +1,5 @@
 // Packages
-import React, {Fragment, useEffect} from 'react';
-import Grid from '@mui/material/Grid';
-import { Link } from "react-router-dom";
+import  React, { Fragment } from 'react';
 
 // Auto Slider
 import Slider from "react-slick";
@@ -9,13 +7,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 
-// Icons
-import StarIcon from "@mui/icons-material/Star";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-
 // Pages
-import { favAdd } from "../../Features/favSlice";
 import MoviesRow from "../../Components/InternationalFilms/MoviesRow";
 
 // Config
@@ -30,7 +22,7 @@ export default function Suggestions({Suggest, Type}) {
             <Slider {...suggestion_movie_card_carousel_settings} style={{ marginInline: '30px' }}>
                 {Suggest?.filter((item) => item.type == contentType).map((item, i) => {
                     return (
-                        <Fragment>
+                        <Fragment key={i}>
                             <MoviesRow
                                 isloadImage={true}
                                 cat={'suggestions'}
