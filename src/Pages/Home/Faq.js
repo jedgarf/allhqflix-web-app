@@ -87,6 +87,7 @@ const Faq = () => {
                                 <li>- Fast updates.</li>
                                 <li>- Optimized UI & UX.</li>
                                 <li>- Mobile-friendly Design.</li>
+                                <li>- Auto-save all watching progress.</li>
                                 <li>- No signup or registration required.</li>
                                 </ul>
                                 {/* <br/>

@@ -11,6 +11,7 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 // Material UI Components
 import { Grid, Skeleton, Box, Typography, Button, FormControlLabel, Switch, CircularProgress } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import LoadingButton from '@mui/lab/LoadingButton';
 
 // CSS
 import './StreamDashboard.css';
@@ -236,7 +237,7 @@ const MovieStreamDashboard = (props) => {
                         </Link>
                     </Grid>
                 </Grid>
-                {infoData.isLoading || resourceData.isRefetching
+                {infoData.isLoading
                 ? 
                     <>
                     <Box className='stream-dashboard-content' sx={{ pl: 3, pr: 3, pt: 3, width: {xs: '100%', sm: '100%', md: '60%'} }} style={{ backgroundColor: isMobile ? 'rgba(15, 22, 34, 0.5)' : 'transparent' }}>
@@ -321,7 +322,7 @@ const MovieStreamDashboard = (props) => {
                     </div>
                     <div className='stream-dashboard-playbutton'>
 
-                        {infoData.isSuccess && <TraillerModal category="anime" infoValue={infoValue} setSnackBarType={setSnackBarType} setSnackBarMessage={setSnackBarMessage} setSnackBarOpen={setSnackBarOpen}/>}
+                        {(infoData.isSuccess && resourceData.isError) && <TraillerModal category="anime" infoValue={infoValue} setSnackBarType={setSnackBarType} setSnackBarMessage={setSnackBarMessage} setSnackBarOpen={setSnackBarOpen}/>}
                         
                         {infoData.isSuccess && resourceData.isSuccess ?
                          (<>
@@ -329,21 +330,30 @@ const MovieStreamDashboard = (props) => {
                                 <AnimePlayModal infoValue={infoValue} episodes={infoValue?.episodes} episodeIdVar={episodeIdVar} setEpisodeIdVar={setEpisodeIdVar} isDub={dubCheckbox} url={`/watch/${type}/${indexId}`} isDisabled={false} />
                             }   
                         </>) : (
-                            <Button 
-                                id="demo-customized-button"
-                                size='small'
-                                aria-controls={undefined}
-                                aria-haspopup="true"
-                                aria-expanded={undefined}
-                                variant="contained"
-                                disableElevation
-                                startIcon={<PlayCircleOutlineIcon />}
-                                endIcon={<KeyboardArrowDownIcon />}
-                                style={{ marginRight: '10px' }}
-                                disabled={true}
-                            >
-                            PLAY
-                            </Button>
+                            <>
+                            {!resourceData.isError ? 
+                                <CircularProgress
+                                    sx={{ color: 'white' }} 
+                                    size={18}
+                                    thickness={5}
+                                />
+                             : 
+                                <Button 
+                                    id="demo-customized-button"
+                                    size='small'
+                                    aria-controls={undefined}
+                                    aria-haspopup="true"
+                                    aria-expanded={undefined}
+                                    variant="contained"
+                                    disableElevation
+                                    startIcon={<PlayCircleOutlineIcon />}
+                                    style={{ marginRight: '10px' }}
+                                    disabled={true}
+                                >
+                                PLAY
+                                </Button>
+                            }
+                            </>
                         )}
 
                     </div>

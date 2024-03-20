@@ -278,7 +278,7 @@ const AsianFilmsDashboard = (props) => {
             episodeNum={episodeNum}
             totalEpisodes={totalEpisodes}
             nextEpisode={nextEpisode}
-            seekTime={getCookie(indexId) && JSON.parse(getCookie(indexId)).episodeId === selectedEpisode ? JSON.parse(getCookie(indexId)).time : 0}
+            seekTime={getCookie(decodeURIComponent(indexId)) && JSON.parse(getCookie(decodeURIComponent(indexId))).episodeId === selectedEpisode ? JSON.parse(getCookie(decodeURIComponent(indexId))).time : 0}
             mediaId={indexId}
             episodeId={selectedEpisode}
             option={{

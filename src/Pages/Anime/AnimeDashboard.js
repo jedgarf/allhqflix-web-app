@@ -82,7 +82,7 @@ const AnimeDashboard = (props) => {
 
     if (selectedEpisode) {
       // setSelectedEpisode(selectedEpisode);
-      setTotalEpisodes(infoValue?.episodes.length);
+      setTotalEpisodes(infoValue?.episodes?.length);
       for (let getSelEpisodeLength = 0; getSelEpisodeLength < infoValue?.episodes.length; getSelEpisodeLength++) {
         if (infoValue?.episodes[getSelEpisodeLength].id === selectedEpisode) {
           setEpisodeNum(getSelEpisodeLength + 1);
@@ -283,7 +283,7 @@ const AnimeDashboard = (props) => {
               episodeNum={episodeNum}
               totalEpisodes={totalEpisodes}
               nextEpisode={nextEpisode}
-              seekTime={getCookie(indexId) && JSON.parse(getCookie(indexId)).episodeId === selectedEpisode ? JSON.parse(getCookie(indexId)).time : 0}
+              seekTime={getCookie(indexId) && JSON.parse(getCookie(indexId)).dub == paramDub && JSON.parse(getCookie(indexId)).episodeId === selectedEpisode ? JSON.parse(getCookie(indexId)).time : 0}
               mediaId={indexId}
               episodeId={selectedEpisode}
               option={{

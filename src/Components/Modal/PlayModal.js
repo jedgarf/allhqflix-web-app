@@ -34,10 +34,10 @@ import ReusableModal from "./ReusableModal";
 import Latency from "../../Components/Latency/Latency";
 
 // Utilties
-import { allowOnlyNumbers, seriesSearchLike, animeSearchLike, animeSearchNumberBetween, asianFilmsSearchLike } from "../../Services/Utils";
+import { allowOnlyNumbers, seriesSearchLike, animeSearchLike, animeSearchNumberBetween, asianFilmsSearchLike, secondsToHMS } from "../../Services/Utils";
 
 // Helpers
-import { getCookie } from "../../Helpers/Cookies";
+import { getCookie, deleteCookie } from "../../Helpers/Cookies";
 
 // Services
 import { movie_server } from "../../Services/FlixHQService";
@@ -644,7 +644,7 @@ const AnimePlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVar, ur
             </LoadingButton>
         ) : (
           <>
-            {episodes.length > 1 ? (
+            {episodes.length > 1 || getCookie(mediaId) ? (
               <Button
                 id="demo-customized-button"
                 size='small'
@@ -685,26 +685,30 @@ const AnimePlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVar, ur
             <Link className='text-link-without-underline' to={`${url}?dub=${JSON.parse(getCookie(mediaId)).dub}&episode=${JSON.parse(getCookie(mediaId)).episodeId}`}>
               <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
                 <PlayCircleOutlineIcon />
-                CONTINUE (EP {JSON.parse(getCookie(mediaId)).episodeNumber})
+                CONTINUE ({episodes.length > 1 ? `EP ${JSON.parse(getCookie(mediaId)).episodeNumber} - ${secondsToHMS(JSON.parse(getCookie(mediaId)).time)}` : `${secondsToHMS(JSON.parse(getCookie(mediaId)).time)}`})
               </MenuItem>
             </Link>
           }
-          <Link className='text-link-without-underline' to={`${url}?dub=${isDub}&episode=${episodeIdVar}`}>
+          <Link className='text-link-without-underline' to={`${url}?dub=${isDub}&episode=${episodeIdVar}`} onClick={() => deleteCookie(mediaId)}>
             <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
               <PlayCircleOutlineIcon />
               FROM THE BEGINNING
             </MenuItem>
           </Link>
-          <Link className='text-link-without-underline' to={`${url}?dub=${isDub}&episode=${episodes[episodes.length-1].id}`}>
-            <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
-              <PlayCircleOutlineIcon />
-              LATEST EPISODE
+          {episodes.length > 1 &&
+          <>
+            <Link className='text-link-without-underline' to={`${url}?dub=${isDub}&episode=${episodes[episodes.length-1].id}`} onClick={() => deleteCookie(mediaId)}>
+              <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
+                <PlayCircleOutlineIcon />
+                LATEST EPISODE
+              </MenuItem>
+            </Link>
+            <MenuItem onClick={() => handleModal(true)} style={{ fontSize: '15px' }} disableRipple>
+              <TuneOutlinedIcon/>
+              EPISODE SELECTION
             </MenuItem>
-          </Link>
-          <MenuItem onClick={() => handleModal(true)} style={{ fontSize: '15px' }} disableRipple>
-            <TuneOutlinedIcon/>
-            EPISODE SELECTION
-          </MenuItem>
+          </>
+          }
         </StyledMenu>
 
         {/* Modal */}
@@ -786,7 +790,7 @@ const AnimePlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVar, ur
               </Grid>
               <Grid item xl={6} lg={6} md={6} sm={6} xs={6} style={{ textAlign: 'right' }}>
                 <Button size='small' variant='outlined' color='error' style={{ marginRight: '5px' }} startIcon={<CloseIcon/>} onClick={() => handleModal(false)}>Close</Button>
-                <Link to={`${url}?dub=${isDub}&episode=${episodeNumber}`}>
+                <Link to={`${url}?dub=${isDub}&episode=${episodeNumber}`} onClick={() => deleteCookie(mediaId)}>
                   <Button size='small' variant='contained' color='primary' startIcon={<PlayCircleOutlineIcon/>}>Play</Button>
                 </Link>
               </Grid>
