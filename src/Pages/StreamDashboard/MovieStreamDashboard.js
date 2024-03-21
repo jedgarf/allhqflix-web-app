@@ -297,29 +297,16 @@ const MovieStreamDashboard = (props) => {
                             </Typography>
                         </>}
                     </div>
-                        {infoData.isSuccess && infoValue?.episodes?.length > 0 ? 
-                        ""
-                        : 
-                        <>
-                            <div className='stream-dashboard-season-episode'>
-                                <Typography variant="subtitle1" style={{ verticalAlign: 'middle', display: 'inline-flex', fontWeight: 'bolder' }}>
-                                    <WarningAmberTwoToneIcon style={{ marginRight: '8px', color: "#DC4C64", fontSize: 30 }}/> NO EPISODE AVAILABLE.
-                                </Typography>
-                            </div>
-                        </>}
-                    <div className='stream-dashboard-video-qualities'>
-                        {resourceData.isSuccess && resourceValue?.data?.sources?.length > 0 ? 
-                        ""
-                            : 
-                        <>
-                            <div className='stream-dashboard-resource-links'>
-                                <Typography variant="subtitle1" style={{ verticalAlign: 'middle', display: 'inline-flex', fontWeight: 'bolder' }}>
-                                    <WarningAmberTwoToneIcon style={{ marginRight: '8px', color: "#DC4C64", fontSize: 30 }}/>
-                                    {errorMessage}
-                                </Typography>
-                            </div>
-                        </>}
-                    </div>
+                    {infoData.isSuccess && infoValue?.episodes?.length > 0 ? 
+                    ""
+                    : 
+                    <>
+                        <div className='stream-dashboard-season-episode'>
+                            <Typography variant="subtitle1" style={{ verticalAlign: 'middle', display: 'inline-flex', fontWeight: 'bolder' }}>
+                                <WarningAmberTwoToneIcon style={{ marginRight: '8px', color: "#DC4C64", fontSize: 30 }}/> NO EPISODE AVAILABLE.
+                            </Typography>
+                        </div>
+                    </>}
 
                     <div className='stream-dashboard-playbutton'>
                         {infoData.isSuccess && <TraillerModal category="foreign" infoValue={infoValue} setSnackBarType={setSnackBarType} setSnackBarMessage={setSnackBarMessage} setSnackBarOpen={setSnackBarOpen}/>}

@@ -142,7 +142,7 @@ const AsianFilmsStreamDashboard = (props) => {
                         </Link>
                     </Grid>
                 </Grid>
-                {infoData.isLoading || resourceData.isLoading || infoData.isRefetching || resourceData.isRefetching
+                {infoData.isLoading
                 ? 
                     <>
                     <Box className='stream-dashboard-content' sx={{ pl: 3, pr: 3, pt: 3, width: {xs: '100%', sm: '100%', md: '60%'} }} style={{ backgroundColor: isMobile ? 'rgba(15, 22, 34, 0.5)' : 'transparent' }}>
@@ -192,28 +192,6 @@ const AsianFilmsStreamDashboard = (props) => {
                         <br/>
                         <b style={{ color: '#DC4C64', marginRight: '5px' }}>Genres:</b> 
                         <SeparateArrayByComma type={'site_link'} data={infoValue?.genre} link={'/asian_films/genre_filter?genre='} />
-                    </div>
-                    {infoData.isSuccess && infoValue?.episodes?.length > 0 ? 
-                    <></>
-                    : 
-                    <>
-                        <div className='stream-dashboard-season-episode'>
-                                <Typography variant="subtitle1" style={{ verticalAlign: 'middle', display: 'inline-flex', fontWeight: 'bolder' }}>
-                                    <WarningAmberTwoToneIcon style={{ marginRight: '8px', color: "#DC4C64", fontSize: 30 }}/> NO EPISODE AVAILABLE
-                                </Typography>
-                        </div>
-                    </>}
-                    <div className='stream-dashboard-video-qualities'>
-                        {resourceData.isSuccess && resourceValue?.data?.sources?.length > 0 ? 
-                        <></>
-                        :
-                        <>
-                            <div className='stream-dashboard-resource-links'>
-                                <Typography variant="subtitle1" style={{ verticalAlign: 'middle', display: 'inline-flex', fontWeight: 'bolder' }}>
-                                    <AccessTimeIcon style={{ marginRight: '8px', color: "#DC4C64", fontSize: 30 }}/> SOURCE LINK NOT AVAILABLE, PLEASE TRY AGAIN LATER
-                                </Typography>
-                            </div>
-                        </>}
                     </div>
                     <div className='stream-dashboard-playbutton'>
                         {infoData.isSuccess && <TraillerModal category="asian_films" infoValue={infoValue} setSnackBarType={setSnackBarType} setSnackBarMessage={setSnackBarMessage} setSnackBarOpen={setSnackBarOpen}/>}

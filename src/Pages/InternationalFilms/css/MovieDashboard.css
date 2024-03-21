@@ -432,7 +432,7 @@ td {
         margin-top: 150px !important;
     }
     .movie-stream-title h6 {
-        margin-top: -76px !important;
+        margin-top: -74px !important;
         margin-bottom: -13px !important;
     }
     .top__heading span {
@@ -450,10 +450,10 @@ td {
         /* padding-top: 20px; */
         position: fixed;
         z-index: 10;
-        padding-bottom: 5px !important;
+        padding-bottom: 6px !important;
         margin-top: 50px !important;
         width: 100%;
-        height: 267px !important;
+        height: 272px !important;
         background-position: center;
         background-size: cover;
     }
@@ -464,7 +464,7 @@ td {
         padding-bottom: 250px !important;
         margin-top: 55px !important;
         width: 100%;
-        height: 242px !important;
+        height: 244px !important;
         background-position: center;
         background-size: cover;
     }
@@ -472,7 +472,7 @@ td {
         margin: auto;
         align-items: center;
         width: 95% !important;
-        max-height: 245px !important;
+        max-height: 248px !important;
     }
     .movie_info {
         margin-top: -50px !important;
