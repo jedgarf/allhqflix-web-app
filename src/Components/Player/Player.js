@@ -26,7 +26,7 @@ import { mainLogo, customLoadingFileName } from "../../Config/images.config";
 import { getFileExtention } from "../../Services/Utils";
 
 // Helpers
-import { addCookie } from "../../Helpers/Cookies";
+import { addCookie, deleteCookie } from "../../Helpers/Cookies";
 import { encryptData, decryptData } from "../../Helpers/Crypto";
 
 // ------------------------------------------------------------------------------------------------------------
@@ -232,15 +232,20 @@ const Player = ({ defaultlink, infotitle, infocover, episodeNum, totalEpisodes, 
 
             // Save progress
             art.on('video:timeupdate', () => {
-                saveProgress(art.currentTime);
+                if (episodeNum === totalEpisodes) {
+                    if (art.currentTime < (art.loadedTime-5)) {
+                        saveProgress(art.currentTime);
+                    }   
+                } else {
+                    saveProgress(art.currentTime);
+                }
             });
 
-            art.on('waiting', () => {
-                // Show the loading message after 5 seconds
-                setTimeout(() => {
-                    art.notice.show = 'Please switch to another server.';
-                }, 5000);
-            });
+            // art.on('video:waiting', () => {
+            //     setTimeout(() => {
+            //         art.notice.show = 'Please switch to another server.';
+            //     }, 5000);
+            // });
     
             art.on('ready', () => {
                 if (totalEpisodes > 1) {
@@ -258,16 +263,16 @@ const Player = ({ defaultlink, infotitle, infocover, episodeNum, totalEpisodes, 
                 art.notice.show = infotitle;
             });
     
-            if (totalEpisodes > 1) {
+            art.on('video:ended', () => {
+                if (episodeNum === totalEpisodes) deleteCookie(mediaId);
                 // auto next function
-                art.on('video:ended', () => {
+                if (totalEpisodes > 1) {
                     nextEpisode();
-                });
-            }
+                }
+            });
     
             art.on('error', (error, reconnectTime) => {
-                // console.info(error, reconnectTime);
-                art.notice.show = 'Error loading Link, please switch to another server.';
+                art.notice.show = 'Error loading link.';
             });   
         }
 
