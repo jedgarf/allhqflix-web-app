@@ -26,7 +26,7 @@ import { mainLogo, customLoadingFileName } from "../../Config/images.config";
 import { getFileExtention } from "../../Services/Utils";
 
 // Helpers
-import { addCookie, deleteCookie } from "../../Helpers/Cookies";
+import { getCookie, addCookie, deleteCookie } from "../../Helpers/Cookies";
 import { encryptData, decryptData } from "../../Helpers/Crypto";
 
 // ------------------------------------------------------------------------------------------------------------
@@ -227,6 +227,7 @@ const Player = ({ defaultlink, infotitle, infocover, episodeNum, totalEpisodes, 
                     episodeNumber: episodeNum,
                     time: currentTime,
                 };
+                if (getCookie(mediaId)) deleteCookie(mediaId);
                 addCookie(mediaId, JSON.stringify(mediaProgress), 30);
             }, 5000);
 
@@ -248,15 +249,10 @@ const Player = ({ defaultlink, infotitle, infocover, episodeNum, totalEpisodes, 
             // });
     
             art.on('ready', () => {
-                if (totalEpisodes > 1) {
-                    art.notice.show = infotitle;
-                }
-    
-                // Seek time
+                art.notice.show = infotitle;
                 if (seekTime > 0) {
                     art.seek = seekTime;   
                 }
-    
             });
     
             art.on('pause', () => {
