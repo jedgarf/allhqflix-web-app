@@ -235,7 +235,7 @@
 @media (min-width: 1200px) {
     .movies__boxx,
     .carousel-skeleton {
-        height: 830px !important;
+        height: 100% !important;
     }
 }
 
@@ -249,7 +249,7 @@
     } */
     .movies__boxx,
     .carousel-skeleton {
-        height: 480px !important;
+        height: 100% !important;
     }
 }
 

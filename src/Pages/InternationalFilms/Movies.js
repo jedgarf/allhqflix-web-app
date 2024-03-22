@@ -91,30 +91,26 @@ const Movies = () => {
             display={{ xs: 'block', md: 'block' }}
           >
             {discoverData.isSuccess ? 
-              <Suspense fallback={<div className="carousel-skeleton" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                <CircularProgress sx={{ fontSize: 100 }} />
-              </div>}>
-                  <Slider {...carousel_settings}>
-                    {discoverValue.map((item, i) => (
-                      <Fragment key={i}>
-                        <div className="movies__boxx">
-                          <Discovers
-                            id={item.id}
-                            banner={item.cover}
-                            title={item.title}
-                            des={item.description}
-                            year={item.releaseDate}
-                            genres={item.genres}
-                            slug={item.slug}
-                            video_quality={item.video_quality}
-                            urlContentSubType={urlContentSubType}
-                            key={i}
-                          />
-                        </div>
-                      </Fragment>
-                    ))}
-                  </Slider>
-              </Suspense>
+              <Slider {...carousel_settings}>
+                {discoverValue.map((item, i) => (
+                  <Fragment key={i}>
+                    <div className="movies__boxx">
+                      <Discovers
+                        id={item.id}
+                        banner={item.cover}
+                        title={item.title}
+                        des={item.description}
+                        year={item.releaseDate}
+                        genres={item.genres}
+                        slug={item.slug}
+                        video_quality={item.video_quality}
+                        urlContentSubType={urlContentSubType}
+                        key={i}
+                      />
+                    </div>
+                  </Fragment>
+                ))}
+              </Slider>
               : 
               <div className="carousel-skeleton" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 <CircularProgress sx={{ fontSize: 100 }} />
