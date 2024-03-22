@@ -185,12 +185,17 @@ td {
     margin-top: -100px !important;
 }
 
-@media (max-width: 1900px) {
+.asian_tv_info .episodesBtn {
+    padding-bottom: 20px !important;
+}
+
+@media (max-width: 1535px) {
     .asian_tv_info {
         margin-top: -145px !important;
     }
     .asian_tv_info .episodesBtn {
-        margin-bottom: -140px !important;
+        margin-bottom: 40px !important;
+        padding-bottom: 0px !important;
     }
 }
 
@@ -372,6 +377,9 @@ td {
         margin-top: -140px !important;
     }
     .asian_tv_info {
+        margin-top: 330px !important;
+    }
+    .asian_tv_info .episodesBtn {
         margin-top: 330px !important;
     }
     .asian_tv_info .content-details {

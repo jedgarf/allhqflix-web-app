@@ -1,16 +1,10 @@
-import React, { useState, useRef, useEffect } from 'react';
-import _ from 'lodash';
+import React, { useRef, useEffect } from 'react';
 import { SpinnerDotted } from 'spinners-react';
 
 // ArtPlayerJS
 import Artplayer from 'artplayer';
 import artplayerPluginAds from 'artplayer-plugin-ads';
-import Hls from "hls.js";
-import flvjs from "flv.js";
 // import artplayerPluginControl from "artplayer-plugin-control";
-
-// Material UI Components
-import CircularProgress from '@mui/material/CircularProgress';
 
 // Icons
 import SubtitlesIcon from '@mui/icons-material/Subtitles';
@@ -23,76 +17,21 @@ import { ads } from "../../Config/settings.config";
 import { mainLogo, customLoadingFileName } from "../../Config/images.config";
 
 // Utilities
-import { getFileExtention } from "../../Services/Utils";
+import { getFileExtention, randomizeArray } from "../../Services/Utils";
+import { playFlv, destroyPlayFlv, playM3u8, destroyPlayM3u8, saveProgress } from "./_config";
 
 // Helpers
-import { getCookie, addCookie, deleteCookie } from "../../Helpers/Cookies";
-import { encryptData, decryptData } from "../../Helpers/Crypto";
-
-// ------------------------------------------------------------------------------------------------------------
-
-const playFlv = (video, url, art) => {
-    if (flvjs.isSupported()) {
-        const flv = flvjs.createPlayer({ type: 'flv', url });
-        flv.attachMediaElement(video);
-        flv.load();
-
-        // optional
-        art.flv = flv;
-        art.once('url', () => flv.destroy());
-        art.once('destroy', () => flv.destroy());
-    } else {
-        art.notice.show = 'Unsupported playback format: flv';
-    }
-}
-
-// var hlsConfig = {
-//     xhrSetup: function (xhr, url) {
-//       xhr.referer = 'https://flixhq.to/';
-//     },
-// };
-
-const playM3u8 = (video, url, art) => {
-    if (Hls.isSupported()) {
-        // const hls = new Hls(hlsConfig);
-        const hls = new Hls();
-        hls.loadSource(url);
-        hls.attachMedia(video);
-
-        // optional
-        art.hls = hls;
-        art.once('url', () => hls.destroy());
-        art.once('destroy', () => hls.destroy());
-    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-        video.src = url;
-    } else {
-        art.notice.show = 'Unsupported playback format: m3u8';
-    }
-}
-
-const destroyPlayM3u8 = () => {
-    // Hls.destroy();
-}
-
-const destroyPlayFlv = () => {
-    flvjs.destroy();
-}
-
-const random_ads = (items) => {
-    return items[Math.floor(Math.random() * items.length)];
-}
+import { deleteCookie } from "../../Helpers/Cookies";
 
 const PlayerLoading = () => {
     return <SpinnerDotted size={39} thickness={180} speed={121} color="rgba(220, 76, 100, 1)" />;
 }
 
-// ----------------------------------------------------------------------------------------------------------
-
 const Player = ({ defaultlink, infotitle, infocover, episodeNum, totalEpisodes, nextEpisode, seekTime, mediaId, episodeId, option, ...rest }) => {
 
-    // const cads = random_ads(ads);
     const queryParams = new URLSearchParams(window.location.search);
     const paramDub = queryParams.get("dub") != null ? queryParams.get("dub") == 'true' : false;
+    const playerAds = randomizeArray(ads);
 
     const artRef = useRef();
 
@@ -171,7 +110,6 @@ const Player = ({ defaultlink, infotitle, infocover, episodeNum, totalEpisodes, 
                     {
                         html: `<img src="${mainLogo}">`,
                         click: function() {
-                            // window.open('https://jedgarfdev.vercel.app');
                             console.info('You clicked on the custom layer');
                         },
                         style: {
@@ -189,65 +127,8 @@ const Player = ({ defaultlink, infotitle, infocover, episodeNum, totalEpisodes, 
             console.error(error);
         }
 
-        // if (option.enableAds === true && process.env.REACT_APP_ENABLE_ADS == true) {
-            // art.plugins.add(artplayerPluginAds({
-            //     html: `<img src="${mainLogo}">`,
-            //     video: '/ads/' + cads.video,
-            //     url: cads.link,
-            //     playDuration: cads.skipDuration,
-            //     totalDuration: cads.totalDuration,
-            //     i18n: {
-            //         close: 'SKIP ADS',
-            //         countdown: '%ss',
-            //         detail: cads.name,
-            //         canBeClosed: 'ADS CAN BE CLOSED AFTER %s SECONDS',
-            //     },
-            // }));
-
-            // The ad was clicked
-            // art.on('artplayerPluginAds:click', (ads) => {
-            //     console.info('Ad was clicked', ads);
-            // });
-
-            // Advertisement is skipped
-            // art.on('artplayerPluginAds:skip', (ads) => {
-            //     console.info('Ad was skipped', ads);
-            // });
-        // }
         if (art) {
 
-             // Throttled function to save progress every 5 seconds
-            const saveProgress = _.throttle((currentTime) => {
-                // Save progress (you can replace this with your save logic)
-                console.log('Saving progress:', currentTime);
-                // Example: You can save progress using localStorage
-                const mediaProgress = {
-                    dub: paramDub,
-                    episodeId: episodeId,
-                    episodeNumber: episodeNum,
-                    time: currentTime,
-                };
-                if (getCookie(mediaId)) deleteCookie(mediaId);
-                addCookie(mediaId, JSON.stringify(mediaProgress), 30);
-            }, 5000);
-
-            // Save progress
-            art.on('video:timeupdate', () => {
-                if (episodeNum === totalEpisodes) {
-                    if (art.currentTime < (art.loadedTime-5)) {
-                        saveProgress(art.currentTime);
-                    }   
-                } else {
-                    saveProgress(art.currentTime);
-                }
-            });
-
-            // art.on('video:waiting', () => {
-            //     setTimeout(() => {
-            //         art.notice.show = 'Please switch to another server.';
-            //     }, 5000);
-            // });
-    
             art.on('ready', () => {
                 art.notice.show = infotitle;
                 if (seekTime > 0) {
@@ -258,7 +139,7 @@ const Player = ({ defaultlink, infotitle, infocover, episodeNum, totalEpisodes, 
             art.on('pause', () => {
                 art.notice.show = infotitle;
             });
-    
+
             art.on('video:ended', () => {
                 if (episodeNum === totalEpisodes) deleteCookie(mediaId);
                 // auto next function
@@ -270,6 +151,55 @@ const Player = ({ defaultlink, infotitle, infocover, episodeNum, totalEpisodes, 
             art.on('error', (error, reconnectTime) => {
                 art.notice.show = 'Error loading link.';
             });   
+
+            // art.on('video:waiting', () => {
+            //     setTimeout(() => {
+            //         art.notice.show = 'Please switch to another server.';
+            //     }, 5000);
+            // });
+
+            // Save progress ------------------------------------------------------------------------------------------------------------
+            
+            art.on('video:timeupdate', () => {
+                if (episodeNum === totalEpisodes) {
+                    if (art.currentTime < (art.loadedTime-5)) saveProgress(mediaId, paramDub, episodeId, episodeNum, art.currentTime); 
+                } else {
+                    saveProgress(mediaId, paramDub, episodeId, episodeNum, art.currentTime);
+                }
+            });
+
+            // End -----------------------------------------------------------------------------------------------------------------------
+
+            // Advertisements ------------------------------------------------------------------------------------------------------------
+            
+            if (option.enableAds === true && process.env.REACT_APP_ENABLE_ADS == true) {
+                art.plugins.add(artplayerPluginAds({
+                    html: `<img src="${mainLogo}">`,
+                    video: '/ads/' + playerAds.video,
+                    url: playerAds.link,
+                    playDuration: playerAds.skipDuration,
+                    totalDuration: playerAds.totalDuration,
+                    i18n: {
+                        close: 'SKIP ADS',
+                        countdown: '%ss',
+                        detail: playerAds.name,
+                        canBeClosed: 'ADS CAN BE CLOSED AFTER %s SECONDS',
+                    },
+                }));
+            }
+
+            // The ad was clicked
+            art.on('artplayerPluginAds:click', (ads) => {
+                console.log('Ad was clicked', ads);
+            });
+
+            // Advertisement is skipped
+            art.on('artplayerPluginAds:skip', (ads) => {
+                console.log('Ad was skipped', ads);
+            });
+
+            // End -----------------------------------------------------------------------------------------------------------------------
+    
         }
 
     }, []);

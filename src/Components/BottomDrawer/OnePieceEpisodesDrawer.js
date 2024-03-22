@@ -140,30 +140,11 @@ export default function AnimeEpisodesDrawer({ details, downloadUrl, mediaId, epi
             <div className='tv_episodes_appbar' position="fixed" color='success'>
               <Toolbar>
                     <Grid container direction="row" columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={0}>
-                      {/* <Grid item xl={2} lg={2} md={2} sm={2} xs={2} style={{ display: 'flex', alignItems: 'center', height: '6.5vh' }}>
-                        <IconButton title='Close' onClick={toggleDrawer(anchor, false)}><CloseIcon/></IconButton>
-                      </Grid> */}
                       <Grid item xl={6} lg={6} md={6} sm={6} xs={6} style={{ display: 'flex', alignItems: 'center', height: '6.5vh' }}>
                         <Typography variant='p' sx={{ fontWeight: '550' }}>EPISODES ({norm_episodes?.length})</Typography>
                       </Grid>
                       <Grid item xl={6} lg={6} md={6} sm={6} xs={6} style={{ display: 'flex', alignItems: 'center', height: '6.5vh', justifyContent: 'right' }}>
-                        {currentData?.length > 0 && (
-                          <>
-                            <IconButton 
-                              title='Previous Page'
-                              onClick={() => handlePageChange(drawerCurrentPage - 1)}
-                              disabled={drawerCurrentPage === 1}>
-                                <ArrowBackIosNewIcon/>
-                            </IconButton>
-                            <span>{drawerCurrentPage} of {totalPages}</span>
-                            <IconButton 
-                              title='Next Page'
-                              onClick={() => handlePageChange(drawerCurrentPage + 1)}
-                              disabled={drawerCurrentPage === totalPages}>
-                                <ArrowForwardIosIcon/>
-                            </IconButton>
-                          </>
-                        )}
+                        
                       </Grid>
                     </Grid>
               </Toolbar>

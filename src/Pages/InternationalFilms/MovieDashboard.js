@@ -265,7 +265,6 @@ const MovieDashboard = (props) => {
     resourceValue = resourceData?.data;
   }
 
-
   const previousEpisode = () => {
     seekTimeValue.current = 0;
     const selectedItemIndex = infoValue?.episodes?.indexOf(infoValue?.episodes?.find((item) => item.season == selectedSeason && item.id == selectedEpisode));
@@ -303,7 +302,7 @@ const MovieDashboard = (props) => {
       additionalControls.push({
         position: 'right',
         html: `PREV.`,
-        tooltip: 'PREVIOUS EPISODE',
+        tooltip: 'Previous Episode',
         style: {
             marginRight: '10px',
             color: '#DC4C64'
@@ -319,7 +318,7 @@ const MovieDashboard = (props) => {
       additionalControls.push({
         position: 'right',
         html: `NEXT`,
-        tooltip: 'NEXT EPISODE',
+        tooltip: 'Next Episode',
         style: {
             marginRight: '10px',
             color: '#DC4C64'
@@ -413,7 +412,7 @@ const MovieDashboard = (props) => {
                 tooltip: defaultSubtitleToolTip || "No selected",
                 icon: `<img width="22" heigth="22" src="${subtitleLogo}">`,
                 selector: [
-                {
+                  {
                     html: 'Display',
                     tooltip: 'Show',
                     switch: true,
@@ -422,34 +421,33 @@ const MovieDashboard = (props) => {
                         this.subtitle.show = !item.switch;
                         return !item.switch;
                     },
+                  },
+                  ...videoSubtitles
+                  ],
+                  onSelect: function (item) {
+                      this.subtitle.switch(item.url, {
+                          name: item.html,
+                      });
+                      return item.html;
+                  },
                 },
-                ...videoSubtitles
-                ],
-                onSelect: function (item) {
-                    this.subtitle.switch(item.url, {
-                        name: item.html,
-                    });
-                    return item.html;
-                },
+              ],
+              // quality: videoQualities,
+              subtitle: {
+                  url: defaultSubtitle,
+                  type: getFileExtention(defaultSubtitle),
+                  style: {
+                      color: '#fe9200',
+                      fontSize: '20px',
+                  },
+                  encoding: 'utf-8',
               },
-            ],
-            // quality: videoQualities,
-            subtitle: {
-                url: defaultSubtitle,
-                type: getFileExtention(defaultSubtitle),
-                style: {
-                    color: '#fe9200',
-                    fontSize: '20px',
-                },
-                encoding: 'utf-8',
-            },
-            headers: {
-              Referer: 'https://flixhq.to/',
-              Origin: 'https://flixhq.to/'
-            },
-            controls: additionalControls,
+              headers: {
+                Referer: apiConfig.flixhq_referer,
+                Origin: apiConfig.flixhq_referer
+              },
+              controls: additionalControls,
             }}
-            getInstance={(art) => console.info(art.getCurrentTime)}
           />
         )}
       </div>

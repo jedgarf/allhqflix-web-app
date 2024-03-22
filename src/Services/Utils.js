@@ -413,6 +413,10 @@ const secondsToHMS = (seconds) => {
   return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
 }
 
+const randomizeArray = (items) => {
+  return items[Math.floor(Math.random() * items.length)];
+}
+
 export { shortenTextHeight, 
          streamDashboardBackButton, 
          moveToTop, 
@@ -440,4 +444,5 @@ export { shortenTextHeight,
          capitalizeString,
          replaceUnderscoreToSpace, 
          convertMinutesToHoursAndMinutes, 
-         secondsToHMS };
+         secondsToHMS,
+         randomizeArray };

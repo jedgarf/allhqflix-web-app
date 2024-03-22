@@ -1,5 +1,5 @@
 // Packages
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, Fragment } from "react";
 import { useQuery } from 'react-query';
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
@@ -206,7 +206,7 @@ const AsianFilmsDashboard = (props) => {
       additionalControls.push({
         position: 'right',
         html: `PREV.`,
-        tooltip: 'PREVIOUS EPISODE',
+        tooltip: 'Previous Episode',
         style: {
             marginRight: '10px',
             color: '#DC4C64'
@@ -223,7 +223,7 @@ const AsianFilmsDashboard = (props) => {
       additionalControls.push({
         position: 'right',
         html: `NEXT`,
-        tooltip: 'NEXT EPISODE',
+        tooltip: 'Next Episode',
         style: {
             marginRight: '10px',
             color: '#DC4C64'
@@ -286,47 +286,46 @@ const AsianFilmsDashboard = (props) => {
               hotkey: true,
               setting: true,
               settings: [
-              {
-                  html: 'Sources',
+                {
+                    html: 'Sources',
+                    width: 300,
+                    tooltip: defaultQualityToolTip || "No selected",
+                    icon: `<img width="22" heigth="22" src="${videoQuality}">`,
+                    selector: videoQualities,
+                    onSelect: function (item, $dom, event) {
+                        console.info(item, $dom, event);
+                        this.switchQuality(item.url, item.html);
+                        return item.html;
+                    },
+                },
+                {
                   width: 300,
-                  tooltip: defaultQualityToolTip || "No selected",
-                  icon: `<img width="22" heigth="22" src="${videoQuality}">`,
-                  selector: videoQualities,
-                  onSelect: function (item, $dom, event) {
-                      console.info(item, $dom, event);
-                      this.switchQuality(item.url, item.html);
+                  html: 'Subtitles',
+                  tooltip: defaultSubtitleToolTip || "No selected",
+                  icon: `<img width="22" heigth="22" src="${subtitleLogo}">`,
+                  selector: [
+                    {
+                        html: 'Display',
+                        tooltip: 'Show',
+                        switch: true,
+                        onSwitch: function (item) {
+                            item.tooltip = item.switch ? 'Hide' : 'Show';
+                            this.subtitle.show = !item.switch;
+                            return !item.switch;
+                        },
+                    },
+                    ...videoSubtitles
+                    ],
+                    onSelect: function (item) {
+                      this.subtitle.switch(item.url, {
+                          name: item.html,
+                      });
                       return item.html;
                   },
-              },
-              {
-                width: 300,
-                html: 'Subtitles',
-                tooltip: defaultSubtitleToolTip || "No selected",
-                icon: `<img width="22" heigth="22" src="${subtitleLogo}">`,
-                selector: [
-                  {
-                      html: 'Display',
-                      tooltip: 'Show',
-                      switch: true,
-                      onSwitch: function (item) {
-                          item.tooltip = item.switch ? 'Hide' : 'Show';
-                          this.subtitle.show = !item.switch;
-                          return !item.switch;
-                      },
-                  },
-                  ...videoSubtitles
-                  ],
-                  onSelect: function (item) {
-                    this.subtitle.switch(item.url, {
-                        name: item.html,
-                    });
-                    return item.html;
                 },
-              },
-            ],
-            controls: additionalControls,
+              ],
+              controls: additionalControls,
             }}
-            getInstance={(art) => console.log("getInstance", art)}
           />
         </>
         ) : (
@@ -336,8 +335,8 @@ const AsianFilmsDashboard = (props) => {
 
       <div className="asian_tv_info">
         
-        {infoValue?.episodes?.length > 1 ?
-          <>
+        {infoValue?.episodes?.length > 1 &&
+          <Fragment>
             <Box className="episodesBtn" display={{ xs: 'block', sm: 'block', md: 'none', lg: 'none' }}>
               <AsianEpisodesDrawer
                 details={infoValue} 
@@ -366,10 +365,7 @@ const AsianFilmsDashboard = (props) => {
                 drawerAlign={'right'}
               />
             </Box>
-          </>
-        : 
-        ''}
-        
+          </Fragment>}
         <div className={infoValue?.episodes?.length > 1 ? 'content-details' : 'content-details asian-movie'}>
           <Grid container columnSpacing={{ xs: 1, sm: 2, md: 5, lg: 5, xl: 5 }} rowSpacing={5}>
             <Grid item xl={12} lg={12} md={12} sm={12} xs={12} display={{ xs: 'none', sm: 'none', md: 'none', lg: 'block' }}>
@@ -433,9 +429,11 @@ const AsianFilmsDashboard = (props) => {
         </div>
       </div>
       <br/><br/>
-      <div className="heading bheading">
-        <h6>You May Also Like</h6>
-      </div>
+      {infoValue?.suggestions && infoValue?.suggestions?.length && 
+        <div className="heading bheading">
+          <h6>You May Also Like</h6>
+        </div>
+      }
       <AsianFilmsSuggestions infoValue={infoValue} Type={type} />
       <FloatingButton/>
       <Footer/>

@@ -211,7 +211,7 @@ const AnimeDashboard = (props) => {
       additionalControls.push({
         position: 'right',
         html: `PREV.`,
-        tooltip: 'PREVIOUS EPISODE',
+        tooltip: 'Previous Episode',
         style: {
             marginRight: '10px',
             color: '#DC4C64'
@@ -228,7 +228,7 @@ const AnimeDashboard = (props) => {
       additionalControls.push({
         position: 'right',
         html: `NEXT`,
-        tooltip: 'NEXT EPISODE',
+        tooltip: 'Next Episode',
         style: {
             marginRight: '10px',
             color: '#DC4C64'
@@ -291,52 +291,51 @@ const AnimeDashboard = (props) => {
                 hotkey: true,
                 setting: true,
                 settings: [
-                {
-                    html: 'Video Resolutions',
-                    width: 300,
-                    tooltip: defaultQualityToolTip,
-                    icon: `<img width="22" heigth="22" src="${videoQuality}">`,
-                    selector: videoQualities,
-                    onSelect: function (item, $dom, event) {
-                        console.info(item, $dom, event);
-                        this.switchQuality(item.url, item.html);
-                        return item.html;
-                    },
-                },
-                {
-                  html: 'Subtitles',
-                  width: 300,
-                  tooltip: "No selected",
-                  icon: `<img width="22" height="22" src="${subtitleLogo}">`,
-                  selector: [
                   {
-                      html: 'Display',
-                      tooltip: 'Show',
-                      switch: true,
-                      onSwitch: function (item) {
-                          item.tooltip = item.switch ? 'Hide' : 'Show';
-                          this.subtitle.show = !item.switch;
-                          return !item.switch;
+                      html: 'Video Resolutions',
+                      width: 300,
+                      tooltip: defaultQualityToolTip,
+                      icon: `<img width="22" heigth="22" src="${videoQuality}">`,
+                      selector: videoQualities,
+                      onSelect: function (item, $dom, event) {
+                          console.info(item, $dom, event);
+                          this.switchQuality(item.url, item.html);
+                          return item.html;
                       },
                   },
-                  {"default": false, "html": "Add Subtitle", "url": "add.vtt"},
-                  ],
-                  onSelect: function (item) {
-                      if (item.html === 'Add Subtitle') {
-                        alert('Under Development.');
-                      } else {
-                        this.subtitle.switch(item.url, {
-                          name: item.html,
-                        }); 
-                        return item.html;
-                      }
+                  {
+                    html: 'Subtitles',
+                    width: 300,
+                    tooltip: "No selected",
+                    icon: `<img width="22" height="22" src="${subtitleLogo}">`,
+                    selector: [
+                    {
+                        html: 'Display',
+                        tooltip: 'Show',
+                        switch: true,
+                        onSwitch: function (item) {
+                            item.tooltip = item.switch ? 'Hide' : 'Show';
+                            this.subtitle.show = !item.switch;
+                            return !item.switch;
+                        },
+                    },
+                    {"default": false, "html": "Add Subtitle", "url": "add.vtt"},
+                    ],
+                    onSelect: function (item) {
+                        if (item.html === 'Add Subtitle') {
+                          alert('Under Development.');
+                        } else {
+                          this.subtitle.switch(item.url, {
+                            name: item.html,
+                          }); 
+                          return item.html;
+                        }
+                    },
                   },
-                },
-              ],
-              controls: additionalControls,
-              // quality: videoQualities,
+                ],
+                controls: additionalControls,
+                // quality: videoQualities,
               }}
-              getInstance={(art) => console.log("getInstance", art)}
             />
           </>
         ) : (
