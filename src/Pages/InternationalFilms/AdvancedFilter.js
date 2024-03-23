@@ -207,7 +207,7 @@ function AdvancedFilter() {
   }, [currentYear]);
 
   return (
-    isLoading ? 
+    generalData.isLoading ? 
       <LoadingPage/>
     : 
     <div className="search_result">

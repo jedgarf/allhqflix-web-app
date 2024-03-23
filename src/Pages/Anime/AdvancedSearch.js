@@ -28,8 +28,8 @@ import LoadingPage from "../../Components/LoadingPage/LoadingPage";
 import SearchResult from "../../Components/SearchResult/SearchResult";
 import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
-import { pageLoadMS,  
-         anime_genres,
+import { pageLoadMS, 
+         anime_genres, 
          anime_types, 
          anime_formats, 
          anime_sorts, 
@@ -244,7 +244,7 @@ function AdvancedSearch() {
   }, [currentYear]);
 
   return (
-    isLoading ? 
+    generalData.isLoading ? 
         <LoadingPage/>
     : 
     <div className="search_result">

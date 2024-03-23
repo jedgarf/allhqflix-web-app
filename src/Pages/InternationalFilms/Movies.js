@@ -80,7 +80,7 @@ const Movies = () => {
   }, []);
 
   return (
-      isLoading ? 
+      discoverData.isLoading ? 
         <LoadingPage/>
       : 
       <div className="movies">

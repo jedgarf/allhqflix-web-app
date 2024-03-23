@@ -93,7 +93,7 @@ function AsianFilmsFilterByCountry() {
   }, []);
 
   return (
-    isLoading ? 
+    countryData.isLoading ? 
       <LoadingPage/>
     : 
     <div className="search_result">

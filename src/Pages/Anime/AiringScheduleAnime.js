@@ -80,7 +80,7 @@ function AiringScheduleAnime() {
   }, []);
 
   return (
-    isLoading ? 
+    airingScheduleData.isLoading ? 
       <LoadingPage/>
     : 
     <div className="search_result">

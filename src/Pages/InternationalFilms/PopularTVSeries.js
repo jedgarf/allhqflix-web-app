@@ -77,7 +77,7 @@ function PopularTVSeries() {
   }, []);
 
   return (
-    isLoading ? 
+    popularData.isLoading ? 
       <LoadingPage/>
     : 
     <div className="search_result">

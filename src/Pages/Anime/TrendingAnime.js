@@ -80,7 +80,7 @@ function TrendingAnime() {
   }, []);
 
   return (
-    isLoading ? 
+    trendingData.isLoading ? 
       <LoadingPage/>
     : 
     <div className="search_result">

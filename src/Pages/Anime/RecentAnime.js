@@ -80,7 +80,7 @@ function RecentAnime() {
   }, []);
 
   return (
-    isLoading ? 
+    recentData.isLoading ? 
       <LoadingPage/>
     : 
     <div className="search_result">

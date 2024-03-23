@@ -93,7 +93,7 @@ function AnimeFilterByGenre() {
   }, []);
 
   return (
-    isLoading ? 
+    genreData.isLoading ? 
       <LoadingPage/>
     : 
     <div className="search_result">

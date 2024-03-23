@@ -80,7 +80,7 @@ const AsianDrama = () => {
   }, []);
 
   return (
-    isLoading ? 
+    discoverData.isLoading ? 
       <LoadingPage/>
     : 
     <div className="movies">

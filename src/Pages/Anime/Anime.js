@@ -75,7 +75,7 @@ const Anime = () => {
   }, []);
 
   return (
-    isLoading ? 
+    trendingData.isLoading ? 
       <LoadingPage/>
     : 
     <div className="movies">

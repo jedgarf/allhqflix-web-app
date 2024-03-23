@@ -94,7 +94,7 @@ function FilterByGenre() {
   }, []);
 
   return (
-    isLoading ? 
+    countryData.isLoading ? 
       <LoadingPage/>
     : 
     <div className="search_result">
