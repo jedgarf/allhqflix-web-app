@@ -26,9 +26,9 @@ export default function LanguageListTooltip({ text, languages }) {
               <h3>Subtitles:</h3>
               <hr/>
               <ul style={{ marginLeft: 10, marginTop: 3 }}>
-                {languages?.map((item, num) => {
+                {languages?.map((item, index) => {
                   return(
-                    <li>{item.lang}</li>
+                    <li key={index}>{item.lang}</li>
                   )
                 })}
               </ul>

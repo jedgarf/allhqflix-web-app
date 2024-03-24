@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect, useCallback, Fragment } from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import { useQuery } from 'react-query';
 
@@ -181,7 +181,7 @@ const MoviePlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ser
               <Slider {...manual_selection_carousel_settings} infinite={false} style={{ marginInline: 10 }}>
                   {serverInfo.data.map((item, index) => {
                       return (
-                          <>
+                          <Fragment key={index}>
                               {server_status.filter((serverValue) => serverValue.code === item.name).length > 0 ? (
                                   <>
                                   {server_status.filter((serverValue) => serverValue.code === item.name).map((subItem, subNo) => {
@@ -202,7 +202,7 @@ const MoviePlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ser
                                   })}
                                   </>
                               ) : ("")}        
-                          </>
+                          </Fragment>
                       )
                   })}
               </Slider>
@@ -402,9 +402,11 @@ const SeriesPlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ep
               <Typography variant='h6' sx={{ marginBottom: 1 }}>Seasons ({seasons?.length})</Typography>
               <Slider {...manual_selection_carousel_settings} infinite={false} style={{ marginInline: 10, marginBottom: 25 }}>
                   {seasons?.map((item, index) => {
-                    return (<><Button size='small' variant={item.id === seasonNumber ? 'contained' : 'outlined'} style={{ marginInline: 3 }} onClick={() => onSelectSeason(item.id, seasonNumber)}>
-                                {item.count}
-                            </Button></>)
+                    return (<Fragment key={index}>
+                              <Button size='small' variant={item.id === seasonNumber ? 'contained' : 'outlined'} style={{ marginInline: 3 }} onClick={() => onSelectSeason(item.id, seasonNumber)}>
+                                  {item.count}
+                              </Button>
+                            </Fragment>)
                   })}
               </Slider>
             </Grid>
@@ -437,9 +439,11 @@ const SeriesPlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ep
               {episodeList.length > 0 ? (
                 <Slider {...manual_selection_carousel_settings} infinite={false} style={{ marginInline: 10 }}>
                     {episodeList.map((item, index) => {
-                      return (<><Button size='small' variant={item.id === episodeNumber ? 'contained' : 'outlined'} title={item.title} style={{ marginInline: 3 }} onClick={() => onSelectEpisode(item.id, episodeNumber)}>
+                      return (<Fragment key={index}>
+                                <Button size='small' variant={item.id === episodeNumber ? 'contained' : 'outlined'} title={item.title} style={{ marginInline: 3 }} onClick={() => onSelectEpisode(item.id, episodeNumber)}>
                                   {item.number}
-                              </Button></>)
+                                </Button>
+                              </Fragment>)
                     })}
                 </Slider>
               ) : (<Typography sx={{ textAlign: 'center' }}>Select season first</Typography>)}
@@ -458,7 +462,7 @@ const SeriesPlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ep
                       <Slider {...manual_selection_carousel_settings} infinite={false} style={{ marginInline: 10 }}>
                           {serverList.map((item, index) => {
                               return (
-                                  <>
+                                  <Fragment key={index}>
                                     {server_status.filter((serverValue) => serverValue.code === item.name).length > 0 ? (
                                         <>
                                         {server_status.filter((serverValue) => serverValue.code === item.name).map((subItem, subNo) => {
@@ -481,7 +485,7 @@ const SeriesPlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ep
                                         })}
                                         </>
                                     ) : ("")}        
-                                  </>
+                                  </Fragment>
                               )
                           })}
                       </Slider>

@@ -10,7 +10,7 @@ const github_link = "https://github.com/jedgarf";
 const site_email = "jedgarf.dev12@gmail.com";
 const search_bar = true;
 const defaultInternationalServer = process.env.REACT_APP_INTNL_DEFAULT_SERVER || 'upcloud';
-const defaultInternationalVideoRes = "360";
+const defaultInternationalVideoRes = "auto";
 
 const pageLoadMS = 1000;
 

@@ -1,7 +1,6 @@
 import axios from 'axios';
 import apiConfig from '../Config/api.config';
 
-const proxyServer = apiConfig.override_cors;
 const url = apiConfig.fixhq_base_url;
 const rabbitgunUrl = apiConfig.rabbitthunder;
 

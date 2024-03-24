@@ -79,6 +79,7 @@ const MovieDashboard = (props) => {
   const [selectedSeason, setSelectedSeason] = useState(paramSeasonId);
   const [selectedEpisode, setSelectedEpisode] = useState(paramEpisodeId);
   const [selectedServer, setSelectedServer] = useState(null);
+  const [selectedRabbitstreamId, setSelectedRabbitstreamId] = useState(null);
   const [selectedEpisodeName, setSelectedEpisodeName] = useState(null);
   const [totalEpisodes, setTotalEpisodes] = useState(0);
   const [episodeNum, setEpisodeNum] = useState(0);
@@ -90,14 +91,14 @@ const MovieDashboard = (props) => {
       setSnackBarOpen(false);
   };
 
-  const chooseServer = (server) => {
+  const chooseServer = (server, rabbitstreamId) => {
     if (server === selectedServer) {
       moveToTop();
     } else {
       // seekTimeValue.current = artInstance.currentTime;
       seekTimeValue.current = 0;
       setLoadingEpisode(true);
-      set_selectedServer(server);
+      set_selectedServer(server, rabbitstreamId);
       moveToTop();
     }
   }
@@ -123,21 +124,25 @@ const MovieDashboard = (props) => {
 
   }, [selectedSeason, selectedEpisode]);
 
-  const set_selectedServer = useCallback((server) => {
+  const set_selectedServer = useCallback((server, rabbitstreamId) => {
 
     if (server !== undefined) {
       if (server.length > 0) {
         if (paramServer != null) {
           if (server === paramServer) {
             setSelectedServer(paramServer);
+            setSelectedRabbitstreamId(rabbitstreamId);
           } else {
             setSelectedServer(server);
+            setSelectedRabbitstreamId(rabbitstreamId);
           }
         } else {
           if (Array.isArray(server)) {
             setSelectedServer(server.data[0].name);
+            setSelectedRabbitstreamId(server.data[0].rabbitstream_id);
           } else {
             setSelectedServer(server);
+            setSelectedRabbitstreamId(rabbitstreamId);
           }
         }
       } else {
@@ -240,18 +245,21 @@ const MovieDashboard = (props) => {
   let serverValue = serverData?.data;
   
   let serverVar = selectedServer;
+  let rabbitStreamId = selectedRabbitstreamId;
 
   if (serverData.isSuccess) {
     const defaultServer = serverValue.data.filter(item => item.name === defaultInternationalServer).length > 0 ? serverValue.data.filter(item => item.name === defaultInternationalServer)[0].name : serverValue.data[0]?.name;
     serverVar = selectedServer || paramServer || defaultServer;
+    const rabbitstream_id = serverValue.data.filter(item => item.name === defaultInternationalServer).length > 0 ? serverValue.data.filter(item => item.name === defaultInternationalServer)[0].rabbitstream_id : serverValue.data[0]?.rabbitstream_id;
+    rabbitStreamId = selectedRabbitstreamId || rabbitstream_id;
   }
 
   // movie link
-  let resourceData = useQuery(['movie_stream_links', {episodeIdVar, indexId, serverVar}], movie_stream_links, {
+  let resourceData = useQuery(['movie_stream_links', {episodeIdVar, indexId, serverVar, rabbitStreamId}], movie_stream_links, {
     cacheTime: 24 * 60 * 60 * 1000, // 24 hours
     refetchOnWindowFocus: false,
     notifyOnChangeProps: "tracked",
-    enabled: indexId !== null && episodeIdVar !== null && serverVar !== null,
+    enabled: indexId !== null && episodeIdVar !== null && serverVar !== null && rabbitStreamId !== null,
     onError: (error) => {
           setSnackBarType('error');
           setSnackBarMessage(`Source link not available in ${serverVar}, please switch to another server.`);
@@ -337,7 +345,7 @@ const MovieDashboard = (props) => {
     }
 
     if (serverData.isSuccess) {
-      set_selectedServer(serverVar);
+      set_selectedServer(serverVar, rabbitStreamId);
     }
 
     if (resourceData.isSuccess) {
@@ -363,7 +371,8 @@ const MovieDashboard = (props) => {
       serverValue, 
       set_selectedSeasonEpisode, 
       set_selectedServer, 
-      set_selectedLinkSubtitle]);
+      set_selectedLinkSubtitle,
+      rabbitStreamId]);
 
   return (
     <div className="movie_dashboard">
@@ -468,7 +477,7 @@ const MovieDashboard = (props) => {
                                 return (
                                     <>
                                         {subItem.status === 'stable' ?
-                                        (<Button variant={selectedServer === item.name ? 'contained' : 'outlined'} startIcon={<OndemandVideoIcon/>} size="small" style={{ marginInline: 8 }} onClick={() => chooseServer(item.name)}>
+                                        (<Button variant={selectedServer === item.name ? 'contained' : 'outlined'} startIcon={<OndemandVideoIcon/>} size="small" style={{ marginInline: 8 }} onClick={() => chooseServer(item.name, item.rabbitstream_id)}>
                                             {`Server ${index+1}`}
                                         </Button>)
                                         : 
