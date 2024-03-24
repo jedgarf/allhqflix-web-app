@@ -57,6 +57,7 @@ const MovieStreamDashboard = (props) => {
     const [seasonIdVar, setSeasonIdVar] = useState(1);
     const [episodeIdVar, setEpisodeIdVar] = useState(null);
     const [serverVar, setServerVar] = useState(selectedServer);
+    const [rabbitStreamId, setRabbitStreamId] = useState(null);
     const [hasPlayButton, setHasPlayButton] = useState(false);
 
     const [errorMessage, setErrorMessage] = useState("");
@@ -110,7 +111,9 @@ const MovieStreamDashboard = (props) => {
         enabled: indexId !== null && episodeIdVar !== null,
         onSuccess: (response) => {
             const defaultServer = response.data.filter(item => item.name === defaultInternationalServer).length > 0 ? response.data.filter(item => item.name === defaultInternationalServer)[0]?.name : response.data[0]?.name;
+            const rabbitstreamId = response.data.filter(item => item.name === defaultInternationalServer).length > 0 ? response.data.filter(item => item.name === defaultInternationalServer)[0]?.rabbitstream_id : response.data[0]?.rabbitstream_id;
             setServerVar(serverVar || defaultServer);  
+            setRabbitStreamId(rabbitStreamId || rabbitstreamId);
             setHasPlayButton(true);
         }
     });
@@ -118,12 +121,12 @@ const MovieStreamDashboard = (props) => {
     let serverValue = serverData?.data;
 
     // movie link
-    let resourceData = useQuery(['movie_stream_links', {episodeIdVar, indexId, serverVar}], movie_stream_links, {
+    let resourceData = useQuery(['movie_stream_links', {episodeIdVar, indexId, serverVar, rabbitStreamId}], movie_stream_links, {
         cacheTime: 24 * 60 * 60 * 1000, // 24 hours
         refetchOnWindowFocus: false,
         notifyOnChangeProps: "tracked",
         retry: 1, // Number of retries
-        enabled: indexId !== null && episodeIdVar !== null && serverVar !== null,
+        enabled: indexId !== null && episodeIdVar !== null && serverVar !== null && rabbitStreamId !== null,
         onError: (error) => {
             // error.response.status = http code
             // error.response.data.message = api message

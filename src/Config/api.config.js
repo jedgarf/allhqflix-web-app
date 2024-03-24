@@ -6,6 +6,7 @@ if (isLocalhost) base_url = localBaseUrl;
 
 var apiConfig = {
     "api_key": process.env.REACT_APP_API_KEY,
+    "rabbitthunder": process.env.REACT_APP_RABBITTHUNDER_URL,
     "override_cors": process.env.REACT_APP_OVERRIDE_CORS + "/",
     "override_cors2": process.env.REACT_APP_OVERRIDE_CORS2,
     "media_proxy_cors": process.env.REACT_APP_MEDIA_PROXY_CORS,

@@ -1,7 +1,9 @@
 import axios from 'axios';
 import apiConfig from '../Config/api.config';
 
+const proxyServer = apiConfig.override_cors;
 const url = apiConfig.fixhq_base_url;
+const rabbitgunUrl = apiConfig.rabbitthunder;
 
 axios.defaults.headers.common = {'Authorization': `Bearer ${apiConfig.api_key}`};
 // axios.defaults.withCredentials = true;
@@ -99,9 +101,10 @@ const movie_server = async ({ queryKey }) => {
 
 const movie_stream_links = async ({ queryKey }) => {
 
-    const [_key, { episodeIdVar, indexId, serverVar }] = queryKey;
+    const [_key, { episodeIdVar, indexId, serverVar, rabbitStreamId }] = queryKey;
 
-    const results = await axios.get(url + "/episode_sources?episodeId=" + episodeIdVar + "&mediaId=" + indexId + "&server=" + serverVar);
+    // const results = await axios.get(url + "/episode_sources?episodeId=" + episodeIdVar + "&mediaId=" + indexId + "&server=" + serverVar);
+    const results = await axios.post(`${rabbitgunUrl}/api/${serverVar}`, {id: rabbitStreamId});
     return results;
 
 };

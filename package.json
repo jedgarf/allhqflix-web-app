@@ -4,6 +4,9 @@
     "version": "0.1.0",
     "private": true,
     "main": "electron-main.js",
+    "engines": {
+        "node": "18"
+    },
     "dependencies": {
         "@codesweetly/react-youtube-playlist": "^1.0.13",
         "@emotion/react": "^11.9.3",
