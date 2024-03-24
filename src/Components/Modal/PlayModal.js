@@ -131,25 +131,27 @@ const MoviePlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ser
       <CssBaseline />
 
       {resourceData.isSuccess && resourceInfo?.data?.sources?.length > 0 ? 
-      (<Button
-        id="demo-customized-button"
-        size='small'
-        aria-controls={open ? 'demo-customized-menu' : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
-        variant="contained"
-        disableElevation
-        onClick={handleClick}
-        startIcon={<PlayCircleOutlineIcon />}
-        endIcon={<KeyboardArrowDownIcon />}
-        style={{ marginRight: '10px' }}
-      >
-        PLAY
-      </Button>)
-        : 
-      (<Button aria-label='SERVER SELECTION' variant='contained' size='small' style={{ marginRight: '10px' }} onClick={() => handleModal(true)} startIcon={<TuneOutlinedIcon/>}>
-        SERVER SELECTION
-      </Button>)}
+        (<Button
+          id="demo-customized-button"
+          size='small'
+          aria-controls={open ? 'demo-customized-menu' : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? 'true' : undefined}
+          variant="contained"
+          disableElevation
+          onClick={handleClick}
+          startIcon={<PlayCircleOutlineIcon />}
+          endIcon={<KeyboardArrowDownIcon />}
+          style={{ marginRight: '10px' }}
+        >
+          PLAY
+        </Button>)
+      : 
+        !resourceData.isLoading && 
+        <Button aria-label='SERVER SELECTION' variant='contained' size='small' style={{ marginRight: '10px' }} onClick={() => handleModal(true)} startIcon={<TuneOutlinedIcon/>}>
+          SERVER SELECTION
+        </Button>
+      }
       {/* <Latency/> */}
 
       <StyledMenu
@@ -357,9 +359,11 @@ const SeriesPlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ep
             PLAY
           </Button>)
          : 
-         (<Button aria-label='SERVER SELECTION' variant='contained' size='small' style={{ marginRight: '10px' }} onClick={() => handleModal(true)} startIcon={<TuneOutlinedIcon/>}>
+         !resourceData.isLoading && 
+         <Button aria-label='SERVER SELECTION' variant='contained' size='small' style={{ marginRight: '10px' }} onClick={() => handleModal(true)} startIcon={<TuneOutlinedIcon/>}>
             SERVER SELECTION
-          </Button>)}
+          </Button>
+         }
           {/* <Latency/> */}
 
         <StyledMenu

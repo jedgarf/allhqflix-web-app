@@ -473,9 +473,9 @@ const MovieDashboard = (props) => {
                         <Fragment key={index}>
                           {server_status.filter((serverValue) => serverValue.code === item.name).length > 0 ? (
                             <>
-                            {server_status.filter((serverValue) => serverValue.code === item.name).map((subItem, subNo) => {
+                            {server_status.filter((serverValue) => serverValue.code === item.name).map((subItem, index) => {
                                 return (
-                                    <>
+                                    <Fragment key={index}>
                                         {subItem.status === 'stable' ?
                                         (<Button variant={selectedServer === item.name ? 'contained' : 'outlined'} startIcon={<OndemandVideoIcon/>} size="small" style={{ marginInline: 8 }} onClick={() => chooseServer(item.name, item.rabbitstream_id)}>
                                             {`Server ${index+1}`}
@@ -486,7 +486,7 @@ const MovieDashboard = (props) => {
                                               {`Server ${index+1}`}
                                           </Button>
                                         )}
-                                    </>
+                                    </Fragment>
                                 )
                             })}
                             </>
