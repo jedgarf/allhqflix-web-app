@@ -309,6 +309,14 @@ const MovieStreamDashboard = (props) => {
                     <div className='stream-dashboard-playbutton'>
                         {infoData.isSuccess && <TraillerModal category="foreign" infoValue={infoValue} setSnackBarType={setSnackBarType} setSnackBarMessage={setSnackBarMessage} setSnackBarOpen={setSnackBarOpen}/>}
                         
+                        {(resourceData.isLoading || !resourceValue?.data?.sources) && 
+                            <CircularProgress
+                                sx={{ color: 'white', marginBottom: '-5px !important' }} 
+                                size={20} 
+                                thickness={5} 
+                            />
+                        }
+
                         {infoData.isSuccess && serverData.isSuccess ? 
                             infoValue?.episodes?.length > 0 && serverValue?.data?.length > 0 ? 
                                 type === 'movie' ? (
@@ -318,14 +326,6 @@ const MovieStreamDashboard = (props) => {
                                     hasPlayButton && infoData.isSuccess && serverData.isSuccess &&
                                         <SeriesPlayModal mediaInfo={infoValue} serverInfo={serverValue} resourceData={resourceData} resourceInfo={resourceValue} serverVar={serverVar} seasonIdVar={seasonIdVar} episodeIdVar={episodeIdVar} episodes={seasons} setServerVar={setServerVar} setSeasonIdVar={setSeasonIdVar} setEpisodeIdVar={setEpisodeIdVar} url={`/watch/${indexId}`} />
                                 )
-                            : ""
-                        : 
-                            !resourceData.isError ? 
-                                <CircularProgress
-                                    sx={{ color: 'white', marginBottom: '-5px !important' }} 
-                                    size={20} 
-                                    thickness={5} 
-                                />
                             : 
                                 <Button 
                                     id="demo-customized-button"
@@ -341,6 +341,21 @@ const MovieStreamDashboard = (props) => {
                                 >
                                 PLAY
                                 </Button>
+                        : 
+                            <Button 
+                                id="demo-customized-button"
+                                size='small'
+                                aria-controls={undefined}
+                                aria-haspopup="true"
+                                aria-expanded={undefined}
+                                variant="contained"
+                                disableElevation
+                                startIcon={<PlayCircleOutlineIcon />}
+                                style={{ marginRight: '10px' }}
+                                disabled={true}
+                            >
+                            PLAY
+                            </Button>
                         }
                     </div>
                 </div>
