@@ -27,6 +27,7 @@ import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
 // Config
 import { pageLoadMS } from "../../Config/settings.config";
+import { homeBackground } from "../../Config/images.config";
 
 // Utilities
 import { streamDashboardBackButton, SeparateArrayByComma } from "../../Services/Utils";
@@ -38,6 +39,7 @@ const AsianFilmsStreamDashboard = (props) => {
 
     const selectedEpisode = null;
 
+    const [BGImage, setBGImage] = useState("");
     const [isLoading, setIsLoading] = useState(true);
     const [isMobile, setIsMobile] = useState(false);
     const [episodeIdVar, setEpisodeIdVar] = useState(selectedEpisode);
@@ -96,6 +98,7 @@ const AsianFilmsStreamDashboard = (props) => {
 
     //choose the screen size 
     const handleResize = useCallback(() => {
+        setBGImage(infoValue?.cover);
         if (window.innerWidth < 720) {
             setIsMobile(true);
         } else {
@@ -103,11 +106,17 @@ const AsianFilmsStreamDashboard = (props) => {
         }
     }, []);
 
+    const handleBackgroundImageError = () => {
+        setBGImage(homeBackground);
+    }
+
     useEffect(() => {
         if (infoData.isSuccess) {
             document.title = `AllHQFlix - ${ infoValue?.title }`;
             handleResize();
         }
+
+        if (infoData.isLoading) setBGImage(homeBackground);
 
         if (infoData.isLoading || resourceData.isLoading) {
             setSnackBarType('info');
@@ -128,7 +137,7 @@ const AsianFilmsStreamDashboard = (props) => {
         : 
         <>
             <ReactQueryTools/>
-            <div style={{ backgroundColor: 'rgba(15, 22, 34, 1)', backgroundImage: isMobile ? `linear-gradient(rgba(15, 22, 34, 0.527),rgba(15, 22, 34, 0.5)) , url("${infoValue?.banner}")` : `linear-gradient(90deg, rgba(15, 22, 34, 1) 10%, rgba(15, 22, 34, 0.5) 90%) , url("${infoValue?.banner}")`, backgroundSize: isMobile ? '100% 100%' : '900px 100%', backgroundPosition: isMobile ? 'center' : 'right', backgroundRepeat: 'no-repeat', width: '99.9%'}}>
+            <div style={{ backgroundColor: 'rgba(15, 22, 34, 1)', backgroundImage: isMobile ? `linear-gradient(rgba(15, 22, 34, 0.527),rgba(15, 22, 34, 0.5)) , url("${BGImage}")` : `linear-gradient(90deg, rgba(15, 22, 34, 1) 10%, rgba(15, 22, 34, 0.5) 90%) , url("${infoValue?.banner}")`, backgroundSize: isMobile ? '100% 100%' : '900px 100%', backgroundPosition: isMobile ? 'center' : 'right', backgroundRepeat: 'no-repeat', width: '99.9%'}} onError={handleBackgroundImageError}>
                 <SnackBar severity={snackBarType} handleSnackBarOpen={handleSnackBarOpen} status={snackBarOpen} snackBarMessage={snackBarMessage} withLoading={snackBarWithLoading} />
                 <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={1} justifyContent="center">
                     <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>

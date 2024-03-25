@@ -104,9 +104,9 @@ const MovieDashboard = (props) => {
   }
 
   const set_selectedSeasonEpisode = useCallback((infoValue) => {
-    
+
+    setTotalEpisodes(infoValue?.episodes?.length);
     if (selectedSeason || selectedEpisode) {
-      setTotalEpisodes(infoValue?.episodes.length);
       for (let getSelEpisodeLength = 0; getSelEpisodeLength < infoValue?.episodes.length; getSelEpisodeLength++) {
         if (infoValue?.episodes[getSelEpisodeLength].id == selectedEpisode) {
           setSelectedSeason(infoValue?.episodes[getSelEpisodeLength].season);
@@ -118,6 +118,7 @@ const MovieDashboard = (props) => {
     } else {
       setSelectedSeason(1);
       setSelectedEpisode(infoValue?.episodes[0].id);
+      setEpisodeNum(1);
       setSelectedEpisodeName(infoValue?.episodes[0].title);
     }
     setRecommendations(infoValue?.recommendations);
@@ -241,6 +242,10 @@ const MovieDashboard = (props) => {
     refetchOnWindowFocus: false,
     notifyOnChangeProps: "tracked",
     enabled: indexId !== null && episodeIdVar !== null,
+    onSuccess: (res) => {
+      setSelectedServer(res?.data[0]?.name);
+      setSelectedRabbitstreamId(res?.data[0]?.rabbitstream_id);
+    }
   });
   let serverValue = serverData?.data;
   
@@ -473,9 +478,9 @@ const MovieDashboard = (props) => {
                         <Fragment key={index}>
                           {server_status.filter((serverValue) => serverValue.code === item.name).length > 0 ? (
                             <>
-                            {server_status.filter((serverValue) => serverValue.code === item.name).map((subItem, index) => {
+                            {server_status.filter((serverValue) => serverValue.code === item.name).map((subItem, subIndex) => {
                                 return (
-                                    <Fragment key={index}>
+                                    <Fragment key={subIndex}>
                                         {subItem.status === 'stable' ?
                                         (<Button variant={selectedServer === item.name ? 'contained' : 'outlined'} startIcon={<OndemandVideoIcon/>} size="small" style={{ marginInline: 8 }} onClick={() => chooseServer(item.name, item.rabbitstream_id)}>
                                             {`Server ${index+1}`}

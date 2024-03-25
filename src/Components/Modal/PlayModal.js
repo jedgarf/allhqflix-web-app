@@ -102,13 +102,16 @@ const MoviePlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ser
     setAnchorEl(null);
   };
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [server, setServer] = useState(serverVar);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [server, setServer] = useState(serverVar);
 
-    const handleModal = (status) => {
-        setIsModalOpen(status);
-        handleClose();
-    }
+  const queryParams = new URLSearchParams(window.location.search);
+  const mediaId = queryParams.get("mediaId");
+
+  const handleModal = (status) => {
+      setIsModalOpen(status);
+      handleClose();
+  }
 
   const onSelectServer = (name) => {
     setServer(name);
@@ -163,10 +166,18 @@ const MoviePlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ser
           open={open}
           onClose={handleClose}
         >
-        <Link className='text-link-without-underline' to={`${url}?server=${serverVar}`}>
+        {getCookie(decodeURIComponent(mediaId)) && 
+          <Link className='text-link-without-underline' to={`${url}?server=${serverVar}`}>
+            <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
+              <PlayCircleOutlineIcon />
+              CONTINUE ({secondsToHMS(JSON.parse(getCookie(decodeURIComponent(mediaId))).time)})
+            </MenuItem>
+          </Link>
+        }
+        <Link className='text-link-without-underline' to={`${url}?server=${serverVar}`} onClick={() => deleteCookie(decodeURIComponent(mediaId))}>
           <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
             <PlayCircleOutlineIcon />
-            QUICK PLAY
+            FROM THE BEGINNING
           </MenuItem>
         </Link>
         <MenuItem onClick={() => handleModal(true)} style={{ fontSize: '15px' }} disableRipple>
@@ -866,7 +877,7 @@ const AsianDramaPlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVa
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
 
-        {episodes.length > 1 || getCookie(mediaId) ? (
+        {episodes.length > 1 || getCookie(decodeURIComponent(mediaId)) ? (
           <Button
             id="demo-customized-button"
             size='small'
@@ -908,14 +919,14 @@ const AsianDramaPlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVa
               </MenuItem>
             </Link>
           }
-          <Link className='text-link-without-underline' to={`${url}?episode=${episodeIdVar}`} onClick={() => deleteCookie(mediaId)}>
+          <Link className='text-link-without-underline' to={`${url}?episode=${episodeIdVar}`} onClick={() => deleteCookie(decodeURIComponent(mediaId))}>
             <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
               <PlayCircleOutlineIcon />
               FROM THE BEGINNING
             </MenuItem>
           </Link>
           {episodes.length > 1 &&
-            <Link className='text-link-without-underline' to={`${url}?episode=${episodes[episodes.length-1].id}`} onClick={() => deleteCookie(mediaId)}>
+            <Link className='text-link-without-underline' to={`${url}?episode=${episodes[episodes.length-1].id}`} onClick={() => deleteCookie(decodeURIComponent(mediaId))}>
               <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
                 <PlayCircleOutlineIcon />
                 LATEST EPISODE

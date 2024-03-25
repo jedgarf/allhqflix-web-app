@@ -30,7 +30,7 @@ const PlayerLoading = () => {
 const Player = ({ defaultlink, infotitle, infocover, episodeNum, totalEpisodes, nextEpisode, seekTime, mediaId, episodeId, option, ...rest }) => {
 
     const queryParams = new URLSearchParams(window.location.search);
-    const paramDub = queryParams.get("dub") != null ? queryParams.get("dub") == 'true' : false;
+    const paramDub = queryParams.get("dub") ? queryParams.get("dub") == 'true' : false;
     const playerAds = randomizeArray(ads);
 
     const artRef = useRef();
@@ -141,7 +141,7 @@ const Player = ({ defaultlink, infotitle, infocover, episodeNum, totalEpisodes, 
             });
 
             art.on('video:ended', () => {
-                if (episodeNum === totalEpisodes) deleteCookie(mediaId);
+                if (episodeNum === totalEpisodes) deleteCookie(mediaId.includes("/") ? decodeURIComponent(mediaId) : mediaId);
                 // auto next function
                 if (totalEpisodes > 1) {
                     nextEpisode();
@@ -162,7 +162,7 @@ const Player = ({ defaultlink, infotitle, infocover, episodeNum, totalEpisodes, 
             
             art.on('video:timeupdate', () => {
                 if (episodeNum === totalEpisodes) {
-                    if (art.currentTime < (art.loadedTime-5)) saveProgress(mediaId, paramDub, episodeId, episodeNum, art.currentTime); 
+                    if (art.currentTime < (art.duration-5)) saveProgress(mediaId, paramDub, episodeId, episodeNum, art.currentTime); 
                 } else {
                     saveProgress(mediaId, paramDub, episodeId, episodeNum, art.currentTime);
                 }

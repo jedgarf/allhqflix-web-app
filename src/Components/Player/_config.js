@@ -52,15 +52,15 @@ export const destroyPlayFlv = () => {
 }
 
 export const saveProgress = (mediaId, paramDub, episodeId, episodeNum, currentTime) => {
+    console.log("test: ", mediaId + " - " + paramDub + " - " + episodeId + " - " + episodeNum + " - " + currentTime);
     _.throttle((currentTime) => {
-        // console.log('Saving progress:', currentTime);
         const mediaProgress = {
             dub: paramDub,
             episodeId: episodeId,
             episodeNumber: episodeNum,
             time: currentTime,
         };
-        if (getCookie(mediaId)) deleteCookie(mediaId);
+        if (getCookie(mediaId.includes("/") ? decodeURIComponent(mediaId) : mediaId)) deleteCookie(mediaId.includes("/") ? decodeURIComponent(mediaId) : mediaId);
         // save for 7 days
         addCookie(mediaId, JSON.stringify(mediaProgress), 7);
     }, 5000);

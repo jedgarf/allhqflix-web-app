@@ -37,6 +37,7 @@ import { streamDashboardBackButton, SeparateArrayByComma, convertMinutesToHoursA
 
 // Config
 import { pageLoadMS, foreign_country } from "../../Config/settings.config";
+import { homeBackground } from "../../Config/images.config";
 
 // Services
 import { anime_info, anime_stream_links } from "../../Services/AnimeService";
@@ -188,12 +189,18 @@ const MovieStreamDashboard = (props) => {
         }
     }, [indexId, infoValue?.image, infoValue?.artwork, infoValue?.cover]);
 
+    const handleBackgroundImageError = () => {
+        setBGImage(homeBackground);
+    }
+
     useEffect(() => {
         if (infoData.isSuccess) {
             document.title = `AllHQFlix - ${ infoValue?.title?.english || infoValue?.title?.userPreferred || infoValue?.title?.romaji || infoValue?.title?.native }`;
             handleResize();
             setLoadingPicture(false);
         }
+
+        if (infoData.isLoading) setBGImage(homeBackground);
 
         if (infoData.isLoading || resourceData.isLoading) {
             setSnackBarType('info');
@@ -223,7 +230,7 @@ const MovieStreamDashboard = (props) => {
         : 
         <>
             <ReactQueryTools/>
-            <div style={{backgroundImage: isMobile ? `linear-gradient(rgba(15, 22, 34, 0.527),rgba(15, 22, 34, 0.5)) , url("${BGImage}")` : `linear-gradient(to right, rgba(15, 22, 34, 1) 20%, rgba(15, 22, 34, 0.5) 80%) , url("${BGImage}")`, objectFit: 'cover', backgroundSize: ' 100% 100%', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', width: '100%'}}>
+            <div style={{backgroundImage: isMobile ? `linear-gradient(rgba(15, 22, 34, 0.527),rgba(15, 22, 34, 0.5)) , url("${BGImage}")` : `linear-gradient(to right, rgba(15, 22, 34, 1) 20%, rgba(15, 22, 34, 0.5) 80%) , url("${BGImage}")`, objectFit: 'cover', backgroundSize: ' 100% 100%', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', width: '100%'}} onError={handleBackgroundImageError}>
                 <SnackBar severity={snackBarType} handleSnackBarOpen={handleSnackBarOpen} status={snackBarOpen} snackBarMessage={snackBarMessage} withLoading={snackBarWithLoading} hideDuration={hideDuration} />
                 <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={1} justifyContent="center">
                     <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>

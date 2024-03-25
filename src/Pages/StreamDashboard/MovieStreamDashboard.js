@@ -31,6 +31,7 @@ import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
 // Config
 import { pageLoadMS, defaultInternationalServer } from "../../Config/settings.config";
+import { homeBackground } from "../../Config/images.config";
 
 // Utils
 import { streamDashboardBackButton, SeparateArrayByComma, separatedSeasons, ObjectLength, convertMinutesToHoursAndMinutes } from "../../Services/Utils";
@@ -166,11 +167,18 @@ const MovieStreamDashboard = (props) => {
         }
     }, [infoValue?.image, infoValue?.cover]);
 
+    const handleBackgroundImageError = () => {
+        setBGImage(homeBackground);
+    }
+
     useEffect(() => {
+
         if (infoData.isSuccess) {
             document.title = type === 'tv' ? `AllHQFlix - ${ infoValue?.title }` : `AllHQFlix - ${ infoValue?.title }`;
             handleResize();
         }
+
+        if (infoData.isLoading) setBGImage(homeBackground);
 
         if (infoData.isLoading || serverData.isLoading || resourceData.isLoading) {
             setSnackBarType('info');
@@ -191,7 +199,7 @@ const MovieStreamDashboard = (props) => {
         : 
         <>
             <ReactQueryTools/>
-            <div style={{backgroundImage: isMobile ? `linear-gradient(rgba(15, 22, 34, 0.527),rgba(15, 22, 34, 0.5)) , url("${BGImage}")` : `linear-gradient(to right, rgba(15, 22, 34, 1) 20%, rgba(15, 22, 34, 0.5) 80%) , url("${BGImage}")`, objectFit: 'cover', backgroundSize: ' 100% 100%', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', width: '100%'}}>
+            <div style={{backgroundImage: isMobile ? `linear-gradient(rgba(15, 22, 34, 0.527),rgba(15, 22, 34, 0.5)) , url("${BGImage}")` : `linear-gradient(to right, rgba(15, 22, 34, 1) 20%, rgba(15, 22, 34, 0.5) 80%) , url("${BGImage}")`, objectFit: 'cover', backgroundSize: ' 100% 100%', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', width: '100%'}} onError={handleBackgroundImageError}>
                 <SnackBar severity={snackBarType} handleSnackBarOpen={handleSnackBarOpen} status={snackBarOpen} snackBarMessage={snackBarMessage} withLoading={snackBarWithLoading} />
                 <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={1} justifyContent="center">
                     <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>
@@ -312,7 +320,7 @@ const MovieStreamDashboard = (props) => {
                     <div className='stream-dashboard-playbutton'>
                         {infoData.isSuccess && <TraillerModal category="foreign" infoValue={infoValue} setSnackBarType={setSnackBarType} setSnackBarMessage={setSnackBarMessage} setSnackBarOpen={setSnackBarOpen}/>}
 
-                        {resourceData.isLoading ? 
+                        {!infoData.isSuccess && !resourceData.isSuccess && !resourceData.isError ? 
                             <CircularProgress 
                                 sx={{ color: 'white', marginBottom: '-5px !important' }} 
                                 size={20} 
