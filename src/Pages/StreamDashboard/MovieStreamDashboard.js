@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, Fragment } from 'react';
 import { Link, useParams, useNavigate } from "react-router-dom";
 
 // React Query
@@ -19,6 +19,7 @@ import './StreamDashboard.css';
 import ArrowBackTwoToneIcon from '@mui/icons-material/ArrowBackTwoTone';
 import WarningAmberTwoToneIcon from '@mui/icons-material/WarningAmberTwoTone';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 
 // Components
 import LoadingPage from "../../Components/LoadingPage/LoadingPage";
@@ -34,7 +35,7 @@ import { pageLoadMS, defaultInternationalServer } from "../../Config/settings.co
 import { homeBackground } from "../../Config/images.config";
 
 // Utils
-import { streamDashboardBackButton, SeparateArrayByComma, separatedSeasons, ObjectLength, convertMinutesToHoursAndMinutes } from "../../Services/Utils";
+import { streamDashboardBackButton, SeparateArrayByComma, separatedSeasons, ObjectLength, convertMinutesToHoursAndMinutes, getNumberSuffix } from "../../Services/Utils";
 
 // Services
 import { movie_info, movie_server, movie_stream_links } from "../../Services/FlixHQService";
@@ -99,9 +100,7 @@ const MovieStreamDashboard = (props) => {
     let seasons = [];
     
     if (infoData.isSuccess) {
-        if (type === 'tv' || type === 'tvshow') {
-            seasons = separatedSeasons(infoValue?.episodes, 'season');
-        }
+        if (type === 'tv' || type === 'tvshow') seasons = separatedSeasons(infoValue?.episodes, 'season');
     }
 
     // servers
@@ -116,6 +115,14 @@ const MovieStreamDashboard = (props) => {
             setServerVar(serverVar || defaultServer);  
             setRabbitStreamId(rabbitStreamId || rabbitstreamId);
             setHasPlayButton(true);
+        },
+        onError: (error) => {
+            let message = `No server available.`;
+            setSnackBarType('error');
+            setSnackBarMessage(message);
+            setSnackBarOpen(true);
+            setSnackBarWithLoading(false);
+            setErrorMessage(message.toUpperCase());
         }
     });
 
@@ -151,10 +158,7 @@ const MovieStreamDashboard = (props) => {
     });
     
     let resourceValue = undefined;
-
-    if (resourceData.isSuccess) {
-        resourceValue = resourceData?.data;
-    }
+    if (resourceData.isSuccess) resourceValue = resourceData?.data;
 
     //choose the screen size 
     const handleResize = useCallback(() => {
@@ -167,9 +171,7 @@ const MovieStreamDashboard = (props) => {
         }
     }, [infoValue?.image, infoValue?.cover]);
 
-    const handleBackgroundImageError = () => {
-        setBGImage(homeBackground);
-    }
+    const handleBackgroundImageError = () => setBGImage(homeBackground);
 
     useEffect(() => {
 
@@ -194,10 +196,9 @@ const MovieStreamDashboard = (props) => {
     }, [type, handleResize, infoData.isSuccess, infoValue?.title, resourceData.isLoading, infoData.isLoading, serverData.isLoading]);
 
     return (
-        isLoading ? 
-            <LoadingPage/>
+        isLoading ? <LoadingPage/>
         : 
-        <>
+        <Fragment>
             <ReactQueryTools/>
             <div style={{backgroundImage: isMobile ? `linear-gradient(rgba(15, 22, 34, 0.527),rgba(15, 22, 34, 0.5)) , url("${BGImage}")` : `linear-gradient(to right, rgba(15, 22, 34, 1) 20%, rgba(15, 22, 34, 0.5) 80%) , url("${BGImage}")`, objectFit: 'cover', backgroundSize: ' 100% 100%', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', width: '100%'}} onError={handleBackgroundImageError}>
                 <SnackBar severity={snackBarType} handleSnackBarOpen={handleSnackBarOpen} status={snackBarOpen} snackBarMessage={snackBarMessage} withLoading={snackBarWithLoading} />
@@ -258,22 +259,22 @@ const MovieStreamDashboard = (props) => {
                         <Link className='text-link' style={{ cursor: 'pointer' }} title={ infoValue?.country } to={`/foreign/country_filter?country=${infoValue?.country}`}>{ infoValue?.country }</Link>
                         <br/>
                         {infoValue?.casts?.length > 0 ?
-                        <>
-                            <b style={{ color: '#DC4C64', marginRight: '5px' }}>Main Casts:</b>
-                            <SeparateArrayByComma type={'google_link'} data={infoValue?.casts} link={'https://www.google.com/search?q='} />
-                            <br/>
-                        </>
-                            : ""}
+                            <div>
+                                <b style={{ color: '#DC4C64', marginRight: '5px' }}>Main Casts:</b>
+                                <SeparateArrayByComma type={'google_link'} data={infoValue?.casts} link={'https://www.google.com/search?q='} />
+                                <br/>
+                            </div>
+                        : ""}
                             
                         {infoValue?.genres?.length > 0 ?
-                            <>
+                            <div>
                                 <b style={{ color: '#DC4C64', marginRight: '5px' }}>Genres:</b>
                                 <SeparateArrayByComma type={'site_link'} data={infoValue?.genres} link={'/foreign/genre_filter?genre='} />
                                 <br/>
-                            </>
-                            : ""}
+                            </div>
+                        : ""}
                         {type === 'movie' && resourceData.isSuccess && resourceValue?.data?.sources?.filter((item) => item.quality !== "auto").length > 0 ?
-                            <>
+                            <div>
                                 <b style={{ color: '#DC4C64', marginRight: '5px' }}>Video Resolutions:</b> 
                                 {resourceValue.data.sources.filter((item) => item.quality !== "auto").reverse().map((item, i) => {
                                     return (
@@ -283,72 +284,64 @@ const MovieStreamDashboard = (props) => {
                                     );
                                 })}
                                 <br/>
-                            </>
+                            </div>
                             : ""}
                             {type === 'movie' && resourceData.isSuccess ?
-                            <>
+                            <div>
                                 <b style={{ color: '#DC4C64', marginRight: '5px' }}>Subtitles:</b> 
                                     {resourceValue?.data?.subtitles?.map((item, i) => {
                                         subtitleCount++;
                                     })}
                                     { subtitleCount > 0 ? <><b>{subtitleCount}</b> <LanguageListTooltip text={<VisibilityIcon sx={{ fontSize: '18px', marginBottom: '-3px', color: '#3B71CA' }}/>} languages={resourceValue?.data?.subtitles}/></> : "No available subtitle" }
                                 <br/>
-                            </>
+                            </div>
                             : ""}
                     </div>
-                    <div className='stream-dashboard-servers'>
-                        {serverData.isSuccess && serverValue?.data?.length > 0 ? 
-                        ""
-                            : 
-                        <>
-                            <Typography variant="subtitle1" style={{ verticalAlign: 'middle', display: 'inline-flex', fontWeight: 'bolder' }}>
-                                <WarningAmberTwoToneIcon style={{ marginRight: '8px', color: "#DC4C64", fontSize: 30 }}/> NO SERVER AVAILABLE.
-                            </Typography>
-                        </>}
-                    </div>
-                    {infoData.isSuccess && infoValue?.episodes?.length > 0 ? 
-                    ""
+                    {infoData.isSuccess && infoValue?.episodes?.length > 0 ? ""
                     : 
-                    <>
                         <div className='stream-dashboard-season-episode'>
                             <Typography variant="subtitle1" style={{ verticalAlign: 'middle', display: 'inline-flex', fontWeight: 'bolder' }}>
                                 <WarningAmberTwoToneIcon style={{ marginRight: '8px', color: "#DC4C64", fontSize: 30 }}/> NO EPISODE AVAILABLE.
                             </Typography>
                         </div>
-                    </>}
+                    }
 
                     <div className='stream-dashboard-playbutton'>
                         {infoData.isSuccess && <TraillerModal category="foreign" infoValue={infoValue} setSnackBarType={setSnackBarType} setSnackBarMessage={setSnackBarMessage} setSnackBarOpen={setSnackBarOpen}/>}
-
-                        {!infoData.isSuccess && !resourceData.isSuccess && !resourceData.isError ? 
-                            <CircularProgress 
-                                sx={{ color: 'white', marginBottom: '-5px !important' }} 
-                                size={20} 
-                                thickness={5} 
-                            />
-                        : ""}
                         
                         {infoData.isSuccess && serverData.isSuccess ? 
-                        <>
-                            {infoValue?.episodes?.length > 0 && serverValue?.data?.length > 0 ? 
-                                <>
-                                {type === 'movie' ? (
-                                    <>
-                                        {hasPlayButton && infoData.isSuccess && serverData.isSuccess &&
-                                            <MoviePlayModal mediaInfo={infoValue} serverInfo={serverValue} resourceData={resourceData} resourceInfo={resourceValue} serverVar={serverVar} setServerVar={setServerVar} url={`/watch/${indexId}`} />
-                                        }
-                                    </>
+                            infoValue?.episodes?.length > 0 && serverValue?.data?.length > 0 ? 
+                                type === 'movie' ? (
+                                    hasPlayButton && infoData.isSuccess && serverData.isSuccess &&
+                                        <MoviePlayModal mediaInfo={infoValue} serverInfo={serverValue} resourceData={resourceData} resourceInfo={resourceValue} serverVar={serverVar} setServerVar={setServerVar} url={`/watch/${indexId}`} />
                                 ) : (
-                                    <>
-                                        {hasPlayButton && infoData.isSuccess && serverData.isSuccess &&
-                                            <SeriesPlayModal mediaInfo={infoValue} serverInfo={serverValue} resourceData={resourceData} resourceInfo={resourceValue} serverVar={serverVar} seasonIdVar={seasonIdVar} episodeIdVar={episodeIdVar} episodes={seasons} setServerVar={setServerVar} setSeasonIdVar={setSeasonIdVar} setEpisodeIdVar={setEpisodeIdVar} url={`/watch/${indexId}`} />
-                                        }
-                                    </>
-                                )}
-                                </>
-                            : ""}
-                        </>
-                        : ""}
+                                    hasPlayButton && infoData.isSuccess && serverData.isSuccess &&
+                                        <SeriesPlayModal mediaInfo={infoValue} serverInfo={serverValue} resourceData={resourceData} resourceInfo={resourceValue} serverVar={serverVar} seasonIdVar={seasonIdVar} episodeIdVar={episodeIdVar} episodes={seasons} setServerVar={setServerVar} setSeasonIdVar={setSeasonIdVar} setEpisodeIdVar={setEpisodeIdVar} url={`/watch/${indexId}`} />
+                                )
+                            : ""
+                        : 
+                            !resourceData.isError ? 
+                                <CircularProgress
+                                    sx={{ color: 'white', marginBottom: '-5px !important' }} 
+                                    size={20} 
+                                    thickness={5} 
+                                />
+                            : 
+                                <Button 
+                                    id="demo-customized-button"
+                                    size='small'
+                                    aria-controls={undefined}
+                                    aria-haspopup="true"
+                                    aria-expanded={undefined}
+                                    variant="contained"
+                                    disableElevation
+                                    startIcon={<PlayCircleOutlineIcon />}
+                                    style={{ marginRight: '10px' }}
+                                    disabled={true}
+                                >
+                                PLAY
+                                </Button>
+                        }
                     </div>
                 </div>
                 }
@@ -360,10 +353,10 @@ const MovieStreamDashboard = (props) => {
                         sx={{ color: 'white' }} 
                         size={13}
                         thickness={5}
-                    /> Refetching... {resourceData?.failureCount}/2
+                    /> {getNumberSuffix(resourceData?.failureCount+1)} retry... {resourceData?.failureCount}/2
                 </div>
             }
-        </>
+        </Fragment>
     );
 };
 

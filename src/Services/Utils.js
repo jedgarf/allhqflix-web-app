@@ -413,9 +413,20 @@ const secondsToHMS = (seconds) => {
   return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
 }
 
+const secondsToMinutes = (seconds) => {
+  return seconds / 60;
+}
+
 const randomizeArray = (items) => {
   return items[Math.floor(Math.random() * items.length)];
 }
+
+const getNumberSuffix = (num) => {
+  if (num === 1) return 'st';
+  else if (num === 2) return 'nd';
+  else if (num === 3) return 'rd';
+  else return 'th';
+};
 
 export { shortenTextHeight, 
          streamDashboardBackButton, 
@@ -444,5 +455,7 @@ export { shortenTextHeight,
          capitalizeString,
          replaceUnderscoreToSpace, 
          convertMinutesToHoursAndMinutes, 
-         secondsToHMS,
-         randomizeArray };
+         secondsToHMS, 
+         secondsToMinutes, 
+         randomizeArray, 
+         getNumberSuffix };

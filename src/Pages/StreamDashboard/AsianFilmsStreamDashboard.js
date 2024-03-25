@@ -30,7 +30,7 @@ import { pageLoadMS } from "../../Config/settings.config";
 import { homeBackground } from "../../Config/images.config";
 
 // Utilities
-import { streamDashboardBackButton, SeparateArrayByComma } from "../../Services/Utils";
+import { streamDashboardBackButton, SeparateArrayByComma, getNumberSuffix } from "../../Services/Utils";
 
 // Services
 import { asianfilms_info, asianfilms_stream_links } from "../../Services/ViewAsianService";
@@ -91,10 +91,7 @@ const AsianFilmsStreamDashboard = (props) => {
     });
     
     let resourceValue = undefined;
-
-    if (resourceData.isSuccess) {
-        resourceValue = resourceData?.data;
-    }
+    if (resourceData.isSuccess) resourceValue = resourceData?.data;
 
     //choose the screen size 
     const handleResize = useCallback(() => {
@@ -106,9 +103,7 @@ const AsianFilmsStreamDashboard = (props) => {
         }
     }, []);
 
-    const handleBackgroundImageError = () => {
-        setBGImage(homeBackground);
-    }
+    const handleBackgroundImageError = () => setBGImage(homeBackground);
 
     useEffect(() => {
         if (infoData.isSuccess) {
@@ -221,7 +216,7 @@ const AsianFilmsStreamDashboard = (props) => {
                         sx={{ color: 'white' }} 
                         size={13}
                         thickness={5}
-                    /> Refetching... {resourceData?.failureCount}/2
+                    /> {getNumberSuffix(resourceData?.failureCount+1)} retry... {resourceData?.failureCount}/2
                 </div>
             }
         </>

@@ -33,7 +33,7 @@ import { AnimePlayModal } from "../../Components/Modal/PlayModal";
 import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
 // Utilities
-import { streamDashboardBackButton, SeparateArrayByComma, convertMinutesToHoursAndMinutes } from "../../Services/Utils";
+import { streamDashboardBackButton, SeparateArrayByComma, convertMinutesToHoursAndMinutes, getNumberSuffix } from "../../Services/Utils";
 
 // Config
 import { pageLoadMS, foreign_country } from "../../Config/settings.config";
@@ -110,9 +110,7 @@ const MovieStreamDashboard = (props) => {
         },
     }));
 
-    const handleDubSwitch = (e) => {
-        setDubCheckbox(e.target.checked);
-    }
+    const handleDubSwitch = (e) => setDubCheckbox(e.target.checked);
 
     const handleSnackBarOpen = (event, reason) => {
         setSnackBarType("");
@@ -169,10 +167,7 @@ const MovieStreamDashboard = (props) => {
     });
     
     let resourceValue = undefined;
-
-    if (resourceData.isSuccess) {
-        resourceValue = resourceData?.data;
-    }
+    if (resourceData.isSuccess) resourceValue = resourceData?.data;
 
     //choose the screen size 
     const handleResize = useCallback(() => {
@@ -189,9 +184,7 @@ const MovieStreamDashboard = (props) => {
         }
     }, [indexId, infoValue?.image, infoValue?.artwork, infoValue?.cover]);
 
-    const handleBackgroundImageError = () => {
-        setBGImage(homeBackground);
-    }
+    const handleBackgroundImageError = () => setBGImage(homeBackground);
 
     useEffect(() => {
         if (infoData.isSuccess) {
@@ -244,9 +237,7 @@ const MovieStreamDashboard = (props) => {
                         </Link>
                     </Grid>
                 </Grid>
-                {infoData.isLoading
-                ? 
-                    <>
+                {infoData.isLoading ? 
                     <Box className='stream-dashboard-content' sx={{ pl: 3, pr: 3, pt: 3, width: {xs: '100%', sm: '100%', md: '60%'} }} style={{ backgroundColor: isMobile ? 'rgba(15, 22, 34, 0.5)' : 'transparent' }}>
                         <Skeleton animation="pulse" sx={{ bgcolor: '#54B4D3' }} height="60px" width="60%" />
                         <Skeleton animation="pulse" sx={{ bgcolor: '#54B4D3' }} height="40px" width="30%" />
@@ -263,81 +254,76 @@ const MovieStreamDashboard = (props) => {
                         <Skeleton animation="pulse" sx={{ bgcolor: '#54B4D3' }} height="20px" width="50%" /><br/>
                         <Skeleton animation="pulse" variant="rectangular" sx={{ bgcolor: '#54B4D3', width: {xs: '30%', sm: '30%', md: '40%'} }} height="40px" />
                     </Box>
-                    </>
                 : 
-                <div className='stream-dashboard-content' style={{ backgroundColor: isMobile ? 'rgba(15, 22, 34, 0.5)' : 'transparent' }}>
-                    <div className='stream-dashboard-title'><h1>{ infoValue?.title?.english || infoValue?.title?.userPreferred || infoValue?.title?.romaji || infoValue?.title?.native }</h1>
-                    {infoValue?.episodes?.length > 1 ?
-                    (<label className='stream-dashboard-servername'>
-                        Episode 1 to {infoValue?.episodes?.length}&nbsp;&nbsp;
-                         {/* | <span style={{ marginRight: 5 }}><StarIcon style={{ marginBottom: '-2px', fontSize: 18, color: "#E4A11B" }}/> {infoValue?.rating}</span> */}
-                         |<ShareModal infoValue={infoValue}/>
-                    </label>)
-                     : 
-                    (<label className='stream-dashboard-servername'>
-                        {infoValue?.duration ? convertMinutesToHoursAndMinutes(infoValue?.duration) : ''}&nbsp;
-                         |<ShareModal infoValue={infoValue}/>
-                    </label>)}
-                    </div>
-                    <p className='stream-dashboard-description' title={DOMPurify.sanitize(infoValue?.description).trim()} dangerouslySetInnerHTML={{ __html: infoValue?.description.trim() ? DOMPurify.sanitize(infoValue?.description).replace('<br>', '').replace('</br>', '').trim() : '-'}}/>
-                    <div className='stream-dashboard-description-details'>
-                        <b style={{ color: '#DC4C64', marginRight: '5px' }}>Released:</b> 
-                            { infoValue?.releaseDate ? infoValue?.releaseDate : '-' }
-                        <br/>
-                        <b style={{ color: '#DC4C64', marginRight: '5px' }}>Country:</b> 
-                        {foreign_country.filter((item) => item.code === infoValue?.countryOfOrigin).length > 0 ? (
-                            <span>
-                                {foreign_country.filter((item) => item.code === infoValue?.countryOfOrigin)[0].name}
-                            </span>
-                        ) : ('-')}
-                        <br/>
-                        <b style={{ color: '#DC4C64', marginRight: '5px' }}>Season:</b> 
-                            { infoValue?.season ? infoValue?.season : '-' }
-                        <br/>
-                        <b style={{ color: '#DC4C64', marginRight: '5px' }}>Synonym/s:</b>
-                        <SeparateArrayByComma type={'google_link'} data={infoValue?.synonyms} link={'https://www.google.com/search?q='} />
-                        <br/>
-                        <b style={{ color: '#DC4C64', marginRight: '5px' }}>Genre/s:</b> 
-                        <SeparateArrayByComma type={'site_link'} data={infoValue?.genres} link={'/anime/genre_filter?genre='} />
-                    </div>
-                    <div className='stream-dashboard-playbutton'>
+                    <div className='stream-dashboard-content' style={{ backgroundColor: isMobile ? 'rgba(15, 22, 34, 0.5)' : 'transparent' }}>
+                        <div className='stream-dashboard-title'><h1>{ infoValue?.title?.english || infoValue?.title?.userPreferred || infoValue?.title?.romaji || infoValue?.title?.native }</h1>
+                        {infoValue?.episodes?.length > 1 ?
+                        (<label className='stream-dashboard-servername'>
+                            Episode 1 to {infoValue?.episodes?.length}&nbsp;&nbsp;
+                            {/* | <span style={{ marginRight: 5 }}><StarIcon style={{ marginBottom: '-2px', fontSize: 18, color: "#E4A11B" }}/> {infoValue?.rating}</span> */}
+                            |<ShareModal infoValue={infoValue}/>
+                        </label>)
+                        : 
+                        (<label className='stream-dashboard-servername'>
+                            {infoValue?.duration ? convertMinutesToHoursAndMinutes(infoValue?.duration) : ''}&nbsp;
+                            |<ShareModal infoValue={infoValue}/>
+                        </label>)}
+                        </div>
+                        <p className='stream-dashboard-description' title={DOMPurify.sanitize(infoValue?.description).trim()} dangerouslySetInnerHTML={{ __html: infoValue?.description.trim() ? DOMPurify.sanitize(infoValue?.description).replace('<br>', '').replace('</br>', '').trim() : '-'}}/>
+                        <div className='stream-dashboard-description-details'>
+                            <b style={{ color: '#DC4C64', marginRight: '5px' }}>Released:</b> 
+                                { infoValue?.releaseDate ? infoValue?.releaseDate : '-' }
+                            <br/>
+                            <b style={{ color: '#DC4C64', marginRight: '5px' }}>Country:</b> 
+                            {foreign_country.filter((item) => item.code === infoValue?.countryOfOrigin).length > 0 ? (
+                                <span>
+                                    {foreign_country.filter((item) => item.code === infoValue?.countryOfOrigin)[0].name}
+                                </span>
+                            ) : ('-')}
+                            <br/>
+                            <b style={{ color: '#DC4C64', marginRight: '5px' }}>Season:</b> 
+                                { infoValue?.season ? infoValue?.season : '-' }
+                            <br/>
+                            <b style={{ color: '#DC4C64', marginRight: '5px' }}>Synonym/s:</b>
+                            <SeparateArrayByComma type={'google_link'} data={infoValue?.synonyms} link={'https://www.google.com/search?q='} />
+                            <br/>
+                            <b style={{ color: '#DC4C64', marginRight: '5px' }}>Genre/s:</b> 
+                            <SeparateArrayByComma type={'site_link'} data={infoValue?.genres} link={'/anime/genre_filter?genre='} />
+                        </div>
+                        <div className='stream-dashboard-playbutton'>
 
-                        {(infoData.isSuccess && resourceData.isError) && <TraillerModal category="anime" infoValue={infoValue} setSnackBarType={setSnackBarType} setSnackBarMessage={setSnackBarMessage} setSnackBarOpen={setSnackBarOpen}/>}
-                        
-                        {infoData.isSuccess && resourceData.isSuccess ?
-                         (<>
-                            {infoValue?.episodes?.length > 0 && resourceValue?.data?.sources?.length > 0 && 
-                                <AnimePlayModal infoValue={infoValue} episodes={infoValue?.episodes} episodeIdVar={episodeIdVar} setEpisodeIdVar={setEpisodeIdVar} isDub={dubCheckbox} url={`/watch/${type}/${indexId}`} isDisabled={false} />
-                            }   
-                        </>) : (
-                            <>
-                            {!resourceData.isError ? 
-                                <CircularProgress
-                                    sx={{ color: 'white' }} 
-                                    size={18}
-                                    thickness={5}
-                                />
-                             : 
-                                <Button 
-                                    id="demo-customized-button"
-                                    size='small'
-                                    aria-controls={undefined}
-                                    aria-haspopup="true"
-                                    aria-expanded={undefined}
-                                    variant="contained"
-                                    disableElevation
-                                    startIcon={<PlayCircleOutlineIcon />}
-                                    style={{ marginRight: '10px' }}
-                                    disabled={true}
-                                >
-                                PLAY
-                                </Button>
+                            {(infoData.isSuccess && resourceData.isError) && <TraillerModal category="anime" infoValue={infoValue} setSnackBarType={setSnackBarType} setSnackBarMessage={setSnackBarMessage} setSnackBarOpen={setSnackBarOpen}/>}
+                            
+                            {infoData.isSuccess && resourceData.isSuccess ?
+                                infoValue?.episodes?.length > 0 && resourceValue?.data?.sources?.length > 0 && 
+                                    <AnimePlayModal infoValue={infoValue} episodes={infoValue?.episodes} episodeIdVar={episodeIdVar} setEpisodeIdVar={setEpisodeIdVar} isDub={dubCheckbox} url={`/watch/${type}/${indexId}`} isDisabled={false} />
+                            : 
+                                !resourceData.isError ? 
+                                    <CircularProgress
+                                        sx={{ color: 'white' }} 
+                                        size={18}
+                                        thickness={5}
+                                    />
+                                : 
+                                    <Button 
+                                        id="demo-customized-button"
+                                        size='small'
+                                        aria-controls={undefined}
+                                        aria-haspopup="true"
+                                        aria-expanded={undefined}
+                                        variant="contained"
+                                        disableElevation
+                                        startIcon={<PlayCircleOutlineIcon />}
+                                        style={{ marginRight: '10px' }}
+                                        disabled={true}
+                                    >
+                                    PLAY
+                                    </Button>
                             }
-                            </>
-                        )}
 
+                        </div>
                     </div>
-                </div>}
+                }
             </div>
             {/* refetching count */}
             {(resourceData?.failureCount > 0 && resourceData?.failureCount <= 2) && 
@@ -346,7 +332,7 @@ const MovieStreamDashboard = (props) => {
                         sx={{ color: 'white' }} 
                         size={13}
                         thickness={5}
-                    /> Refetching... {resourceData?.failureCount}/2
+                    /> {getNumberSuffix(resourceData?.failureCount+1)} retry... {resourceData?.failureCount}/2
                 </div>
             }
             {/* English dub switch */}
