@@ -309,7 +309,7 @@ const MovieStreamDashboard = (props) => {
                     <div className='stream-dashboard-playbutton'>
                         {infoData.isSuccess && <TraillerModal category="foreign" infoValue={infoValue} setSnackBarType={setSnackBarType} setSnackBarMessage={setSnackBarMessage} setSnackBarOpen={setSnackBarOpen}/>}
                         
-                        {(resourceData.isLoading || !resourceValue?.data?.sources) && 
+                        {(resourceData.isLoading || !resourceValue?.data?.sources) && !resourceData.isError && 
                             <CircularProgress
                                 sx={{ color: 'white', marginBottom: '-5px !important' }} 
                                 size={20} 
