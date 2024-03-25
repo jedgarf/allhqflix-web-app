@@ -300,8 +300,8 @@ const MovieStreamDashboard = (props) => {
                     {infoData.isSuccess && infoValue?.episodes?.length > 0 ? ""
                     : 
                         <div className='stream-dashboard-season-episode'>
-                            <Typography variant="subtitle1" style={{ verticalAlign: 'middle', display: 'inline-flex', fontWeight: 'bolder' }}>
-                                <WarningAmberTwoToneIcon style={{ marginRight: '8px', color: "#DC4C64", fontSize: 30 }}/> NO EPISODE AVAILABLE.
+                            <Typography variant="subtitle1" style={{ verticalAlign: 'middle', display: 'inline-flex', fontWeight: 'bolder', backgroundColor: 'rgba(105, 105, 105, 0.4)', color: '#ccced1', padding: 10, borderRadius: 20 }}>
+                                <WarningAmberTwoToneIcon style={{ marginRight: '8px', color: "#DC4C64", fontSize: 30 }}/> No episode available
                             </Typography>
                         </div>
                     }
