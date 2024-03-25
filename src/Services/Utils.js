@@ -422,10 +422,23 @@ const randomizeArray = (items) => {
 }
 
 const getNumberSuffix = (num) => {
-  if (num === 1) return `${num}st`;
-  else if (num === 2) return `${num}nd`;
-  else if (num === 3) return `${num}rd`;
-  else return `${num}th`;
+  const lastDigit = num % 10;
+  const secondLastDigit = Math.floor(num / 10) % 10;
+
+  if (secondLastDigit === 1) {
+    return `${num}th`;
+  } else {
+    switch (lastDigit) {
+      case 1:
+        return `${num}st`;
+      case 2:
+        return `${num}nd`;
+      case 3:
+        return `${num}rd`;
+      default:
+        return `${num}th`;
+    }
+  }
 };
 
 export { shortenTextHeight, 
