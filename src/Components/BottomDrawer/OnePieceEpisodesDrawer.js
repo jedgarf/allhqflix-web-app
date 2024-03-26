@@ -22,12 +22,11 @@ import { animeSearchNumberBetween } from "../../Services/Utils";
 
 export default function OnePieceEpisodesDrawer({ details, downloadUrl, mediaId, episodeId, setSelectedEpisode, setLoadingEpisode, itemsPerPage, episodesCurrentPage, moveToTop, drawerAlign }) {
 
-  const arcs = require('../../Services/Data/onePieceArcs.json').arcs;
-
+  var arcs = require('../../Services/Data/onePieceArcs.json').arcs;
   const [state, setState] = React.useState({ bottom: false });
   const norm_episodes = details?.episodes;
-  const currentEpisodeNum = norm_episodes?.find(item => item.id === episodeId)?.number;
-  const [arcId, setArcId] = useState(arcs.find(item => item.start_episode < currentEpisodeNum && item.end_episode > currentEpisodeNum).id);
+  const currentEpisodeNum = norm_episodes?.filter(item => item.id === episodeId)[0]?.number;
+  const [arcId, setArcId] = useState(arcs?.filter(item => item.start_episode < currentEpisodeNum && item.end_episode > currentEpisodeNum)[0]?.id);
   const [episodeList, setEpisodeList] = useState([]);
 
   const darkTheme = createTheme({
@@ -42,9 +41,9 @@ export default function OnePieceEpisodesDrawer({ details, downloadUrl, mediaId, 
     }
     setState({ ...state, [anchor]: open });
 
-    const selectedArc = arcs.find(item => item.id === arcs.find(item => item.start_episode < currentEpisodeNum && item.end_episode > currentEpisodeNum).id);
-    setArcId(arcs.find(item => item.start_episode < currentEpisodeNum && item.end_episode > currentEpisodeNum).id);
-    setEpisodeList(animeSearchNumberBetween(norm_episodes, selectedArc.start_episode, selectedArc.end_episode)); 
+    const selectedArc = arcs && arcs?.filter(item => item.id === arcs?.filter(item => item.start_episode < currentEpisodeNum && item.end_episode > currentEpisodeNum)[0]?.id)[0];
+    setArcId(arcs?.filter(item => item.start_episode < currentEpisodeNum && item.end_episode > currentEpisodeNum)[0]?.id);
+    setEpisodeList(animeSearchNumberBetween(norm_episodes, selectedArc?.start_episode, selectedArc?.end_episode)); 
 
     if (open === false) moveToTop();
   };
@@ -55,7 +54,7 @@ export default function OnePieceEpisodesDrawer({ details, downloadUrl, mediaId, 
     var newEpisodeList = details?.episodes;
     if (e.target.value != "") {
       let selectedArc = arcs?.filter(item => item.id === e.target.value)[0];
-      newEpisodeList = animeSearchNumberBetween(newEpisodeList, selectedArc.start_episode, selectedArc.end_episode);
+      newEpisodeList = animeSearchNumberBetween(newEpisodeList, selectedArc?.start_episode, selectedArc?.end_episode);
     }
     setArcId(e.target.value);
     setEpisodeList(newEpisodeList);
@@ -155,12 +154,12 @@ export default function OnePieceEpisodesDrawer({ details, downloadUrl, mediaId, 
                       <Grid item xl={12} lg={12} md={12} sm={12} xs={12} style={{ display: 'flex', alignItems: 'center', height: '6.5vh', justifyContent: 'left' }}>
                         <Box sx={{ width: '100%', marginTop: '20px' }}>
                           <FormControl sx={{ m: 0, minWidth: '100%' }} size="small">
-                            <InputLabel id="demo-simple-select-error-label">ARC ({arcs.length})</InputLabel>
+                            <InputLabel id="demo-simple-select-error-label">ARC ({arcs?.length})</InputLabel>
                             <Select
                               labelId="demo-simple-select-error-label"
                               id="demo-simple-select-error"
                               defaultValue={arcId}
-                              label={`ARC (${arcs.length})`}
+                              label={`ARC (${arcs?.length})`}
                               size='small'
                               onChange={handleArcChange}
                               // renderValue={(value) => `⚠️  - ${value}`}

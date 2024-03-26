@@ -9,7 +9,7 @@ const MediaDescription = ({ text }) => {
     };
 
     return (
-        <p className={`movie_description media-description ${expanded ? 'expanded' : ''}`} dangerouslySetInnerHTML={{ __html: text === "" ? "-" : text.trim() }} onClick={toggleExpand}/>
+        <p className={`movie_description media-description ${expanded ? 'expanded' : ''}`} dangerouslySetInnerHTML={{ __html: text === "" ? "-" : text }} onClick={toggleExpand}/>
     );
 };
 
