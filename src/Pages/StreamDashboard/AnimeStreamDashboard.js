@@ -132,15 +132,15 @@ const MovieStreamDashboard = (props) => {
                 setSnackBarOpen(true);
                 setSnackBarWithLoading(false);
                 setHideDuration(6000);
-                if (dubCheckbox) {
-                    setDubEpisodeCount(0);
-                } else {
-                    setSubEpisodeCount(0);
-                }
 
-                if (dubEpisodeCount === 1 || subEpisodeCount === 1) {
-                    setDubCheckbox(!dubCheckbox);   
-                }
+                // if (dubCheckbox) {
+                //     setDubEpisodeCount(0);
+                // } else {
+                //     setSubEpisodeCount(0);
+                // }
+                // if (dubEpisodeCount === 1 || subEpisodeCount === 1) {
+                //     setDubCheckbox(!dubCheckbox);   
+                // }
             }
             setEpisodeIdVar(response.data.episodes.length > 0 ? response.data.episodes[0].id : undefined);
         }
@@ -284,12 +284,19 @@ const MovieStreamDashboard = (props) => {
                             <b style={{ color: '#DC4C64', marginRight: '5px' }}>Season:</b> 
                                 { infoValue?.season ? infoValue?.season : '-' }
                             <br/>
-                            <b style={{ color: '#DC4C64', marginRight: '5px' }}>Synonym/s:</b>
+                            {/* <b style={{ color: '#DC4C64', marginRight: '5px' }}>Synonym/s:</b>
                             <SeparateArrayByComma type={'google_link'} data={infoValue?.synonyms} link={'https://www.google.com/search?q='} />
-                            <br/>
+                            <br/> */}
                             <b style={{ color: '#DC4C64', marginRight: '5px' }}>Genre/s:</b> 
                             <SeparateArrayByComma type={'site_link'} data={infoValue?.genres} link={'/anime/genre_filter?genre='} />
                         </div>
+                        {resourceData.isError && 
+                            <div className='stream-dashboard-season-episode'>
+                                <Typography variant="subtitle1" style={{ verticalAlign: 'middle', display: 'inline-flex', fontWeight: 'bolder', backgroundColor: 'rgba(105, 105, 105, 0.4)', color: '#ccced1', paddingInline: 10, paddingBlock: 5, borderRadius: 20 }}>
+                                    Not Available
+                                </Typography>
+                            </div>
+                        }
                         <div className='stream-dashboard-playbutton'>
 
                             {(infoData.isSuccess && resourceData.isError) && <TraillerModal category="anime" infoValue={infoValue} setSnackBarType={setSnackBarType} setSnackBarMessage={setSnackBarMessage} setSnackBarOpen={setSnackBarOpen}/>}
@@ -336,12 +343,14 @@ const MovieStreamDashboard = (props) => {
                 </div>
             }
             {/* English dub switch */}
-            <div className="anime-english-dub text-white">
-                <FormControlLabel
-                    control={<Android12Switch defaultChecked={dubCheckbox} onChange={handleDubSwitch} disabled={infoData.isLoading}/>}
-                    label={`Switch to english dub`}
-                />
-            </div>
+            {!resourceData.isLoading && 
+                <div className="anime-english-dub text-white">
+                    <FormControlLabel
+                        control={<Android12Switch defaultChecked={dubCheckbox} onChange={handleDubSwitch} disabled={infoData.isLoading}/>}
+                        label={`Switch to english dub`}
+                    />
+                </div>
+            }
         </>
     );
 };
