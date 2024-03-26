@@ -39,121 +39,121 @@ const SideBarListItem = ({ page, subType, subPage, classes, selected }) => {
     return (
         <React.Fragment>
             {page.link === '' ? 
-            <div style={{ fontWeight: 'bolder !important' }}>
-              <ListItem key={page.id} onClick={handleClick} disablePadding>
-                <ListItemButton selected={selected}  style={{ color: '#DC4C64', fontWeight: '550' }}>
-                    <ListItemIcon>
-                        {page.name.toLocaleUpperCase() == 'MOBILE APP' ? <InstallMobileIcon sx={{ color: "#14A44D" }} /> : <LocalMoviesIcon sx={{ color: "#DC4C64" }} />}
-                    </ListItemIcon>
+                <div style={{ fontWeight: 'bolder !important' }}>
+                <ListItem key={page.id} onClick={handleClick} disablePadding>
+                    <ListItemButton selected={selected}  style={{ color: '#DC4C64', fontWeight: '550' }}>
+                        <ListItemIcon>
+                            {page.name.toLocaleUpperCase() == 'MOBILE APP' ? <InstallMobileIcon sx={{ color: "#14A44D" }} /> : <LocalMoviesIcon sx={{ color: "#DC4C64" }} />}
+                        </ListItemIcon>
 
 
-                    {page.is_dev === 1 ?
-                    <ListItemText className='sidebar-no-link-menu' primary={<StyledSubBadge badgeContent={page.badge_message} color='error'>{page.name.toLocaleUpperCase()}</StyledSubBadge>} classes={{ primary: classes.text }} />
-                    : <ListItemText className='sidebar-no-link-menu' primary={page.name.toLocaleUpperCase()} classes={{ primary: classes.text }} />}
+                        {page.is_dev === 1 ?
+                        <ListItemText className='sidebar-no-link-menu' primary={<StyledSubBadge badgeContent={page.badge_message} color='error'>{page.name.toLocaleUpperCase()}</StyledSubBadge>} classes={{ primary: classes.text }} />
+                        : <ListItemText className='sidebar-no-link-menu' primary={page.name.toLocaleUpperCase()} classes={{ primary: classes.text }} />}
 
-                  {open ? <ExpandLessIcon sx={{ color: selected ? '#DC4C64' : '#ccced1' }} /> : <ExpandMoreIcon sx={{ color: selected ? '#DC4C64' : '#ccced1' }} />}
-                </ListItemButton>
-              </ListItem>
-            </div>
+                    {open ? <ExpandLessIcon sx={{ color: selected ? '#DC4C64' : '#ccced1' }} /> : <ExpandMoreIcon sx={{ color: selected ? '#DC4C64' : '#ccced1' }} />}
+                    </ListItemButton>
+                </ListItem>
+                </div>
             :
-            <Link to={page.link} style={{ textDecoration: 'none', fontWeight: 'bolder !important' }}>
-              <ListItem key={page.id} disablePadding>
-                <ListItemButton selected={selected} style={{ color: selected ? '#DC4C64' : '', fontWeight: '550' }}>
-                  <ListItemIcon>
-                        {page.name.toLocaleUpperCase() == 'MOBILE APP' ? <InstallMobileIcon sx={{ color: "#14A44D" }} /> : <LocalMoviesIcon sx={{ color: "#DC4C64" }} />}
-                  </ListItemIcon>
+                <Link to={page.link} style={{ textDecoration: 'none', fontWeight: 'bolder !important' }}>
+                    <ListItem key={page.id} disablePadding>
+                        <ListItemButton selected={selected} style={{ color: selected ? '#DC4C64' : '', fontWeight: '550' }}>
+                        <ListItemIcon>
+                                {page.name.toLocaleUpperCase() == 'MOBILE APP' ? <InstallMobileIcon sx={{ color: "#14A44D" }} /> : <LocalMoviesIcon sx={{ color: "#DC4C64" }} />}
+                        </ListItemIcon>
 
-                  {page.is_dev === 1 ?
-                    <ListItemText primary={<StyledSubBadge badgeContent={page.badge_message} color="error">{page.name.toLocaleUpperCase()}</StyledSubBadge>} classes={{ primary: classes.text }} />
-                    : <ListItemText primary={page.name.toLocaleUpperCase()} classes={{ primary: classes.text }} />}
+                        {page.is_dev === 1 ?
+                            <ListItemText primary={<StyledSubBadge badgeContent={page.badge_message} color="error">{page.name.toLocaleUpperCase()}</StyledSubBadge>} classes={{ primary: classes.text }} />
+                        : 
+                            <ListItemText primary={page.name.toLocaleUpperCase()} classes={{ primary: classes.text }} />
+                        }
 
-                  {subPage?.length > 0 ?
-                    <>{open ? <ExpandLessIcon sx={{ color: "#DC4C64" }} /> : <ExpandMoreIcon sx={{ color: "#DC4C64" }} />}</>
-                   : ""}
-                </ListItemButton>
-              </ListItem>
-            </Link>}
+                        {subPage?.length > 0 && 
+                            open ? <ExpandLessIcon sx={{ color: "#DC4C64" }} /> : <ExpandMoreIcon sx={{ color: "#DC4C64" }} />
+                        }
+                        </ListItemButton>
+                    </ListItem>
+                </Link>
+            }
 
             <Collapse in={open} timeout="auto" unmountOnExit>
                 <List component="div" sx={{ marginLeft: '10% !important' }} disablePadding>
-                {subPage?.map((item, key) => (
-                    <React.Fragment key={key}>
-                        {item.code === subType ? 
-                        <>
-                            {item.link === '' ? 
-                            <div style={{ fontWeight: 'bolder !important' }}>
-                                <ListItem key={key} onClick={handleClick} disablePadding>
-                                    <ListItemButton selected={true}>
-                                        {/* <ListItemIcon>
-                                            <MovieIcon sx={{ color: "#DC4C64" }} />
-                                        </ListItemIcon> */}
-                                        
-                                        {item.is_dev === 1 ?
-                                        <StyledSubBadge badgeContent={item.badge_message} color="error">
-                                            <ListItemText className='sidebar-no-link-menu' primary={item.name.toLocaleUpperCase()} sx={{ color: '#DC4C64 !important' }} classes={{ primary: classes.text }} />
-                                        </StyledSubBadge>
-                                        : <ListItemText className='sidebar-no-link-menu' primary={item.name.toLocaleUpperCase()} sx={{ color: '#DC4C64 !important' }} classes={{ primary: classes.text }} />}
+                    {subPage?.map((item, key) => (
+                        <React.Fragment key={key}>
+                            {item.code === subType ? 
+                                item.link === '' ? 
+                                    <div style={{ fontWeight: 'bolder !important' }}>
+                                        <ListItem key={key} onClick={handleClick} disablePadding>
+                                            <ListItemButton selected={true}>
+                                                {/* <ListItemIcon>
+                                                    <MovieIcon sx={{ color: "#DC4C64" }} />
+                                                </ListItemIcon> */}
+                                                
+                                                {item.is_dev === 1 ?
+                                                <StyledSubBadge badgeContent={item.badge_message} color="error">
+                                                    <ListItemText className='sidebar-no-link-menu' primary={item.name.toLocaleUpperCase()} sx={{ color: '#DC4C64 !important' }} classes={{ primary: classes.text }} />
+                                                </StyledSubBadge>
+                                                : <ListItemText className='sidebar-no-link-menu' primary={item.name.toLocaleUpperCase()} sx={{ color: '#DC4C64 !important' }} classes={{ primary: classes.text }} />}
 
-                                    </ListItemButton>
-                                </ListItem>
-                            </div>
+                                            </ListItemButton>
+                                        </ListItem>
+                                    </div>
+                                : 
+                                    <Link to={item.link} style={{ textDecoration: 'none', fontWeight: 'bolder !important' }}>
+                                        <ListItem key={key} disablePadding>
+                                            <ListItemButton selected={true}>
+                                                {/* <ListItemIcon>
+                                                    <MovieIcon sx={{ color: "#DC4C64" }} />
+                                                </ListItemIcon> */}
+                                                
+                                                {item.is_dev === 1 ?
+                                                <StyledSubBadge badgeContent={item.badge_message} color="error">
+                                                    <ListItemText className='sidebar-no-link-menu' primary={item.name.toLocaleUpperCase()} sx={{ color: '#DC4C64 !important' }} classes={{ primary: classes.text }} />
+                                                </StyledSubBadge>
+                                                : <ListItemText className='sidebar-no-link-menu' primary={item.name.toLocaleUpperCase()} sx={{ color: '#DC4C64 !important' }} classes={{ primary: classes.text }} />}
+
+                                            </ListItemButton>
+                                        </ListItem>
+                                    </Link>
                             : 
-                            <Link to={item.link} style={{ textDecoration: 'none', fontWeight: 'bolder !important' }}>
-                                <ListItem key={key} disablePadding>
-                                    <ListItemButton selected={true}>
-                                        {/* <ListItemIcon>
-                                            <MovieIcon sx={{ color: "#DC4C64" }} />
-                                        </ListItemIcon> */}
-                                        
-                                        {item.is_dev === 1 ?
-                                        <StyledSubBadge badgeContent={item.badge_message} color="error">
-                                            <ListItemText className='sidebar-no-link-menu' primary={item.name.toLocaleUpperCase()} sx={{ color: '#DC4C64 !important' }} classes={{ primary: classes.text }} />
-                                        </StyledSubBadge>
-                                        : <ListItemText className='sidebar-no-link-menu' primary={item.name.toLocaleUpperCase()} sx={{ color: '#DC4C64 !important' }} classes={{ primary: classes.text }} />}
+                                item.link === '' ? 
+                                    <div style={{ fontWeight: 'bolder !important' }}>
+                                        <ListItem key={key} onClick={handleClick} disablePadding>
+                                            <ListItemButton selected={false}>
+                                                {/* <ListItemIcon>
+                                                    <MovieIcon sx={{ color: "#DC4C64" }} />
+                                                </ListItemIcon> */}
 
-                                    </ListItemButton>
-                                </ListItem>
-                            </Link>}
-                        </>
-                        : 
-                        <>
-                            {item.link === '' ? 
-                            <div style={{ fontWeight: 'bolder !important' }}>
-                                <ListItem key={key} onClick={handleClick} disablePadding>
-                                    <ListItemButton selected={false}>
-                                        {/* <ListItemIcon>
-                                            <MovieIcon sx={{ color: "#DC4C64" }} />
-                                        </ListItemIcon> */}
+                                                {item.is_dev === 1 ?
+                                                <StyledSubBadge badgeContent={item.badge_message} color="error">
+                                                    <ListItemText className='sidebar-no-link-menu' primary={item.name.toLocaleUpperCase()} classes={{ primary: classes.text }} />
+                                                </StyledSubBadge>
+                                                : <ListItemText className='sidebar-no-link-menu' primary={item.name.toLocaleUpperCase()} classes={{ primary: classes.text }} />}
 
-                                        {item.is_dev === 1 ?
-                                        <StyledSubBadge badgeContent={item.badge_message} color="error">
-                                            <ListItemText className='sidebar-no-link-menu' primary={item.name.toLocaleUpperCase()} classes={{ primary: classes.text }} />
-                                        </StyledSubBadge>
-                                        : <ListItemText className='sidebar-no-link-menu' primary={item.name.toLocaleUpperCase()} classes={{ primary: classes.text }} />}
+                                            </ListItemButton>
+                                        </ListItem>
+                                    </div>
+                                : 
+                                    <Link to={item.link} style={{ textDecoration: 'none', fontWeight: 'bolder !important' }}>
+                                        <ListItem key={key} disablePadding>
+                                            <ListItemButton selected={false}>
+                                                {/* <ListItemIcon>
+                                                    <MovieIcon sx={{ color: "#DC4C64" }} />
+                                                </ListItemIcon> */}
+                                                
+                                                {item.is_dev === 1 ?
+                                                <StyledSubBadge badgeContent={item.badge_message} color="error">
+                                                    <ListItemText className='sidebar-no-link-menu' primary={item.name.toLocaleUpperCase()} classes={{ primary: classes.text }} />
+                                                </StyledSubBadge>
+                                                : <ListItemText className='sidebar-no-link-menu' primary={item.name.toLocaleUpperCase()} classes={{ primary: classes.text }} />}
 
-                                    </ListItemButton>
-                                </ListItem>
-                            </div>
-                            : 
-                            <Link to={item.link} style={{ textDecoration: 'none', fontWeight: 'bolder !important' }}>
-                                <ListItem key={key} disablePadding>
-                                    <ListItemButton selected={false}>
-                                        {/* <ListItemIcon>
-                                            <MovieIcon sx={{ color: "#DC4C64" }} />
-                                        </ListItemIcon> */}
-                                        
-                                        {item.is_dev === 1 ?
-                                        <StyledSubBadge badgeContent={item.badge_message} color="error">
-                                            <ListItemText className='sidebar-no-link-menu' primary={item.name.toLocaleUpperCase()} classes={{ primary: classes.text }} />
-                                        </StyledSubBadge>
-                                        : <ListItemText className='sidebar-no-link-menu' primary={item.name.toLocaleUpperCase()} classes={{ primary: classes.text }} />}
-
-                                    </ListItemButton>
-                                </ListItem>
-                            </Link>}
-                        </>}
-                    </React.Fragment>
-                ))}
+                                            </ListItemButton>
+                                        </ListItem>
+                                    </Link>
+                            }
+                        </React.Fragment>
+                    ))}
                 </List>
             </Collapse>
         </React.Fragment>

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, Fragment } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 // Custom CSS
@@ -35,7 +35,6 @@ import main_logo from "../../Assets/images/multimedia_hub_logo.png";
 // utils
 import { useContainerDimensions, moveToTop } from "../../Services/Utils";
 
-
 const useStyles = makeStyles({
     text: {
       fontWeight: "bold",
@@ -53,6 +52,7 @@ const useStyles = makeStyles({
 const MobileSideBar = ({ Type, subType, getMenu, menu, submenu }) => {
 
     const drawerWidth = 270;
+    const container = window !== undefined ? () => window.document.body : undefined;
 
     const componentRef = useRef();
     const { pxWidth } = useContainerDimensions(componentRef);
@@ -82,7 +82,7 @@ const MobileSideBar = ({ Type, subType, getMenu, menu, submenu }) => {
     // ---------------------------------------------------------------------------------------------------
     
     const drawer = (
-        <>
+        <Fragment>
             <Link to="/" onClick={(event) => gotoHome()}>
                 <center>
                     <Box
@@ -100,11 +100,9 @@ const MobileSideBar = ({ Type, subType, getMenu, menu, submenu }) => {
                 </center>
             </Link>
             {getMenu.isLoading ?
-            <center>
-                <CircularProgress sx={{ fontSize: 10 }} />
-            </center>
+            <center><CircularProgress sx={{ fontSize: 10 }} /></center>
                 : 
-            <>
+            <Fragment>
                 <Divider />
 
                 <div>
@@ -121,8 +119,6 @@ const MobileSideBar = ({ Type, subType, getMenu, menu, submenu }) => {
                         })}
                     </List>
                 </div>
-
-                {/*  style={{ position: 'absolute', bottom: 0, left: 0, right: 0 }} */}
 
                 <div>
                     <List style={{ paddingTop: '5px' }} subheader={
@@ -194,13 +190,10 @@ const MobileSideBar = ({ Type, subType, getMenu, menu, submenu }) => {
                         </Link>
                     </List>
                 </div>
-            </>
+            </Fragment>
             }
-        </>
+        </Fragment>
     );
-
-    const container = window !== undefined ? () => window.document.body : undefined;
-    // ---------------------------------------------------------------------------------------------------
 
     return (
         <Box sx={{ flexGrow: 1, display: { xs: 'flex', lg: 'none' } }}>
@@ -224,25 +217,25 @@ const MobileSideBar = ({ Type, subType, getMenu, menu, submenu }) => {
                 aria-label="mailbox folders"
             >
                 <Drawer
-                container={container}
-                variant="temporary"
-                open={mobileOpen}
-                onClose={handleDrawerToggle}
-                ModalProps={{
-                    keepMounted: true, // Better open performance on mobile.
-                }}
-                sx={{
-                    // display: { xs: 'flex', lg: 'none' },
-                    position: 'relative',
-                    // overflow: 'hidden',
-                    '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-                }}
+                    container={container}
+                    variant="temporary"
+                    open={mobileOpen}
+                    onClose={handleDrawerToggle}
+                    ModalProps={{
+                        keepMounted: true, // Better open performance on mobile.
+                    }}
+                    sx={{
+                        // display: { xs: 'flex', lg: 'none' },
+                        position: 'relative',
+                        // overflow: 'hidden',
+                        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+                    }}
                 >
                     {drawer}
                 </Drawer>
             </Box>
         </Box>
-    );
-};
+    )
+}
 
 export default MobileSideBar;

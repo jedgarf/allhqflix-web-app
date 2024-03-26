@@ -25,7 +25,7 @@ import './css/TVEpisodesDrawer.css';
 // Utilities
 import { separatedSeasons, ObjectLength, moveToTop } from "../../Services/Utils";
 
-export default function TVEpisodesDrawer({ movieInfo, mediaId, seasonId, episodeId, server, setSelectedSeason, setSelectedEpisode, setSelectedServer, setSelectedEpisodeName, setLoadingEpisode, moveToTop, lowerEpisodeList, seekTimeValue, drawerAlign }) {
+export default function TVEpisodesDrawer({ movieInfo, mediaId, seasonId, episodeId, server, setSelectedSeason, setSelectedEpisode, setSelectedServer, setSelectedEpisodeName, setLoadingEpisode, moveToTop, lowerEpisodeList, drawerAlign }) {
 
   const [state, setState] = React.useState({
     bottom: false,
@@ -55,8 +55,6 @@ export default function TVEpisodesDrawer({ movieInfo, mediaId, seasonId, episode
   };
 
   const handleChangeEpisode = (epId, epNum, title, season, anchor) => {
-    // reset seek time
-    seekTimeValue.current = 0;
     // load the player
     setLoadingEpisode(true);
     // set the selected episode in player

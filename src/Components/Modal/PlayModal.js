@@ -250,6 +250,9 @@ const SeriesPlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ep
   const searchEpisodeValue = useRef(null);
   const [isDisableSave, setIsDisableSave] = useState(false);
 
+  const queryParams = new URLSearchParams(window.location.search);
+  const mediaId = queryParams.get("mediaId");
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -320,6 +323,7 @@ const SeriesPlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ep
     setEpisodeIdVar(episodeNumber);
     setServerVar(server);
     setIsModalOpen(false);
+    deleteCookie(decodeURIComponent(mediaId));
   }
 
   // React Query
@@ -346,214 +350,214 @@ const SeriesPlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ep
 
   useEffect(() => {
     setSeasons(generateSeasons(episodes));
-  }, [generateSeasons, episodes])
-  console.log("episodes", episodes);
+  }, [generateSeasons, episodes]);
 
   return (
-    <>
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-        {resourceData.isSuccess && resourceInfo?.data?.sources?.length > 0 ?
-          (<Button
-            id="demo-customized-button"
-            size='small'
-            aria-controls={open ? 'demo-customized-menu' : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? 'true' : undefined}
-            variant="contained"
-            disableElevation
-            onClick={handleClick}
-            startIcon={<PlayCircleOutlineIcon />}
-            endIcon={<KeyboardArrowDownIcon />}
-            style={{ marginRight: '10px' }}
-          >
-            PLAY
-          </Button>)
-         : 
-         !resourceData.isLoading && 
-         <Button aria-label='SERVER SELECTION' variant='contained' size='small' style={{ marginRight: '10px' }} onClick={() => handleModal(true)} startIcon={<TuneOutlinedIcon/>}>
-            SERVER SELECTION
-          </Button>
-         }
-          {/* <Latency/> */}
+      {resourceData.isSuccess && resourceInfo?.data?.sources?.length > 0 ?
+        <Button
+          id="demo-customized-button"
+          size='small'
+          aria-controls={open ? 'demo-customized-menu' : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? 'true' : undefined}
+          variant="contained"
+          disableElevation
+          onClick={handleClick}
+          startIcon={<PlayCircleOutlineIcon />}
+          endIcon={<KeyboardArrowDownIcon />}
+          style={{ marginRight: '10px' }}
+        >
+          PLAY
+        </Button>
+      : 
+        !resourceData.isLoading && 
+        <Button aria-label='SERVER SELECTION' variant='contained' size='small' style={{ marginRight: '10px' }} onClick={() => handleModal(true)} startIcon={<TuneOutlinedIcon/>}>
+          SERVER SELECTION
+        </Button>
+      }
+        {/* <Latency/> */}
 
-        <StyledMenu
-            id="demo-customized-menu"
-            MenuListProps={{
-              'aria-labelledby': 'demo-customized-button',
-            }}
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-          >
-          <Link className='text-link-without-underline' to={`${url}?season=${seasonIdVar}&episode=${episodeIdVar}&server=${serverVar}`}>
+      <StyledMenu
+        id="demo-customized-menu"
+        MenuListProps={{
+          'aria-labelledby': 'demo-customized-button',
+        }}
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+      >
+        {getCookie(decodeURIComponent(mediaId)) && 
+          <Link className='text-link-without-underline' to={`${url}?server=${serverVar}`}>
             <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
               <PlayCircleOutlineIcon />
-              FROM THE BEGINNING
+              CONTINUE ({secondsToHMS(JSON.parse(getCookie(decodeURIComponent(mediaId))).time)})
             </MenuItem>
           </Link>
-          {/* episodes[seasons.length][episodes.length-1].id */}
-          <Link className='text-link-without-underline' to={`${url}?season=${generateSeasons(episodes).length}&episode=${episodes[generateSeasons(episodes).length][episodes[generateSeasons(episodes).length].length-1].id}&server=${serverVar}`}>
-            <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
-              <PlayCircleOutlineIcon />
-              LATEST EPISODE
-            </MenuItem>
-          </Link>
-          <MenuItem onClick={() => handleModal(true)} style={{ fontSize: '15px' }} disableRipple>
-            <TuneOutlinedIcon/>
-            EPISODE SELECTION
+        }
+        <Link className='text-link-without-underline' to={`${url}?season=${seasonIdVar}&episode=${episodeIdVar}&server=${serverVar}`} onClick={() => deleteCookie(decodeURIComponent(mediaId))}>
+          <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
+            <PlayCircleOutlineIcon />
+            FROM THE BEGINNING
           </MenuItem>
-        </StyledMenu>
+        </Link>
+        {/* episodes[seasons.length][episodes.length-1].id */}
+        <Link className='text-link-without-underline' to={`${url}?season=${generateSeasons(episodes).length}&episode=${episodes[generateSeasons(episodes).length][episodes[generateSeasons(episodes).length].length-1].id}&server=${serverVar}`} onClick={() => deleteCookie(decodeURIComponent(mediaId))}>
+          <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
+            <PlayCircleOutlineIcon />
+            LATEST EPISODE
+          </MenuItem>
+        </Link>
+        <MenuItem onClick={() => handleModal(true)} style={{ fontSize: '15px' }} disableRipple>
+          <TuneOutlinedIcon/>
+          EPISODE SELECTION
+        </MenuItem>
+      </StyledMenu>
 
-        {/* Modal */}
-        <ReusableModal isModalOpen={isModalOpen} handleModal={handleModal} OptionIcon={<TuneOutlinedIcon sx={{ marginBottom: '-4px' }} />} title={resourceData.isSuccess && resourceInfo?.data?.sources?.length > 0 ? `EPISODE SELECTION` : `SERVER SELECTION`}>
+      {/* Modal */}
+      <ReusableModal isModalOpen={isModalOpen} handleModal={handleModal} OptionIcon={<TuneOutlinedIcon sx={{ marginBottom: '-4px' }} />} title={resourceData.isSuccess && resourceInfo?.data?.sources?.length > 0 ? `EPISODE SELECTION` : `SERVER SELECTION`}>
 
-        <DialogContent>
-          <Grid container columnSpacing={{ xs: 3, sm: 3, md: 3, lg: 3, xl: 3 }} rowSpacing={0}>
-            {resourceData.isSuccess && resourceInfo?.data?.sources?.length > 0 && 
-            <>
-            {/* Seasons */}
-            <Grid item xl={12} lg={12} md={12} sm={12} xs={12} style={{  display: seasons?.length > 1 ? 'block' : 'none', paddingTop: 10, paddingBottom: 10 }}>
-              <Typography variant='h6' sx={{ marginBottom: 1 }}>Seasons ({seasons?.length})</Typography>
-              <Slider {...manual_selection_carousel_settings} infinite={false} style={{ marginInline: 10, marginBottom: 25 }}>
-                  {seasons?.map((item, index) => {
+      <DialogContent>
+        <Grid container columnSpacing={{ xs: 3, sm: 3, md: 3, lg: 3, xl: 3 }} rowSpacing={0}>
+          {resourceData.isSuccess && resourceInfo?.data?.sources?.length > 0 && 
+          <>
+          {/* Seasons */}
+          <Grid item xl={12} lg={12} md={12} sm={12} xs={12} style={{  display: seasons?.length > 1 ? 'block' : 'none', paddingTop: 10, paddingBottom: 10 }}>
+            <Typography variant='h6' sx={{ marginBottom: 1 }}>Seasons ({seasons?.length})</Typography>
+            <Slider {...manual_selection_carousel_settings} infinite={false} style={{ marginInline: 10, marginBottom: 25 }}>
+                {seasons?.map((item, index) => {
+                  return (<Fragment key={index}>
+                            <Button size='small' variant={item.id === seasonNumber ? 'contained' : 'outlined'} style={{ marginInline: 3 }} onClick={() => onSelectSeason(item.id, seasonNumber)}>
+                                {item.count}
+                            </Button>
+                          </Fragment>)
+                })}
+            </Slider>
+          </Grid>
+          {/* Episodes */}
+          <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>
+            <Typography variant='h6' sx={{ marginBottom: 1 }}>Episodes ({episodes[seasonNumber].length})</Typography>
+          </Grid>
+          <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>
+            <Paper
+              sx={{ p: '2px 2px', display: 'flex', alignItems: 'center', width: 100 }}
+              style={{ float: 'right', height: 35, marginTop: -3 }}
+            >
+              <InputBase
+                startAdornment={
+                  <InputAdornment position="start">
+                  <SearchIcon />
+                </InputAdornment>
+                }
+                inputRef={searchEpisodeValue}
+                sx={{ ml: 1, flex: 1, color: 'white !important' }}
+                inputProps={{ 'aria-label': 'input number here' }}
+                placeholder=''
+                onKeyDown={(e) => allowOnlyNumbers(e)}
+                onChange={(e) => onChangeFindEpisode(e)}
+                defaultValue={findEpisodeValue}
+              />
+            </Paper>
+          </Grid>
+          <Grid item xl={12} lg={12} md={12} sm={12} xs={12} style={{ paddingBottom: 10 }}>
+            {episodeList.length > 0 ? (
+              <Slider {...manual_selection_carousel_settings} infinite={false} style={{ marginInline: 10 }}>
+                  {episodeList.map((item, index) => {
                     return (<Fragment key={index}>
-                              <Button size='small' variant={item.id === seasonNumber ? 'contained' : 'outlined'} style={{ marginInline: 3 }} onClick={() => onSelectSeason(item.id, seasonNumber)}>
-                                  {item.count}
+                              <Button size='small' variant={item.id === episodeNumber ? 'contained' : 'outlined'} title={item.title} style={{ marginInline: 3 }} onClick={() => onSelectEpisode(item.id, episodeNumber)}>
+                                {item.number}
                               </Button>
                             </Fragment>)
                   })}
               </Slider>
-            </Grid>
-            {/* Episodes */}
-            <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>
-              <Typography variant='h6' sx={{ marginBottom: 1 }}>Episodes ({episodes[seasonNumber].length})</Typography>
-            </Grid>
-            <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>
-              <Paper
-                sx={{ p: '2px 2px', display: 'flex', alignItems: 'center', width: 100 }}
-                style={{ float: 'right', height: 35, marginTop: -3 }}
-              >
-                <InputBase
-                  startAdornment={
-                    <InputAdornment position="start">
-                    <SearchIcon />
-                  </InputAdornment>
-                  }
-                  inputRef={searchEpisodeValue}
-                  sx={{ ml: 1, flex: 1, color: 'white !important' }}
-                  inputProps={{ 'aria-label': 'input number here' }}
-                  placeholder=''
-                  onKeyDown={(e) => allowOnlyNumbers(e)}
-                  onChange={(e) => onChangeFindEpisode(e)}
-                  defaultValue={findEpisodeValue}
-                />
-              </Paper>
-            </Grid>
-            <Grid item xl={12} lg={12} md={12} sm={12} xs={12} style={{ paddingBottom: 10 }}>
-              {episodeList.length > 0 ? (
-                <Slider {...manual_selection_carousel_settings} infinite={false} style={{ marginInline: 10 }}>
-                    {episodeList.map((item, index) => {
-                      return (<Fragment key={index}>
-                                <Button size='small' variant={item.id === episodeNumber ? 'contained' : 'outlined'} title={item.title} style={{ marginInline: 3 }} onClick={() => onSelectEpisode(item.id, episodeNumber)}>
-                                  {item.number}
-                                </Button>
-                              </Fragment>)
-                    })}
-                </Slider>
-              ) : (<Typography sx={{ textAlign: 'center' }}>Select season first</Typography>)}
-            </Grid>
-            </>}
-
-            {/* Servers */}
-            <Grid item xl={12} lg={12} md={12} sm={12} xs={12} style={{ paddingTop: 10, paddingBottom: 10 }}>
-              {isServerData ? 
-              <center><CircularProgress sx={{ fontSize: 10 }} /></center>
-               : 
-               <>
-                  {serverList.length > 0 ? (
-                    <>
-                      <Typography variant='h6' sx={{ marginBottom: 1 }}>Servers</Typography>
-                      <Slider {...manual_selection_carousel_settings} infinite={false} style={{ marginInline: 10 }}>
-                          {serverList.map((item, index) => {
-                              return (
-                                  <Fragment key={index}>
-                                    {server_status.filter((serverValue) => serverValue.code === item.name).length > 0 ? (
-                                        <>
-                                        {server_status.filter((serverValue) => serverValue.code === item.name).map((subItem, subNo) => {
-                                            return (
-                                                <>
-                                                    {subItem.status === 'stable' ?
-                                                    (
-                                                    <Button size='small' variant={server === item.name ? 'contained' : 'outlined'} startIcon={<OndemandVideoIcon/>} style={{ marginInline: 3 }} onClick={() => onSelectServer(item.name)}>
-                                                        {`Server ${index+1}`}
-                                                    </Button>
-                                                    )
-                                                    : 
-                                                    (
-                                                      <Button size='small' variant={server === item.name ? 'contained' : 'outlined'} startIcon={<OndemandVideoIcon/>} style={{ marginInline: 3, cursor: 'not-allowed' }} color='error'>
-                                                        {`Server ${index+1}`}
-                                                      </Button>
-                                                    )}
-                                                </>
-                                            )
-                                        })}
-                                        </>
-                                    ) : ("")}        
-                                  </Fragment>
-                              )
-                          })}
-                      </Slider>
-                    </>
-                  ) : (
-                    <div style={{ textAlign: 'center', marginTop: '15px' }}>
-                      {isServerData ? (
-                        <LoadingButton
-                          color="primary"
-                          loading
-                          loadingPosition="start"
-                          startIcon={<SaveIcon />}
-                          variant="contained"
-                          size='small'
-                        >
-                          <span>Check available server</span>
-                        </LoadingButton>
-                      ) : (
-                        <Button variant='contained' size='small' color='primary' onClick={(e) => checkServerAvailability(e)} startIcon={<SearchIcon />}>Check available server</Button>
-                      )}
-                    </div>
-                  )}
-                </>
-              }
-            </Grid>
+            ) : (<Typography sx={{ textAlign: 'center' }}>Select season first</Typography>)}
           </Grid>
-        </DialogContent>
-        <Divider/>
-        <DialogActions>
-          <Button size='small' variant='outlined' color='error' startIcon={<CloseIcon/>} onClick={() => handleModal(false)}>Close</Button>
-          {resourceData.isSuccess && resourceInfo?.data?.sources?.length > 0 ?
-            (<>
-            {isDisableSave ?
-              <Button size='small' variant='contained' color='primary' startIcon={<PlayCircleOutlineIcon/>} disabled>Play</Button>
-            : 
-              <Link to={`${url}?season=${seasonNumber}&episode=${episodeNumber}&server=${server}`}>
-                <Button size='small' variant='contained' color='primary' startIcon={<PlayCircleOutlineIcon/>}>Play</Button>
-              </Link>
-            }
-            </>)
-            : 
-            (<>
-              {isDisableSave ?
-                <Button size='small' variant='contained' color='primary' startIcon={<SaveIcon/>} disabled>Save</Button>
-              : 
-                <Button size='small' variant='contained' color='primary' onClick={(e) => onSubmit(e)} startIcon={<SaveIcon/>}>Save</Button>
-              }
-          </>)}
-        </DialogActions>
+          </>}
 
-        </ReusableModal>
+          {/* Servers */}
+          <Grid item xl={12} lg={12} md={12} sm={12} xs={12} style={{ paddingTop: 10, paddingBottom: 10 }}>
+            {isServerData ? 
+            <center><CircularProgress sx={{ fontSize: 10 }} /></center>
+              : 
+              <>
+                {serverList.length > 0 ? (
+                  <>
+                    <Typography variant='h6' sx={{ marginBottom: 1 }}>Servers</Typography>
+                    <Slider {...manual_selection_carousel_settings} infinite={false} style={{ marginInline: 10 }}>
+                        {serverList.map((item, index) => {
+                            return (
+                                <Fragment key={index}>
+                                  {server_status.filter((serverValue) => serverValue.code === item.name).length > 0 ? (
+                                      <>
+                                      {server_status.filter((serverValue) => serverValue.code === item.name).map((subItem, subNo) => {
+                                          return (
+                                              <>
+                                                  {subItem.status === 'stable' ?
+                                                  (
+                                                  <Button size='small' variant={server === item.name ? 'contained' : 'outlined'} startIcon={<OndemandVideoIcon/>} style={{ marginInline: 3 }} onClick={() => onSelectServer(item.name)}>
+                                                      {`Server ${index+1}`}
+                                                  </Button>
+                                                  )
+                                                  : 
+                                                  (
+                                                    <Button size='small' variant={server === item.name ? 'contained' : 'outlined'} startIcon={<OndemandVideoIcon/>} style={{ marginInline: 3, cursor: 'not-allowed' }} color='error'>
+                                                      {`Server ${index+1}`}
+                                                    </Button>
+                                                  )}
+                                              </>
+                                          )
+                                      })}
+                                      </>
+                                  ) : ("")}        
+                                </Fragment>
+                            )
+                        })}
+                    </Slider>
+                  </>
+                ) : (
+                  <div style={{ textAlign: 'center', marginTop: '15px' }}>
+                    {isServerData ? (
+                      <LoadingButton
+                        color="primary"
+                        loading
+                        loadingPosition="start"
+                        startIcon={<SaveIcon />}
+                        variant="contained"
+                        size='small'
+                      >
+                        <span>Check available server</span>
+                      </LoadingButton>
+                    ) : (
+                      <Button variant='contained' size='small' color='primary' onClick={(e) => checkServerAvailability(e)} startIcon={<SearchIcon />}>Check available server</Button>
+                    )}
+                  </div>
+                )}
+              </>
+            }
+          </Grid>
+        </Grid>
+      </DialogContent>
+      <Divider/>
+      <DialogActions>
+        <Button size='small' variant='outlined' color='error' startIcon={<CloseIcon/>} onClick={() => handleModal(false)}>Close</Button>
+        {resourceData.isSuccess && resourceInfo?.data?.sources?.length > 0 ?
+          isDisableSave ?
+            <Button size='small' variant='contained' color='primary' startIcon={<PlayCircleOutlineIcon/>} disabled>Play</Button>
+          : 
+            <Link to={`${url}?season=${seasonNumber}&episode=${episodeNumber}&server=${server}`} onClick={() => deleteCookie(decodeURIComponent(mediaId))}>
+              <Button size='small' variant='contained' color='primary' startIcon={<PlayCircleOutlineIcon/>}>Play</Button>
+            </Link>
+        : 
+          isDisableSave ?
+            <Button size='small' variant='contained' color='primary' startIcon={<SaveIcon/>} disabled>Save</Button>
+          : 
+            <Button size='small' variant='contained' color='primary' onClick={(e) => onSubmit(e)} startIcon={<SaveIcon/>}>Save</Button>
+        }
+      </DialogActions>
+
+      </ReusableModal>
     </ThemeProvider>
-    </>
   );
 }
 
@@ -700,22 +704,22 @@ const AnimePlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVar, ur
             open={open}
             onClose={handleClose}
           >
-          {getCookie(mediaId) && 
-            <Link className='text-link-without-underline' to={`${url}?dub=${JSON.parse(getCookie(mediaId)).dub}&episode=${JSON.parse(getCookie(mediaId)).episodeId}`}>
+          {getCookie(decodeURIComponent(mediaId)) && 
+            <Link className='text-link-without-underline' to={`${url}?dub=${JSON.parse(getCookie(decodeURIComponent(mediaId))).dub}&episode=${JSON.parse(getCookie(decodeURIComponent(mediaId))).episodeId}`}>
               <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
                 <PlayCircleOutlineIcon />
-                CONTINUE ({episodes.length > 1 ? `EP ${JSON.parse(getCookie(mediaId)).episodeNumber} - ${secondsToHMS(JSON.parse(getCookie(mediaId)).time)}` : `${secondsToHMS(JSON.parse(getCookie(mediaId)).time)}`})
+                CONTINUE ({episodes.length > 1 ? `EP ${JSON.parse(getCookie(decodeURIComponent(mediaId))).episodeNumber} - ${secondsToHMS(JSON.parse(getCookie(decodeURIComponent(mediaId))).time)}` : `${secondsToHMS(JSON.parse(getCookie(decodeURIComponent(mediaId))).time)}`})
               </MenuItem>
             </Link>
           }
-          <Link className='text-link-without-underline' to={`${url}?dub=${isDub}&episode=${episodeIdVar}`} onClick={() => deleteCookie(mediaId)}>
+          <Link className='text-link-without-underline' to={`${url}?dub=${isDub}&episode=${episodeIdVar}`} onClick={() => deleteCookie(decodeURIComponent(mediaId))}>
             <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
               <PlayCircleOutlineIcon />
               FROM THE BEGINNING
             </MenuItem>
           </Link>
           {episodes.length > 1 &&
-            <Link className='text-link-without-underline' to={`${url}?dub=${isDub}&episode=${episodes[episodes.length-1].id}`} onClick={() => deleteCookie(mediaId)}>
+            <Link className='text-link-without-underline' to={`${url}?dub=${isDub}&episode=${episodes[episodes.length-1].id}`} onClick={() => deleteCookie(decodeURIComponent(mediaId))}>
               <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
                 <PlayCircleOutlineIcon />
                 LATEST EPISODE
@@ -809,7 +813,7 @@ const AnimePlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVar, ur
               </Grid>
               <Grid item xl={6} lg={6} md={6} sm={6} xs={6} style={{ textAlign: 'right' }}>
                 <Button size='small' variant='outlined' color='error' style={{ marginRight: '5px' }} startIcon={<CloseIcon/>} onClick={() => handleModal(false)}>Close</Button>
-                <Link to={`${url}?dub=${isDub}&episode=${episodeNumber}`} onClick={() => deleteCookie(mediaId)}>
+                <Link to={`${url}?dub=${isDub}&episode=${episodeNumber}`} onClick={() => deleteCookie(decodeURIComponent(mediaId))}>
                   <Button size='small' variant='contained' color='primary' startIcon={<PlayCircleOutlineIcon/>}>Play</Button>
                 </Link>
               </Grid>

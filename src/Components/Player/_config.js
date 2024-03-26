@@ -52,7 +52,7 @@ export const destroyPlayFlv = () => {
 }
 
 export const saveProgress = (mediaId, paramDub, episodeId, episodeNum, currentTime) => {
-    console.log("test: ", mediaId + " - " + paramDub + " - " + episodeId + " - " + episodeNum + " - " + currentTime);
+    console.info("save progress: ", currentTime);
     _.throttle((currentTime) => {
         const mediaProgress = {
             dub: paramDub,
@@ -60,8 +60,12 @@ export const saveProgress = (mediaId, paramDub, episodeId, episodeNum, currentTi
             episodeNumber: episodeNum,
             time: currentTime,
         };
-        if (getCookie(mediaId.includes("/") ? decodeURIComponent(mediaId) : mediaId)) deleteCookie(mediaId.includes("/") ? decodeURIComponent(mediaId) : mediaId);
+        if (getCookie(decodeURIComponent(mediaId))) deleteCookie(decodeURIComponent(mediaId));
         // save for 7 days
-        addCookie(mediaId, JSON.stringify(mediaProgress), 7);
+        if (process.env.NODE_ENV === 'production') {
+            addCookie(encodeURIComponent(mediaId), JSON.stringify(mediaProgress), 7, {domain: '.vercel.app', path: '/'});
+        } else {
+            addCookie(encodeURIComponent(mediaId), JSON.stringify(mediaProgress), 7, {domain: 'localhost', path: '/'});
+        }
     }, 5000);
 };

@@ -20,7 +20,6 @@ import OndemandVideoIcon from '@mui/icons-material/OndemandVideo';
 import SideBar from "../../Components/SlideBar/SideBar";
 import Footer from "../../Components/Footer/Footer";
 import FloatingButton from '../../Components/FloatingButton/FloatingButton';
-import LoadingPage from "../../Components/LoadingPage/LoadingPage";
 import InitPlayerLoading from "../../Components/InitPlayerLoading/InitPlayerLoading";
 import { Player } from "../../Components/Player/Player";
 import Suggestions from "../../Components/InternationalFilms/Suggestions";
@@ -30,7 +29,7 @@ import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
 // Config
 import apiConfig from '../../Config/api.config';
-import { pageLoadMS, defaultInternationalServer, defaultInternationalVideoRes, server_status } from "../../Config/settings.config";
+import { defaultInternationalServer, defaultInternationalVideoRes, server_status } from "../../Config/settings.config";
 
 // Images
 import { subtitleLogo, videoQuality } from "../../Config/images.config";
@@ -49,13 +48,11 @@ const MovieDashboard = (props) => {
   const { id, type } = useParams();
   const indexId = type + "/" + id;
   const contentType = type === 'movie' ? 'Movie' : 'TV Series';
-  const seekTimeValue = useRef(0);
   const queryParams = new URLSearchParams(window.location.search);
   const paramSeasonId = queryParams.get("season") != null ? parseInt(queryParams.get("season")) : null;
   const paramEpisodeId = queryParams.get("episode") != null ? parseInt(queryParams.get("episode")) : null;
   const paramServer = queryParams.get("server") != null ? queryParams.get("server") : null;
 
-  const [isLoading, setIsLoading] = useState(true);
   const [movieServer, setMovieServer] = useState([]);
   const [videoQualities, setVideoQualities] = useState([]);
   const [videoSubtitles, setVideoSubtitles] = useState([]);
@@ -95,8 +92,6 @@ const MovieDashboard = (props) => {
     if (server === selectedServer) {
       moveToTop();
     } else {
-      // seekTimeValue.current = artInstance.currentTime;
-      seekTimeValue.current = 0;
       setLoadingEpisode(true);
       set_selectedServer(server, rabbitstreamId);
       moveToTop();
@@ -279,7 +274,6 @@ const MovieDashboard = (props) => {
   }
 
   const previousEpisode = () => {
-    seekTimeValue.current = 0;
     const selectedItemIndex = infoValue?.episodes?.indexOf(infoValue?.episodes?.find((item) => item.season == selectedSeason && item.id == selectedEpisode));
     if (selectedItemIndex > 0 && selectedItemIndex < infoValue?.episodes?.length) {
       const getTargetEpisode = infoValue?.episodes[selectedItemIndex-1];
@@ -293,7 +287,6 @@ const MovieDashboard = (props) => {
   }
 
   const nextEpisode = () => {
-    seekTimeValue.current = 0;
     const selectedItemIndex = infoValue?.episodes?.indexOf(infoValue?.episodes?.find((item) => item.season == selectedSeason && item.id == selectedEpisode));
     if (selectedItemIndex >= 0 && (selectedItemIndex + 1) < infoValue?.episodes?.length) {
       const getTargetEpisode = infoValue?.episodes[selectedItemIndex+1];
@@ -309,9 +302,9 @@ const MovieDashboard = (props) => {
   // previous | next
   var additionalControls = [];
   if (type === 'tv') {
+    const selectedItemIndex = infoValue?.episodes?.indexOf(infoValue?.episodes?.find((item) => item.season == selectedSeason && item.id == selectedEpisode));
     // Previous Episode
-    const selectedItemPrevIndex = infoValue?.episodes?.indexOf(infoValue?.episodes?.find((item) => item.season == selectedSeason && item.id == selectedEpisode));
-    if (selectedItemPrevIndex > 0 && selectedItemPrevIndex < infoValue?.episodes?.length) {
+    if (selectedItemIndex > 0 && selectedItemIndex < infoValue?.episodes?.length) {
       additionalControls.push({
         position: 'right',
         html: `PREV.`,
@@ -320,14 +313,13 @@ const MovieDashboard = (props) => {
             marginRight: '10px',
             color: '#DC4C64'
         },
-        click: function (item) {
+        click: (item) => {
           previousEpisode();
         },
       });
     }
     // Next Episode
-    const selectedItemNextIndex = infoValue?.episodes?.indexOf(infoValue?.episodes?.find((item) => item.season == selectedSeason && item.id == selectedEpisode));
-    if (selectedItemNextIndex >= 0 && (selectedItemNextIndex + 1) < infoValue?.episodes?.length) {
+    if (selectedItemIndex >= 0 && (selectedItemIndex + 1) < infoValue?.episodes?.length) {
       additionalControls.push({
         position: 'right',
         html: `NEXT`,
@@ -336,7 +328,7 @@ const MovieDashboard = (props) => {
             marginRight: '10px',
             color: '#DC4C64'
         },
-        click: function (item) {
+        click: (item) => {
           nextEpisode();
         },
       });
@@ -360,11 +352,6 @@ const MovieDashboard = (props) => {
     if (serverData.isSuccess) {
       setMovieServer(serverValue);
     }
-
-    setTimeout(() => {
-      setIsLoading(false);
-    }, pageLoadMS);
-
   }, [infoData.isSuccess, 
       serverData.isSuccess, 
       serverVar, 
@@ -387,7 +374,7 @@ const MovieDashboard = (props) => {
 
       <div className="movie_cover" style={{backgroundImage: `linear-gradient(rgba(0, 0, 10, 1),rgba(0, 0, 10, 0.5),rgba(0, 0, 10, 0.2)), url("${infoValue?.cover}")`}}>
         <div className="heading cheading movie-stream-title">
-          <h6></h6>
+          <h6> </h6>
         </div>
         {loadingEpisode ? (
           <InitPlayerLoading/>
@@ -476,26 +463,24 @@ const MovieDashboard = (props) => {
                   {movieServer?.data?.map((item, index) => {
                       return (
                         <Fragment key={index}>
-                          {server_status.filter((serverValue) => serverValue.code === item.name).length > 0 ? (
-                            <>
-                            {server_status.filter((serverValue) => serverValue.code === item.name).map((subItem, subIndex) => {
-                                return (
-                                    <Fragment key={subIndex}>
-                                        {subItem.status === 'stable' ?
-                                        (<Button variant={selectedServer === item.name ? 'contained' : 'outlined'} startIcon={<OndemandVideoIcon/>} size="small" style={{ marginInline: 8 }} onClick={() => chooseServer(item.name, item.rabbitstream_id)}>
-                                            {`Server ${index+1}`}
-                                        </Button>)
-                                        : 
-                                        (
-                                          <Button variant={selectedServer === item.name ? 'contained' : 'outlined'} startIcon={<OndemandVideoIcon/>} size="small" style={{ marginInline: 8, cursor: 'not-allowed' }} color='error'>
-                                              {`Server ${index+1}`}
-                                          </Button>
-                                        )}
-                                    </Fragment>
-                                )
-                            })}
-                            </>
-                          ) : ("")}        
+                          {server_status.filter((serverValue) => serverValue.code === item.name).length > 0 && 
+                            server_status.filter((serverValue) => serverValue.code === item.name)
+                            .map((subItem, subIndex) => {
+                              return (
+                                  <Fragment key={subIndex}>
+                                      {subItem.status === 'stable' ?
+                                        <Button variant={selectedServer === item.name ? 'contained' : 'outlined'} startIcon={<OndemandVideoIcon/>} size="small" style={{ marginInline: 8 }} onClick={() => chooseServer(item.name, item.rabbitstream_id)}>
+                                          {`Server ${index+1}`}
+                                        </Button>
+                                      : 
+                                        <Button variant={selectedServer === item.name ? 'contained' : 'outlined'} startIcon={<OndemandVideoIcon/>} size="small" style={{ marginInline: 8, cursor: 'not-allowed' }} color='error'>
+                                          {`Server ${index+1}`}
+                                        </Button>
+                                      }
+                                  </Fragment>
+                              )
+                            })
+                          }        
                         </Fragment>
                       )
                   })}
@@ -507,47 +492,48 @@ const MovieDashboard = (props) => {
       <div className={type === 'tv' ? 'tv_info' : 'movie_info'}>
       
         {type === 'tv' ?
-        <>
-          <Box className="episodesBtn" display={{ xs: 'block', sm: 'block', md: 'none', lg: 'none' }}>
-            <TVEpisodesDrawer
-              movieInfo={infoValue} 
-              mediaId={indexId} 
-              seasonId={selectedSeason}
-              episodeId={selectedEpisode} 
-              server={selectedServer}
-              setSelectedSeason={setSelectedSeason}
-              setSelectedEpisode={setSelectedEpisode}
-              setSelectedServer={setSelectedServer}
-              setSelectedEpisodeName={setSelectedEpisodeName}
-              setLoadingEpisode={setLoadingEpisode}
-              moveToTop={moveToTop}
-              lowerEpisodeList={true}
-              seekTimeValue={seekTimeValue}
-              drawerAlign={'bottom'}
-            />
+          <Fragment>
+            <Box className="episodesBtn" display={{ xs: 'block', sm: 'block', md: 'none', lg: 'none' }}>
+              <TVEpisodesDrawer
+                movieInfo={infoValue} 
+                mediaId={indexId} 
+                seasonId={selectedSeason}
+                episodeId={selectedEpisode} 
+                server={selectedServer}
+                setSelectedSeason={setSelectedSeason}
+                setSelectedEpisode={setSelectedEpisode}
+                setSelectedServer={setSelectedServer}
+                setSelectedEpisodeName={setSelectedEpisodeName}
+                setLoadingEpisode={setLoadingEpisode}
+                moveToTop={moveToTop}
+                lowerEpisodeList={true}
+                drawerAlign={'bottom'}
+              />
+            </Box>
+            <Box className="episodesBtn" display={{ xs: 'none', sm: 'none', md: 'block', lg: 'block' }}>
+              <TVEpisodesDrawer
+                movieInfo={infoValue} 
+                mediaId={indexId} 
+                seasonId={selectedSeason}
+                episodeId={selectedEpisode} 
+                server={selectedServer}
+                setSelectedSeason={setSelectedSeason}
+                setSelectedEpisode={setSelectedEpisode}
+                setSelectedServer={setSelectedServer}
+                setSelectedEpisodeName={setSelectedEpisodeName}
+                setLoadingEpisode={setLoadingEpisode}
+                moveToTop={moveToTop}
+                lowerEpisodeList={true}
+                drawerAlign={'right'}
+              />
+            </Box>
+          </Fragment>
+        :  
+          <Box display={{ xs: 'none', sm: 'none', md: 'block', lg: 'block', xl: 'block' }}>
+            <br/><br/><br/>
           </Box>
-          <Box className="episodesBtn" display={{ xs: 'none', sm: 'none', md: 'block', lg: 'block' }}>
-            <TVEpisodesDrawer
-              movieInfo={infoValue} 
-              mediaId={indexId} 
-              seasonId={selectedSeason}
-              episodeId={selectedEpisode} 
-              server={selectedServer}
-              setSelectedSeason={setSelectedSeason}
-              setSelectedEpisode={setSelectedEpisode}
-              setSelectedServer={setSelectedServer}
-              setSelectedEpisodeName={setSelectedEpisodeName}
-              setLoadingEpisode={setLoadingEpisode}
-              moveToTop={moveToTop}
-              lowerEpisodeList={true}
-              seekTimeValue={seekTimeValue}
-              drawerAlign={'right'}
-            />
-          </Box>
-        </>
-          :  <Box display={{ xs: 'none', sm: 'none', md: 'block', lg: 'block', xl: 'block' }}>
-              <br/><br/><br/>
-            </Box>}
+        }
+
         <div className="content-details">
           <Grid container columnSpacing={{ xs: 1, sm: 2, md: 5, lg: 5, xl: 5 }} rowSpacing={5}>
             <Grid item xl={12} lg={12} md={12} sm={12} xs={12} display={{ xs: 'none', sm: 'none', md: 'none', lg: 'block' }}>
@@ -586,13 +572,13 @@ const MovieDashboard = (props) => {
                     </Grid>
                   </Grid>}
               </div>
-              {infoValue?.description.trim() !== "" ? (
+
+              {infoValue?.description.trim() !== "" ? 
                 <p className="movie_description" dangerouslySetInnerHTML={{ __html: infoValue?.description}}/>
-              ) : (
-                <p className="movie_description">
-                  -
-                </p>
-              )}
+              : 
+                <p className="movie_description"> - </p>
+              }
+
               <table>
                 <tbody>
                   <tr>
@@ -621,20 +607,21 @@ const MovieDashboard = (props) => {
                   </tr>
                 </tbody>
               </table>
+
             </Grid>
 
           </Grid>
         </div>
       </div>
       <br/><br/>
-      {recommendations.filter((item) => item.type == contentType).length > 0 ?
-          <>
-            <div className="heading bheading">
-              <h6>You May Also Like</h6>
-            </div>
-            <Suggestions Suggest={recommendations} Type={type} />
-          </>
-        : ""}
+      {recommendations.filter((item) => item.type == contentType).length > 0 && 
+        <Fragment>
+          <div className="heading bheading">
+            <h6>You May Also Like</h6>
+          </div>
+          <Suggestions Suggest={recommendations} Type={type} />
+        </Fragment>
+      }
       <FloatingButton/>
       <Footer/>
     </div>

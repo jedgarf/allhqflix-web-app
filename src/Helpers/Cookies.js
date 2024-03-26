@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie';
 
-const DEFAULT_EXPIRATION_DAYS = 365; // equivalent to 1 year
+const DEFAULT_EXPIRATION_DAYS = 30; // equivalent to 30 days
 
 export const sanitizeCookieName = (cookieName) => {
     // Define the regular expression pattern for valid characters in a cookie name
@@ -12,18 +12,12 @@ export const sanitizeCookieName = (cookieName) => {
     return sanitizedCookieName;
 };
 
-export const addCookie = (cookieName, cookieValue, expiryDays = '', options = {}) => {
+export const addCookie = (cookieName, cookieValue, expiryDays = DEFAULT_EXPIRATION_DAYS, options = {}) => {
   Cookies.set(cookieName, cookieValue, { expires: expiryDays ? expiryDays : DEFAULT_EXPIRATION_DAYS, ...options });
 };
 
 export const getCookie = (cookieName) => {
   return Cookies.get(cookieName);
-};
-
-export const editCookie = (cookieName, newCookieValue, expiryDays = '', options = {}) => {
-  const currentCookieValue = getCookie(cookieName);
-  if (currentCookieValue == undefined) deleteCookie(cookieName);
-  addCookie(cookieName, newCookieValue, { expires: expiryDays ? expiryDays : DEFAULT_EXPIRATION_DAYS, ...options });
 };
 
 export const deleteCookie = (cookieName) => {

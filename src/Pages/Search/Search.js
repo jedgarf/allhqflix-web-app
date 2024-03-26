@@ -63,21 +63,17 @@ function Search() {
     case "foreign":
       defaultType = "foreign";
       break;
-    
     case "anime":
       defaultType = "anime";
       break;
-
     case "asian_drama":
     case "drama-detail":
       defaultType = "drama-detail";
       break;
-
     case "asian_films":
     case "drama":
       defaultType = "drama";
     break;
-  
     default:
       defaultType = 'foreign';
       break;

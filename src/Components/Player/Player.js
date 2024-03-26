@@ -141,7 +141,7 @@ const Player = ({ defaultlink, infotitle, infocover, episodeNum, totalEpisodes, 
             });
 
             art.on('video:ended', () => {
-                if (episodeNum === totalEpisodes) deleteCookie(mediaId.includes("/") ? decodeURIComponent(mediaId) : mediaId);
+                if (episodeNum === totalEpisodes) deleteCookie(decodeURIComponent(mediaId));
                 // auto next function
                 if (totalEpisodes > 1) {
                     nextEpisode();

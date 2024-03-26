@@ -52,150 +52,149 @@ const HeaderMenu = ({ Type, subType,getMenu, menu, submenu }) => {
             
             {/* ----------------------------------------------------------------------------------------------------------------------------------- */}
             {getMenu.isLoading ?
-            <>
-            <CircularProgress sx={{ fontSize: 10 }} />
-            </>
+                <CircularProgress sx={{ fontSize: 10 }} />
             : 
-            <>
-            {menu?.filter((item) => { return item.is_active === true }).sort((a, b) => { return a.sequence - b.sequence }).map((page, index) => {
-                return page.code === Type ?
-                <React.Fragment key={index}>
-                    {page.link === '' ? 
-                    <div style={{ textDecoration: 'none', fontWeight: 'bolder !important', marginRight: '20px' }}>
-                    <Button
-                        key={page.id}
-                        sx={{ my: 2, color: '#DC4C64', fontWeight: '550', display: 'block' }}
-                        aria-controls={openTopMenu ? 'basic-menu' : undefined}
-                        aria-haspopup="true"
-                        aria-expanded={openTopMenu ? 'true' : undefined}
-                        onClick={(event) => handleTopMenuClick(event, page.id)}
-                    >
-                        {page.is_dev === 1 ?
-                        <StyledBadge badgeContent={page.badge_message} color="error">
-                            {page.name} {openTopMenu && activeMenu === page.id ? <ExpandLessIcon style={{ color: '#DC4C64', marginBottom: '-7px' }} /> : <ExpandMoreIcon style={{ color: '#DC4C64', marginBottom: '-7px' }} />}
-                        </StyledBadge>
-                        : <>{page.name} {openTopMenu && activeMenu === page.id ? <ExpandLessIcon style={{ color: '#DC4C64', marginBottom: '-7px' }} /> : <ExpandMoreIcon style={{ color: '#DC4C64', marginBottom: '-7px' }} />}</>}
-                    </Button>
-                    </div>
+                menu?.filter((item) => { return item.is_active === true })
+                .sort((a, b) => { return a.sequence - b.sequence })
+                .map((page, index) => {
+                    return page.code === Type ?
+                    <React.Fragment key={index}>
+                        {page.link === '' ? 
+                        <div style={{ textDecoration: 'none', fontWeight: 'bolder !important', marginRight: '20px' }}>
+                        <Button
+                            key={page.id}
+                            sx={{ my: 2, color: '#DC4C64', fontWeight: '550', display: 'block' }}
+                            aria-controls={openTopMenu ? 'basic-menu' : undefined}
+                            aria-haspopup="true"
+                            aria-expanded={openTopMenu ? 'true' : undefined}
+                            onClick={(event) => handleTopMenuClick(event, page.id)}
+                        >
+                            {page.is_dev === 1 ?
+                            <StyledBadge badgeContent={page.badge_message} color="error">
+                                {page.name} {openTopMenu && activeMenu === page.id ? <ExpandLessIcon style={{ color: '#DC4C64', marginBottom: '-7px' }} /> : <ExpandMoreIcon style={{ color: '#DC4C64', marginBottom: '-7px' }} />}
+                            </StyledBadge>
+                            : <>{page.name} {openTopMenu && activeMenu === page.id ? <ExpandLessIcon style={{ color: '#DC4C64', marginBottom: '-7px' }} /> : <ExpandMoreIcon style={{ color: '#DC4C64', marginBottom: '-7px' }} />}</>}
+                        </Button>
+                        </div>
+                        :
+                        <Link to={page.link} style={{ textDecoration: 'none', fontWeight: 'bolder !important', marginRight: '20px' }}>
+                        <Button
+                            key={page.id}
+                            sx={{ my: 2, color: '#DC4C64', fontWeight: '550', display: 'block' }}
+                            aria-controls={openTopMenu ? 'basic-menu' : undefined}
+                            aria-haspopup="true"
+                            aria-expanded={openTopMenu ? 'true' : undefined}
+                        >
+                            {page.is_dev === 1 ?
+                            <StyledBadge badgeContent={page.badge_message} color="error">
+                                {page.name}
+                            </StyledBadge>
+                            : <>{page.name}</>}
+                        </Button>
+                        </Link>}
+                    </React.Fragment>
                     :
-                    <Link to={page.link} style={{ textDecoration: 'none', fontWeight: 'bolder !important', marginRight: '20px' }}>
-                    <Button
-                        key={page.id}
-                        sx={{ my: 2, color: '#DC4C64', fontWeight: '550', display: 'block' }}
-                        aria-controls={openTopMenu ? 'basic-menu' : undefined}
-                        aria-haspopup="true"
-                        aria-expanded={openTopMenu ? 'true' : undefined}
-                    >
-                        {page.is_dev === 1 ?
-                        <StyledBadge badgeContent={page.badge_message} color="error">
-                            {page.name}
-                        </StyledBadge>
-                        : <>{page.name}</>}
-                    </Button>
-                    </Link>}
-                </React.Fragment>
-                :
-                <React.Fragment key={index}>
-                    {page.link === '' ? 
-                    <div style={{ textDecoration: 'none', fontWeight: 'bolder !important', borderBottom: 'none', marginRight: '20px' }}>
-                    <Button
-                        key={page.id}
-                        sx={{ my: 2, color: 'white', display: 'block' }}
-                        aria-controls={openTopMenu ? 'basic-menu' : undefined}
-                        aria-haspopup="true"
-                        aria-expanded={openTopMenu ? 'true' : undefined}
-                        onClick={(event) => handleTopMenuClick(event, page.id)}
-                    >
-                        {page.is_dev === 1 ?
-                        <StyledBadge badgeContent={page.badge_message} color="error">
-                            {page.name} {openTopMenu && activeMenu === page.id ? <ExpandLessIcon style={{ color: 'white', marginBottom: '-7px' }} /> : <ExpandMoreIcon style={{ color: 'white', marginBottom: '-7px' }} />}
-                        </StyledBadge>
-                        : <>{page.name} {openTopMenu && activeMenu === page.id ? <ExpandLessIcon style={{ color: 'white', marginBottom: '-7px' }} /> : <ExpandMoreIcon style={{ color: 'white', marginBottom: '-7px' }} />}</>}
-                    </Button>
-                    </div>
-                    :
-                    <Link to={page.link} style={{ textDecoration: 'none', fontWeight: 'bolder !important', borderBottom: 'none', marginRight: '20px' }}>
-                    <Button
-                        key={page.id}
-                        sx={{ my: 2, color: 'white', display: 'block' }}
-                        aria-controls={openTopMenu ? 'basic-menu' : undefined}
-                        aria-haspopup="true"
-                        aria-expanded={openTopMenu ? 'true' : undefined}
-                    >
-                        {page.is_dev === 1 ?
-                        <StyledBadge badgeContent={page.badge_message} color="error">
-                            {page.name}
-                        </StyledBadge>
-                        : <>{page.name}</>}
-                    </Button>
-                    </Link>}
-                </React.Fragment>
-            })}
-            </>
+                    <React.Fragment key={index}>
+                        {page.link === '' ? 
+                            <div style={{ textDecoration: 'none', fontWeight: 'bolder !important', borderBottom: 'none', marginRight: '20px' }}>
+                                <Button
+                                    key={page.id}
+                                    sx={{ my: 2, color: 'white', display: 'block' }}
+                                    aria-controls={openTopMenu ? 'basic-menu' : undefined}
+                                    aria-haspopup="true"
+                                    aria-expanded={openTopMenu ? 'true' : undefined}
+                                    onClick={(event) => handleTopMenuClick(event, page.id)}
+                                >
+                                    {page.is_dev === 1 ?
+                                    <StyledBadge badgeContent={page.badge_message} color="error">
+                                        {page.name} {openTopMenu && activeMenu === page.id ? <ExpandLessIcon style={{ color: 'white', marginBottom: '-7px' }} /> : <ExpandMoreIcon style={{ color: 'white', marginBottom: '-7px' }} />}
+                                    </StyledBadge>
+                                    : <>{page.name} {openTopMenu && activeMenu === page.id ? <ExpandLessIcon style={{ color: 'white', marginBottom: '-7px' }} /> : <ExpandMoreIcon style={{ color: 'white', marginBottom: '-7px' }} />}</>}
+                                </Button>
+                            </div>
+                        :
+                            <Link to={page.link} style={{ textDecoration: 'none', fontWeight: 'bolder !important', borderBottom: 'none', marginRight: '20px' }}>
+                                <Button
+                                    key={page.id}
+                                    sx={{ my: 2, color: 'white', display: 'block' }}
+                                    aria-controls={openTopMenu ? 'basic-menu' : undefined}
+                                    aria-haspopup="true"
+                                    aria-expanded={openTopMenu ? 'true' : undefined}
+                                >
+                                    {page.is_dev === 1 ?
+                                    <StyledBadge badgeContent={page.badge_message} color="error">
+                                        {page.name}
+                                    </StyledBadge>
+                                    : <>{page.name}</>}
+                                </Button>
+                            </Link>
+                        }
+                    </React.Fragment>
+                })
             }
 
             {/* ----------------------------------------------------------------------------------------------------------------------------------- */}
 
             <Menu
-            elevation={0}
-            id="basic-menu"
-            anchorEl={anchorEl}
-            open={openTopMenu}
-            onClose={handleTopMenuClose}
-            PaperProps={{
-                elevation: 0,
-                sx: {
-                width: 150,
-                overflow: 'visible',
-                filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-                mt: 1.5,
-                '& .MuiAvatar-root': {
-                    width: 32,
-                    height: 32,
-                    ml: -0.5,
-                    mr: 1,
-                },
-                '&:before': {
-                    content: '""',
-                    display: 'block',
-                    position: 'absolute',
-                    top: 0,
-                    left: 14,
-                    width: 10,
-                    height: 10,
-                    // bgcolor: 'background.paper',
-                    bgcolor: 'rgba(45,45,45, 255)',
-                    transform: 'translateY(-50%) rotate(45deg)',
-                    zIndex: 0,
-                },
-                },
-            }}
-            MenuListProps={{
-                'aria-labelledby': 'basic-button',
-            }}
+                elevation={0}
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={openTopMenu}
+                onClose={handleTopMenuClose}
+                PaperProps={{
+                    elevation: 0,
+                    sx: {
+                    width: 150,
+                    overflow: 'visible',
+                    filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                    mt: 1.5,
+                    '& .MuiAvatar-root': {
+                        width: 32,
+                        height: 32,
+                        ml: -0.5,
+                        mr: 1,
+                    },
+                    '&:before': {
+                        content: '""',
+                        display: 'block',
+                        position: 'absolute',
+                        top: 0,
+                        left: 14,
+                        width: 10,
+                        height: 10,
+                        // bgcolor: 'background.paper',
+                        bgcolor: 'rgba(45,45,45, 255)',
+                        transform: 'translateY(-50%) rotate(45deg)',
+                        zIndex: 0,
+                    },
+                    },
+                }}
+                MenuListProps={{
+                    'aria-labelledby': 'basic-button',
+                }}
             >
-            {selectedSubMenu.filter((item) => { return item.is_active === true }).sort((a, b) => { return a.sequence - b.sequence }).map((subPage, index) => {
-                return subPage.code === subType ? 
-                <Link to={subPage.link} style={{ textDecoration: 'none', fontWeight: 'bolder' }} key={index}>
-                <MenuItem onClick={handleTopMenuClose} selected>
-                    {subPage.is_dev === 1 ?
-                    <StyledSubBadge badgeContent={subPage.badge_message} color="error">
-                        <Typography className='sub-menu-text sub-menu-active' textAlign="left" sx={{ color: '#DC4C64 !important' }}>{subPage.name.toUpperCase()}</Typography>
-                    </StyledSubBadge>
-                    : <Typography className='sub-menu-text sub-menu-active' textAlign="left" sx={{ color: '#DC4C64 !important' }}>{subPage.name.toUpperCase()}</Typography>}
-                </MenuItem>
-                </Link>
-                : 
-                <Link to={subPage.link} style={{ textDecoration: 'none', fontWeight: 'bolder' }} key={index}>
-                <MenuItem onClick={handleTopMenuClose}>
-                    {subPage.is_dev === 1 ?
-                    <StyledSubBadge badgeContent={subPage.badge_message} color="error">
-                        <Typography className='sub-menu-text' textAlign="left">{subPage.name.toUpperCase()}</Typography>
-                    </StyledSubBadge>
-                    : <Typography className='sub-menu-text' textAlign="left">{subPage.name.toUpperCase()}</Typography>}
-                </MenuItem>
-                </Link>
-            })}
+                {selectedSubMenu?.filter((item) => { return item.is_active === true }).sort((a, b) => { return a.sequence - b.sequence }).map((subPage, index) => {
+                    return subPage.code === subType ? 
+                    <Link to={subPage.link} style={{ textDecoration: 'none', fontWeight: 'bolder' }} key={index}>
+                    <MenuItem onClick={handleTopMenuClose} selected>
+                        {subPage.is_dev === 1 ?
+                        <StyledSubBadge badgeContent={subPage.badge_message} color="error">
+                            <Typography className='sub-menu-text sub-menu-active' textAlign="left" sx={{ color: '#DC4C64 !important' }}>{subPage.name.toUpperCase()}</Typography>
+                        </StyledSubBadge>
+                        : <Typography className='sub-menu-text sub-menu-active' textAlign="left" sx={{ color: '#DC4C64 !important' }}>{subPage.name.toUpperCase()}</Typography>}
+                    </MenuItem>
+                    </Link>
+                    : 
+                    <Link to={subPage.link} style={{ textDecoration: 'none', fontWeight: 'bolder' }} key={index}>
+                    <MenuItem onClick={handleTopMenuClose}>
+                        {subPage.is_dev === 1 ?
+                        <StyledSubBadge badgeContent={subPage.badge_message} color="error">
+                            <Typography className='sub-menu-text' textAlign="left">{subPage.name.toUpperCase()}</Typography>
+                        </StyledSubBadge>
+                        : <Typography className='sub-menu-text' textAlign="left">{subPage.name.toUpperCase()}</Typography>}
+                    </MenuItem>
+                    </Link>
+                })}
             </Menu>
         </Box>
     );

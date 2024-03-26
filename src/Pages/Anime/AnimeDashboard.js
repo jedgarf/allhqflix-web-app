@@ -54,7 +54,6 @@ const AnimeDashboard = (props) => {
   const paramEpisode = queryParams.get("episode") != null ? queryParams.get("episode") : null;
   const paramDub = queryParams.get("dub") != null ? queryParams.get("dub") == 'true' : false;
 
-  const [isLoading, setIsLoading] = useState(true);
   const [selectedArc, setSelectedArc] = useState("");
   const [videoQualities, setVideoQualities] = useState([]);
   const [recommendations, setRecommendations] = useState([]);
@@ -113,7 +112,7 @@ const AnimeDashboard = (props) => {
     setContentTitle(infoValue?.title?.english || infoValue?.title?.userPreferred || infoValue?.title?.romaji || infoValue?.title?.native);
     setRecommendations(infoValue?.relations?.length > 0 ? infoValue?.relations : infoValue?.recommendations);
 
-  }, [selectedEpisode]);
+  }, [selectedEpisode, indexId]);
 
   const set_selectedLinkSubtitle = useCallback((resourceValue) => {
 
@@ -259,10 +258,6 @@ const AnimeDashboard = (props) => {
     }
     setEpisodesCurrentPage(currentPage);
 
-    setTimeout(() => {
-      setIsLoading(false);
-    }, pageLoadMS);
-
   }, [contentTitle, infoData.isSuccess, resourceData.isSuccess, infoValue, resourceValue, episodeNum, set_selectedSeasonEpisode, set_selectedLinkSubtitle]);
 
   return (
@@ -271,7 +266,7 @@ const AnimeDashboard = (props) => {
       <SideBar Type={type} subType={null} transparentBg={false} isStream={true} />
       <div className="movie_cover" style={{backgroundImage: `linear-gradient(rgba(0, 0, 10, 1),rgba(0, 0, 10, 0.5), rgba(0, 0, 10, 0.2)), url("${infoValue?.cover}")`}}>
         <div className="heading cheading movie-stream-title">
-          <h6></h6>
+          <h6> </h6>
         </div>
         {infoData.isSuccess && resourceData.isSuccess && defaultLink !== "" && videoQualities.length > 0 && !loadingEpisode ? (
           <>
@@ -283,7 +278,7 @@ const AnimeDashboard = (props) => {
               episodeNum={episodeNum}
               totalEpisodes={totalEpisodes}
               nextEpisode={nextEpisode}
-              seekTime={getCookie(indexId) && JSON.parse(getCookie(indexId)).dub == paramDub && JSON.parse(getCookie(indexId)).episodeId === selectedEpisode ? JSON.parse(getCookie(indexId)).time : 0}
+              seekTime={getCookie(decodeURIComponent(indexId)) && JSON.parse(getCookie(decodeURIComponent(indexId))).dub == paramDub && JSON.parse(getCookie(decodeURIComponent(indexId))).episodeId === selectedEpisode ? JSON.parse(getCookie(decodeURIComponent(indexId))).time : 0}
               mediaId={indexId}
               episodeId={selectedEpisode}
               option={{
