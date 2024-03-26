@@ -8,7 +8,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 
 // Material UI Components
-import { Toolbar, Box, Button, IconButton, Typography, Grid, Drawer, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import { Toolbar, Box, Button, IconButton, Typography, Grid, Drawer, FormControl, InputLabel, Select, MenuItem, ListItemIcon, ListItemText } from '@mui/material';
 
 // Icons
 import DownloadIcon from '@mui/icons-material/Download';
@@ -42,7 +42,8 @@ export default function OnePieceEpisodesDrawer({ details, downloadUrl, mediaId, 
     }
     setState({ ...state, [anchor]: open });
 
-    const selectedArc = arcs.find(item => item.id === arcId);
+    const selectedArc = arcs.find(item => item.id === arcs.find(item => item.start_episode < currentEpisodeNum && item.end_episode > currentEpisodeNum).id);
+    setArcId(arcs.find(item => item.start_episode < currentEpisodeNum && item.end_episode > currentEpisodeNum).id);
     setEpisodeList(animeSearchNumberBetween(norm_episodes, selectedArc.start_episode, selectedArc.end_episode)); 
 
     if (open === false) moveToTop();
@@ -145,14 +146,14 @@ export default function OnePieceEpisodesDrawer({ details, downloadUrl, mediaId, 
               }
             }}
           >
-            <div className='tv_episodes_appbar' position="fixed" color='success'>
+            <div className='tv_episodes_appbar' position="fixed" color='success' style={{ paddingBottom: '25px' }}>
               <Toolbar>
                     <Grid container direction="row" columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={0}>
                       {/* <Grid item xl={6} lg={6} md={6} sm={6} xs={6} style={{ display: 'flex', alignItems: 'center', height: '6.5vh' }}>
                         <Typography variant='p' sx={{ fontWeight: '550' }}>EPISODES ({norm_episodes?.length})</Typography>
                       </Grid> */}
                       <Grid item xl={12} lg={12} md={12} sm={12} xs={12} style={{ display: 'flex', alignItems: 'center', height: '6.5vh', justifyContent: 'left' }}>
-                        <Box sx={{ minWidth: '250px' }}>
+                        <Box sx={{ width: '100%', marginTop: '20px' }}>
                           <FormControl sx={{ m: 0, minWidth: '100%' }} size="small">
                             <InputLabel id="demo-simple-select-error-label">ARC ({arcs.length})</InputLabel>
                             <Select
@@ -162,10 +163,19 @@ export default function OnePieceEpisodesDrawer({ details, downloadUrl, mediaId, 
                               label={`ARC (${arcs.length})`}
                               size='small'
                               onChange={handleArcChange}
+                              // renderValue={(value) => `⚠️  - ${value}`}
                             >
                               {arcs?.map((item, index) => {
-                                  return <MenuItem key={index} value={item.id}>{item.name} Arc ({item.start_episode} - {item.end_episode === 99999 ? 'Ongoing' : item.end_episode})</MenuItem>
-                              })}
+                                  return <MenuItem key={index} value={item.id}>
+                                            {/* {item.id === arcs.find(item => item.start_episode < currentEpisodeNum && item.end_episode > currentEpisodeNum).id && 
+                                              <ListItemIcon>
+                                                <PlayCircleIcon />
+                                              </ListItemIcon>
+                                            }  */}
+                                            <ListItemText primary={`${item.name} Arc (${item.start_episode} - ${item.end_episode === 99999 ? 'Ongoing' : item.end_episode})`} />
+                                          </MenuItem>
+                                }
+                              )}
                             </Select>
                           </FormControl>
                         </Box>
