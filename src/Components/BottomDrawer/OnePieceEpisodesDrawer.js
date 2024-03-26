@@ -8,7 +8,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 
 // Material UI Components
-import { Toolbar, Box, Button, IconButton, Typography, Grid, Drawer } from '@mui/material';
+import { Toolbar, Box, Button, IconButton, Typography, Grid, Drawer, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 
 // Icons
 import DownloadIcon from '@mui/icons-material/Download';
@@ -17,39 +17,48 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import ListIcon from '@mui/icons-material/List';
 
-export default function AnimeEpisodesDrawer({ details, downloadUrl, mediaId, episodeId, setSelectedEpisode, setLoadingEpisode, itemsPerPage, episodesCurrentPage, moveToTop, drawerAlign }) {
+// Utils
+import { animeSearchNumberBetween } from "../../Services/Utils";
 
-  const [state, setState] = React.useState({
-    bottom: false,
-  });
+export default function OnePieceEpisodesDrawer({ details, downloadUrl, mediaId, episodeId, setSelectedEpisode, setLoadingEpisode, itemsPerPage, episodesCurrentPage, moveToTop, drawerAlign }) {
+
+  const arcs = require('../../Services/Data/onePieceArcs.json').arcs;
+
+  const [state, setState] = React.useState({ bottom: false });
+  const norm_episodes = details?.episodes;
+  const currentEpisodeNum = norm_episodes?.find(item => item.id === episodeId)?.number;
+  const [arcId, setArcId] = useState(arcs.find(item => item.start_episode < currentEpisodeNum && item.end_episode > currentEpisodeNum).id);
+  const [episodeList, setEpisodeList] = useState([]);
 
   const darkTheme = createTheme({
     palette: {
       mode: 'dark',
     },
   });
-  
-  var norm_episodes = details?.episodes;
-  const [drawerCurrentPage, setDrawerCurrentPage] = useState(episodesCurrentPage);
-  const totalPages = Math.ceil(norm_episodes?.length / itemsPerPage);
-  const startIndex = (drawerCurrentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const currentData = norm_episodes?.slice(startIndex, endIndex);
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
     setState({ ...state, [anchor]: open });
-    if (open === false) {
-      moveToTop();
-      setDrawerCurrentPage(episodesCurrentPage);
-    }
+
+    const selectedArc = arcs.find(item => item.id === arcId);
+    setEpisodeList(animeSearchNumberBetween(norm_episodes, selectedArc.start_episode, selectedArc.end_episode)); 
+
+    if (open === false) moveToTop();
   };
 
-  const handlePageChange = (newPage) => {
-    setDrawerCurrentPage(newPage);
-  };
+  const handleArcChange = (e) => {
+    e.preventDefault();
+
+    var newEpisodeList = details?.episodes;
+    if (e.target.value != "") {
+      let selectedArc = arcs?.filter(item => item.id === e.target.value)[0];
+      newEpisodeList = animeSearchNumberBetween(newEpisodeList, selectedArc.start_episode, selectedArc.end_episode);
+    }
+    setArcId(e.target.value);
+    setEpisodeList(newEpisodeList);
+  }
 
   const handleChangeEpisode = (e, epId, anchor) => {
     e.preventDefault();
@@ -60,8 +69,7 @@ export default function AnimeEpisodesDrawer({ details, downloadUrl, mediaId, epi
   };
 
   useEffect(() => {
-    setDrawerCurrentPage(episodesCurrentPage);
-  }, [episodesCurrentPage]);
+  }, []);
   
 
   const list = (anchor) => (
@@ -71,11 +79,11 @@ export default function AnimeEpisodesDrawer({ details, downloadUrl, mediaId, epi
       role="presentation"
     >
         <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={2}>
-          {currentData?.length > 0 ? (
+          {episodeList?.length > 0 ? (
             <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
               <div>
                 <Grid container columnSpacing={{ xs: 2, sm: 2, md: 2, lg: 2, xl: 2 }} rowSpacing={2} justifyContent="center">
-                  {currentData?.map((item, i) => {
+                  {episodeList?.map((item, i) => {
                         return (
                             <React.Fragment key={i}>
                               <Grid item xl={'auto'} lg={'auto'} md={'auto'} sm={'auto'} xs={'auto'}>
@@ -108,7 +116,7 @@ export default function AnimeEpisodesDrawer({ details, downloadUrl, mediaId, epi
           <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={0}>
             <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>
               {details?.episodes?.length > 1 && 
-                <Typography variant='big' className='selectedEpisodeContent' style={{ verticalAlign: 'middle' }}>EPISODE {norm_episodes?.filter(item => item.id === episodeId)[0]?.number}</Typography>
+                <Typography variant='big' className='selectedEpisodeContent' style={{ verticalAlign: 'middle' }}>EPISODE {norm_episodes?.find(item => item.id === episodeId)?.number}</Typography>
               }
             </Grid>
             <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>
@@ -144,7 +152,23 @@ export default function AnimeEpisodesDrawer({ details, downloadUrl, mediaId, epi
                         <Typography variant='p' sx={{ fontWeight: '550' }}>EPISODES ({norm_episodes?.length})</Typography>
                       </Grid>
                       <Grid item xl={6} lg={6} md={6} sm={6} xs={6} style={{ display: 'flex', alignItems: 'center', height: '6.5vh', justifyContent: 'right' }}>
-                        
+                        <Box sx={{ minWidth: '250px' }}>
+                          <FormControl sx={{ m: 0, minWidth: '100%' }} size="small">
+                            <InputLabel id="demo-simple-select-error-label">ARC ({arcs.length})</InputLabel>
+                            <Select
+                              labelId="demo-simple-select-error-label"
+                              id="demo-simple-select-error"
+                              defaultValue={arcId}
+                              label={`ARC (${arcs.length})`}
+                              size='small'
+                              onChange={handleArcChange}
+                            >
+                              {arcs?.map((item, index) => {
+                                  return <MenuItem key={index} value={item.id}>{item.name} Arc ({item.start_episode} - {item.end_episode === 99999 ? 'Ongoing' : item.end_episode})</MenuItem>
+                              })}
+                            </Select>
+                          </FormControl>
+                        </Box>
                       </Grid>
                     </Grid>
               </Toolbar>
