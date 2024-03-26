@@ -12,7 +12,7 @@ export const sanitizeCookieName = (cookieName) => {
     return sanitizedCookieName;
 };
 
-export const addCookie = (cookieName, cookieValue, expiryDays = DEFAULT_EXPIRATION_DAYS, options = {}) => {
+export const addCookie = (cookieName, cookieValue, expiryDays = '', options = {}) => {
   Cookies.set(cookieName, cookieValue, { expires: expiryDays ? expiryDays : DEFAULT_EXPIRATION_DAYS, ...options });
 };
 
