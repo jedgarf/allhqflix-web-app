@@ -148,10 +148,10 @@ export default function OnePieceEpisodesDrawer({ details, downloadUrl, mediaId, 
             <div className='tv_episodes_appbar' position="fixed" color='success'>
               <Toolbar>
                     <Grid container direction="row" columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={0}>
-                      <Grid item xl={6} lg={6} md={6} sm={6} xs={6} style={{ display: 'flex', alignItems: 'center', height: '6.5vh' }}>
+                      {/* <Grid item xl={6} lg={6} md={6} sm={6} xs={6} style={{ display: 'flex', alignItems: 'center', height: '6.5vh' }}>
                         <Typography variant='p' sx={{ fontWeight: '550' }}>EPISODES ({norm_episodes?.length})</Typography>
-                      </Grid>
-                      <Grid item xl={6} lg={6} md={6} sm={6} xs={6} style={{ display: 'flex', alignItems: 'center', height: '6.5vh', justifyContent: 'right' }}>
+                      </Grid> */}
+                      <Grid item xl={12} lg={12} md={12} sm={12} xs={12} style={{ display: 'flex', alignItems: 'center', height: '6.5vh', justifyContent: 'left' }}>
                         <Box sx={{ minWidth: '250px' }}>
                           <FormControl sx={{ m: 0, minWidth: '100%' }} size="small">
                             <InputLabel id="demo-simple-select-error-label">ARC ({arcs.length})</InputLabel>
