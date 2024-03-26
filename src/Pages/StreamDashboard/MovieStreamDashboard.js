@@ -118,7 +118,7 @@ const MovieStreamDashboard = (props) => {
             setHasPlayButton(true);
         },
         onError: (error) => {
-            let message = `No server available.`;
+            let message = `No Server Available.`;
             setSnackBarType('error');
             setSnackBarMessage(message);
             setSnackBarOpen(true);

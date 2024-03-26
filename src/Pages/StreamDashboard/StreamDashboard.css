@@ -29,7 +29,7 @@
 }
 
 .stream-dashboard-description-details {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     width: 700px;
     font-weight: normal;
 }
@@ -39,8 +39,7 @@
 }
 
 .stream-dashboard-season-episode {
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-block: 15px;
 }
 
 .stream-dashboard-video-qualities {
