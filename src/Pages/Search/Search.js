@@ -152,7 +152,7 @@ function Search() {
   }, [getInfo]);
 
   return (
-    isLoading ? 
+    isLoading && content.data?.results ? 
       <LoadingPage/>
     : 
     <div className="search_result">
