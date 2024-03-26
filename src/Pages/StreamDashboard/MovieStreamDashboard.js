@@ -20,6 +20,7 @@ import ArrowBackTwoToneIcon from '@mui/icons-material/ArrowBackTwoTone';
 import WarningAmberTwoToneIcon from '@mui/icons-material/WarningAmberTwoTone';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
+import BuildIcon from '@mui/icons-material/Build';
 
 // Components
 import LoadingPage from "../../Components/LoadingPage/LoadingPage";
@@ -141,18 +142,18 @@ const MovieStreamDashboard = (props) => {
             let message = "";
             if (error?.response?.status == 500) {
                 setSnackBarType('error');
-                setSnackBarMessage(`Server problem occurred, please try again later.`);
+                setSnackBarMessage(`Server problem occurred, please try again later`);
                 setSnackBarOpen(true);
                 setSnackBarWithLoading(false);
-            } else if (error?.response?.status == 522){
-                message = `Under Maintenance.`;
+            } else if (error?.response?.status == 504){
+                message = `Under Maintenance`;
                 setSnackBarType('error');
                 setSnackBarMessage(message);
                 setSnackBarOpen(true);
                 setSnackBarWithLoading(false);
             } else {
                 setSnackBarType('error');
-                setSnackBarMessage(`Source link not available in current server, please switch to another server.`);
+                setSnackBarMessage(`Source link not available in current server, please switch to another server`);
                 setSnackBarOpen(true);
                 setSnackBarWithLoading(false);
             }
@@ -304,8 +305,16 @@ const MovieStreamDashboard = (props) => {
                     {infoData.isSuccess && infoValue?.episodes?.length > 0 ? ""
                     : 
                         <div className='stream-dashboard-season-episode'>
-                            <Typography variant="subtitle1" style={{ verticalAlign: 'middle', display: 'inline-flex', fontWeight: 'bolder', backgroundColor: 'rgba(105, 105, 105, 0.4)', color: '#ccced1', padding: 10, borderRadius: 20 }}>
+                            <Typography variant="subtitle1" style={{ verticalAlign: 'middle', display: 'inline-flex', fontWeight: 'bolder', backgroundColor: 'rgba(105, 105, 105, 0.4)', color: '#ccced1', paddingInline: 10, paddingBlock: 5, borderRadius: 20 }}>
                                 <WarningAmberTwoToneIcon style={{ marginRight: '8px', color: "#DC4C64", fontSize: 30 }}/> No episode available
+                            </Typography>
+                        </div>
+                    }
+                    {errorMessage && 
+                        <div className='stream-dashboard-season-episode'>
+                            <Typography variant="subtitle1" style={{ verticalAlign: 'middle', display: 'inline-flex', fontWeight: 'bolder', backgroundColor: 'rgba(105, 105, 105, 0.4)', color: '#ccced1', paddingInline: 10, paddingBlock: 5, borderRadius: 20 }}>
+                                {/* <BuildIcon style={{ marginRight: '8px', paddingBottom: '-4px !important', color: "#DC4C64", fontSize: 18 }}/>  */}
+                                {errorMessage}
                             </Typography>
                         </div>
                     }
