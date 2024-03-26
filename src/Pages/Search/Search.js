@@ -145,9 +145,9 @@ function Search() {
     document.title = 'AllHQFlix - Search';
     getInfo();
 
-    setTimeout(() => {
-      setIsLoading(false);
-    }, pageLoadMS);
+    // setTimeout(() => {
+    //   setIsLoading(false);
+    // }, pageLoadMS);
 
   }, [getInfo]);
 
