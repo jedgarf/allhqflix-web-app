@@ -140,15 +140,19 @@ const MovieStreamDashboard = (props) => {
             // error.response.data.message = api message
             let message = "";
             if (error?.response?.status == 500) {
-                message = `Server problem occurred, please try again later.`;
+                setSnackBarType('error');
+                setSnackBarMessage(`Server problem occurred, please try again later.`);
+                setSnackBarOpen(true);
+                setSnackBarWithLoading(false);
+            } else if (error?.response?.status == 522){
+                message = `Under Maintenance.`;
                 setSnackBarType('error');
                 setSnackBarMessage(message);
                 setSnackBarOpen(true);
                 setSnackBarWithLoading(false);
             } else {
-                message = `Source link not available in current server, please switch to another server.`;
                 setSnackBarType('error');
-                setSnackBarMessage(message);
+                setSnackBarMessage(`Source link not available in current server, please switch to another server.`);
                 setSnackBarOpen(true);
                 setSnackBarWithLoading(false);
             }
