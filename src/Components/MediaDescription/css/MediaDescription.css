@@ -1,0 +1,15 @@
+.media-description {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    margin-bottom: 10px;
+    position: relative;
+    cursor: pointer;
+}
+
+.media-description.expanded {
+    -webkit-line-clamp: unset;
+    /* Display all lines when expanded */
+}

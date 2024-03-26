@@ -26,6 +26,7 @@ import AnimeSuggestions from "../../Components/Anime/AnimeSuggestions";
 import AnimeEpisodesDrawer from "../../Components/BottomDrawer/AnimeEpisodesDrawer";
 import OnePieceEpisodesDrawer from "../../Components/BottomDrawer/OnePieceEpisodesDrawer";
 import AnimeCharacterCard from "../../Components/Anime/AnimeCharacterCard";
+import MediaDescription from "../../Components/MediaDescription/MediaDescription";
 import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
 // Config
@@ -441,7 +442,7 @@ const AnimeDashboard = (props) => {
                 </Grid>
                 {/* <TraillerModal category="anime" infoValue={infoValue}/> */}
               </div>
-              <p className="movie_description" dangerouslySetInnerHTML={{ __html: infoValue?.description === "" ? "-" : infoValue?.description }}/>
+              <MediaDescription text={infoValue?.description}/>
               <table>
                 <tbody>
                   <tr>

@@ -24,6 +24,7 @@ import InitPlayerLoading from "../../Components/InitPlayerLoading/InitPlayerLoad
 import { Player } from "../../Components/Player/Player";
 import Suggestions from "../../Components/InternationalFilms/Suggestions";
 import TVEpisodesDrawer from "../../Components/BottomDrawer/TVEpisodesDrawer";
+import MediaDescription from "../../Components/MediaDescription/MediaDescription";
 import SnackBar from "../../Components/SnackBar/SnackBar";
 import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
@@ -572,13 +573,7 @@ const MovieDashboard = (props) => {
                     </Grid>
                   </Grid>}
               </div>
-
-              {infoValue?.description.trim() !== "" ? 
-                <p className="movie_description" dangerouslySetInnerHTML={{ __html: infoValue?.description}}/>
-              : 
-                <p className="movie_description"> - </p>
-              }
-
+              <MediaDescription text={infoValue?.description}/>
               <table>
                 <tbody>
                   <tr>

@@ -21,6 +21,7 @@ import InitPlayerLoading from "../../Components/InitPlayerLoading/InitPlayerLoad
 import { Player } from "../../Components/Player/Player";
 import AsianFilmsSuggestions from "../../Components/AsianFilms/AsianFilmsSuggestions";
 import AsianEpisodesDrawer from "../../Components/BottomDrawer/AsianEpisodesDrawer";
+import MediaDescription from "../../Components/MediaDescription/MediaDescription";
 import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
 // Config
@@ -266,7 +267,7 @@ const AsianFilmsDashboard = (props) => {
       <SideBar Type={contentType} subType={null} transparentBg={false} isStream={true} />
       <div className="movie_cover" style={{backgroundImage: `linear-gradient(rgba(0, 0, 10, 1),rgba(0, 0, 10, 0.5),rgba(0, 0, 10, 0.2)) , url("${infoValue?.banner}")`}}>
         <div className="heading cheading movie-stream-title">
-          <h6></h6>
+          <h6> </h6>
         </div>
         {!loadingEpisode ? (
           <>
@@ -394,7 +395,7 @@ const AsianFilmsDashboard = (props) => {
                 </Grid>
               </Grid>
               </div>
-              <p className="movie_description" dangerouslySetInnerHTML={{ __html: infoValue?.description.trim() ? infoValue?.description.trim() : '-' }}/>
+              <MediaDescription text={infoValue?.description}/>
               <table>
                 <tbody>
                   <tr>
