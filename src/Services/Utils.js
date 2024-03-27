@@ -437,24 +437,23 @@ const randomizeArray = (items) => {
 }
 
 const getNumberSuffix = (num) => {
-  const lastDigit = num % 10;
-  const secondLastDigit = Math.floor(num / 10) % 10;
-
-  if (secondLastDigit === 1) {
-    return `${num}th`;
-  } else {
-    switch (lastDigit) {
-      case 1:
-        return `${num}st`;
-      case 2:
-        return `${num}nd`;
-      case 3:
-        return `${num}rd`;
-      default:
-        return `${num}th`;
-    }
+  // Handle special cases for 11, 12, and 13
+  if (num % 100 >= 11 && num % 100 <= 13) {
+      return `${num}<sup>th</sup>`;
   }
-};
+
+  // Regular suffix logic for other numbers
+  switch (num % 10) {
+      case 1:
+          return `${num}<sup>st</sup>`;
+      case 2:
+          return `${num}<sup>nd</sup>`;
+      case 3:
+          return `${num}<sup>rd</sup>`;
+      default:
+          return `${num}<sup>th</sup>`;
+  }
+}
 
 export { shortenTextHeight, 
          streamDashboardBackButton, 
