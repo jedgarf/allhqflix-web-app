@@ -134,7 +134,7 @@ const Player = ({ defaultlink, infotitle, infocover, episodeNum, totalEpisodes, 
             art.on('ready', () => {
                 art.notice.show = infotitle;
                 art.subtitle.style({
-                    fontSize: 'clamp(13px, 2vw, 18px)',
+                    fontSize: 'clamp(13px, 2vw, 20px)',
                     marginBottom: '20px',
                 });
                 if (seekTime > 0) {
