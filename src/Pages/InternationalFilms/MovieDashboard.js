@@ -438,10 +438,6 @@ const MovieDashboard = (props) => {
               subtitle: {
                   url: defaultSubtitle,
                   type: getFileExtention(defaultSubtitle),
-                  style: {
-                      color: '#fe9200',
-                      fontSize: '20px',
-                  },
                   encoding: 'utf-8',
               },
               headers: {
@@ -459,7 +455,7 @@ const MovieDashboard = (props) => {
           <div className="movie_server_content_note">
             <p>If current server doesn't work please try other servers below.</p>
           </div>
-          <div className="movie_server_content">
+          <div className="movie_server_content" style={{ marginTop: '-50px !important' }}>
                 <center>
                   {movieServer?.data?.map((item, index) => {
                       return (
@@ -470,11 +466,11 @@ const MovieDashboard = (props) => {
                               return (
                                   <Fragment key={subIndex}>
                                       {subItem.status === 'stable' ?
-                                        <Button variant={selectedServer === item.name ? 'contained' : 'outlined'} startIcon={<OndemandVideoIcon/>} size="small" style={{ marginInline: 8 }} onClick={() => chooseServer(item.name, item.rabbitstream_id)}>
+                                        <Button variant={selectedServer === item.name ? 'contained' : 'outlined'} startIcon={<OndemandVideoIcon/>} size="small" style={{ marginInline: 8 }} onClick={() => chooseServer(item.name, item.rabbitstream_id)} disabled={loadingEpisode}>
                                           {`Server ${index+1}`}
                                         </Button>
                                       : 
-                                        <Button variant={selectedServer === item.name ? 'contained' : 'outlined'} startIcon={<OndemandVideoIcon/>} size="small" style={{ marginInline: 8, cursor: 'not-allowed' }} color='error'>
+                                        <Button variant={selectedServer === item.name ? 'contained' : 'outlined'} startIcon={<OndemandVideoIcon/>} size="small" style={{ marginInline: 8, cursor: 'not-allowed' }} color='error' disabled={loadingEpisode}>
                                           {`Server ${index+1}`}
                                         </Button>
                                       }

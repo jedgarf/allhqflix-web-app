@@ -401,6 +401,21 @@ const convertMinutesToHoursAndMinutes = (minutes) => {
   return hours + "h " + remainingMinutes + "m";
 }
 
+const convertSecondsToHoursAndMinutes = (seconds) => {
+  var hours = Math.floor(seconds / 3600);
+  var minutes = Math.floor((seconds % 3600) / 60);
+
+  var result = '';
+  if (hours > 0) {
+      result += `${hours} h `;
+  }
+  if (minutes > 0 || hours === 0) {
+      result += `${Math.round(minutes)} m`;
+  }
+
+  return result;
+}
+
 const secondsToHMS = (seconds) => {
   const hours = Math.floor(seconds / 3600);
   const minutes = Math.floor((seconds % 3600) / 60);
@@ -468,6 +483,7 @@ export { shortenTextHeight,
          capitalizeString,
          replaceUnderscoreToSpace, 
          convertMinutesToHoursAndMinutes, 
+         convertSecondsToHoursAndMinutes, 
          secondsToHMS, 
          secondsToMinutes, 
          randomizeArray, 

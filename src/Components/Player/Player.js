@@ -23,6 +23,8 @@ import { playFlv, destroyPlayFlv, playM3u8, destroyPlayM3u8, saveProgress } from
 // Helpers
 import { deleteCookie } from "../../Helpers/Cookies";
 
+var artPlayerInstance = null;
+
 const PlayerLoading = () => {
     return <SpinnerDotted size={39} thickness={180} speed={121} color="rgba(220, 76, 100, 1)" />;
 }
@@ -123,16 +125,20 @@ const Player = ({ defaultlink, infotitle, infocover, episodeNum, totalEpisodes, 
                 ],
                 icons: customIcons
             });
-        } catch (error) {
-            console.error(error);
+        } catch (err) {
+            console.info(err);
         }
 
         if (art) {
 
             art.on('ready', () => {
                 art.notice.show = infotitle;
+                art.subtitle.style({
+                    fontSize: 'clamp(13px, 2vw, 18px)',
+                    marginBottom: '20px',
+                });
                 if (seekTime > 0) {
-                    art.seek = seekTime;   
+                    art.seek = seekTime;
                 }
             });
     
@@ -198,6 +204,8 @@ const Player = ({ defaultlink, infotitle, infocover, episodeNum, totalEpisodes, 
                 console.log('Ad was skipped', ads);
             });
 
+            artPlayerInstance = art;
+
             // End -----------------------------------------------------------------------------------------------------------------------
     
         }
@@ -210,5 +218,6 @@ const Player = ({ defaultlink, infotitle, infocover, episodeNum, totalEpisodes, 
 export {
     Player,
     destroyPlayM3u8,
-    destroyPlayFlv
+    destroyPlayFlv,
+    artPlayerInstance
 }

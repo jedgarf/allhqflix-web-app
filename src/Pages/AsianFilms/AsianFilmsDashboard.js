@@ -18,11 +18,14 @@ import Footer from "../../Components/Footer/Footer";
 import FloatingButton from '../../Components/FloatingButton/FloatingButton';
 import LoadingPage from "../../Components/LoadingPage/LoadingPage";
 import InitPlayerLoading from "../../Components/InitPlayerLoading/InitPlayerLoading";
-import { Player } from "../../Components/Player/Player";
+import { Player, artPlayerInstance } from "../../Components/Player/Player";
 import AsianFilmsSuggestions from "../../Components/AsianFilms/AsianFilmsSuggestions";
 import AsianEpisodesDrawer from "../../Components/BottomDrawer/AsianEpisodesDrawer";
 import MediaDescription from "../../Components/MediaDescription/MediaDescription";
 import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
+
+// Icons
+import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
 
 // Config
 import apiConfig from '../../Config/api.config';
@@ -32,7 +35,7 @@ import { pageLoadMS } from "../../Config/settings.config";
 import { subtitleLogo, videoQuality } from "../../Config/images.config";
 
 // Utilities
-import { moveToTop, SeparateArrayByComma } from "../../Services/Utils";
+import { moveToTop, SeparateArrayByComma, convertSecondsToHoursAndMinutes } from "../../Services/Utils";
 
 // Helpers
 import { getCookie } from "../../Helpers/Cookies";
@@ -393,6 +396,16 @@ const AsianFilmsDashboard = (props) => {
                     </span>
                   </h5>
                 </Grid>
+                {(artPlayerInstance && artPlayerInstance.duration !== 0) && 
+                  <Grid item>
+                    <AccessTimeFilledIcon style={{ fontSize: 16, marginBottom: -1, color: "#54B4D3" }}/>
+                  </Grid>
+                }
+                {(artPlayerInstance && artPlayerInstance.duration !== 0) && 
+                  <Grid item>
+                    <h5>{convertSecondsToHoursAndMinutes(artPlayerInstance.duration)}</h5>
+                  </Grid>
+                }
               </Grid>
               </div>
               <MediaDescription text={infoValue?.description}/>
