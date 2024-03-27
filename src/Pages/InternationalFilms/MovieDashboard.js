@@ -450,7 +450,7 @@ const MovieDashboard = (props) => {
         )}
       </div>
 
-      {selectedServer !== null && movieServer?.data?.length > 0 ? 
+      {resourceData.isSuccess && selectedServer !== null && movieServer?.data?.length > 0 ? 
         <div className={type === 'tv' ? 'movie_server_tv' : 'movie_server'} hidden={server_status.filter(item => item.status === 'stable').length > 1 || movieServer?.data[0].name === 'vidcloud' ? false : true }>
           <div className="movie_server_content_note">
             <p>If current server doesn't work please try other servers below.</p>
