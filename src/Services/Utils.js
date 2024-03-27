@@ -439,19 +439,19 @@ const randomizeArray = (items) => {
 const getNumberSuffix = (num) => {
   // Handle special cases for 11, 12, and 13
   if (num % 100 >= 11 && num % 100 <= 13) {
-      return `${num}<sup>th</sup>`;
+      return `${num}th`;
   }
 
   // Regular suffix logic for other numbers
   switch (num % 10) {
       case 1:
-          return `${num}<sup>st</sup>`;
+          return `${num}st`;
       case 2:
-          return `${num}<sup>nd</sup>`;
+          return `${num}nd`;
       case 3:
-          return `${num}<sup>rd</sup>`;
+          return `${num}rd`;
       default:
-          return `${num}<sup>th</sup>`;
+          return `${num}th`;
   }
 }
 
