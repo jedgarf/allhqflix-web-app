@@ -51,21 +51,29 @@ export const destroyPlayFlv = () => {
     flvjs.destroy();
 }
 
-export const saveProgress = (mediaId, paramDub, episodeId, episodeNum, currentTime) => {
+export const saveProgress = (mediaId, paramDub, seasonNumber, episodeId, episodeNumber, currentTime) => {
     console.info("save progress: ", currentTime);
-    _.throttle((currentTime) => {
+    // _.throttle((currentTime) => {
+    //     const mediaProgress = {
+    //         dub: paramDub,
+    //         seasonNumber: seasonNumber,
+    //         episodeId: episodeId,
+    //         episodeNumber: episodeNumber,
+    //         time: currentTime,
+    //     };
+    //     if (getCookie(encodeURIComponent(mediaId))) deleteCookie(encodeURIComponent(mediaId));
+    //     addCookie('test', JSON.stringify(mediaProgress), 7);
+    // }, 5000);
+
+    setTimeout(() => {
         const mediaProgress = {
             dub: paramDub,
+            seasonNumber: seasonNumber,
             episodeId: episodeId,
-            episodeNumber: episodeNum,
+            episodeNumber: episodeNumber,
             time: currentTime,
         };
-        if (getCookie(decodeURIComponent(mediaId))) deleteCookie(decodeURIComponent(mediaId));
-        // save for 7 days
-        if (process.env.NODE_ENV === 'production') {
-            addCookie(encodeURIComponent(mediaId), JSON.stringify(mediaProgress), 7, {domain: '.vercel.app', path: '/'});
-        } else {
-            addCookie(encodeURIComponent(mediaId), JSON.stringify(mediaProgress), 7, {domain: 'localhost', path: '/'});
-        }
+        if (getCookie(encodeURIComponent(mediaId))) deleteCookie(encodeURIComponent(mediaId));
+        addCookie(encodeURIComponent(mediaId), JSON.stringify(mediaProgress), 7);
     }, 5000);
 };

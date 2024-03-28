@@ -385,10 +385,12 @@ const MovieDashboard = (props) => {
             defaultlink={defaultLink}
             infotitle={type === 'tv' ? `${infoValue?.title} - Season ${selectedSeason} / ${selectedEpisodeName}` : `${infoValue?.title}`}
             infocover={infoValue?.cover}
+            seasonNumber={selectedSeason}
             episodeNum={episodeNum}
+            episodeNumber={type === 'tv' ? infoValue?.episodes?.find((item) => item.season == selectedSeason && item.id == selectedEpisode).number : null}
             totalEpisodes={totalEpisodes}
             nextEpisode={nextEpisode}
-            seekTime={getCookie(decodeURIComponent(indexId)) && JSON.parse(getCookie(decodeURIComponent(indexId))).episodeId === selectedEpisode ? JSON.parse(getCookie(decodeURIComponent(indexId))).time : 0}
+            seekTime={getCookie(encodeURIComponent(indexId)) && JSON.parse(getCookie(encodeURIComponent(indexId))).episodeId === selectedEpisode ? JSON.parse(getCookie(encodeURIComponent(indexId))).time : 0}
             mediaId={indexId}
             episodeId={selectedEpisode}
             option={{
@@ -450,38 +452,38 @@ const MovieDashboard = (props) => {
         )}
       </div>
 
-      {resourceData.isSuccess && selectedServer !== null && movieServer?.data?.length > 0 ? 
+      {selectedServer !== null && movieServer?.data?.length > 0 ? 
         <div className={type === 'tv' ? 'movie_server_tv' : 'movie_server'} hidden={server_status.filter(item => item.status === 'stable').length > 1 || movieServer?.data[0].name === 'vidcloud' ? false : true }>
-          <div className="movie_server_content_note">
+          {/* <div className="movie_server_content_note">
             <p>If current server doesn't work please try other servers below.</p>
-          </div>
-          <div className="movie_server_content" style={{ marginTop: '-50px !important' }}>
-                <center>
-                  {movieServer?.data?.map((item, index) => {
-                      return (
-                        <Fragment key={index}>
-                          {server_status.filter((serverValue) => serverValue.code === item.name).length > 0 && 
-                            server_status.filter((serverValue) => serverValue.code === item.name)
-                            .map((subItem, subIndex) => {
-                              return (
-                                  <Fragment key={subIndex}>
-                                      {subItem.status === 'stable' ?
-                                        <Button variant={selectedServer === item.name ? 'contained' : 'outlined'} startIcon={<OndemandVideoIcon/>} size="small" style={{ marginInline: 8 }} onClick={() => chooseServer(item.name, item.rabbitstream_id)} disabled={loadingEpisode}>
-                                          {`Server ${index+1}`}
-                                        </Button>
-                                      : 
-                                        <Button variant={selectedServer === item.name ? 'contained' : 'outlined'} startIcon={<OndemandVideoIcon/>} size="small" style={{ marginInline: 8, cursor: 'not-allowed' }} color='error' disabled={loadingEpisode}>
-                                          {`Server ${index+1}`}
-                                        </Button>
-                                      }
-                                  </Fragment>
-                              )
-                            })
-                          }        
-                        </Fragment>
-                      )
-                  })}
-                </center>
+          </div> */}
+          <div className="movie_server_content">
+            <center>
+              {movieServer?.data?.map((item, index) => {
+                return (
+                  <Fragment key={index}>
+                    {server_status.filter((serverValue) => serverValue.code === item.name).length > 0 && 
+                      server_status.filter((serverValue) => serverValue.code === item.name)
+                      .map((subItem, subIndex) => {
+                        return (
+                            <Fragment key={subIndex}>
+                                {subItem.status === 'stable' ?
+                                  <Button variant={selectedServer === item.name ? 'contained' : 'outlined'} startIcon={<OndemandVideoIcon/>} size="small" style={{ marginInline: 5 }} onClick={() => chooseServer(item.name, item.rabbitstream_id)} disabled={resourceData.isLoading}>
+                                    {`Server ${index+1}`}
+                                  </Button>
+                                : 
+                                  <Button variant={selectedServer === item.name ? 'contained' : 'outlined'} startIcon={<OndemandVideoIcon/>} size="small" style={{ marginInline: 5, cursor: 'not-allowed' }} color='error' disabled={resourceData.isLoading}>
+                                    {`Server ${index+1}`}
+                                  </Button>
+                                }
+                            </Fragment>
+                        )
+                      })
+                    }        
+                  </Fragment>
+                )
+              })}
+            </center>
           </div>
         </div>
       : <div className={type === 'tv' ? 'movie_server_tv' : 'movie_server'}></div>}

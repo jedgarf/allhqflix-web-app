@@ -36,6 +36,7 @@ import { pageLoadMS, foreign_country, anime_character_carousel_settings } from "
 // Helpers
 import { getCookie } from "../../Helpers/Cookies";
 
+
 // Images
 import { subtitleLogo, videoQuality } from "../../Config/images.config";
 
@@ -279,7 +280,7 @@ const AnimeDashboard = (props) => {
               episodeNum={episodeNum}
               totalEpisodes={totalEpisodes}
               nextEpisode={nextEpisode}
-              seekTime={getCookie(decodeURIComponent(indexId)) && JSON.parse(getCookie(decodeURIComponent(indexId))).dub == paramDub && JSON.parse(getCookie(decodeURIComponent(indexId))).episodeId === selectedEpisode ? JSON.parse(getCookie(decodeURIComponent(indexId))).time : 0}
+              seekTime={getCookie(encodeURIComponent(indexId)) && JSON.parse(getCookie(encodeURIComponent(indexId))).dub == paramDub && JSON.parse(getCookie(encodeURIComponent(indexId))).episodeId === selectedEpisode ? JSON.parse(getCookie(encodeURIComponent(indexId))).time : 0}
               mediaId={indexId}
               episodeId={selectedEpisode}
               option={{

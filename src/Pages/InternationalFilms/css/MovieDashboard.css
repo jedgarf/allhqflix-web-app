@@ -121,7 +121,7 @@
 }
 
 .movie_info {
-    margin: -110px auto auto auto !important;
+    margin: -125px auto auto auto !important;
     align-items: center;
     width: 98.5% !important;
     color: var(--four-color);
@@ -159,7 +159,7 @@ td {
 }
 
 .tv_info {
-    margin: -50px auto auto auto !important;
+    margin: -65px auto auto auto !important;
     align-items: center;
     width: 98.5% !important;
     color: var(--four-color);
@@ -240,10 +240,10 @@ td {
 
 .movie_server_content {
     width: 30%;
-    margin-left: auto;
-    margin-right: auto;
+    /* margin-left: auto;
+    margin-right: auto; */
     /* margin-top: 30px; */
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .movie_server_content .movie_server_content_div {

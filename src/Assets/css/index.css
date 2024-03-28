@@ -230,6 +230,19 @@ html {
 }
 
 
+/* Artplayer-------------------------------------------------------------------------- */
+
+.art-mobile .art-settings {
+    left: 0 !important;
+    top: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+}
+
+
+/* ---------------------------------------------------------------------------------- */
+
+
 /* two column OL */
 
 @media (min-width:700px) {

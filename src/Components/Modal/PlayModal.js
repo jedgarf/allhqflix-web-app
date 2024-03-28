@@ -123,6 +123,7 @@ const MoviePlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ser
     // selecting server
     setServerVar(server);
     setIsModalOpen(false);
+    deleteCookie(encodeURIComponent(mediaId));
   }
 
   useEffect(() => {
@@ -166,15 +167,15 @@ const MoviePlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ser
           open={open}
           onClose={handleClose}
         >
-        {getCookie(decodeURIComponent(mediaId)) && 
+        {getCookie(encodeURIComponent(mediaId)) && 
           <Link className='text-link-without-underline' to={`${url}?server=${serverVar}`}>
             <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
               <PlayCircleOutlineIcon />
-              CONTINUE ({secondsToHMS(JSON.parse(getCookie(decodeURIComponent(mediaId))).time)})
+              CONTINUE ({secondsToHMS(JSON.parse(getCookie(encodeURIComponent(mediaId))).time)})
             </MenuItem>
           </Link>
         }
-        <Link className='text-link-without-underline' to={`${url}?server=${serverVar}`} onClick={() => deleteCookie(decodeURIComponent(mediaId))}>
+        <Link className='text-link-without-underline' to={`${url}?server=${serverVar}`} onClick={() => deleteCookie(encodeURIComponent(mediaId))}>
           <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
             <PlayCircleOutlineIcon />
             FROM THE BEGINNING
@@ -224,7 +225,7 @@ const MoviePlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ser
             <DialogActions>
               <Button size='small' variant='outlined' color='error' startIcon={<CloseIcon/>} onClick={() => handleModal(false)}>Close</Button>
               {resourceData.isSuccess && resourceInfo?.data?.sources?.length > 0 ?
-              (<Link to={`${url}?server=${server}`}><Button size='small' variant='contained' color='primary' startIcon={<PlayCircleOutlineIcon/>}>Play</Button></Link>)
+              (<Link to={`${url}?server=${server}`} onClick={() => deleteCookie(encodeURIComponent(mediaId))}><Button size='small' variant='contained' color='primary' startIcon={<PlayCircleOutlineIcon/>}>Play</Button></Link>)
                : 
               (<Button size='small' variant='contained' color='primary' onClick={(e) => onSubmit(e)} startIcon={<SaveIcon/>}>Save</Button>)}
             </DialogActions>
@@ -323,7 +324,7 @@ const SeriesPlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ep
     setEpisodeIdVar(episodeNumber);
     setServerVar(server);
     setIsModalOpen(false);
-    deleteCookie(decodeURIComponent(mediaId));
+    deleteCookie(encodeURIComponent(mediaId));
   }
 
   // React Query
@@ -388,22 +389,22 @@ const SeriesPlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ep
         open={open}
         onClose={handleClose}
       >
-        {getCookie(decodeURIComponent(mediaId)) && 
-          <Link className='text-link-without-underline' to={`${url}?server=${serverVar}`}>
+        {getCookie(encodeURIComponent(mediaId)) && 
+          <Link className='text-link-without-underline' to={`${url}?season=${seasonIdVar}&episode=${JSON.parse(getCookie(encodeURIComponent(mediaId))).episodeId}&server=${serverVar}`}>
             <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
               <PlayCircleOutlineIcon />
-              CONTINUE ({secondsToHMS(JSON.parse(getCookie(decodeURIComponent(mediaId))).time)})
+              CONTINUE ({`S ${JSON.parse(getCookie(encodeURIComponent(mediaId))).seasonNumber}/EP ${JSON.parse(getCookie(encodeURIComponent(mediaId))).episodeNumber}`} - {secondsToHMS(JSON.parse(getCookie(encodeURIComponent(mediaId))).time)})
             </MenuItem>
           </Link>
         }
-        <Link className='text-link-without-underline' to={`${url}?season=${seasonIdVar}&episode=${episodeIdVar}&server=${serverVar}`} onClick={() => deleteCookie(decodeURIComponent(mediaId))}>
+        <Link className='text-link-without-underline' to={`${url}?season=${seasonIdVar}&episode=${episodeIdVar}&server=${serverVar}`} onClick={() => deleteCookie(encodeURIComponent(mediaId))}>
           <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
             <PlayCircleOutlineIcon />
             FROM THE BEGINNING
           </MenuItem>
         </Link>
         {/* episodes[seasons.length][episodes.length-1].id */}
-        <Link className='text-link-without-underline' to={`${url}?season=${generateSeasons(episodes).length}&episode=${episodes[generateSeasons(episodes).length][episodes[generateSeasons(episodes).length].length-1].id}&server=${serverVar}`} onClick={() => deleteCookie(decodeURIComponent(mediaId))}>
+        <Link className='text-link-without-underline' to={`${url}?season=${generateSeasons(episodes).length}&episode=${episodes[generateSeasons(episodes).length][episodes[generateSeasons(episodes).length].length-1].id}&server=${serverVar}`} onClick={() => deleteCookie(encodeURIComponent(mediaId))}>
           <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
             <PlayCircleOutlineIcon />
             LATEST EPISODE
@@ -545,7 +546,7 @@ const SeriesPlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ep
           isDisableSave ?
             <Button size='small' variant='contained' color='primary' startIcon={<PlayCircleOutlineIcon/>} disabled>Play</Button>
           : 
-            <Link to={`${url}?season=${seasonNumber}&episode=${episodeNumber}&server=${server}`} onClick={() => deleteCookie(decodeURIComponent(mediaId))}>
+            <Link to={`${url}?season=${seasonNumber}&episode=${episodeNumber}&server=${server}`} onClick={() => deleteCookie(encodeURIComponent(mediaId))}>
               <Button size='small' variant='contained' color='primary' startIcon={<PlayCircleOutlineIcon/>}>Play</Button>
             </Link>
         : 
@@ -634,6 +635,7 @@ const AnimePlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVar, ur
     // selecting episode
     setEpisodeIdVar(episodeNumber);
     setIsModalOpen(false);
+    deleteCookie(encodeURIComponent(mediaId));
   }
 
   useEffect(() => {
@@ -704,22 +706,22 @@ const AnimePlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVar, ur
             open={open}
             onClose={handleClose}
           >
-          {getCookie(decodeURIComponent(mediaId)) && 
-            <Link className='text-link-without-underline' to={`${url}?dub=${JSON.parse(getCookie(decodeURIComponent(mediaId))).dub}&episode=${JSON.parse(getCookie(decodeURIComponent(mediaId))).episodeId}`}>
+          {getCookie(encodeURIComponent(mediaId)) && 
+            <Link className='text-link-without-underline' to={`${url}?dub=${isDub}&episode=${JSON.parse(getCookie(encodeURIComponent(mediaId))).episodeId}`}>
               <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
                 <PlayCircleOutlineIcon />
-                CONTINUE ({episodes.length > 1 ? `EP ${JSON.parse(getCookie(decodeURIComponent(mediaId))).episodeNumber} - ${secondsToHMS(JSON.parse(getCookie(decodeURIComponent(mediaId))).time)}` : `${secondsToHMS(JSON.parse(getCookie(decodeURIComponent(mediaId))).time)}`})
+                CONTINUE ({episodes.length > 1 ? `EP ${JSON.parse(getCookie(encodeURIComponent(mediaId))).episodeNumber} - ${secondsToHMS(JSON.parse(getCookie(encodeURIComponent(mediaId))).time)}` : `${secondsToHMS(JSON.parse(getCookie(encodeURIComponent(mediaId))).time)}`})
               </MenuItem>
             </Link>
           }
-          <Link className='text-link-without-underline' to={`${url}?dub=${isDub}&episode=${episodeIdVar}`} onClick={() => deleteCookie(decodeURIComponent(mediaId))}>
+          <Link className='text-link-without-underline' to={`${url}?dub=${isDub}&episode=${episodeIdVar}`} onClick={() => deleteCookie(encodeURIComponent(mediaId))}>
             <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
               <PlayCircleOutlineIcon />
               FROM THE BEGINNING
             </MenuItem>
           </Link>
           {episodes.length > 1 &&
-            <Link className='text-link-without-underline' to={`${url}?dub=${isDub}&episode=${episodes[episodes.length-1].id}`} onClick={() => deleteCookie(decodeURIComponent(mediaId))}>
+            <Link className='text-link-without-underline' to={`${url}?dub=${isDub}&episode=${episodes[episodes.length-1].id}`} onClick={() => deleteCookie(encodeURIComponent(mediaId))}>
               <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
                 <PlayCircleOutlineIcon />
                 LATEST EPISODE
@@ -813,7 +815,7 @@ const AnimePlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVar, ur
               </Grid>
               <Grid item xl={6} lg={6} md={6} sm={6} xs={6} style={{ textAlign: 'right' }}>
                 <Button size='small' variant='outlined' color='error' style={{ marginRight: '5px' }} startIcon={<CloseIcon/>} onClick={() => handleModal(false)}>Close</Button>
-                <Link to={`${url}?dub=${isDub}&episode=${episodeNumber}`} onClick={() => deleteCookie(decodeURIComponent(mediaId))}>
+                <Link to={`${url}?dub=${isDub}&episode=${episodeNumber}`} onClick={() => deleteCookie(encodeURIComponent(mediaId))}>
                   <Button size='small' variant='contained' color='primary' startIcon={<PlayCircleOutlineIcon/>}>Play</Button>
                 </Link>
               </Grid>
@@ -881,7 +883,7 @@ const AsianDramaPlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVa
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
 
-        {episodes.length > 1 || getCookie(decodeURIComponent(mediaId)) ? (
+        {episodes.length > 1 || getCookie(encodeURIComponent(mediaId)) ? (
           <Button
             id="demo-customized-button"
             size='small'
@@ -915,22 +917,22 @@ const AsianDramaPlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVa
             open={open}
             onClose={handleClose}
           >
-          {getCookie(decodeURIComponent(mediaId)) && 
-            <Link className='text-link-without-underline' to={`${url}?episode=${JSON.parse(getCookie(decodeURIComponent(mediaId))).episodeId}`}>
+          {getCookie(encodeURIComponent(mediaId)) && 
+            <Link className='text-link-without-underline' to={`${url}?episode=${JSON.parse(getCookie(encodeURIComponent(mediaId))).episodeId}`}>
               <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
                 <PlayCircleOutlineIcon />
-                CONTINUE ({episodes.length > 1 ? `EP ${JSON.parse(getCookie(decodeURIComponent(mediaId))).episodeNumber} - ${secondsToHMS(JSON.parse(getCookie(decodeURIComponent(mediaId))).time)}` : `${secondsToHMS(JSON.parse(getCookie(decodeURIComponent(mediaId))).time)}`})
+                CONTINUE ({episodes.length > 1 ? `EP ${JSON.parse(getCookie(encodeURIComponent(mediaId))).episodeNumber} - ${secondsToHMS(JSON.parse(getCookie(encodeURIComponent(mediaId))).time)}` : `${secondsToHMS(JSON.parse(getCookie(encodeURIComponent(mediaId))).time)}`})
               </MenuItem>
             </Link>
           }
-          <Link className='text-link-without-underline' to={`${url}?episode=${episodeIdVar}`} onClick={() => deleteCookie(decodeURIComponent(mediaId))}>
+          <Link className='text-link-without-underline' to={`${url}?episode=${episodeIdVar}`} onClick={() => deleteCookie(encodeURIComponent(mediaId))}>
             <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
               <PlayCircleOutlineIcon />
               FROM THE BEGINNING
             </MenuItem>
           </Link>
           {episodes.length > 1 &&
-            <Link className='text-link-without-underline' to={`${url}?episode=${episodes[episodes.length-1].id}`} onClick={() => deleteCookie(decodeURIComponent(mediaId))}>
+            <Link className='text-link-without-underline' to={`${url}?episode=${episodes[episodes.length-1].id}`} onClick={() => deleteCookie(encodeURIComponent(mediaId))}>
               <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
                 <PlayCircleOutlineIcon />
                 LATEST EPISODE

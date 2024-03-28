@@ -29,13 +29,14 @@ const PlayerLoading = () => {
     return <SpinnerDotted size={39} thickness={180} speed={121} color="rgba(220, 76, 100, 1)" />;
 }
 
-const Player = ({ defaultlink, infotitle, infocover, episodeNum, totalEpisodes, nextEpisode, seekTime, mediaId, episodeId, option, ...rest }) => {
+const Player = ({ defaultlink, infotitle, infocover, seasonNumber = null, episodeNum, episodeNumber = null, totalEpisodes, nextEpisode, seekTime, mediaId, episodeId, option, ...rest }) => {
 
     const queryParams = new URLSearchParams(window.location.search);
     const paramDub = queryParams.get("dub") ? queryParams.get("dub") == 'true' : false;
     const playerAds = randomizeArray(ads);
-
     const artRef = useRef();
+
+    if(episodeNumber === null) episodeNumber = episodeNum;
 
     useEffect(() => {
         
@@ -131,8 +132,13 @@ const Player = ({ defaultlink, infotitle, infocover, episodeNum, totalEpisodes, 
 
         if (art) {
 
+            art.hotkey.add(70, () => {
+                art.fullscreen = !art.fullscreen;
+            });
+
             art.on('ready', () => {
                 art.notice.show = infotitle;
+                // art.fullscreen = true;
                 art.subtitle.style({
                     fontSize: 'clamp(13px, 2vw, 20px)',
                     marginBottom: '20px',
@@ -168,9 +174,9 @@ const Player = ({ defaultlink, infotitle, infocover, episodeNum, totalEpisodes, 
             
             art.on('video:timeupdate', () => {
                 if (episodeNum === totalEpisodes) {
-                    if (art.currentTime < (art.duration-5)) saveProgress(mediaId, paramDub, episodeId, episodeNum, art.currentTime); 
+                    if (art.currentTime < (art.duration-5)) saveProgress(mediaId, paramDub, seasonNumber, episodeId, episodeNumber, art.currentTime); 
                 } else {
-                    saveProgress(mediaId, paramDub, episodeId, episodeNum, art.currentTime);
+                    saveProgress(mediaId, paramDub, seasonNumber, episodeId, episodeNumber, art.currentTime);
                 }
             });
 

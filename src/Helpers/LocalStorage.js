@@ -8,5 +8,5 @@ export const addLocalStorage = (localName, localValue) => {
   };
   
   export const removeLocalStorage = (localName) => {
-      localStorage.removeItem(localName);
+    localStorage.removeItem(localName);
   };
