@@ -35,7 +35,7 @@ import { pageLoadMS } from "../../Config/settings.config";
 import { subtitleLogo, videoQuality, homeBackground } from "../../Config/images.config";
 
 // Utilities
-import { moveToTop, SeparateArrayByComma, convertSecondsToHoursAndMinutes } from "../../Services/Utils";
+import { moveToTop, SeparateArrayByComma, SeparateArrayByCircularSpan, convertSecondsToHoursAndMinutes } from "../../Services/Utils";
 
 // Helpers
 import { getCookie } from "../../Helpers/Cookies";
@@ -416,12 +416,8 @@ const AsianFilmsDashboard = (props) => {
                     <td><Link className='text-link' to={`/asian_films/country_filter?country=${infoValue?.country}`}>{infoValue?.country}</Link></td>
                   </tr>
                   <tr>
-                    <th>Other Names:</th>
-                    <td><SeparateArrayByComma type={'google_link'} data={infoValue?.otherNames} link={'https://www.google.com/search?q='} /></td>
-                  </tr>
-                  <tr>
                     <th>Genre:</th>
-                    <td><SeparateArrayByComma type={'site_link'} data={infoValue?.genre} link={'/asian_films/genre_filter?genre='} /></td>
+                    <td><SeparateArrayByCircularSpan type={'site_link'} data={infoValue?.genre} link={'/asian_films/genre_filter?genre='} /></td>
                   </tr>
                   <tr>
                     <th>Director:</th>
@@ -434,6 +430,10 @@ const AsianFilmsDashboard = (props) => {
                   <tr>
                     <th>Status:</th>
                     <td>{infoValue?.status ? infoValue?.status : '-'}</td>
+                  </tr>
+                  <tr>
+                    <th>Other Names:</th>
+                    <td><SeparateArrayByCircularSpan type={'google_link'} data={infoValue?.otherNames} link={'https://www.google.com/search?q='} /></td>
                   </tr>
                 </tbody>
               </table>

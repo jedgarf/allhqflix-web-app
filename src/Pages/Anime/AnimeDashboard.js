@@ -41,7 +41,7 @@ import { getCookie } from "../../Helpers/Cookies";
 import { subtitleLogo, videoQuality, homeBackground } from "../../Config/images.config";
 
 // Services
-import { moveToTop, SeparateArrayByComma, convertMinutesToHoursAndMinutes } from "../../Services/Utils";
+import { moveToTop, SeparateArrayByComma, SeparateArrayByCircularSpan, convertMinutesToHoursAndMinutes } from "../../Services/Utils";
 import { anime_info, anime_stream_links } from "../../Services/AnimeService";
 
 // Static Data
@@ -451,16 +451,12 @@ const AnimeDashboard = (props) => {
                     <td>{foreign_country.filter((item) => item.code === infoValue?.countryOfOrigin).length > 0 ? foreign_country.filter((item) => item.code === infoValue?.countryOfOrigin)[0].name : '-'}</td>
                   </tr>
                   <tr>
-                    <th>Synonyms:</th>
-                    <td><SeparateArrayByComma type={'google_link'} data={infoValue?.synonyms} link={'https://www.google.com/search?q='} /></td>
-                  </tr>
-                  <tr>
                     <th>Season:</th>
                     <td>{infoValue?.season}</td>
                   </tr>
                   <tr>
                     <th>Genre:</th>
-                    <td><SeparateArrayByComma type={'site_link'} data={infoValue?.genres} link={'/anime/genre_filter?genre='} /></td>
+                    <td><SeparateArrayByCircularSpan type={'site_link'} data={infoValue?.genres} link={'/anime/genre_filter?genre='} /></td>
                   </tr>
                   <tr>
                     <th>Released:</th>
@@ -469,6 +465,10 @@ const AnimeDashboard = (props) => {
                   <tr>
                     <th>Status:</th>
                     <td>{infoValue?.status}</td>
+                  </tr>
+                  <tr>
+                    <th>Synonyms:</th>
+                    <td><SeparateArrayByCircularSpan type={'google_link'} data={infoValue?.synonyms} link={'https://www.google.com/search?q='} /></td>
                   </tr>
                 </tbody>
               </table>
