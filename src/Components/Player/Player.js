@@ -30,7 +30,7 @@ const PlayerLoading = () => {
     return <SpinnerDotted size={39} thickness={180} speed={121} color="rgba(220, 76, 100, 1)" />;
 }
 
-const Player = ({ defaultlink, infotitle, infocover, seasonNumber = null, episodeNum, episodeNumber = null, totalEpisodes, nextEpisode, seekTime, mediaId, episodeId, option, ...rest }) => {
+const Player = ({ episodes, defaultlink, infotitle, infocover, seasonNumber = null, episodeNum, episodeNumber = null, totalEpisodes, nextEpisode, seekTime, mediaId, episodeId, option, ...rest }) => {
 
     const { type } = useParams();
     const queryParams = new URLSearchParams(window.location.search);
@@ -153,11 +153,16 @@ const Player = ({ defaultlink, infotitle, infocover, seasonNumber = null, episod
                 art.notice.show = infotitle;
             });
 
-            art.on('video:ended', () => {
-                if (episodeNum === totalEpisodes) deleteCookie(decodeURIComponent(mediaId));
-                // auto next function
-                if (totalEpisodes > 1) {
-                    nextEpisode();
+            art.on('video:timeupdate', () => {
+                if (episodeNum < totalEpisodes) {
+                    if (Math.round(art.currentTime) >= Math.round(art.duration-9)) {
+                        const index = episodes.findIndex(item => item.id == episodeId);
+                        if (type === "movie" || type === "tv") {
+                            art.notice.show = `Season ${episodes[index+1].season} / Episode ${episodes[index+1].number} will be auto play in ${Math.round(art.duration-art.currentTime)+1}`;   
+                        } else {
+                            art.notice.show = `Episode ${episodes[index+1].number} will be auto play in ${Math.round(art.duration-art.currentTime)+1}`;
+                        }
+                    }   
                 }
             });
 
@@ -166,6 +171,14 @@ const Player = ({ defaultlink, infotitle, infocover, seasonNumber = null, episod
                     setTimeout(() => {
                         art.notice.show = 'Your connection is too slow.';
                     }, 3000);   
+                }
+            });
+
+            art.on('video:ended', () => {
+                if (episodeNum === totalEpisodes) deleteCookie(decodeURIComponent(mediaId));
+                // auto next function
+                if (totalEpisodes > 1) {
+                    nextEpisode();
                 }
             });
 

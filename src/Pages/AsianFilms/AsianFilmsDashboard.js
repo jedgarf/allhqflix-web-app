@@ -276,6 +276,7 @@ const AsianFilmsDashboard = (props) => {
           <>
           <Player
             className="movie_player"
+            episodes={infoValue?.episodes}
             defaultlink={defaultLink}
             infotitle={totalEpisodes > 1 ? `${contentTitle} - Episode ${episodeNum}` : `${contentTitle}`}
             infocover={infoValue?.banner}

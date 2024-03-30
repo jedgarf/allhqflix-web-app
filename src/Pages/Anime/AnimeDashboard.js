@@ -274,6 +274,7 @@ const AnimeDashboard = (props) => {
           <>
             <Player
               className="movie_player"
+              episodes={infoValue?.episodes}
               defaultlink={defaultLink}
               infotitle={totalEpisodes > 1 ? `${contentTitle} - Episode ${episodeNum} ${infoValue?.subOrDub === 'dub' ? '(English Dub)' : ''}` : `${contentTitle} ${infoValue?.subOrDub === 'dub' ? '(English Dub)' : ''}`}
               infocover={infoValue?.cover}
