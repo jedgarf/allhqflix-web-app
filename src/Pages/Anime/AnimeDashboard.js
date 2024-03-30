@@ -211,11 +211,11 @@ const AnimeDashboard = (props) => {
     if (selectedItemPrevIndex > 0 && selectedItemPrevIndex < infoValue?.episodes?.length) {
       additionalControls.push({
         position: 'right',
-        html: `PREV.`,
+        html: `&#8678;`,
         tooltip: 'Previous Episode',
         style: {
-            marginRight: '10px',
-            color: '#DC4C64'
+          fontSize: '32px',
+          marginTop: '-4px'
         },
         click: function (item) {
           previousEpisode();
@@ -228,11 +228,11 @@ const AnimeDashboard = (props) => {
     if (selectedItemNextIndex >= 0 && (selectedItemNextIndex + 1) < infoValue?.episodes?.length) {
       additionalControls.push({
         position: 'right',
-        html: `NEXT`,
+        html: `&#8680;`,
         tooltip: 'Next Episode',
         style: {
-            marginRight: '10px',
-            color: '#DC4C64'
+          fontSize: '32px',
+          marginTop: '-4px'
         },
         click: function (item) {
           nextEpisode();

@@ -105,13 +105,12 @@ const Player = ({ defaultlink, infotitle, infocover, seasonNumber = null, episod
                     // preload: 'none', // metadata
                     // playsInline: true,
                 },
-                contextmenu: [{
-                    html: 'Custom menu',
-                    click: function(contextmenu) {
-                        console.info('You clicked on the custom menu');
-                        contextmenu.show = false;
-                    },
-                }, ],
+                // contextmenu: [{
+                //     html: 'Custom menu',
+                //     click: function(contextmenu) {
+                //         contextmenu.show = false;
+                //     },
+                // }],
                 layers: [
                     {
                         html: `<img src="${mainLogo}">`,
@@ -155,29 +154,26 @@ const Player = ({ defaultlink, infotitle, infocover, seasonNumber = null, episod
             });
 
             art.on('video:ended', () => {
-                art.poster = infocover || homeBackground;
                 if (episodeNum === totalEpisodes) deleteCookie(decodeURIComponent(mediaId));
                 // auto next function
                 if (totalEpisodes > 1) {
                     nextEpisode();
                 }
             });
-    
-            art.on('error', (error, reconnectTime) => {
-                art.notice.show = 'Error loading link.';
-            });   
 
             art.on('video:waiting', () => {
-                setTimeout(() => {
-                    art.notice.show = 'Your connection is too slow.';
-                }, 3000);
+                if (art.currentTime >= art.loadedTime) {
+                    setTimeout(() => {
+                        art.notice.show = 'Your connection is too slow.';
+                    }, 3000);   
+                }
             });
 
             // Save progress ------------------------------------------------------------------------------------------------------------
             
             art.on('video:timeupdate', () => {
                 if (episodeNum === totalEpisodes) {
-                    if (art.currentTime < (art.duration-5)) saveProgress(mediaId, paramDub, seasonNumber, episodeId, episodeNumber, art.currentTime); 
+                    if (art.currentTime < (art.duration-10)) saveProgress(mediaId, paramDub, seasonNumber, episodeId, episodeNumber, art.currentTime); 
                 } else {
                     saveProgress(mediaId, paramDub, seasonNumber, episodeId, episodeNumber, art.currentTime);
                 }
@@ -211,6 +207,10 @@ const Player = ({ defaultlink, infotitle, infocover, seasonNumber = null, episod
             // Advertisement is skipped
             art.on('artplayerPluginAds:skip', (ads) => {
                 console.log('Ad was skipped', ads);
+            });
+
+            art.on('error', (error, reconnectTime) => {
+                art.notice.show = 'Error loading link.';
             });
 
             artPlayerInstance = art;

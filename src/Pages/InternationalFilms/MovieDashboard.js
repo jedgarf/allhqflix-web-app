@@ -35,7 +35,7 @@ import { defaultInternationalServer, defaultInternationalVideoRes, server_status
 import { subtitleLogo, videoQuality, homeBackground } from "../../Config/images.config";
 
 // Utilities
-import { moveToTop, getFileExtention, SeparateArrayByComma, capitalizeString, convertMinutesToHoursAndMinutes, getLanguageName } from "../../Services/Utils";
+import { moveToTop, getFileExtention, SeparateArrayByComma, SeparateArrayByCircularSpan, capitalizeString, convertMinutesToHoursAndMinutes, getLanguageName } from "../../Services/Utils";
 
 // Helpers
 import { getCookie } from "../../Helpers/Cookies";
@@ -307,11 +307,11 @@ const MovieDashboard = (props) => {
     if (selectedItemIndex > 0 && selectedItemIndex < infoValue?.episodes?.length) {
       additionalControls.push({
         position: 'right',
-        html: `PREV.`,
+        html: `&#8678;`,
         tooltip: 'Previous Episode',
         style: {
-            marginRight: '10px',
-            color: '#DC4C64'
+          fontSize: '32px',
+          marginTop: '-4px'
         },
         click: (item) => {
           previousEpisode();
@@ -322,11 +322,11 @@ const MovieDashboard = (props) => {
     if (selectedItemIndex >= 0 && (selectedItemIndex + 1) < infoValue?.episodes?.length) {
       additionalControls.push({
         position: 'right',
-        html: `NEXT`,
+        html: `&#8680;`,
         tooltip: 'Next Episode',
         style: {
-            marginRight: '10px',
-            color: '#DC4C64'
+          fontSize: '32px',
+          marginTop: '-4px'
         },
         click: (item) => {
           nextEpisode();
@@ -554,6 +554,9 @@ const MovieDashboard = (props) => {
                         <span className='stream-video-quality-span' style={{ backgroundColor: 'transparent', fontWeight: 'bolder', border: '1.5px solid white' }}>{infoValue?.video_quality}</span>
                       </h5>
                     </Grid>
+                    <Grid item>
+                      <h5>{infoValue?.episodes?.length > 0 ? `${infoValue?.episodes?.length} Episodes` : `${infoValue?.episodes?.length} Episode`}</h5>
+                    </Grid>
                   </Grid>
                   : 
                   <Grid container alignItems="center" spacing={0.4} style={{ marginLeft: '8px' }}>
@@ -579,7 +582,7 @@ const MovieDashboard = (props) => {
                   </tr>
                   <tr>
                     <th>Genre:</th>
-                    <td><SeparateArrayByComma type={'site_link'} data={infoValue?.genres} link={'/foreign/genre_filter?genre='} /></td>
+                    <td><SeparateArrayByCircularSpan type={'site_link'} data={infoValue?.genres} link={'/foreign/genre_filter?genre='} /></td>
                   </tr>
                   <tr>
                     <th>Released:</th>
@@ -595,7 +598,7 @@ const MovieDashboard = (props) => {
                   </tr>
                   <tr>
                     <th>Casts:</th>
-                    <td><SeparateArrayByComma type={'google_link'} data={infoValue?.casts} link={'https://www.google.com/search?q='} /></td>
+                    <td><SeparateArrayByCircularSpan type={'google_link'} data={infoValue?.casts} link={'https://www.google.com/search?q='} /></td>
                   </tr>
                 </tbody>
               </table>

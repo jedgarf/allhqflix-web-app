@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, Fragment } from "react";
 import { Link } from "react-router-dom";
 
 const shortenTextHeight = (string, num) => {
@@ -127,7 +127,6 @@ const useContainerDimensions = myRef => {
   }
 
   const SeparateArrayByComma = ({ type, data, link }) => {
-
     return (
       <>
         {data?.map((item, i) => {
@@ -149,7 +148,35 @@ const useContainerDimensions = myRef => {
         })}
       </>
     )
+  }
 
+  const SeparateArrayByCircularSpan = ({ type, data, link }) => {
+    return (
+      <>
+        {data?.map((item, i) => {
+          return (
+            <Fragment key={i}>
+              {type === "site_link" ?
+                <Link className='text-link-without-underline' title={item} to={`${link}${item}`} style={{ cursor: 'pointer', marginRight: '5px' }}>
+                  <Button style={{ backgroundColor: 'rgba(105, 105, 105, 0.4)', paddingBlock: '5px', paddingInline: '10px', borderRadius: '15px', marginBottom: '5px', color: '#FBFBFB' }}>
+                    {item}
+                  </Button>
+                </Link>
+              : type === "google_link" ? 
+                <a className='text-link-without-underline' href={`${link}${item}`} alt={item} title={item} rel='noreferrer' target='_blank' style={{ cursor: 'pointer', marginRight: '5px' }}>
+                  <Button style={{ backgroundColor: 'rgba(105, 105, 105, 0.4)', paddingBlock: '5px', paddingInline: '10px', borderRadius: '15px', marginBottom: '5px', color: '#FBFBFB' }}>
+                    {item}
+                  </Button>
+                </a>
+              : 
+                <Button style={{ backgroundColor: 'rgba(105, 105, 105, 0.4)', paddingBlock: '5px', paddingInline: '10px', borderRadius: '15px', marginBottom: '5px', color: '#FBFBFB', marginRight: '5px' }}>
+                  {item}
+                </Button>}
+            </Fragment>
+          );
+        })}
+      </>
+    )
   }
 
   const SeparateArrayButtons = ({ type, color, data, link }) => {
@@ -478,6 +505,7 @@ export { shortenTextHeight,
          getFileExtention, 
          destroyHls, 
          SeparateArrayByComma, 
+         SeparateArrayByCircularSpan, 
          SeparateArrayButtons, 
          separatedSeasons, 
          ObjectLength,
