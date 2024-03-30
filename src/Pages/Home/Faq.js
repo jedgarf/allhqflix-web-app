@@ -211,7 +211,7 @@ const Faq = () => {
                             aria-controls="panel1a-content"
                             id="panel1a-header"
                             >
-                            <Typography sx={{ fontWeight: 'bolder', textTransform: "uppercase", fontSize: '12px' }}>Technology Used</Typography>
+                            <Typography sx={{ fontWeight: 'bolder', textTransform: "uppercase", fontSize: '12px' }}>Tech Stack</Typography>
                             </AccordionSummary>
                             <AccordionDetails className="home_accordion_about_body">
                                 <Typography variant="div">
