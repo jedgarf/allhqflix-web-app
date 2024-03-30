@@ -455,6 +455,18 @@ const getNumberSuffix = (num) => {
   }
 }
 
+const getLanguageName = (langCode, increment = 0) => {
+  const languageCodes = require('./Data/languages.json');
+  const regex = /^[a-zA-Z]{3}-\d+$/;
+  if (regex.test(langCode)) {
+    const strParts = langCode.split('-');
+    return languageCodes[strParts[0]] ? `${languageCodes[strParts[0]].full} [${strParts[1]}]` : `${langCode}`;
+  } else {
+    return langCode;
+  }
+  // I decrypt the encrypted language name soon
+}
+
 export { shortenTextHeight, 
          streamDashboardBackButton, 
          moveToTop, 
@@ -486,4 +498,5 @@ export { shortenTextHeight,
          secondsToHMS, 
          secondsToMinutes, 
          randomizeArray, 
-         getNumberSuffix };
+         getNumberSuffix, 
+         getLanguageName };

@@ -1,4 +1,5 @@
 import React, { useRef, useEffect } from 'react';
+import { useParams } from "react-router-dom";
 import { SpinnerDotted } from 'spinners-react';
 
 // ArtPlayerJS
@@ -14,7 +15,7 @@ import HighQualityIcon from '@mui/icons-material/HighQuality';
 import { ads } from "../../Config/settings.config";
 
 // Images
-import { mainLogo, customLoadingFileName } from "../../Config/images.config";
+import { mainLogo, customLoadingFileName, homeBackground } from "../../Config/images.config";
 
 // Utilities
 import { getFileExtention, randomizeArray } from "../../Services/Utils";
@@ -31,6 +32,7 @@ const PlayerLoading = () => {
 
 const Player = ({ defaultlink, infotitle, infocover, seasonNumber = null, episodeNum, episodeNumber = null, totalEpisodes, nextEpisode, seekTime, mediaId, episodeId, option, ...rest }) => {
 
+    const { type } = useParams();
     const queryParams = new URLSearchParams(window.location.search);
     const paramDub = queryParams.get("dub") ? queryParams.get("dub") == 'true' : false;
     const playerAds = randomizeArray(ads);
@@ -62,6 +64,7 @@ const Player = ({ defaultlink, infotitle, infocover, seasonNumber = null, episod
         try {
             art = new Artplayer({
                 ...option,
+                category: type,
                 container: artRef.current,
                 autoOrientation: true,
                 fastForward: true,
@@ -71,8 +74,8 @@ const Player = ({ defaultlink, infotitle, infocover, seasonNumber = null, episod
                     m3u8: playM3u8,
                     flv: playFlv
                 },
-                title: infotitle || "Unknown Title",
-                poster: infocover || "",
+                title: infotitle || "Unknown title",
+                poster: infocover || homeBackground,
                 volume: 1,
                 muted: false,
                 autoplay: isAutoPlay,
@@ -138,10 +141,9 @@ const Player = ({ defaultlink, infotitle, infocover, seasonNumber = null, episod
 
             art.on('ready', () => {
                 art.notice.show = infotitle;
-                // art.fullscreen = true;
                 art.subtitle.style({
                     fontSize: 'clamp(13px, 2vw, 20px)',
-                    marginBottom: '20px',
+                    marginBottom: '25px',
                 });
                 if (seekTime > 0) {
                     art.seek = seekTime;
@@ -153,6 +155,7 @@ const Player = ({ defaultlink, infotitle, infocover, seasonNumber = null, episod
             });
 
             art.on('video:ended', () => {
+                art.poster = infocover || homeBackground;
                 if (episodeNum === totalEpisodes) deleteCookie(decodeURIComponent(mediaId));
                 // auto next function
                 if (totalEpisodes > 1) {
@@ -164,11 +167,11 @@ const Player = ({ defaultlink, infotitle, infocover, seasonNumber = null, episod
                 art.notice.show = 'Error loading link.';
             });   
 
-            // art.on('video:waiting', () => {
-            //     setTimeout(() => {
-            //         art.notice.show = 'Please switch to another server.';
-            //     }, 5000);
-            // });
+            art.on('video:waiting', () => {
+                setTimeout(() => {
+                    art.notice.show = 'Your connection is too slow.';
+                }, 3000);
+            });
 
             // Save progress ------------------------------------------------------------------------------------------------------------
             

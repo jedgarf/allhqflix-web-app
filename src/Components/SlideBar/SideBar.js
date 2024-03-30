@@ -203,7 +203,7 @@ const SideBar = ({ Type, subType, haveSearch = true,  transparentBg = true, isSt
                             <StyledInputBase
                             size='small'
                             inputRef={searchRef}
-                            placeholder={'Type here and hit enter'}
+                            placeholder={'Type your movie/series here'}
                             inputProps={{ 'aria-label': 'search', defaultValue: `${searchKeyword}` }}
                             required
                             />

@@ -146,7 +146,7 @@ const Home = () => {
                                 <SearchIcon style={{ color: '#dddddd' }} />
                                 </SearchIconWrapper>
                                 <StyledInputBase
-                                placeholder={'Type here and hit enter'}
+                                placeholder={'Type you movie/series here'}
                                 onChange={(e) => searchChange(e)}
                                 inputProps={{ 'aria-label': 'search', defaultValue: `${searchKeyword}` }}
                                 required

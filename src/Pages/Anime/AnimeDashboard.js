@@ -38,7 +38,7 @@ import { getCookie } from "../../Helpers/Cookies";
 
 
 // Images
-import { subtitleLogo, videoQuality } from "../../Config/images.config";
+import { subtitleLogo, videoQuality, homeBackground } from "../../Config/images.config";
 
 // Services
 import { moveToTop, SeparateArrayByComma, convertMinutesToHoursAndMinutes } from "../../Services/Utils";
@@ -266,7 +266,7 @@ const AnimeDashboard = (props) => {
     <div className="movie_dashboard">
       <ReactQueryTools/>
       <SideBar Type={type} subType={null} transparentBg={false} isStream={true} />
-      <div className="movie_cover" style={{backgroundImage: `linear-gradient(rgba(0, 0, 10, 1),rgba(0, 0, 10, 0.5), rgba(0, 0, 10, 0.2)), url("${infoValue?.cover}")`}}>
+      <div className="movie_cover" style={{backgroundImage: `linear-gradient(rgba(0, 0, 10, 1),rgba(0, 0, 10, 0.5), rgba(0, 0, 10, 0.2)), url("${infoValue?.cover}"), url("${homeBackground}")`}}>
         <div className="heading cheading movie-stream-title">
           <h6> </h6>
         </div>

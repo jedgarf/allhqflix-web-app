@@ -91,9 +91,6 @@ function AsianFilmsFilterByGenre() {
   }, []);
 
   return (
-    genreData.isLoading ? 
-      <LoadingPage/>
-    : 
     <div className="search_result">
       <ReactQueryTools/>
         <div className="search_result_content">

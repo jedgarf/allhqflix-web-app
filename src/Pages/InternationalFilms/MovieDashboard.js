@@ -1,8 +1,7 @@
 // Packages
 import React, { useState, useEffect, useCallback, useRef, Fragment } from "react";
 import { useQuery } from 'react-query';
-import { Link } from "react-router-dom";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -33,10 +32,10 @@ import apiConfig from '../../Config/api.config';
 import { defaultInternationalServer, defaultInternationalVideoRes, server_status } from "../../Config/settings.config";
 
 // Images
-import { subtitleLogo, videoQuality } from "../../Config/images.config";
+import { subtitleLogo, videoQuality, homeBackground } from "../../Config/images.config";
 
 // Utilities
-import { moveToTop, getFileExtention, SeparateArrayByComma, capitalizeString, convertMinutesToHoursAndMinutes } from "../../Services/Utils";
+import { moveToTop, getFileExtention, SeparateArrayByComma, capitalizeString, convertMinutesToHoursAndMinutes, getLanguageName } from "../../Services/Utils";
 
 // Helpers
 import { getCookie } from "../../Helpers/Cookies";
@@ -196,17 +195,17 @@ const MovieDashboard = (props) => {
       for (let videoSubtitlesLength = 0; videoSubtitlesLength < vidSub?.length; videoSubtitlesLength++) {
         if (engVidSub?.length > 0) {
           if (vidSub[videoSubtitlesLength]?.lang === engVidSub[0]?.lang) {
-            setDefaultSubtitleToolTip(vidSub[videoSubtitlesLength]?.lang);
-            videoSubtitlesContent.push({"default": true, "html": vidSub[videoSubtitlesLength]?.lang, "url": vidSub[videoSubtitlesLength]?.url});
+            setDefaultSubtitleToolTip(getLanguageName(vidSub[videoSubtitlesLength]?.lang, videoSubtitlesLength));
+            videoSubtitlesContent.push({"default": true, "html": getLanguageName(vidSub[videoSubtitlesLength]?.lang, videoSubtitlesLength), "url": vidSub[videoSubtitlesLength]?.url});
           } else {
-            videoSubtitlesContent.push({"default": false, "html": vidSub[videoSubtitlesLength]?.lang, "url": vidSub[videoSubtitlesLength]?.url});
+            videoSubtitlesContent.push({"default": false, "html": getLanguageName(vidSub[videoSubtitlesLength]?.lang, videoSubtitlesLength), "url": vidSub[videoSubtitlesLength]?.url});
           }
         } else {
           if (videoSubtitlesLength === 0) {
-            setDefaultSubtitleToolTip(vidSub[videoSubtitlesLength]?.lang);
-            videoSubtitlesContent.push({"default": true, "html": vidSub[videoSubtitlesLength]?.lang, "url": vidSub[videoSubtitlesLength]?.url});
+            setDefaultSubtitleToolTip(getLanguageName(vidSub[videoSubtitlesLength]?.lang, videoSubtitlesLength));
+            videoSubtitlesContent.push({"default": true, "html": getLanguageName(vidSub[videoSubtitlesLength]?.lang, videoSubtitlesLength), "url": vidSub[videoSubtitlesLength]?.url});
           } else {
-            videoSubtitlesContent.push({"default": false, "html": vidSub[videoSubtitlesLength]?.lang, "url": vidSub[videoSubtitlesLength]?.url});
+            videoSubtitlesContent.push({"default": false, "html": getLanguageName(vidSub[videoSubtitlesLength]?.lang, videoSubtitlesLength), "url": vidSub[videoSubtitlesLength]?.url});
           }
         }
       }
@@ -373,7 +372,7 @@ const MovieDashboard = (props) => {
       <SideBar Type={'foreign'} subType={null} transparentBg={false} isStream={true}/>
       <SnackBar severity={snackBarType} handleSnackBarOpen={handleSnackBarOpen} status={snackBarOpen} snackBarMessage={snackBarMessage} />
 
-      <div className="movie_cover" style={{backgroundImage: `linear-gradient(rgba(0, 0, 10, 1),rgba(0, 0, 10, 0.5),rgba(0, 0, 10, 0.2)), url("${infoValue?.cover}")`}}>
+      <div className="movie_cover" style={{backgroundImage: `linear-gradient(rgba(0, 0, 10, 1),rgba(0, 0, 10, 0.5),rgba(0, 0, 10, 0.2)), url("${infoValue?.cover}"), url("${homeBackground}")`}}>
         <div className="heading cheading movie-stream-title">
           <h6> </h6>
         </div>

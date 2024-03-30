@@ -187,12 +187,12 @@ const MovieStreamDashboard = (props) => {
 
         if (infoData.isLoading) setBGImage(homeBackground);
 
-        if (infoData.isLoading || serverData.isLoading || resourceData.isLoading) {
-            setSnackBarType('info');
-            setSnackBarMessage(`Please wait while fetching all resources.`);
-            setSnackBarOpen(true);
-            setSnackBarWithLoading(true);
-        };
+        // if (infoData.isLoading || serverData.isLoading || resourceData.isLoading) {
+        //     setSnackBarType('info');
+        //     setSnackBarMessage(`Please wait while fetching all resources.`);
+        //     setSnackBarOpen(true);
+        //     setSnackBarWithLoading(true);
+        // };
 
         setTimeout(() => {
             setIsLoading(false);
@@ -205,7 +205,8 @@ const MovieStreamDashboard = (props) => {
         : 
         <Fragment>
             <ReactQueryTools/>
-            <div style={{backgroundImage: isMobile ? `linear-gradient(rgba(15, 22, 34, 0.527),rgba(15, 22, 34, 0.5)) , url("${BGImage}")` : `linear-gradient(to right, rgba(15, 22, 34, 1) 20%, rgba(15, 22, 34, 0.5) 80%) , url("${BGImage}")`, objectFit: 'cover', backgroundSize: ' 100% 100%', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', width: '100%'}} onError={handleBackgroundImageError}>
+            <div style={{backgroundImage: isMobile ? `linear-gradient(rgba(15, 22, 34, 0.527),rgba(15, 22, 34, 0.5)), url("${BGImage}"), url("${homeBackground}")` : `linear-gradient(to right, rgba(15, 22, 34, 1) 20%, rgba(15, 22, 34, 0.5) 80%), url("${BGImage}"), url("${homeBackground}")`, objectFit: 'cover', backgroundSize: ' 100% 100%', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', width: '100%'}} 
+                onError={handleBackgroundImageError}>
                 <SnackBar severity={snackBarType} handleSnackBarOpen={handleSnackBarOpen} status={snackBarOpen} snackBarMessage={snackBarMessage} withLoading={snackBarWithLoading} />
                 <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={1} justifyContent="center">
                     <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>
@@ -292,12 +293,11 @@ const MovieStreamDashboard = (props) => {
                             </div>
                             : ""}
                             {type === 'movie' && resourceData.isSuccess ?
-                            <div>
-                                <b style={{ color: '#DC4C64', marginRight: '5px' }}>Subtitles:</b> 
-                                    {resourceValue?.data?.subtitles?.map((item, i) => {
-                                        subtitleCount++;
-                                    })}
-                                    { subtitleCount > 0 ? <><b>{subtitleCount}</b> <LanguageListTooltip text={<VisibilityIcon sx={{ fontSize: '18px', marginBottom: '-3px', color: '#3B71CA' }}/>} languages={resourceValue?.data?.subtitles}/></> : "No available subtitle" }
+                            <div style={{ fontStyle: 'italic' }}>
+                                {resourceValue?.data?.subtitles?.map((item, i) => {
+                                    subtitleCount++;
+                                })}
+                                { subtitleCount > 0 ? `${subtitleCount} ${subtitleCount > 1 ? "subtitles available." : "subtitle available."}` : "No available subtitle." }
                                 <br/>
                             </div>
                             : ""}

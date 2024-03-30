@@ -1,4 +1,4 @@
-import _ from 'lodash';
+// import _ from 'lodash';
 import Hls from "hls.js";
 import flvjs from "flv.js";
 
@@ -19,16 +19,16 @@ export const playFlv = (video, url, art) => {
     }
 }
 
-// const hlsConfig = {
-//     xhrSetup: function (xhr, url) {
-//       xhr.referer = 'https://flixhq.to/';
-//     },
-// };
-
 export const playM3u8 = (video, url, art) => {
+
     if (Hls.isSupported()) {
-        // const hls = new Hls(hlsConfig);
         const hls = new Hls();
+        if (art?.category === "movie" || art?.category === "movie") {
+            hls.xhrSetup = function(xhr, url) {
+                // Add custom Referer header here
+                xhr.setRequestHeader('Referer', 'https://flixhq.to/');
+            };
+        }
         hls.loadSource(url);
         hls.attachMedia(video);
 
@@ -44,7 +44,7 @@ export const playM3u8 = (video, url, art) => {
 }
 
 export const destroyPlayM3u8 = () => {
-    // Hls.destroy();
+    Hls.destroy();
 }
 
 export const destroyPlayFlv = () => {
