@@ -442,10 +442,6 @@ const MovieDashboard = (props) => {
                   type: getFileExtention(defaultSubtitle),
                   encoding: 'utf-8',
               },
-              headers: {
-                Referer: apiConfig.flixhq_referer,
-                Origin: apiConfig.flixhq_referer
-              },
               controls: additionalControls,
             }}
           />

@@ -2,6 +2,7 @@
 import Hls from "hls.js";
 import flvjs from "flv.js";
 
+import apiConfig from '../../Config/api.config';
 import { getCookie, addCookie, deleteCookie } from "../../Helpers/Cookies";
 
 export const playFlv = (video, url, art) => {
@@ -26,7 +27,7 @@ export const playM3u8 = (video, url, art) => {
         if (art?.category === "movie" || art?.category === "movie") {
             hls.xhrSetup = function(xhr, url) {
                 // Add custom Referer header here
-                xhr.setRequestHeader('Referer', 'https://flixhq.to/');
+                xhr.setRequestHeader('Referer', apiConfig.flixhq_referer);
             };
         }
         hls.loadSource(url);
