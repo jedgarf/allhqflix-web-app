@@ -4,7 +4,7 @@ import { useQuery } from 'react-query';
 import { useParams } from "react-router-dom";
 
 // Material UI Components
-import { Grid, Box, Container } from '@mui/material';
+import { Grid, Box, Container, Button } from '@mui/material';
 
 // React Slick
 import Slider from "react-slick";
@@ -73,6 +73,7 @@ const AnimeDashboard = (props) => {
   const [selectedEpisodeName, setSelectedEpisodeName] = useState(null);
   const [totalEpisodes, setTotalEpisodes] = useState(0);
   const [episodeNum, setEpisodeNum] = useState(0);
+  const [selectedEpisodeIndex, setSelectedEpisodeIndex] = useState(0);
 
   const episodesPerPage = 50;
   const [episodesCurrentPage, setEpisodesCurrentPage] = useState(1);
@@ -167,6 +168,7 @@ const AnimeDashboard = (props) => {
     cacheTime: 24 * 60 * 60 * 1000, // 24 hours
     refetchOnWindowFocus: false,
     notifyOnChangeProps: "tracked",
+    retry: 1, // Number of retries
     enabled: episodeIdVar !== null,
   });
   
@@ -207,8 +209,7 @@ const AnimeDashboard = (props) => {
   if (infoValue?.episodes?.length > 1) {
 
     // Previous Episode
-    const selectedItemPrevIndex = infoValue?.episodes?.indexOf(infoValue?.episodes?.find((item) => item.id == selectedEpisode));
-    if (selectedItemPrevIndex > 0 && selectedItemPrevIndex < infoValue?.episodes?.length) {
+    if (selectedEpisodeIndex > 0 && selectedEpisodeIndex < infoValue?.episodes?.length) {
       additionalControls.push({
         position: 'right',
         html: `&#8678;`,
@@ -224,8 +225,7 @@ const AnimeDashboard = (props) => {
     }
 
     // Next Episode
-    const selectedItemNextIndex = infoValue?.episodes?.indexOf(infoValue?.episodes?.find((item) => item.id == selectedEpisode));
-    if (selectedItemNextIndex >= 0 && (selectedItemNextIndex + 1) < infoValue?.episodes?.length) {
+    if (selectedEpisodeIndex >= 0 && (selectedEpisodeIndex + 1) < infoValue?.episodes?.length) {
       additionalControls.push({
         position: 'right',
         html: `&#8680;`,
@@ -246,6 +246,7 @@ const AnimeDashboard = (props) => {
     if (infoData.isSuccess) {
       document.title = 'AllHQFlix - ' + contentTitle +  `${infoValue?.subOrDub === 'dub' ? ' (English Dub)' : ''}`;
       set_selectedSeasonEpisode(infoValue);
+      setSelectedEpisodeIndex(infoValue?.episodes?.indexOf(infoValue?.episodes?.find((item) => item.id == selectedEpisode)));
     }
 
     if (resourceData.isSuccess) {
@@ -260,7 +261,7 @@ const AnimeDashboard = (props) => {
     }
     setEpisodesCurrentPage(currentPage);
 
-  }, [contentTitle, infoData.isSuccess, resourceData.isSuccess, infoValue, resourceValue, episodeNum, set_selectedSeasonEpisode, set_selectedLinkSubtitle]);
+  }, [contentTitle, infoData.isSuccess, resourceData.isSuccess, infoValue, resourceValue, episodeNum, set_selectedSeasonEpisode, set_selectedLinkSubtitle, selectedEpisode]);
 
   return (
     <div className="movie_dashboard">
@@ -270,75 +271,86 @@ const AnimeDashboard = (props) => {
         <div className="heading cheading movie-stream-title">
           <h6> </h6>
         </div>
-        {infoData.isSuccess && resourceData.isSuccess && defaultLink !== "" && videoQualities.length > 0 && !loadingEpisode ? (
-          <>
-            <Player
-              className="movie_player"
-              episodes={infoValue?.episodes}
-              defaultlink={defaultLink}
-              infotitle={totalEpisodes > 1 ? `${contentTitle} - Episode ${episodeNum} ${infoValue?.subOrDub === 'dub' ? '(English Dub)' : ''}` : `${contentTitle} ${infoValue?.subOrDub === 'dub' ? '(English Dub)' : ''}`}
-              infocover={infoValue?.cover}
-              episodeNum={episodeNum}
-              totalEpisodes={totalEpisodes}
-              nextEpisode={nextEpisode}
-              seekTime={getCookie(encodeURIComponent(indexId)) && JSON.parse(getCookie(encodeURIComponent(indexId))).dub == paramDub && JSON.parse(getCookie(encodeURIComponent(indexId))).episodeId === selectedEpisode ? JSON.parse(getCookie(encodeURIComponent(indexId))).time : 0}
-              mediaId={indexId}
-              episodeId={selectedEpisode}
-              option={{
-                enableAds: true,
-                hotkey: true,
-                setting: true,
-                settings: [
+        {infoData.isSuccess && resourceData.isSuccess && defaultLink !== "" && videoQualities.length > 0 && !loadingEpisode ? 
+          <Player
+            className="movie_player"
+            episodes={infoValue?.episodes}
+            defaultlink={defaultLink}
+            infotitle={totalEpisodes > 1 ? `${contentTitle} - Episode ${episodeNum} ${infoValue?.subOrDub === 'dub' ? '(English Dub)' : ''}` : `${contentTitle} ${infoValue?.subOrDub === 'dub' ? '(English Dub)' : ''}`}
+            infocover={infoValue?.cover}
+            episodeNum={episodeNum}
+            totalEpisodes={totalEpisodes}
+            nextEpisode={nextEpisode}
+            seekTime={getCookie(encodeURIComponent(indexId)) && JSON.parse(getCookie(encodeURIComponent(indexId))).dub == paramDub && JSON.parse(getCookie(encodeURIComponent(indexId))).episodeId === selectedEpisode ? JSON.parse(getCookie(encodeURIComponent(indexId))).time : 0}
+            mediaId={indexId}
+            episodeId={selectedEpisode}
+            option={{
+              enableAds: true,
+              hotkey: true,
+              setting: true,
+              settings: [
+                {
+                    html: 'Video Resolutions',
+                    width: 300,
+                    tooltip: defaultQualityToolTip,
+                    icon: `<img width="22" heigth="22" src="${videoQuality}">`,
+                    selector: videoQualities,
+                    onSelect: function (item, $dom, event) {
+                        console.info(item, $dom, event);
+                        this.switchQuality(item.url, item.html);
+                        return item.html;
+                    },
+                },
+                {
+                  html: 'Subtitles',
+                  width: 300,
+                  tooltip: "No selected",
+                  icon: `<img width="22" height="22" src="${subtitleLogo}">`,
+                  selector: [
                   {
-                      html: 'Video Resolutions',
-                      width: 300,
-                      tooltip: defaultQualityToolTip,
-                      icon: `<img width="22" heigth="22" src="${videoQuality}">`,
-                      selector: videoQualities,
-                      onSelect: function (item, $dom, event) {
-                          console.info(item, $dom, event);
-                          this.switchQuality(item.url, item.html);
-                          return item.html;
+                      html: 'Display',
+                      tooltip: 'Show',
+                      switch: true,
+                      onSwitch: function (item) {
+                          item.tooltip = item.switch ? 'Hide' : 'Show';
+                          this.subtitle.show = !item.switch;
+                          return !item.switch;
                       },
                   },
-                  {
-                    html: 'Subtitles',
-                    width: 300,
-                    tooltip: "No selected",
-                    icon: `<img width="22" height="22" src="${subtitleLogo}">`,
-                    selector: [
-                    {
-                        html: 'Display',
-                        tooltip: 'Show',
-                        switch: true,
-                        onSwitch: function (item) {
-                            item.tooltip = item.switch ? 'Hide' : 'Show';
-                            this.subtitle.show = !item.switch;
-                            return !item.switch;
-                        },
-                    },
-                    {"default": false, "html": "Add Subtitle", "url": "add.vtt"},
-                    ],
-                    onSelect: function (item) {
-                        if (item.html === 'Add Subtitle') {
-                          alert('Under Development.');
-                        } else {
-                          this.subtitle.switch(item.url, {
-                            name: item.html,
-                          }); 
-                          return item.html;
-                        }
-                    },
+                  {"default": false, "html": "Add Subtitle", "url": "add.vtt"},
+                  ],
+                  onSelect: function (item) {
+                      if (item.html === 'Add Subtitle') {
+                        alert('Under Development.');
+                      } else {
+                        this.subtitle.switch(item.url, {
+                          name: item.html,
+                        }); 
+                        return item.html;
+                      }
                   },
-                ],
-                controls: additionalControls,
-                // quality: videoQualities,
-              }}
-            />
-          </>
-        ) : (
-          <InitPlayerLoading />
-        )}
+                },
+              ],
+              controls: additionalControls,
+              // quality: videoQualities,
+            }}
+          />
+        : 
+          resourceData.isError ? 
+            <Box style={{ textAlign: 'center', marginBlock: '30vh' }}>
+              <h3>Loading episode error, please try again later.</h3>
+              <div className="video-error-btn" style={{ marginTop: '10px' }}>
+                {(selectedEpisodeIndex > 0 && selectedEpisodeIndex < infoValue?.episodes?.length) && 
+                  <Button variant="contained" size="small" style={{ marginInline: '3px' }} onClick={() => previousEpisode()}>Previous Episode</Button>
+                }
+                {(selectedEpisodeIndex >= 0 && (selectedEpisodeIndex + 1) < infoValue?.episodes?.length) && 
+                  <Button variant="contained" size="small" style={{ marginInline: '3px' }} onClick={() => nextEpisode()}>Next Episode</Button>
+                }
+              </div>
+            </Box>
+          :
+            <InitPlayerLoading />
+        }
       </div>
 
       <div className="anime_info">

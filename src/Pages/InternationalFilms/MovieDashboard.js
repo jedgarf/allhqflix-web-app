@@ -259,6 +259,7 @@ const MovieDashboard = (props) => {
     cacheTime: 24 * 60 * 60 * 1000, // 24 hours
     refetchOnWindowFocus: false,
     notifyOnChangeProps: "tracked",
+    retry: 1, // Number of retries
     enabled: indexId !== null && episodeIdVar !== null && serverVar !== null && rabbitStreamId !== null,
     onError: (error) => {
           setSnackBarType('error');

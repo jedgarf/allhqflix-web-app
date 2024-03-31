@@ -165,6 +165,7 @@ const AsianFilmsDashboard = (props) => {
       cacheTime: 24 * 60 * 60 * 1000, // 24 hours
       refetchOnWindowFocus: false,
       notifyOnChangeProps: "tracked",
+      retry: 1, // Number of retries
       enabled: episodeIdVar !== null,
   });
   
