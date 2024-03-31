@@ -86,6 +86,13 @@ const AsianDrama = () => {
     <div className="movies">
       <ReactQueryTools/>
       <SideBar Type={urlContentType} subType={urlContentSubType} />
+      {featuredValue?.length === 0 ? 
+        <Box sx={{ height: '70vh', paddingBlock: '30vh' }}>
+          <center>
+            <h1>Server Down</h1>
+          </center>
+        </Box>  
+      : 
       <Box
         display={{ xs: 'block', md: 'block' }}
       >
@@ -117,37 +124,32 @@ const AsianDrama = () => {
             <CircularProgress sx={{ fontSize: 100 }} />
           </div>}
       </Box>
+      }
 
       {/* Genres */}
-      {asian_films_genre.length > 0 ?
-      (
-        <div style={{ marginTop: '5px', marginBottom: '5px' }}>
-          <Container maxWidth={'xxl'} display={{ xs: "block", sm: "block", md: "block", lg: "block", xl: "block" }}>
-            <Slider {...movie_genre_carousel_settings} style={{ marginInline: "13px" }}>
-              {asian_films_genre.map((item, index) => {
-                return (
-                  <Fragment key={index}>
-                    <Link className="text-link-without-underline genre-carousel" to={`/asian_films/genre_filter?genre=${item.name}`}>
-                      <Button variant="" size="small" color="error" style={{ margin: '5px', color: 'whitesmoke', fontSize: 15, fontWeight: 550 }}>{item.name}</Button>
-                    </Link>
-                  </Fragment>
-                )
-              })} 
-            </Slider>
-          </Container>
-        </div>
-      )
-       : <></>}
+      {(featuredValue?.length > 0 && asian_films_genre.length > 0) && 
+      <div style={{ marginTop: '5px', marginBottom: '5px' }}>
+        <Container maxWidth={'xxl'} display={{ xs: "block", sm: "block", md: "block", lg: "block", xl: "block" }}>
+          <Slider {...movie_genre_carousel_settings} style={{ marginInline: "13px" }}>
+            {asian_films_genre.map((item, index) => {
+              return (<Fragment key={index}>
+                        <Link className="text-link-without-underline genre-carousel" to={`/asian_films/genre_filter?genre=${item.name}`}>
+                          <Button variant="" size="small" color="error" style={{ margin: '5px', color: 'whitesmoke', fontSize: 15, fontWeight: 550 }}>{item.name}</Button>
+                        </Link>
+                      </Fragment>)
+            })} 
+          </Slider>
+        </Container>
+      </div>}
 
-      {featuredData.isLoading && KoreanData.isLoading && philippineData.isLoading ?
-        <div className="top_content">
-          <div style={{ minHeight: '350px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <CircularProgress sx={{ fontSize: 100 }} />
-          </div>
+      {(featuredData.isLoading && KoreanData.isLoading && philippineData.isLoading) && 
+      <div className="top_content">
+        <div style={{ minHeight: '350px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <CircularProgress sx={{ fontSize: 100 }} />
         </div>
-      : ''}
+      </div>}
         
-      {featuredData.isSuccess ? 
+      {(featuredData.isSuccess && featuredValue?.length > 0) && 
       <div style={{ margin: 'auto' }}>
         <div className="heading">
           LATEST RELEASED
@@ -172,9 +174,9 @@ const AsianDrama = () => {
             </Fragment>
           ))}
         </Slider>
-      </div> : <></> }
+      </div>}
 
-      {KoreanData.isSuccess ? 
+      {(KoreanData.isSuccess && koreanValue?.length > 0) && 
       <div className="top_content">
         <div className="heading">
           KOREAN
@@ -199,9 +201,9 @@ const AsianDrama = () => {
             </Fragment>
           ))}
         </Slider>
-      </div> : <></> }
+      </div>}
 
-      {philippineData.isSuccess ? 
+      {(philippineData.isSuccess && philippineValue.length > 0) && 
       <div className="top_content">
         <div className="heading">
           PHILIPPINE
@@ -226,7 +228,7 @@ const AsianDrama = () => {
             </Fragment>
           ))}
         </Slider>
-      </div> : <></> }
+      </div>}
       
       <FloatingButton/>
       <Footer />

@@ -6,12 +6,10 @@ import DOMPurify from 'dompurify';
 
 // React Query
 import { useQuery } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
 
 // Material UI Components
 import { Grid, Skeleton, Box, Typography, Button, FormControlLabel, Switch, CircularProgress } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import LoadingButton from '@mui/lab/LoadingButton';
 
 // CSS
 import './StreamDashboard.css';
@@ -65,8 +63,8 @@ const MovieStreamDashboard = (props) => {
     const [dubCheckbox, setDubCheckbox] = useState(false);
 
     // episode count
-    const [dubEpisodeCount, setDubEpisodeCount] = useState(1);
-    const [subEpisodeCount, setSubEpisodeCount] = useState(1);
+    // const [dubEpisodeCount, setDubEpisodeCount] = useState(1);
+    // const [subEpisodeCount, setSubEpisodeCount] = useState(1);
 
     const navigate = useNavigate();
 
@@ -195,21 +193,21 @@ const MovieStreamDashboard = (props) => {
 
         if (infoData.isLoading) setBGImage(homeBackground);
 
-        if (infoData.isLoading || resourceData.isLoading) {
-            setSnackBarType('info');
-            setSnackBarMessage(`Please wait while fetching all resources.`);
-            setSnackBarOpen(true);
-            setSnackBarWithLoading(true);
-            setHideDuration(null);
-        };
+        // if (infoData.isLoading || resourceData.isLoading) {
+        //     setSnackBarType('info');
+        //     setSnackBarMessage(`Please wait while fetching all resources.`);
+        //     setSnackBarOpen(true);
+        //     setSnackBarWithLoading(true);
+        //     setHideDuration(null);
+        // };
 
-        if (resourceData.isRefetching) {
-            setSnackBarType('info');
-            setSnackBarMessage(`Please wait while re-fetching all resources.`);
-            setSnackBarOpen(true);
-            setSnackBarWithLoading(true);
-            setHideDuration(null);
-        }
+        // if (resourceData.isRefetching) {
+        //     setSnackBarType('info');
+        //     setSnackBarMessage(`Please wait while re-fetching all resources.`);
+        //     setSnackBarOpen(true);
+        //     setSnackBarWithLoading(true);
+        //     setHideDuration(null);
+        // }
 
         setTimeout(() => {
             setIsLoading(false);

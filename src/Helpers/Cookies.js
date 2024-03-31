@@ -1,4 +1,3 @@
-import Cookies from 'js-cookie';
 
 const DEFAULT_EXPIRATION_DAYS = 30; // equivalent to 30 days
 var domain = "localhost";
