@@ -158,18 +158,18 @@ const useContainerDimensions = myRef => {
             <Fragment key={i}>
               {type === "site_link" ?
                 <Link className='text-link-without-underline' title={item} to={`${link}${item}`} style={{ cursor: 'pointer', marginRight: '5px' }}>
-                  <Button style={{ backgroundColor: 'rgba(105, 105, 105, 0.4)', paddingBlock: '5px', paddingInline: '10px', borderRadius: '15px', marginBottom: '5px', color: '#FBFBFB' }}>
+                  <Button variant="contained" size="small" style={{ backgroundColor: 'rgba(105, 105, 105, 0.4)', paddingBlock: '5px', paddingInline: '10px', borderRadius: '15px', marginBottom: '5px', color: '#FBFBFB' }}>
                     {item}
                   </Button>
                 </Link>
               : type === "google_link" ? 
                 <a className='text-link-without-underline' href={`${link}${item}`} alt={item} title={item} rel='noreferrer' target='_blank' style={{ cursor: 'pointer', marginRight: '5px' }}>
-                  <Button style={{ backgroundColor: 'rgba(105, 105, 105, 0.4)', paddingBlock: '5px', paddingInline: '10px', borderRadius: '15px', marginBottom: '5px', color: '#FBFBFB' }}>
+                  <Button variant="contained" size="small" style={{ backgroundColor: 'rgba(105, 105, 105, 0.4)', paddingBlock: '5px', paddingInline: '10px', borderRadius: '15px', marginBottom: '5px', color: '#FBFBFB' }}>
                     {item}
                   </Button>
                 </a>
               : 
-                <Button style={{ backgroundColor: 'rgba(105, 105, 105, 0.4)', paddingBlock: '5px', paddingInline: '10px', borderRadius: '15px', marginBottom: '5px', color: '#FBFBFB', marginRight: '5px' }}>
+                <Button variant="contained" size="small" style={{ backgroundColor: 'rgba(105, 105, 105, 0.4)', paddingBlock: '5px', paddingInline: '10px', borderRadius: '15px', marginBottom: '5px', color: '#FBFBFB', marginRight: '5px' }}>
                   {item}
                 </Button>}
             </Fragment>
