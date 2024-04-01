@@ -179,9 +179,8 @@ const AnimeDashboard = (props) => {
   }
 
   const previousEpisode = () => {
-    const selectedItemIndex = infoValue?.episodes?.indexOf(infoValue?.episodes?.find((item) => item.id == selectedEpisode));
-    if (selectedItemIndex > 0 && selectedItemIndex < infoValue?.episodes?.length) {
-      const getTargetEpisode = infoValue?.episodes[selectedItemIndex-1];
+    if (selectedEpisodeIndex > 0 && selectedEpisodeIndex < infoValue?.episodes?.length) {
+      const getTargetEpisode = infoValue?.episodes[selectedEpisodeIndex-1];
       setLoadingEpisode(true);
       setSelectedEpisode(getTargetEpisode.id); 
       moveToTop();
@@ -192,9 +191,8 @@ const AnimeDashboard = (props) => {
   }
 
   const nextEpisode = () => {
-    const selectedItemIndex = infoValue?.episodes?.indexOf(infoValue?.episodes?.find((item) => item.id == selectedEpisode));
-    if (selectedItemIndex >= 0 && (selectedItemIndex + 1) < infoValue?.episodes?.length) {
-      const getTargetEpisode = infoValue?.episodes[selectedItemIndex+1];
+    if (selectedEpisodeIndex >= 0 && (selectedEpisodeIndex + 1) < infoValue?.episodes?.length) {
+      const getTargetEpisode = infoValue?.episodes[selectedEpisodeIndex+1];
       setLoadingEpisode(true);
       setSelectedEpisode(getTargetEpisode.id); 
       moveToTop();

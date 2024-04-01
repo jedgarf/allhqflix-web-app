@@ -39,6 +39,7 @@ import { moveToTop, getFileExtention, SeparateArrayByComma, SeparateArrayByCircu
 
 // Helpers
 import { getCookie } from "../../Helpers/Cookies";
+import { decryptParams } from "../../Helpers/Crypto";
 
 // Services
 import { movie_info, movie_server, movie_stream_links } from "../../Services/FlixHQService";
@@ -51,7 +52,7 @@ const MovieDashboard = (props) => {
   const queryParams = new URLSearchParams(window.location.search);
   const paramSeasonId = queryParams.get("season") != null ? parseInt(queryParams.get("season")) : null;
   const paramEpisodeId = queryParams.get("episode") != null ? parseInt(queryParams.get("episode")) : null;
-  const paramServer = queryParams.get("server") != null ? queryParams.get("server") : null;
+  const paramServer = queryParams.get("server") != null ? decryptParams(queryParams.get("server")) : null;
 
   const [movieServer, setMovieServer] = useState([]);
   const [videoQualities, setVideoQualities] = useState([]);
