@@ -41,7 +41,7 @@ import { getCookie } from "../../Helpers/Cookies";
 import { subtitleLogo, videoQuality, homeBackground } from "../../Config/images.config";
 
 // Services
-import { moveToTop, SeparateArrayByComma, SeparateArrayByCircularSpan, convertMinutesToHoursAndMinutes } from "../../Services/Utils";
+import { moveToTop, SeparateArrayByComma, SeparateArrayByCircularSpan, convertMinutesToHoursAndMinutes, getFileExtention } from "../../Services/Utils";
 import { anime_info, anime_stream_links } from "../../Services/AnimeService";
 import CallableReactQuery from "../../Services/CallableReactQuery";
 
@@ -52,6 +52,7 @@ const AnimeDashboard = (props) => {
   
   const { id, type } = useParams();
   const indexId = id;
+  const animeSubtitles = [{"default": true, "html": "US English", "url": "add.vtt"}];
 
   const callableReactQuery = CallableReactQuery();
 
@@ -306,16 +307,17 @@ const AnimeDashboard = (props) => {
                     tooltip: defaultQualityToolTip,
                     icon: `<img width="22" heigth="22" src="${videoQuality}">`,
                     selector: videoQualities,
-                    onSelect: function (item, $dom, event) {
-                        console.info(item, $dom, event);
-                        this.switchQuality(item.url, item.html);
-                        return item.html;
+                    onSelect: function (item, dom, event) {
+                      // console.log('event', event);
+                      // console.log('current subtitle', this.quality);
+                      if (videoQualities?.length > 1) this.switchQuality(item.url, item.html);
+                      return item.html;
                     },
                 },
                 {
                   html: 'Subtitles',
                   width: 300,
-                  tooltip: "No selected",
+                  tooltip: animeSubtitles?.find(item => item.default === true)?.html,
                   icon: `<img width="22" height="22" src="${subtitleLogo}">`,
                   selector: [
                   {
@@ -328,20 +330,20 @@ const AnimeDashboard = (props) => {
                           return !item.switch;
                       },
                   },
-                  {"default": false, "html": "Add Subtitle", "url": "add.vtt"},
+                  ...animeSubtitles,
                   ],
                   onSelect: function (item) {
-                      if (item.html === 'Add Subtitle') {
-                        alert('Under Development.');
-                      } else {
-                        this.subtitle.switch(item.url, {
-                          name: item.html,
-                        }); 
-                        return item.html;
-                      }
+                    if (item.html === 'Add Subtitle') alert('Under Development.');
+                    if (animeSubtitles?.length > 1) this.subtitle.switch(item.url, { name: item.html }); 
+                    return item.html;
                   },
                 },
               ],
+              // subtitle: {
+              //   url: animeSubtitles?.find(item => item.default === true)?.html,
+              //   type: getFileExtention(animeSubtitles?.find(item => item.default === true)?.url),
+              //   encoding: 'utf-8',
+              // },
               controls: additionalControls,
               // quality: videoQualities,
             }}

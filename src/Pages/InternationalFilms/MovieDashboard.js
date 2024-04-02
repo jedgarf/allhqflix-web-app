@@ -407,9 +407,9 @@ const MovieDashboard = (props) => {
                 icon: `<img width="22" heigth="22" src="${videoQuality}">`,
                 selector: videoQualities,
                 onSelect: function (item, $dom, event) {
-                    console.info(item, $dom, event);
-                    this.switchQuality(item.url, item.html);
-                    return item.html;
+                  // switching video resolution
+                  if (videoQualities.length > 1) this.switchQuality(item.url, item.html);
+                  return item.html;
                 },
               },
               {
@@ -431,10 +431,9 @@ const MovieDashboard = (props) => {
                   ...videoSubtitles
                   ],
                   onSelect: function (item) {
-                      this.subtitle.switch(item.url, {
-                          name: item.html,
-                      });
-                      return item.html;
+                    // switching subtitle
+                    if (videoSubtitles?.length > 1) this.subtitle.switch(item.url, { name: item.html });
+                    return item.html;
                   },
                 },
               ],

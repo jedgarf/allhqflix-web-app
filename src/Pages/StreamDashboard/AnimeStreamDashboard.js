@@ -342,7 +342,7 @@ const MovieStreamDashboard = (props) => {
                 </div>
             }
             {/* English dub switch */}
-            {(!infoData.isLoading && !resourceData.isLoading) && 
+            {(infoData.isSuccess && resourceData.isSuccess) && 
                 <div className="anime-english-dub text-white">
                     <FormControlLabel
                         control={<Android12Switch defaultChecked={dubCheckbox} onChange={handleDubSwitch} disabled={infoData.isLoading}/>}
