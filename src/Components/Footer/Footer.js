@@ -39,7 +39,8 @@ function Footer() {
                                         <li><Link className="text-link" to="/foreign/tvshow">TV Series</Link></li>
                                         <li><Link className="text-link" to="/anime">Anime</Link></li>
                                         {/* <li><Link className="text-link" to="/asian_drama">Asian Films</Link></li> */}
-                                        <li><Link className="text-link" to="/asian_films">Asian Films</Link></li>
+                                        {/* <li><Link className="text-link" to="/asian_films">Asian Films</Link></li> */}
+                                        <li><Link className="text-link" to="/">Asian Films (UD)</Link></li>
                                         {/* <li><Link className="text-link" to="/tv_channels">TV Channels</Link></li> */}
                                     </ul>
                                 </div>
@@ -63,7 +64,7 @@ function Footer() {
                     <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
                         <div className="lower-footer">
                             <div className="copyRight">
-                                &copy; 2023 {title}. All Rights Reserved.
+                                {title} 2023. All Rights Reserved.
                                 {/* {moment().format('YYYY')} */}
                             </div>
                         </div>

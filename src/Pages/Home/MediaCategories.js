@@ -66,9 +66,13 @@ const MediaCategories = () => {
                                 {submenu?.filter((item) => parseInt(item.is_main) === 1).map((item, index) => {
                                     return (
                                     <Grid item xl={12} lg={12} md={12} sm={12} xs={12} key={index}>
-                                        <Link to={item.link}>
-                                        <Button className="provider-links" variant="contained" color={item.is_dev ? 'error' : 'primary'} fullWidth={true} style={{ fontWeight: '550' }}>{item.full_name} {item.is_dev ? '('+item.badge_message+')' : ''}</Button>
-                                        </Link>
+                                        {item.is_dev ? 
+                                            <Button className="provider-links" variant="contained" color={item.is_dev ? 'error' : 'primary'} fullWidth={true} style={{ fontWeight: '550' }}>{item.full_name} {item.is_dev ? '('+item.badge_message+')' : ''}</Button>
+                                        : 
+                                            <Link to={item.link}>
+                                                <Button className="provider-links" variant="contained" color={item.is_dev ? 'error' : 'primary'} fullWidth={true} style={{ fontWeight: '550' }}>{item.full_name} {item.is_dev ? '('+item.badge_message+')' : ''}</Button>
+                                            </Link>
+                                        }
                                     </Grid>
                                     )
                                 })}
