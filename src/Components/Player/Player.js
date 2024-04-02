@@ -7,10 +7,6 @@ import Artplayer from 'artplayer';
 import artplayerPluginAds from 'artplayer-plugin-ads';
 // import artplayerPluginControl from "artplayer-plugin-control";
 
-// Icons
-import SubtitlesIcon from '@mui/icons-material/Subtitles';
-import HighQualityIcon from '@mui/icons-material/HighQuality';
-
 // Settings
 import { ads } from "../../Config/settings.config";
 
@@ -41,25 +37,17 @@ const Player = ({ episodes, defaultlink, infotitle, infocover, seasonNumber = nu
     if(episodeNumber === null) episodeNumber = episodeNum;
 
     useEffect(() => {
-        
-        // <img width="100" src="${customLoadingFileName}">
-        var customIcons = {
-            loading: `<img width="100" src="${customLoadingFileName}">`,
-        };
 
-        let isAutoPlay = true;
+        var art;
+        var isAutoPlay = true;
+        var customIcons = { loading: `<img width="100" src="${customLoadingFileName}">` };
 
-        if (process.env.NODE_ENV == 'production') {
-            Artplayer.DEBUG = false;
-        } else {
-            Artplayer.DEBUG = true;
-            isAutoPlay = false;
-        }
+        if (process.env.NODE_ENV === 'development') isAutoPlay = false;
+        if (process.env.NODE_ENV === 'production') Artplayer.DEBUG = false;
 
+        // Custom artplayer values
         Artplayer.ASPECT_RATIO = ['default', '1:1', '2:1', '4:3', '6:5'];
         Artplayer.TOUCH_MOVE_RATIO = 0.5;
-        
-        var art;
 
         try {
             art = new Artplayer({
@@ -70,10 +58,7 @@ const Player = ({ episodes, defaultlink, infotitle, infocover, seasonNumber = nu
                 fastForward: true,
                 url: defaultlink,
                 type: getFileExtention(defaultlink),
-                customType: {
-                    m3u8: playM3u8,
-                    flv: playFlv
-                },
+                customType: { m3u8: playM3u8, flv: playFlv },
                 title: infotitle || "Unknown title",
                 poster: infocover || homeBackground,
                 volume: 1,
@@ -82,17 +67,15 @@ const Player = ({ episodes, defaultlink, infotitle, infocover, seasonNumber = nu
                 pip: false,
                 autoSize: false,
                 autoMini: true,
-                // screenshot: true,
                 loop: false,
                 flip: true,
                 playbackRate: true,
                 aspectRatio: true,
                 fullscreen: true,
-                // fullscreenWeb: true,
+                fullscreenWeb: true,
                 subtitleOffset: false,
                 miniProgressBar: true,
                 lock: true,
-                // mutex: true,
                 backdrop: true,
                 playsInline: true,
                 autoPlayback: true,
@@ -114,7 +97,7 @@ const Player = ({ episodes, defaultlink, infotitle, infocover, seasonNumber = nu
                 layers: [
                     {
                         html: `<img src="${mainLogo}">`,
-                        click: function() {
+                        click: (props) => {
                             alert("Thanks for support!");
                         },
                         style: {
@@ -130,7 +113,7 @@ const Player = ({ episodes, defaultlink, infotitle, infocover, seasonNumber = nu
                 icons: customIcons
             });
         } catch (err) {
-            console.info(err);
+            console.error("ArtPlayer", err);
         }
 
         if (art) {
