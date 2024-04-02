@@ -115,14 +115,15 @@ const Player = ({ episodes, defaultlink, infotitle, infocover, seasonNumber = nu
                     {
                         html: `<img src="${mainLogo}">`,
                         click: function() {
-                            console.info('You clicked on the custom layer');
+                            alert("Thanks for support!");
                         },
                         style: {
                             position: 'absolute',
-                            width: '50px',
-                            top: '3px',
-                            right: '0px',
-                            opacity: '.7',
+                            minWidth: '36px',
+                            maxWidth: '3vw',
+                            top: '5px',
+                            right: '4px',
+                            // opacity: '.9',
                         },
                     }
                 ],
@@ -142,7 +143,7 @@ const Player = ({ episodes, defaultlink, infotitle, infocover, seasonNumber = nu
                 art.notice.show = infotitle;
                 art.subtitle.style({
                     fontSize: 'clamp(13px, 2vw, 20px)',
-                    marginBottom: '25px',
+                    marginBottom: '5vh',
                 });
                 if (seekTime > 0) {
                     art.seek = seekTime;

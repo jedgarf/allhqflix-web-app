@@ -1,5 +1,8 @@
 import axios from 'axios';
+import * as cheerio from 'cheerio';
 import apiConfig from '../Config/api.config';
+
+const captchaKey = "03AFcWeA5J2Osl2KLLamxpDnDZWTDQkGkEzStc0NJsGhcZrDO1HbBsRaA2Kq8pBrT4MYhNHmH6hcpcsJAdxjN6owy6NsK4Obo5emSKoAVC22T_kfpT6PoPW-rEH9XzZTZNhwbJBJK48dlhHaBV5Ych-BaVdaGrv63drJJqoHSIxt8JDm5ONWWDBzKQllfpLF1HK_NuPNp0268cz64eCsigFpcO-oUuS9v6FcsKbtZKIfuz7ML8MGnPPX3zKXLU3Wcz3uQhCO4RgVXFF-eqUDO0e5RV9zidQ09KS6Xn-wbrrK9aIPgIJwKjq9Sbrde4WSjC4yyT_vMpn53wKQ4joW1wkK4GLc8byZtXJS8dHe5dTRfuBUjhE0rsAusm0eLqsmTn1fCJAoP1ljlYA4B195YzIAHhsou75o8MjOHSrquLHvk6pv_DYUeviW9HbCkt6mmpgG_CQT1z_HZpQavf1O1DibemI3tqEHHYfknurp2u6WQr-C3_kZZaQG6tRfe9FrbXI3imHp7QbVOcUzzVJQFZcsaHcEAB4iZa-JGSoy37YPutZjQYUJHupk4vHxRb-_zXVpsh2MTLO4TQpxDySV5lgq0_0rZRR_N0T40F4wjvHKVuhrycB_7TRjT8q0pL1tvn38pxAT_3fI9pSmflKDQJkPjldihGCOuCln_VrxrFT2mBM9YJwsd_BVh2KS8YLaAfbXcd3UsMw4Ud-c1NufWPCYe3DdAtKpU_tA";
 
 const url = apiConfig.anime_base_url;
 axios.defaults.headers.common = {'Authorization': `Bearer ${apiConfig.api_key}`};
@@ -363,4 +366,27 @@ const anime_bygenre = async ({ queryKey }) => {
 
 };
 
-export { anime_search, anime_carousel, anime_advanced_search, anime_info, anime_stream_links, recent_anime_episodes, trending_anime, popular_anime, anime_airing_schedule, random_anime, anime_bygenre };
+const anime_downloads = async ({ queryKey }) => {
+
+    const [_key, { url }] = queryKey;
+    const queryParams = new URLSearchParams(decodeURIComponent(url));
+
+    const res = await axios.postForm(`${apiConfig.override_cors}https://embtaku.pro/download`, 
+                                        { captcha_v3: captchaKey, id: queryParams.get("id") }, 
+                                        { 'referer': decodeURIComponent(url) });
+
+    const $ = cheerio.load(res.data);
+    const downloads = $('.mirror_link > .download')
+        .map((i, el) => {
+        const download = {
+            download_link: $(el).find('a').attr('href'),
+            name: $(el).find('a').text(),
+        };
+        return download;
+    }).get();
+    
+    return downloads;
+
+};
+
+export { anime_search, anime_carousel, anime_advanced_search, anime_info, anime_stream_links, recent_anime_episodes, trending_anime, popular_anime, anime_airing_schedule, random_anime, anime_bygenre, anime_downloads };

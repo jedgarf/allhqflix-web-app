@@ -43,6 +43,7 @@ import { subtitleLogo, videoQuality, homeBackground } from "../../Config/images.
 // Services
 import { moveToTop, SeparateArrayByComma, SeparateArrayByCircularSpan, convertMinutesToHoursAndMinutes } from "../../Services/Utils";
 import { anime_info, anime_stream_links } from "../../Services/AnimeService";
+import CallableReactQuery from "../../Services/CallableReactQuery";
 
 // Static Data
 var arcs = require('../../Services/Data/onePieceArcs.json').arcs;
@@ -52,6 +53,8 @@ const AnimeDashboard = (props) => {
   const { id, type } = useParams();
   const indexId = id;
 
+  const callableReactQuery = CallableReactQuery();
+
   const queryParams = new URLSearchParams(window.location.search);
   const paramEpisode = queryParams.get("episode") != null ? queryParams.get("episode") : null;
   const paramDub = queryParams.get("dub") != null ? queryParams.get("dub") == 'true' : false;
@@ -59,6 +62,7 @@ const AnimeDashboard = (props) => {
   const [selectedArc, setSelectedArc] = useState("");
   const [videoQualities, setVideoQualities] = useState([]);
   const [recommendations, setRecommendations] = useState([]);
+  const [downloadLinks, setDownloadLinks] = useState([]);
 
   // Picture loading
   const [loadingEpisode, setLoadingEpisode] = useState(true);
@@ -170,6 +174,10 @@ const AnimeDashboard = (props) => {
     notifyOnChangeProps: "tracked",
     retry: 2, // Number of retries
     enabled: episodeIdVar !== null,
+    onSuccess: (res) => {
+      // callableReactQuery.getAnimeDownloads(res?.data?.download);
+      // setDownloadLinks(callableReactQuery.data);
+    }
   });
   
   let resourceValue = undefined;
@@ -258,6 +266,11 @@ const AnimeDashboard = (props) => {
       currentPage++;
     }
     setEpisodesCurrentPage(currentPage);
+
+    // if (callableReactQuery.isSuccess) {
+    //   console.log('downloadLinks', downloadLinks);
+    // }
+    // , callableReactQuery.isSuccess, downloadLinks
 
   }, [contentTitle, infoData.isSuccess, resourceData.isSuccess, infoValue, resourceValue, episodeNum, set_selectedSeasonEpisode, set_selectedLinkSubtitle, selectedEpisode]);
 
