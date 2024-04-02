@@ -1,6 +1,6 @@
 // Packages
 import React, { useState, useEffect, useCallback, Fragment } from "react";
-import { useQuery } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import { useParams } from "react-router-dom";
 
 // Material UI Components
@@ -14,6 +14,9 @@ import "./css/AnimeDashboard.css";
 
 // Icons
 import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
+import ReplayIcon from '@mui/icons-material/Replay';
+import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
+import SkipNextIcon from '@mui/icons-material/SkipNext';
 
 // Components
 import SideBar from "../../Components/SlideBar/SideBar";
@@ -50,6 +53,7 @@ var arcs = require('../../Services/Data/onePieceArcs.json').arcs;
 
 const AnimeDashboard = (props) => {
   
+  const queryClient = useQueryClient();
   const { id, type } = useParams();
   const indexId = id;
   const animeSubtitles = [{"default": true, "html": "US English", "url": "add.vtt"}];
@@ -185,6 +189,11 @@ const AnimeDashboard = (props) => {
 
   if (resourceData.isSuccess) {
     resourceValue = resourceData?.data;
+  }
+
+  const refreshSourceLink = () => {
+    queryClient.resetQueries(['anime_stream_links', {episodeId: episodeIdVar}]);
+    queryClient.fetchQuery(['anime_stream_links', {episodeId: episodeIdVar}]);
   }
 
   const previousEpisode = () => {
@@ -350,14 +359,16 @@ const AnimeDashboard = (props) => {
           />
         : 
           resourceData.isError ? 
-            <Box style={{ textAlign: 'center', marginBlock: '30vh' }}>
+            <Box style={{ textAlign: 'center', paddingTop: '70px' }}>
               <h3>Loading episode error, please try again later.</h3>
               <div className="video-error-btn" style={{ marginTop: '10px' }}>
+                <Button variant="contained" size="small" style={{ marginInline: '3px', marginBottom: '5px' }} onClick={() => refreshSourceLink()} startIcon={<ReplayIcon/>}>Reload</Button>
+                <br/>
                 {(selectedEpisodeIndex > 0 && selectedEpisodeIndex < infoValue?.episodes?.length) && 
-                  <Button variant="contained" size="small" style={{ marginInline: '3px' }} onClick={() => previousEpisode()}>Previous Episode</Button>
+                  <Button variant="contained" size="small" style={{ marginInline: '3px' }} onClick={() => previousEpisode()} startIcon={<SkipPreviousIcon/>}>Previous Episode</Button>
                 }
                 {(selectedEpisodeIndex >= 0 && (selectedEpisodeIndex + 1) < infoValue?.episodes?.length) && 
-                  <Button variant="contained" size="small" style={{ marginInline: '3px' }} onClick={() => nextEpisode()}>Next Episode</Button>
+                  <Button variant="contained" size="small" style={{ marginInline: '3px' }} onClick={() => nextEpisode()} startIcon={<SkipNextIcon/>}>Next Episode</Button>
                 }
               </div>
             </Box>
