@@ -76,7 +76,7 @@ const MovieDashboard = (props) => {
   // selected data
   const [selectedSeason, setSelectedSeason] = useState(paramSeasonId);
   const [selectedEpisode, setSelectedEpisode] = useState(paramEpisodeId);
-  const [selectedServer, setSelectedServer] = useState(null);
+  const [selectedServer, setSelectedServer] = useState(paramServer);
   const [selectedRabbitstreamId, setSelectedRabbitstreamId] = useState(null);
   const [selectedEpisodeName, setSelectedEpisodeName] = useState(null);
   const [totalEpisodes, setTotalEpisodes] = useState(0);
@@ -313,7 +313,7 @@ const MovieDashboard = (props) => {
         tooltip: 'Previous Episode',
         style: {
           fontSize: '32px',
-          marginTop: '-4px'
+          marginTop: '-5px'
         },
         click: (item) => {
           previousEpisode();
@@ -328,7 +328,7 @@ const MovieDashboard = (props) => {
         tooltip: 'Next Episode',
         style: {
           fontSize: '32px',
-          marginTop: '-4px'
+          marginTop: '-5px'
         },
         click: (item) => {
           nextEpisode();

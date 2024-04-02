@@ -6,6 +6,10 @@ import consumetLogo from "../Assets/images/consumet.png";
 import familyWatching from "../Assets/images/family_watching.jpeg";
 import mediaAlchemyLogo from "../Assets/images/media_alchemy_logo_transparent.png";
 
+// Stranger Things Banner
+import strangerThingsBanner from "../Assets/images/stranger_things_banner.jpg";
+// All of Us Are Dead Banner
+import allOfUsAreDeadBanner from "../Assets/images/all_of_us_are_dead_banner.jpg";
 // One Piece Banner
 import onePieceBanner from "../Assets/images/one_piece_banner.png";
 // One Piece Netflix Banner
@@ -37,4 +41,4 @@ import videoQuality from "../Assets/images/video_quality.png";
 import iptv from "../Assets/images/iptv.png";
 
 
-export { mainLogo, headerLogo, homeBackground, jefdevLogoTransparent, consumetLogo, familyWatching, mediaAlchemyLogo, onePieceBanner, onePieceNetflixBanner, yuYuHakushoBanner, appPhoto, noImagePlaceholder, carouselNoImagePlaceholder, notFoundImage, offLimits, customLoadingFileName, subtitleLogo, videoQuality, iptv };
+export { mainLogo, headerLogo, homeBackground, jefdevLogoTransparent, consumetLogo, familyWatching, mediaAlchemyLogo, strangerThingsBanner, allOfUsAreDeadBanner, onePieceBanner, onePieceNetflixBanner, yuYuHakushoBanner, appPhoto, noImagePlaceholder, carouselNoImagePlaceholder, notFoundImage, offLimits, customLoadingFileName, subtitleLogo, videoQuality, iptv };

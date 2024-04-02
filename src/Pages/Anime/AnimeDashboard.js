@@ -223,7 +223,7 @@ const AnimeDashboard = (props) => {
         tooltip: 'Previous Episode',
         style: {
           fontSize: '32px',
-          marginTop: '-4px'
+          marginTop: '-5px'
         },
         click: function (item) {
           previousEpisode();
@@ -239,7 +239,7 @@ const AnimeDashboard = (props) => {
         tooltip: 'Next Episode',
         style: {
           fontSize: '32px',
-          marginTop: '-4px'
+          marginTop: '-5px'
         },
         click: function (item) {
           nextEpisode();
