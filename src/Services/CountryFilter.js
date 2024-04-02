@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import axios from 'axios';
 
 // config
@@ -23,7 +23,7 @@ const CountryFilter = ({ children }) => {
     fetchLocation();
   }, []);
 
-  return <>{children}</>;
+  return <Fragment>{children}</Fragment>;
 };
 
 export default CountryFilter;
