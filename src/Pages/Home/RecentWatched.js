@@ -76,14 +76,15 @@ const TopPlayed = () => {
                                                             <Typography variant="h3" className="movie_name" title={item?.title}>{item?.title}</Typography>
                                                         </div>
                                                         <div className="movie__other">
-                                                            {item?.category !== 'movie' && 
-                                                                <p>
+                                                            
+                                                            <p>
+                                                                {item?.category !== 'movie' && 
                                                                     <span>
                                                                         {item?.seasonNumber ? `S${item?.seasonNumber} ` : ''}
                                                                         {item?.episodeNumber ? `EP${item?.episodeNumber} ` : ''}
                                                                     </span>
-                                                                </p>
-                                                            }
+                                                                }
+                                                            </p>
                                                             <p>{item?.category}</p>
                                                         </div>
                                                     </div>
