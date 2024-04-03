@@ -434,10 +434,10 @@ const convertSecondsToHoursAndMinutes = (seconds) => {
 
   var result = '';
   if (hours > 0) {
-      result += `${hours} h `;
+      result += `${hours}h `;
   }
   if (minutes > 0 || hours === 0) {
-      result += `${Math.round(minutes)} m`;
+      result += `${Math.round(minutes)}m`;
   }
 
   return result;

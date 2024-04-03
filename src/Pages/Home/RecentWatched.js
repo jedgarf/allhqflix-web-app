@@ -22,7 +22,7 @@ import RecentMediaCard from "../../Components/LazyImageComponent/RecentMediaCard
 import { recent_watch_carousel_settings } from "../../Config/settings.config";
 
 // Utils
-import { getAllSavedCookiesMedia, secondsToHMS } from "../../Services/Utils";
+import { getAllSavedCookiesMedia, secondsToHMS, convertSecondsToHoursAndMinutes } from "../../Services/Utils";
 
 const TopPlayed = () => {
 
@@ -78,7 +78,11 @@ const TopPlayed = () => {
                                                         <div className="movie__other">
                                                             
                                                             <p>
-                                                                {item?.category !== 'movie' && 
+                                                                {item?.category === 'movie' ? 
+                                                                    <span>
+                                                                        {item?.duration ? `${convertSecondsToHoursAndMinutes(item?.duration)} ` : ''}
+                                                                    </span>
+                                                                : 
                                                                     <span>
                                                                         {item?.seasonNumber ? `S${item?.seasonNumber} ` : ''}
                                                                         {item?.episodeNumber ? `EP${item?.episodeNumber} ` : ''}
