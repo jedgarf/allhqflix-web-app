@@ -312,8 +312,8 @@ const MovieDashboard = (props) => {
         html: `&#8678;`,
         tooltip: 'Previous Episode',
         style: {
-          fontSize: '32px',
-          marginTop: '-5px'
+          fontSize: '43px',
+          marginTop: '-8px'
         },
         click: (item) => {
           previousEpisode();
@@ -327,8 +327,8 @@ const MovieDashboard = (props) => {
         html: `&#8680;`,
         tooltip: 'Next Episode',
         style: {
-          fontSize: '32px',
-          marginTop: '-5px'
+          fontSize: '43px',
+          marginTop: '-8px'
         },
         click: (item) => {
           nextEpisode();
