@@ -52,7 +52,7 @@ export const destroyPlayFlv = () => {
     flvjs.destroy();
 }
 
-export const saveProgress = (details, mediaId, type, image, title, category, quality, paramDub, seasonNumber, episodeId, episodeNumber, currentTime, duration) => {
+export const saveProgress = (details, mediaId, type, paramDub, seasonNumber, episodeId, episodeNumber, currentTime, duration) => {
     
     console.info("save progress: ", currentTime);
 
