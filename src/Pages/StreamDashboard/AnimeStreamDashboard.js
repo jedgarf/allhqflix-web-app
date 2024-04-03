@@ -16,11 +16,7 @@ import './StreamDashboard.css';
 
 // Icons
 import ArrowBackTwoToneIcon from '@mui/icons-material/ArrowBackTwoTone';
-import WarningAmberTwoToneIcon from '@mui/icons-material/WarningAmberTwoTone';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 // Components
 import LoadingPage from "../../Components/LoadingPage/LoadingPage";
@@ -40,10 +36,9 @@ import { homeBackground } from "../../Config/images.config";
 // Services
 import { anime_info, anime_stream_links } from "../../Services/AnimeService";
 
-const MovieStreamDashboard = (props) => {
+const AnimeStreamDashboard = (props) => {
 
     const selectedEpisode = null;
-
     const [isLoading, setIsLoading] = useState(true);
 
     // Picture loading
@@ -342,7 +337,7 @@ const MovieStreamDashboard = (props) => {
                 </div>
             }
             {/* English dub switch */}
-            {(infoData.isSuccess && !resourceData.isLoading) && 
+            {1===0 && (infoData.isSuccess && !resourceData.isLoading) && 
                 <div className="anime-english-dub text-white">
                     <FormControlLabel
                         control={<Android12Switch defaultChecked={dubCheckbox} onChange={handleDubSwitch} disabled={infoData.isLoading}/>}
@@ -354,4 +349,4 @@ const MovieStreamDashboard = (props) => {
     );
 };
 
-export default MovieStreamDashboard;
+export default AnimeStreamDashboard;

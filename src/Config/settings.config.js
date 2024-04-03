@@ -1,8 +1,9 @@
+import packageJSON from '../../package.json';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
 const title = process.env.REACT_APP_NAME;
-const version = process.env.REACT_APP_VERSION || '0.0.1';
+const version = process.env.REACT_APP_VERSION || packageJSON.version;
 const dev_portfolio = "https://dev.allhqflix.com";
 const fb_link = "https://facebook.com/jedgarf";
 const linkedin_link = "https://linkedin.com/in/jedgarf";
