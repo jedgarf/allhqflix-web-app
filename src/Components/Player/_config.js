@@ -52,8 +52,10 @@ export const destroyPlayFlv = () => {
     flvjs.destroy();
 }
 
-export const saveProgress = (mediaId, paramDub, seasonNumber, episodeId, episodeNumber, currentTime) => {
+export const saveProgress = (details, mediaId, type, image, title, category, quality, paramDub, seasonNumber, episodeId, episodeNumber, currentTime, duration) => {
+    
     console.info("save progress: ", currentTime);
+
     // _.throttle((currentTime) => {
     //     const mediaProgress = {
     //         dub: paramDub,
@@ -66,13 +68,23 @@ export const saveProgress = (mediaId, paramDub, seasonNumber, episodeId, episode
     //     addCookie('test', JSON.stringify(mediaProgress), 7);
     // }, 5000);
 
+    const image = details?.image;
+    const title = type === 'anime' ? (details?.title?.english || details?.title?.userPreferred || details?.title?.romaji || details?.title?.native) : details?.title;
+    const quality = type === 'movie' || type === 'tv' ? details?.video_quality : '';
+
     setTimeout(() => {
         const mediaProgress = {
+            mediaId: mediaId,
+            image: image,
+            title: title,
+            category: type,
+            quality: quality,
             dub: paramDub,
             seasonNumber: seasonNumber,
             episodeId: episodeId,
             episodeNumber: episodeNumber,
             time: currentTime,
+            duration: duration,
         };
         if (getCookie(encodeURIComponent(mediaId))) deleteCookie(encodeURIComponent(mediaId));
         addCookie(encodeURIComponent(mediaId), JSON.stringify(mediaProgress), 7);

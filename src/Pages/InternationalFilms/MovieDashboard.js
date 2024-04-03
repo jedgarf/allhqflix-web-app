@@ -383,6 +383,7 @@ const MovieDashboard = (props) => {
         ) : (
           <Player
             className="movie_player"
+            details={infoValue}
             episodes={infoValue?.episodes}
             defaultlink={defaultLink}
             infotitle={type === 'tv' ? `${infoValue?.title} - Season ${selectedSeason} / ${selectedEpisodeName}` : `${infoValue?.title}`}

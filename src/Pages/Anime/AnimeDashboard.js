@@ -295,6 +295,7 @@ const AnimeDashboard = (props) => {
         {infoData.isSuccess && resourceData.isSuccess && defaultLink !== "" && videoQualities.length > 0 && !loadingEpisode ? 
           <Player
             className="movie_player"
+            details={infoValue}
             episodes={infoValue?.episodes}
             defaultlink={defaultLink}
             infotitle={totalEpisodes > 1 ? `${contentTitle} - Episode ${episodeNum} ${infoValue?.subOrDub === 'dub' ? '(English Dub)' : ''}` : `${contentTitle} ${infoValue?.subOrDub === 'dub' ? '(English Dub)' : ''}`}

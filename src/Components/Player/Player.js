@@ -26,7 +26,7 @@ const PlayerLoading = () => {
     return <SpinnerDotted size={39} thickness={180} speed={121} color="rgba(220, 76, 100, 1)" />;
 }
 
-const Player = ({ episodes, defaultlink, infotitle, infocover, seasonNumber = null, episodeNum, episodeNumber = null, totalEpisodes, nextEpisode, seekTime, mediaId, episodeId, option, ...rest }) => {
+const Player = ({ details, episodes, defaultlink, infotitle, infocover, seasonNumber = null, episodeNum, episodeNumber = null, totalEpisodes, nextEpisode, seekTime, mediaId, episodeId, option, ...rest }) => {
 
     const { type } = useParams();
     const queryParams = new URLSearchParams(window.location.search);
@@ -170,9 +170,9 @@ const Player = ({ episodes, defaultlink, infotitle, infocover, seasonNumber = nu
             
             art.on('video:timeupdate', () => {
                 if (episodeNum === totalEpisodes) {
-                    if (art.currentTime < (art.duration-10)) saveProgress(mediaId, paramDub, seasonNumber, episodeId, episodeNumber, art.currentTime); 
+                    if (art.currentTime < (art.duration-10)) saveProgress(details, mediaId, type, paramDub, seasonNumber, episodeId, episodeNumber, art.currentTime, art.duration); 
                 } else {
-                    saveProgress(mediaId, paramDub, seasonNumber, episodeId, episodeNumber, art.currentTime);
+                    saveProgress(mediaId, type, paramDub, seasonNumber, episodeId, episodeNumber, art.currentTime, art.duration);
                 }
             });
 
