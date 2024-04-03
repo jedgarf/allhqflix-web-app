@@ -172,7 +172,7 @@ const Player = ({ details, episodes, defaultlink, infotitle, infocover, seasonNu
                 if (episodeNum === totalEpisodes) {
                     if (art.currentTime < (art.duration-10)) saveProgress(details, mediaId, type, paramDub, seasonNumber, episodeId, episodeNumber, art.currentTime, art.duration); 
                 } else {
-                    saveProgress(mediaId, type, paramDub, seasonNumber, episodeId, episodeNumber, art.currentTime, art.duration);
+                    saveProgress(details, mediaId, type, paramDub, seasonNumber, episodeId, episodeNumber, art.currentTime, art.duration);
                 }
             });
 
