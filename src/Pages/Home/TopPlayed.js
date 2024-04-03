@@ -45,7 +45,7 @@ const TopPlayed = () => {
                         <center>
                             <Slider {...top_played_carousel_settings} style={{ maxWidth: '800px' }}>
                                 <Fragment>
-                                    <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={2}>
+                                    <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={2} style={{ marginInline: '1px' }}>
                                         <Grid item xl={12} lg={12} md={12} sm={12} xs={12} className='text-white'>
                                             <span style={{ fontSize: 'clamp(13px, 2vw, 20px)' }}>Watch Stranger Things Season 1 to 4.</span>
                                         </Grid>
@@ -62,7 +62,7 @@ const TopPlayed = () => {
                                     </Grid>
                                 </Fragment>
                                 <Fragment>
-                                    <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={2}>
+                                    <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={2} style={{ marginInline: '1px' }}>
                                         <Grid item xl={12} lg={12} md={12} sm={12} xs={12} className='text-white'>
                                             <span style={{ fontSize: 'clamp(13px, 2vw, 20px)' }}>Watch All of Us Are Dead Season 1.</span>
                                         </Grid>
@@ -79,7 +79,7 @@ const TopPlayed = () => {
                                     </Grid>
                                 </Fragment>
                                 <Fragment>
-                                    <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={2}>
+                                    <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={2} style={{ marginInline: '1px' }}>
                                         <Grid item xl={12} lg={12} md={12} sm={12} xs={12} className='text-white'>
                                             <span style={{ fontSize: 'clamp(13px, 2vw, 20px)' }}>Watch the latest One Piece: Egghead Island Arc.</span>
                                         </Grid>
@@ -96,7 +96,7 @@ const TopPlayed = () => {
                                     </Grid>
                                 </Fragment>
                                 <Fragment>
-                                    <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={2}>
+                                    <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={2} style={{ marginInline: '1px' }}>
                                         <Grid item xl={12} lg={12} md={12} sm={12} xs={12} className='text-white'>
                                             <span style={{ fontSize: 'clamp(13px, 2vw, 20px)' }}>Watch the first season of One Piece live action.</span>
                                         </Grid>
@@ -113,7 +113,7 @@ const TopPlayed = () => {
                                     </Grid>
                                 </Fragment>
                                 <Fragment>
-                                    <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={2}>
+                                    <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={2} style={{ marginInline: '1px' }}>
                                         <Grid item xl={12} lg={12} md={12} sm={12} xs={12} className='text-white'>
                                             <span style={{ fontSize: 'clamp(13px, 2vw, 20px)' }}>Watch the first season of Yu Yu Hakusho live action.</span>
                                         </Grid>

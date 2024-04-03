@@ -35,7 +35,7 @@ const TopPlayed = () => {
 
     useEffect(() => {
         const savedMedia = getAllSavedCookiesMedia();
-        setPrevWatch(savedMedia.length > 0 ? savedMedia : []);
+        setPrevWatch(savedMedia.length > 0 ? savedMedia.reverse() : []);
       }, []);
 
     return (
