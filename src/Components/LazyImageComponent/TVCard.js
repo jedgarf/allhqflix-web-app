@@ -14,7 +14,7 @@ const TVCard = ({ src, title }) => {
               currentTarget.src = noImagePlaceholder;
             }} />
             <div className="overlay">
-                <PlayCircleIcon sx={{ fontSize: '60px' }}/>
+                <PlayCircleIcon/>
             </div>
         </div>
     );

@@ -25,7 +25,7 @@ const RecentMediaCard = ({ src, title, contentType = 'movie' }) => {
                 }}
             />
             <div className="overlay">
-                <PlayCircleIcon sx={{ fontSize: '60px' }}/>
+                <PlayCircleIcon/>
             </div>
         </div>
     );

@@ -128,9 +128,7 @@ const Player = ({ details, episodes, defaultlink, infotitle, infocover, seasonNu
                     fontSize: 'clamp(13px, 2vw, 20px)',
                     marginBottom: '5vh',
                 });
-                if (seekTime > 0) {
-                    art.seek = seekTime;
-                }
+                if (seekTime > 0) art.seek = seekTime;
             });
     
             art.on('pause', () => {

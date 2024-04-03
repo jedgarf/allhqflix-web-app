@@ -196,6 +196,21 @@ html {
     /* Adjust the icon size as needed */
 }
 
+.overlay svg {
+    /* animation: overlayZoomInOut 1.5s infinite alternate ease-in-out; */
+    color: var(--main-color);
+    font-size: 60px;
+}
+
+@keyframes overlayZoomInOut {
+    0% {
+        transform: scale(0.9);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
 .image-container:hover img {
     /* transform: scale(1.1); */
     /* Zoom in the image on hover (adjust as needed) */

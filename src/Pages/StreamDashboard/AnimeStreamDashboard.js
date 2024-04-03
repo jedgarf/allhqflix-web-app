@@ -27,7 +27,7 @@ import { AnimePlayModal } from "../../Components/Modal/PlayModal";
 import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
 // Utilities
-import { streamDashboardBackButton, SeparateArrayByComma, convertMinutesToHoursAndMinutes, getNumberSuffix } from "../../Services/Utils";
+import { streamDashboardBackButton, SeparateArrayByComma, convertMinutesToHoursAndMinutes, getNumberSuffix, capitalizeString } from "../../Services/Utils";
 
 // Config
 import { pageLoadMS, foreign_country } from "../../Config/settings.config";
@@ -276,7 +276,7 @@ const AnimeStreamDashboard = (props) => {
                             ) : ('-')}
                             <br/>
                             <b style={{ color: '#DC4C64', marginRight: '5px' }}>Season:</b> 
-                                { infoValue?.season ? infoValue?.season : '-' }
+                                { infoValue?.season ? capitalizeString(infoValue?.season) : '-' }
                             <br/>
                             {/* <b style={{ color: '#DC4C64', marginRight: '5px' }}>Synonym/s:</b>
                             <SeparateArrayByComma type={'google_link'} data={infoValue?.synonyms} link={'https://www.google.com/search?q='} />

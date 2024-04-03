@@ -44,7 +44,7 @@ import { getCookie } from "../../Helpers/Cookies";
 import { subtitleLogo, videoQuality, homeBackground } from "../../Config/images.config";
 
 // Services
-import { moveToTop, SeparateArrayByComma, SeparateArrayByCircularSpan, convertMinutesToHoursAndMinutes, getFileExtention } from "../../Services/Utils";
+import { moveToTop, SeparateArrayByComma, SeparateArrayByCircularSpan, convertMinutesToHoursAndMinutes, getFileExtention, capitalizeString } from "../../Services/Utils";
 import { anime_info, anime_stream_links } from "../../Services/AnimeService";
 import CallableReactQuery from "../../Services/CallableReactQuery";
 
@@ -490,7 +490,7 @@ const AnimeDashboard = (props) => {
                   </tr>
                   <tr>
                     <th>Season:</th>
-                    <td>{infoValue?.season}</td>
+                    <td>{infoValue?.season ? capitalizeString(infoValue?.season) : '-'}</td>
                   </tr>
                   <tr>
                     <th>Genre:</th>

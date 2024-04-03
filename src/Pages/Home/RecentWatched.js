@@ -13,6 +13,7 @@ import { Container, Grid, Box, Typography } from '@mui/material';
 
 // Icons
 import LiveTvIcon from '@mui/icons-material/LiveTv';
+import PauseIcon from '@material-ui/icons/Pause';
 
 // Components
 import RecentMediaCard from "../../Components/LazyImageComponent/RecentMediaCard";
@@ -63,7 +64,7 @@ const TopPlayed = () => {
                                                     </Link>
 
                                                     <div className="fav" style={{ color: '#ccced1', fontSize: '14px', borderRadius: '10px 0 10px 0' }}>
-                                                        {secondsToHMS(item?.time)}
+                                                        <PauseIcon style={{ fontSize: '16px', marginBottom: '-3px' }}/> {secondsToHMS(item?.time)}
                                                     </div>
 
                                                     <div className="vidq">
