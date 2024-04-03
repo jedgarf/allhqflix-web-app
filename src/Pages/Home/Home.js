@@ -23,6 +23,7 @@ import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 // partial page
 import Faq from "./Faq";
 import MediaCategories from "./MediaCategories";
+import RecentWatched from "./RecentWatched";
 import TopPlayed from "./TopPlayed";
 import Products from "./Products";
 
@@ -169,6 +170,10 @@ const Home = () => {
 
       <div className="media-categories">
         <MediaCategories/>
+      </div>
+
+      <div className="media-categories">
+        <RecentWatched/>
       </div>
 
       <div className="media-top-played">

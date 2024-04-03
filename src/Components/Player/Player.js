@@ -137,19 +137,6 @@ const Player = ({ details, episodes, defaultlink, infotitle, infocover, seasonNu
                 art.notice.show = infotitle;
             });
 
-            art.on('video:timeupdate', () => {
-                if (episodeNum < totalEpisodes) {
-                    if (Math.round(art.currentTime) >= Math.round(art.duration-9)) {
-                        const index = episodes.findIndex(item => item.id == episodeId);
-                        if (type === "movie" || type === "tv") {
-                            art.notice.show = `Season ${episodes[index+1].season} / Episode ${episodes[index+1].number} will be auto play in ${Math.round(art.duration-art.currentTime)+1}`;   
-                        } else {
-                            art.notice.show = `Episode ${episodes[index+1].number} will be auto play in ${Math.round(art.duration-art.currentTime)+1}`;
-                        }
-                    }   
-                }
-            });
-
             art.on('video:waiting', () => {
                 if (art.currentTime >= art.loadedTime) {
                     setTimeout(() => {
@@ -173,6 +160,16 @@ const Player = ({ details, episodes, defaultlink, infotitle, infocover, seasonNu
                     if (art.currentTime < (art.duration-10)) saveProgress(details, mediaId, type, paramDub, seasonNumber, episodeId, episodeNumber, art.currentTime, art.duration); 
                 } else {
                     saveProgress(details, mediaId, type, paramDub, seasonNumber, episodeId, episodeNumber, art.currentTime, art.duration);
+                    if (episodeNum < totalEpisodes) {
+                        if (Math.round(art.currentTime) >= Math.round(art.duration-9)) {
+                            const index = episodes.findIndex(item => item.id == episodeId);
+                            if (type === "movie" || type === "tv") {
+                                art.notice.show = `Season ${episodes[index+1].season} / Episode ${episodes[index+1].number} will be auto play in ${Math.round(art.duration-art.currentTime)+1}`;   
+                            } else {
+                                art.notice.show = `Episode ${episodes[index+1].number} will be auto play in ${Math.round(art.duration-art.currentTime)+1}`;
+                            }
+                        }   
+                    }
                 }
             });
 

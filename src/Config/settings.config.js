@@ -1979,6 +1979,21 @@ const anime_character_carousel_settings = {
   prevArrow: <SamplePrevArrow/>
 };
 
+const recent_watch_carousel_settings = {
+  arrows: true,
+  dots: false,
+  infinite: false,
+  speed: 500,
+  autoplay: false,
+  autoplaySpeed: 5000,
+  ease: 'linear',
+  className: 'carousel_slick',
+  variableWidth: true,
+  // vertical: false,
+  nextArrow: <SampleNextArrow/>,
+  prevArrow: <SamplePrevArrow/>
+};
+
 const suggestion_carousel_settings = {
   arrows: false,
   dots: true,
@@ -2037,6 +2052,7 @@ export {  title,
           manual_selection_carousel_settings, 
           stream_server_carousel_settings, 
           anime_character_carousel_settings, 
+          recent_watch_carousel_settings, 
           suggestion_carousel_settings, 
           foreign_genre, foreign_country, 
           asian_films_genre, 

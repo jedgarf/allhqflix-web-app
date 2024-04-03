@@ -494,6 +494,27 @@ const getLanguageName = (langCode, increment = 0) => {
   // I decrypt the encrypted language name soon
 }
 
+const isJSONString = (str) => {
+  return /^[\],:{}\s]*$/.test(str.replace(/\\["\\\/bfnrtu]/g, '@')
+    .replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']')
+    .replace(/(?:^|:|,)(?:\s*\[)+/g, ''));
+}
+
+const getAllSavedCookiesMedia = () => {
+  const cookiesArray = document.cookie ? document.cookie.split(';') : [];
+  const cookiesObject = [];
+  cookiesArray.forEach(cookie => {
+    const [name, value] = cookie.split('=');
+    if (isJSONString(value.trim())) {
+        const arrData = JSON.parse(value.trim());
+        if (arrData?.mediaId && arrData?.title && arrData?.episodeId) {
+            cookiesObject.push(JSON.parse(value.trim()));
+        }
+    }
+  });
+  return cookiesObject;
+};
+
 export { shortenTextHeight, 
          streamDashboardBackButton, 
          moveToTop, 
@@ -527,4 +548,6 @@ export { shortenTextHeight,
          secondsToMinutes, 
          randomizeArray, 
          getNumberSuffix, 
-         getLanguageName };
+         getLanguageName, 
+         isJSONString,
+         getAllSavedCookiesMedia };

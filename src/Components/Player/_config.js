@@ -53,8 +53,6 @@ export const destroyPlayFlv = () => {
 }
 
 export const saveProgress = (details, mediaId, type, paramDub, seasonNumber, episodeId, episodeNumber, currentTime, duration) => {
-    
-    console.info("save progress: ", currentTime);
 
     // _.throttle((currentTime) => {
     //     const mediaProgress = {
