@@ -9,11 +9,10 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 
 // Material UI Components
-import { Grid, Box, Card, CardActions, CardContent, CardMedia, Button, Typography } from '@mui/material';
+import { Container, Grid, Box, Typography } from '@mui/material';
 
 // Icons
 import LiveTvIcon from '@mui/icons-material/LiveTv';
-import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 
 // Components
 import RecentMediaCard from "../../Components/LazyImageComponent/RecentMediaCard";
@@ -53,7 +52,7 @@ const TopPlayed = () => {
 
                     <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
                         <center>
-                            <Box>
+                            <Container maxWidth={'xl'}>
                                 <Slider {...recent_watch_carousel_settings}>
                                     {prevWatch.map((item, index) => {
                                         return (
@@ -97,7 +96,7 @@ const TopPlayed = () => {
                                         )
                                     })}
                                 </Slider>
-                            </Box>
+                            </Container>
                         </center>
                     </Grid>
 
