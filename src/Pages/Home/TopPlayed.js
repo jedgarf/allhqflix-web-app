@@ -47,7 +47,7 @@ const TopPlayed = () => {
                                 <Fragment>
                                     <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={2}>
                                         <Grid item xl={12} lg={12} md={12} sm={12} xs={12} className='text-white'>
-                                            Watch Stranger Things Season 1 to 4.
+                                            <span style={{ fontSize: 'clamp(13px, 2vw, 20px)' }}>Watch Stranger Things Season 1 to 4.</span>
                                         </Grid>
                                         <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
                                             <Link className='text-link-without-underline' to={`tv/stream_dashboard?mediaId=tv/watch-stranger-things-39444`}>
@@ -64,7 +64,7 @@ const TopPlayed = () => {
                                 <Fragment>
                                     <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={2}>
                                         <Grid item xl={12} lg={12} md={12} sm={12} xs={12} className='text-white'>
-                                            Watch All of Us Are Dead Season 1.
+                                            <span style={{ fontSize: 'clamp(13px, 2vw, 20px)' }}>Watch All of Us Are Dead Season 1.</span>
                                         </Grid>
                                         <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
                                             <Link className='text-link-without-underline' to={`tv/stream_dashboard?mediaId=tv/watch-all-of-us-are-dead-76681`}>
@@ -81,7 +81,7 @@ const TopPlayed = () => {
                                 <Fragment>
                                     <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={2}>
                                         <Grid item xl={12} lg={12} md={12} sm={12} xs={12} className='text-white'>
-                                            Watch the latest One Piece: Egghead Island Arc.
+                                            <span style={{ fontSize: 'clamp(13px, 2vw, 20px)' }}>Watch the latest One Piece: Egghead Island Arc.</span>
                                         </Grid>
                                         <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
                                             <Link className='text-link-without-underline' to={`anime/stream_dashboard?mediaId=21`}>
@@ -98,7 +98,7 @@ const TopPlayed = () => {
                                 <Fragment>
                                     <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={2}>
                                         <Grid item xl={12} lg={12} md={12} sm={12} xs={12} className='text-white'>
-                                            Watch the first season of One Piece live action.
+                                            <span style={{ fontSize: 'clamp(13px, 2vw, 20px)' }}>Watch the first season of One Piece live action.</span>
                                         </Grid>
                                         <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
                                             <Link className='text-link-without-underline' to={`tv/stream_dashboard?mediaId=tv/watch-one-piece-99826`}>
@@ -115,7 +115,7 @@ const TopPlayed = () => {
                                 <Fragment>
                                     <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={2}>
                                         <Grid item xl={12} lg={12} md={12} sm={12} xs={12} className='text-white'>
-                                            Watch the first season of Yu Yu Hakusho live action.
+                                            <span style={{ fontSize: 'clamp(13px, 2vw, 20px)' }}>Watch the first season of Yu Yu Hakusho live action.</span>
                                         </Grid>
                                         <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
                                             <Link className='text-link-without-underline' to={`tv/stream_dashboard?mediaId=tv/watch-yu-yu-hakusho-103906`}>
