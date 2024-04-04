@@ -1,6 +1,6 @@
 .stream-dashboard-content {
     max-width: 100% !important;
-    padding-left: 20px;
+    padding-inline: 15px;
     padding-top: 15px;
     padding-bottom: 20px;
     color: var(--four-color);

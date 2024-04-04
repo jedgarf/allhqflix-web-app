@@ -28,10 +28,10 @@ import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 import CookiesConsentDialog from "../../Components/CookiesConsentDialog/CookiesConsentDialog";
 
 // Utilities
-import { streamDashboardBackButton, SeparateArrayByComma, convertMinutesToHoursAndMinutes, getNumberSuffix, capitalizeString } from "../../Services/Utils";
+import { streamDashboardBackButton, SeparateArrayByComma, convertMinutesToHoursAndMinutes, getNumberSuffix, capitalizeString, getAllSavedCookiesMedia } from "../../Services/Utils";
 
 // Config
-import { pageLoadMS, foreign_country } from "../../Config/settings.config";
+import { pageLoadMS, foreign_country, maxMediaSaved } from "../../Config/settings.config";
 import { homeBackground } from "../../Config/images.config";
 
 // Services
@@ -39,6 +39,7 @@ import { anime_info, anime_stream_links } from "../../Services/AnimeService";
 
 const AnimeStreamDashboard = (props) => {
 
+    const savedMedia = getAllSavedCookiesMedia();
     const selectedEpisode = null;
     const [isLoading, setIsLoading] = useState(true);
 
@@ -289,6 +290,13 @@ const AnimeStreamDashboard = (props) => {
                             <div className='stream-dashboard-season-episode'>
                                 <Typography variant="subtitle1" style={{ verticalAlign: 'middle', display: 'inline-flex', fontWeight: 'bolder', backgroundColor: 'rgba(105, 105, 105, 0.4)', color: '#ccced1', paddingInline: 10, paddingBlock: 5, borderRadius: 20 }}>
                                     Not Available
+                                </Typography>
+                            </div>
+                        }
+                        {(resourceData.isSuccess && savedMedia?.length >= maxMediaSaved && savedMedia?.filter(item => item?.mediaId == indexId).length === 0) && 
+                            <div className='stream-dashboard-season-episode'>
+                                <Typography variant="subtitle1" style={{ verticalAlign: 'middle', display: 'inline-flex', fontWeight: 'bolder', backgroundColor: 'rgba(105, 105, 105, 0.4)', color: '#ccced1', paddingInline: 10, paddingBlock: 5, borderRadius: 20 }}>
+                                    Oops! Your viewing progress can't be saved at the moment. It seems our list save limit of {maxMediaSaved} has been reached.
                                 </Typography>
                             </div>
                         }
