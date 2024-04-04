@@ -91,7 +91,7 @@ const ShareModal = ({ infoValue, size = '18px' }) => {
                 }}
                 >
                 <Fade in={modalQROpen}>
-                <Box sx={modalQRStyle} width={{ xs: 300, sm: 570, md: 600 }} height={{ xs: 530, sm: 340 }}>
+                <Box sx={modalQRStyle} width={{ xs: 305, sm: 580, md: 600 }} height={{ xs: 590, sm: 350 }}>
                 <center>
                     <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={1} justifyContent="center" style={{ marginTop: 20, marginRight: 10 }}>
                         <Grid item xl={5} lg={5} md={5} sm={5} xs={12}>
