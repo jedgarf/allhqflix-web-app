@@ -21,17 +21,18 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import LoadingPage from "../../Components/LoadingPage/LoadingPage";
 import ShareModal from "../../Components/Modal/ShareModal";
 import TraillerModal from "../../Components/Modal/TraillerModal";
+import SaveListModal from "../../Components/Modal/SaveListModal";
 import SnackBar from "../../Components/SnackBar/SnackBar";
 import { AsianDramaPlayModal } from "../../Components/Modal/PlayModal";
 import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 import CookiesConsentDialog from "../../Components/CookiesConsentDialog/CookiesConsentDialog";
 
 // Config
-import { pageLoadMS } from "../../Config/settings.config";
+import { pageLoadMS, maxMediaSaved, maxMediaSavedMessage } from "../../Config/settings.config";
 import { homeBackground } from "../../Config/images.config";
 
 // Utilities
-import { streamDashboardBackButton, SeparateArrayByComma, getNumberSuffix } from "../../Services/Utils";
+import { streamDashboardBackButton, SeparateArrayByComma, getNumberSuffix, getAllSavedCookiesMedia } from "../../Services/Utils";
 
 // Services
 import { asianfilms_info, asianfilms_stream_links } from "../../Services/ViewAsianService";
@@ -39,7 +40,7 @@ import { asianfilms_info, asianfilms_stream_links } from "../../Services/ViewAsi
 const AsianFilmsStreamDashboard = (props) => {
 
     const selectedEpisode = null;
-
+    const [savedMedia, setSavedMedia] = useState([]);
     const [BGImage, setBGImage] = useState("");
     const [isLoading, setIsLoading] = useState(true);
     const [isMobile, setIsMobile] = useState(false);
@@ -94,6 +95,11 @@ const AsianFilmsStreamDashboard = (props) => {
     let resourceValue = undefined;
     if (resourceData.isSuccess) resourceValue = resourceData?.data;
 
+    const loadSavedMedia = () => {
+        const cookiesMediaData = getAllSavedCookiesMedia();
+        setSavedMedia(cookiesMediaData);
+    }
+
     //choose the screen size 
     const handleResize = useCallback(() => {
         setBGImage(infoValue?.cover);
@@ -107,24 +113,21 @@ const AsianFilmsStreamDashboard = (props) => {
     const handleBackgroundImageError = () => setBGImage(homeBackground);
 
     useEffect(() => {
+        loadSavedMedia();
         if (infoData.isSuccess) {
             document.title = `AllHQFlix - ${ infoValue?.title }`;
             handleResize();
         }
-
         if (infoData.isLoading) setBGImage(homeBackground);
-
         if (infoData.isLoading || resourceData.isLoading) {
             setSnackBarType('info');
             setSnackBarMessage(`Please wait while fetching all resources.`);
             setSnackBarOpen(true);
             setSnackBarWithLoading(true);
         };
-
         setTimeout(() => {
             setIsLoading(false);
         }, pageLoadMS);
-
     }, [handleResize, infoData.isSuccess, infoValue?.title, infoData.isLoading, resourceData.isLoading]);
 
     return (
@@ -199,7 +202,17 @@ const AsianFilmsStreamDashboard = (props) => {
                         <b style={{ color: '#DC4C64', marginRight: '5px' }}>Genres:</b> 
                         <SeparateArrayByComma type={'site_link'} data={infoValue?.genre} link={'/asian_films/genre_filter?genre='} />
                     </div>
+                    {(resourceData.isSuccess && savedMedia?.length >= maxMediaSaved && savedMedia?.filter(item => item?.mediaId == indexId).length === 0) && 
+                        <div className='stream-dashboard-season-episode'>
+                            <Typography variant="span">
+                                {maxMediaSavedMessage}
+                            </Typography>
+                        </div>
+                    }
                     <div className='stream-dashboard-playbutton'>
+                        {(resourceData.isSuccess && savedMedia?.length >= maxMediaSaved && savedMedia?.filter(item => item?.mediaId == indexId).length === 0) && 
+                            <SaveListModal loadSavedMedia={loadSavedMedia}/>
+                        }
                         {infoData.isSuccess && <TraillerModal category="asian_films" infoValue={infoValue} setSnackBarType={setSnackBarType} setSnackBarMessage={setSnackBarMessage} setSnackBarOpen={setSnackBarOpen}/>}
                         {infoData.isSuccess && resourceData.isSuccess ? 
                         <>

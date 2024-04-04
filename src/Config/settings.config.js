@@ -13,7 +13,8 @@ const search_bar = true;
 const defaultInternationalServer = process.env.REACT_APP_INTNL_DEFAULT_SERVER || 'upcloud';
 const defaultInternationalVideoRes = "auto";
 
-const maxMediaSaved = 3;
+const maxMediaSaved = 10;
+const maxMediaSavedMessage = `Oops! Your watching progress can't be saved at the moment. It seems our list save limit of ${maxMediaSaved} has been reached.`;
 const pageLoadMS = 1000;
 
 const pages = [ {'id': 1, 'icon': '', 'code': 'movie', 'search_code': 'movie', 'name': 'Movies', 'link': '/movies', 'enable': true}, 
@@ -2040,6 +2041,7 @@ export {  title,
           defaultInternationalServer, 
           defaultInternationalVideoRes, 
           maxMediaSaved, 
+          maxMediaSavedMessage, 
           pageLoadMS, 
           pages, 
           misc_pages, 

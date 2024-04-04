@@ -17,11 +17,13 @@ import './StreamDashboard.css';
 // Icons
 import ArrowBackTwoToneIcon from '@mui/icons-material/ArrowBackTwoTone';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
+import SubtitlesIcon from '@mui/icons-material/Subtitles';
 
 // Components
 import LoadingPage from "../../Components/LoadingPage/LoadingPage";
 import ShareModal from "../../Components/Modal/ShareModal";
 import TraillerModal from "../../Components/Modal/TraillerModal";
+import SaveListModal from "../../Components/Modal/SaveListModal";
 import SnackBar from "../../Components/SnackBar/SnackBar";
 import { AnimePlayModal } from "../../Components/Modal/PlayModal";
 import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
@@ -31,7 +33,7 @@ import CookiesConsentDialog from "../../Components/CookiesConsentDialog/CookiesC
 import { streamDashboardBackButton, SeparateArrayByComma, convertMinutesToHoursAndMinutes, getNumberSuffix, capitalizeString, getAllSavedCookiesMedia } from "../../Services/Utils";
 
 // Config
-import { pageLoadMS, foreign_country, maxMediaSaved } from "../../Config/settings.config";
+import { pageLoadMS, foreign_country, maxMediaSaved, maxMediaSavedMessage } from "../../Config/settings.config";
 import { homeBackground } from "../../Config/images.config";
 
 // Services
@@ -39,8 +41,8 @@ import { anime_info, anime_stream_links } from "../../Services/AnimeService";
 
 const AnimeStreamDashboard = (props) => {
 
-    const savedMedia = getAllSavedCookiesMedia();
     const selectedEpisode = null;
+    const [savedMedia, setSavedMedia] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
     // Picture loading
@@ -164,6 +166,11 @@ const AnimeStreamDashboard = (props) => {
     let resourceValue = undefined;
     if (resourceData.isSuccess) resourceValue = resourceData?.data;
 
+    const loadSavedMedia = () => {
+        const cookiesMediaData = getAllSavedCookiesMedia();
+        setSavedMedia(cookiesMediaData);
+    }
+
     //choose the screen size 
     const handleResize = useCallback(() => {
         if (window.innerWidth < 720) {
@@ -182,14 +189,14 @@ const AnimeStreamDashboard = (props) => {
     const handleBackgroundImageError = () => setBGImage(homeBackground);
 
     useEffect(() => {
+
+        loadSavedMedia();
         if (infoData.isSuccess) {
             document.title = `AllHQFlix - ${ infoValue?.title?.english || infoValue?.title?.userPreferred || infoValue?.title?.romaji || infoValue?.title?.native }`;
             handleResize();
             setLoadingPicture(false);
         }
-
         if (infoData.isLoading) setBGImage(homeBackground);
-
         // if (infoData.isLoading || resourceData.isLoading) {
         //     setSnackBarType('info');
         //     setSnackBarMessage(`Please wait while fetching all resources.`);
@@ -205,7 +212,6 @@ const AnimeStreamDashboard = (props) => {
         //     setSnackBarWithLoading(true);
         //     setHideDuration(null);
         // }
-
         setTimeout(() => {
             setIsLoading(false);
         }, pageLoadMS);
@@ -277,7 +283,7 @@ const AnimeStreamDashboard = (props) => {
                                 </span>
                             ) : ('-')}
                             <br/>
-                            <b style={{ color: '#DC4C64', marginRight: '5px' }}>Season:</b> 
+                            <b style={{ color: '#DC4C64', marginRight: '5px' }}>Season:</b>
                                 { infoValue?.season ? capitalizeString(infoValue?.season) : '-' }
                             <br/>
                             {/* <b style={{ color: '#DC4C64', marginRight: '5px' }}>Synonym/s:</b>
@@ -285,25 +291,29 @@ const AnimeStreamDashboard = (props) => {
                             <br/> */}
                             <b style={{ color: '#DC4C64', marginRight: '5px' }}>Genre/s:</b> 
                             <SeparateArrayByComma type={'site_link'} data={infoValue?.genres} link={'/anime/genre_filter?genre='} />
+                            <br/>
+                            <b><SubtitlesIcon style={{ marginBottom: '-6px' }}/></b>{' '}
+                            1 subtitle available.
                         </div>
                         {resourceData.isError && 
                             <div className='stream-dashboard-season-episode'>
-                                <Typography variant="subtitle1" style={{ verticalAlign: 'middle', display: 'inline-flex', fontWeight: 'bolder', backgroundColor: 'rgba(105, 105, 105, 0.4)', color: '#ccced1', paddingInline: 10, paddingBlock: 5, borderRadius: 20 }}>
+                                <Typography variant="span">
                                     Not Available
                                 </Typography>
                             </div>
                         }
                         {(resourceData.isSuccess && savedMedia?.length >= maxMediaSaved && savedMedia?.filter(item => item?.mediaId == indexId).length === 0) && 
                             <div className='stream-dashboard-season-episode'>
-                                <Typography variant="subtitle1" style={{ verticalAlign: 'middle', display: 'inline-flex', fontWeight: 'bolder', backgroundColor: 'rgba(105, 105, 105, 0.4)', color: '#ccced1', paddingInline: 10, paddingBlock: 5, borderRadius: 20 }}>
-                                    Oops! Your viewing progress can't be saved at the moment. It seems our list save limit of {maxMediaSaved} has been reached.
+                                <Typography variant="span">
+                                    {maxMediaSavedMessage}
                                 </Typography>
                             </div>
                         }
                         <div className='stream-dashboard-playbutton'>
-
+                            {(resourceData.isSuccess && savedMedia?.length >= maxMediaSaved && savedMedia?.filter(item => item?.mediaId == indexId).length === 0) && 
+                                <SaveListModal loadSavedMedia={loadSavedMedia}/>
+                            }
                             {(infoData.isSuccess && resourceData.isError) && <TraillerModal category="anime" infoValue={infoValue} setSnackBarType={setSnackBarType} setSnackBarMessage={setSnackBarMessage} setSnackBarOpen={setSnackBarOpen}/>}
-                            
                             {infoData.isSuccess && resourceData.isSuccess ?
                                 infoValue?.episodes?.length > 0 && resourceValue?.data?.sources?.length > 0 && 
                                     <AnimePlayModal infoValue={infoValue} episodes={infoValue?.episodes} episodeIdVar={episodeIdVar} setEpisodeIdVar={setEpisodeIdVar} isDub={dubCheckbox} url={`/watch/${type}/${indexId}`} isDisabled={false} />

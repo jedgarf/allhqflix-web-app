@@ -17,15 +17,14 @@ import './StreamDashboard.css';
 
 // Icons
 import ArrowBackTwoToneIcon from '@mui/icons-material/ArrowBackTwoTone';
-import WarningAmberTwoToneIcon from '@mui/icons-material/WarningAmberTwoTone';
-import VisibilityIcon from '@mui/icons-material/Visibility';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
-import BuildIcon from '@mui/icons-material/Build';
+import SubtitlesIcon from '@mui/icons-material/Subtitles';
 
 // Components
 import LoadingPage from "../../Components/LoadingPage/LoadingPage";
 import ShareModal from "../../Components/Modal/ShareModal";
 import TraillerModal from "../../Components/Modal/TraillerModal";
+import SaveListModal from "../../Components/Modal/SaveListModal";
 import SnackBar from "../../Components/SnackBar/SnackBar";
 import { MoviePlayModal, SeriesPlayModal } from "../../Components/Modal/PlayModal";
 import LanguageListTooltip from '../../Components/Tooltip/LanguageListTooltip';
@@ -33,11 +32,11 @@ import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 import CookiesConsentDialog from "../../Components/CookiesConsentDialog/CookiesConsentDialog";
 
 // Config
-import { pageLoadMS, defaultInternationalServer } from "../../Config/settings.config";
+import { pageLoadMS, defaultInternationalServer, maxMediaSaved, maxMediaSavedMessage } from "../../Config/settings.config";
 import { homeBackground } from "../../Config/images.config";
 
 // Utils
-import { streamDashboardBackButton, SeparateArrayByComma, separatedSeasons, ObjectLength, convertMinutesToHoursAndMinutes, getNumberSuffix } from "../../Services/Utils";
+import { streamDashboardBackButton, SeparateArrayByComma, separatedSeasons, ObjectLength, convertMinutesToHoursAndMinutes, getNumberSuffix, getAllSavedCookiesMedia } from "../../Services/Utils";
 
 // Services
 import { movie_info, movie_server, movie_stream_links } from "../../Services/FlixHQService";
@@ -46,13 +45,14 @@ const MovieStreamDashboard = (props) => {
     
     const { type } = useParams();
     const media = type === "tv" ? "tvshow" : "movies";
-    
+
     const navigate = useNavigate();
 
     const queryParams = new URLSearchParams(window.location.search);
     const indexId = queryParams.get("mediaId").replace("ttps://flixhq.pe/", "");
     const isShare = queryParams.get("share");
 
+    const [savedMedia, setSavedMedia] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [BGImage, setBGImage] = useState("");
     const [isMobile, setIsMobile] = useState(false);
@@ -72,8 +72,6 @@ const MovieStreamDashboard = (props) => {
     const [snackBarMessage, setSnackBarMessage] = useState("");
     const [snackBarOpen, setSnackBarOpen] = useState(false);
     const [snackBarWithLoading, setSnackBarWithLoading] = useState(false);
-
-    var subtitleCount = 0;
 
     const handleSnackBarOpen = (event, reason) => {
         setSnackBarType("");
@@ -167,6 +165,11 @@ const MovieStreamDashboard = (props) => {
     let resourceValue = undefined;
     if (resourceData.isSuccess) resourceValue = resourceData?.data;
 
+    const loadSavedMedia = () => {
+        const cookiesMediaData = getAllSavedCookiesMedia();
+        setSavedMedia(cookiesMediaData);
+    }
+
     //choose the screen size 
     const handleResize = useCallback(() => {
         if (window.innerWidth < 720) {
@@ -182,20 +185,18 @@ const MovieStreamDashboard = (props) => {
 
     useEffect(() => {
 
+        loadSavedMedia();
         if (infoData.isSuccess) {
             document.title = type === 'tv' ? `AllHQFlix - ${ infoValue?.title }` : `AllHQFlix - ${ infoValue?.title }`;
             handleResize();
         }
-
         if (infoData.isLoading) setBGImage(homeBackground);
-
         // if (infoData.isLoading || serverData.isLoading || resourceData.isLoading) {
         //     setSnackBarType('info');
         //     setSnackBarMessage(`Please wait while fetching all resources.`);
         //     setSnackBarOpen(true);
         //     setSnackBarWithLoading(true);
         // };
-
         setTimeout(() => {
             setIsLoading(false);
         }, pageLoadMS);
@@ -275,63 +276,57 @@ const MovieStreamDashboard = (props) => {
                         : ""}
                             
                         {infoValue?.genres?.length > 0 ?
-                            <div>
+                            <Fragment>
                                 <b style={{ color: '#DC4C64', marginRight: '5px' }}>Genres:</b>
                                 <SeparateArrayByComma type={'site_link'} data={infoValue?.genres} link={'/foreign/genre_filter?genre='} />
                                 <br/>
-                            </div>
+                            </Fragment>
                         : ""}
-                        {type === 'movie' && resourceData.isSuccess && resourceValue?.data?.sources?.filter((item) => item.quality !== "auto").length > 0 ?
-                            <div>
-                                <b style={{ color: '#DC4C64', marginRight: '5px' }}>Video Resolutions:</b> 
-                                {resourceValue.data.sources.filter((item) => item.quality !== "auto").reverse().map((item, i) => {
-                                    return (
-                                    <span key={i}>
-                                    { (i === 0 ? "" : ", ") + item.quality }p
-                                    </span>
-                                    );
-                                })}
+                        {type === 'movie' && resourceData.isSuccess ? 
+                            <Fragment>
+                                <Typography variant='p'>
+                                    <b><SubtitlesIcon style={{ marginBottom: '-6px' }}/></b>{' '}
+                                    { resourceValue?.data?.subtitles?.length === 0 && "No available subtitle." }
+                                    { resourceValue?.data?.subtitles?.length > 1 ? `${resourceValue?.data?.subtitles?.length} subtitles available.` : `${resourceValue?.data?.subtitles?.length} subtitle available.` }
+                                </Typography>
                                 <br/>
-                            </div>
-                            : ""}
-                            {type === 'movie' && resourceData.isSuccess ?
-                            <div style={{ fontStyle: 'italic' }}>
-                                {resourceValue?.data?.subtitles?.map((item, i) => {
-                                    subtitleCount++;
-                                })}
-                                { subtitleCount > 0 ? `${subtitleCount} ${subtitleCount > 1 ? "subtitles available." : "subtitle available."}` : "No available subtitle." }
-                                <br/>
-                            </div>
-                            : ""}
+                            </Fragment>
+                        : ""}
                     </div>
                     {infoData.isSuccess && infoValue?.episodes?.length > 0 ? ""
                     : 
                         <div className='stream-dashboard-season-episode'>
-                            <Typography variant="subtitle1" style={{ verticalAlign: 'middle', display: 'inline-flex', fontWeight: 'bolder', backgroundColor: 'rgba(105, 105, 105, 0.4)', color: '#ccced1', paddingInline: 10, paddingBlock: 5, borderRadius: 20 }}>
-                                <WarningAmberTwoToneIcon style={{ marginRight: '8px', color: "#DC4C64", fontSize: 30 }}/> No episode available
+                            <Typography variant="span">
+                                No episode available
                             </Typography>
                         </div>
                     }
                     {errorMessage && 
                         <div className='stream-dashboard-season-episode'>
-                            <Typography variant="subtitle1" style={{ verticalAlign: 'middle', display: 'inline-flex', fontWeight: 'bolder', backgroundColor: 'rgba(105, 105, 105, 0.4)', color: '#ccced1', paddingInline: 10, paddingBlock: 5, borderRadius: 20 }}>
-                                {/* <BuildIcon style={{ marginRight: '8px', paddingBottom: '-4px !important', color: "#DC4C64", fontSize: 18 }}/>  */}
+                            <Typography variant="span">
                                 {errorMessage}
                             </Typography>
                         </div>
                     }
-
+                    {(resourceData.isSuccess && savedMedia?.length >= maxMediaSaved && savedMedia?.filter(item => item?.mediaId == indexId).length === 0) && 
+                        <div className='stream-dashboard-season-episode'>
+                            <Typography variant="span">
+                                {maxMediaSavedMessage}
+                            </Typography>
+                        </div>
+                    }
                     <div className='stream-dashboard-playbutton'>
+                        {(resourceData.isSuccess && savedMedia?.length >= maxMediaSaved && savedMedia?.filter(item => item?.mediaId == indexId).length === 0) && 
+                            <SaveListModal loadSavedMedia={loadSavedMedia}/>
+                        }
                         {infoData.isSuccess && <TraillerModal category="foreign" infoValue={infoValue} setSnackBarType={setSnackBarType} setSnackBarMessage={setSnackBarMessage} setSnackBarOpen={setSnackBarOpen}/>}
-                        
                         {(resourceData.isLoading || !resourceValue?.data?.sources) && !resourceData.isError && 
                             <CircularProgress
-                                sx={{ color: 'white', marginBottom: '-5px !important' }} 
+                                sx={{ color: 'white', marginBottom: '-5px !important', marginRight: '10px' }} 
                                 size={20} 
                                 thickness={5} 
                             />
                         }
-
                         {infoData.isSuccess && serverData.isSuccess ? 
                             infoValue?.episodes?.length > 0 && serverValue?.data?.length > 0 ? 
                                 type === 'movie' ? (

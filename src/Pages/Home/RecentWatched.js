@@ -32,7 +32,7 @@ import { deleteCookie } from "../../Helpers/Cookies";
 // Utils
 import { getAllSavedCookiesMedia, secondsToHMS, convertSecondsToHoursAndMinutes } from "../../Services/Utils";
 
-const TopPlayed = () => {
+const RecentWatched = ({ title = true, loadSavedMedia }) => {
 
     const darkTheme = createTheme({
         palette: {
@@ -62,6 +62,7 @@ const TopPlayed = () => {
             if (result.isConfirmed) {
                 deleteCookie(encodeURIComponent(mediaId));
                 loadRecentMediaData();
+                if (typeof loadSavedMedia === 'function') loadSavedMedia();
               // withReactContent(Swal).fire("Saved!", "", "success");
             } else if (result.isDismissed) {
               // withReactContent(Swal).fire("Changes are not saved", "", "info");
@@ -80,11 +81,13 @@ const TopPlayed = () => {
             <div className='notes' style={{ display: prevWatch.length > 0 ? 'block' : 'none' }}>
                 <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={2}>
 
-                    <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
-                        <center>
-                            <Typography variant="h5" className='text-white' sx={{ marginBottom: 1, fontWeight: '550' }}><LiveTvIcon sx={{ fontSize: 28, marginBottom: '-4px' }}/> RECENTLY WATCHED</Typography>
-                        </center>
-                    </Grid>
+                    {title && 
+                        <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                            <center>
+                                <Typography variant="h5" className='text-white' sx={{ marginBottom: 1, fontWeight: '550' }}><LiveTvIcon sx={{ fontSize: 28, marginBottom: '-4px' }}/> RECENTLY WATCHED</Typography>
+                            </center>
+                        </Grid>
+                    }
 
                     <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
                         <center>
@@ -94,8 +97,8 @@ const TopPlayed = () => {
                                         return (
                                             <Fragment key={index}>
                                                 <Box className='movie_card' key={item?.mediaId}>
-                                                    <Badge badgeContent={<IconButton onClick={() => deleteRecentMedia(item?.mediaId, item?.title)} size='small'><CloseIcon style={{ fontSize: '14px' }}/></IconButton>} color="error" title='Remove'>
-                                                        <Link to={`/${item?.category}/stream_dashboard?mediaId=${item?.mediaId}`}>
+                                                    <Badge badgeContent={<IconButton onClick={() => deleteRecentMedia(item?.mediaId, item?.title)} size='small' title='Remove'><CloseIcon style={{ fontSize: '14px' }}/></IconButton>} color="error">
+                                                        <Link to={`/${item?.category}/stream_dashboard?mediaId=${item?.mediaId}`} title='Play'>
                                                             <RecentMediaCard src={item?.image} title={item?.title}/>
                                                         </Link>
                                                     </Badge>
@@ -145,4 +148,4 @@ const TopPlayed = () => {
     );
 };
 
-export default TopPlayed;
+export default RecentWatched;

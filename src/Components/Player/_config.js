@@ -64,7 +64,6 @@ export const saveProgress = (details, mediaId, type, paramDub, seasonNumber, epi
     const image = details?.image;
     const title = type === 'anime' ? (details?.title?.english || details?.title?.userPreferred || details?.title?.romaji || details?.title?.native) : details?.title;
     const quality = type === 'movie' || type === 'tv' ? details?.video_quality : '';
-
     if (savedMedia?.length < maxMediaSaved) {
         setTimeout(() => {
             const mediaProgress = {

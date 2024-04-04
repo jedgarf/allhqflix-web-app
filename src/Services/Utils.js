@@ -505,12 +505,12 @@ const isJSONString = (str) => {
 const getAllSavedCookiesMedia = () => {
   const cookiesArray = document.cookie ? document.cookie.split(';') : [];
   const cookiesObject = [];
-  cookiesArray.splice(0, maxMediaSaved).forEach(cookie => {
+  cookiesArray.splice(0, maxMediaSaved+1).forEach(cookie => {
     const [name, value] = cookie.split('=');
     if (isJSONString(value.trim())) {
         const arrData = JSON.parse(value.trim());
         if (arrData?.mediaId && arrData?.title && arrData?.episodeId) {
-            cookiesObject.push(JSON.parse(value.trim()));
+            cookiesObject.push(arrData);
         }
     }
   });

@@ -45,8 +45,6 @@ import { movie_server } from "../../Services/FlixHQService";
 
 // =============================================================================================================================================================
 
-const savedMedia = getAllSavedCookiesMedia();
-
 const darkTheme = createTheme({
   palette: {
     mode: 'dark',
@@ -106,7 +104,7 @@ const MoviePlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ser
   const handleClose = () => {
     setAnchorEl(null);
   };
-
+  const [savedMedia, setSavedMedia] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [server, setServer] = useState(serverVar);
 
@@ -131,7 +129,13 @@ const MoviePlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ser
     deleteCookie(encodeURIComponent(mediaId));
   }
 
+  const loadSavedMedia = () => {
+    const cookiesSavedMedia = getAllSavedCookiesMedia();
+    setSavedMedia(cookiesSavedMedia);
+  }
+
   useEffect(() => {
+    loadSavedMedia();
   }, [])
   
   return (
@@ -172,7 +176,7 @@ const MoviePlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ser
           open={open}
           onClose={handleClose}
         >
-        {savedMedia?.filter(item => item?.mediaId == mediaId).length > 0 && 
+        {savedMedia?.filter(item => item.mediaId == mediaId).length > 0 && 
           <Link className='text-link-without-underline' to={`${url}?server=${encryptParams(serverVar)}`}>
             <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
               <PlayCircleOutlineIcon />
@@ -183,7 +187,7 @@ const MoviePlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ser
         <Link className='text-link-without-underline' to={`${url}?server=${encryptParams(serverVar)}`} onClick={() => deleteCookie(encodeURIComponent(mediaId))}>
           <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
             <PlayCircleOutlineIcon />
-            {getCookie(encodeURIComponent(mediaId)) ? `FROM THE BEGINNING` : `QUICK PLAY`}
+            {savedMedia?.filter(item => item.mediaId == mediaId).length > 0 ? `FROM THE BEGINNING` : `QUICK PLAY`}
           </MenuItem>
         </Link>
         <MenuItem onClick={() => handleModal(true)} style={{ fontSize: '15px' }} disableRipple>
@@ -244,6 +248,7 @@ const MoviePlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ser
 const SeriesPlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, episodes, serverVar, seasonIdVar, episodeIdVar, setServerVar, setSeasonIdVar, setEpisodeIdVar, url }) => {
   
   var indexId = mediaInfo?.id;
+  const [savedMedia, setSavedMedia] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [seasons, setSeasons] = useState([]);
   const [episodeList, setEpisodeLists] = useState(episodes[seasonIdVar]);
@@ -322,6 +327,11 @@ const SeriesPlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ep
     setIsDisableSave(false);
   }
 
+  const loadSavedMedia = () => {
+    const cookiesSavedMedia = getAllSavedCookiesMedia();
+    setSavedMedia(cookiesSavedMedia);
+  }
+
   const onSubmit = (e) => {
     e.preventDefault();
     // selecting season, episode and server
@@ -355,6 +365,7 @@ const SeriesPlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ep
   }, []);
 
   useEffect(() => {
+    loadSavedMedia();
     setSeasons(generateSeasons(episodes));
   }, [generateSeasons, episodes]);
 
@@ -394,7 +405,7 @@ const SeriesPlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ep
         open={open}
         onClose={handleClose}
       >
-        {savedMedia?.filter(item => item?.mediaId == mediaId).length > 0 && 
+        {savedMedia?.filter(item => item.mediaId == mediaId).length > 0 && 
           <Link className='text-link-without-underline' to={`${url}?season=${seasonIdVar}&episode=${JSON.parse(getCookie(encodeURIComponent(mediaId))).episodeId}&server=${encryptParams(serverVar)}`}>
             <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
               <PlayCircleOutlineIcon />
@@ -571,6 +582,7 @@ const AnimePlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVar, ur
 
   var arcs = require('../../Services/Data/onePieceArcs.json').arcs;
   const [arcId, setArcId] = useState(1);
+  const [savedMedia, setSavedMedia] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [episodeList, setEpisodeList] = useState([]);
   const [episodeNumber, setEpisodeNumber] = useState(episodeIdVar || episodes[0]?.id);
@@ -635,6 +647,11 @@ const AnimePlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVar, ur
     setEpisodeList(newEpisodeList);
   }
 
+  const loadSavedMedia = () => {
+    const cookiesSavedMedia = getAllSavedCookiesMedia();
+    setSavedMedia(cookiesSavedMedia);
+  }
+
   const onSubmit = (e) => {
     e.preventDefault();
     // selecting episode
@@ -644,6 +661,7 @@ const AnimePlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVar, ur
   }
 
   useEffect(() => {
+    loadSavedMedia();
     if (isDub === true && !episodeIdVar.includes('-dub')) {
       setIsLoadPlayButton(true);
     } else if (isDub === false && episodeIdVar.includes('-dub')) {
@@ -655,7 +673,6 @@ const AnimePlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVar, ur
   
 
   return (
-    <>
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
         {isLoadPlayButton ?
@@ -711,7 +728,7 @@ const AnimePlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVar, ur
             open={open}
             onClose={handleClose}
           >
-          {savedMedia?.filter(item => item?.mediaId == mediaId).length > 0 && 
+          {savedMedia?.filter(item => item.mediaId == mediaId).length > 0 && 
             <Link className='text-link-without-underline' to={`${url}?dub=${isDub}&episode=${JSON.parse(getCookie(encodeURIComponent(mediaId))).episodeId}`}>
               <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
                 <PlayCircleOutlineIcon />
@@ -829,12 +846,12 @@ const AnimePlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVar, ur
 
         </ReusableModal>
     </ThemeProvider>
-    </>
   );
 }
 
 const AsianDramaPlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVar, url }) => {
 
+  const [savedMedia, setSavedMedia] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [episodeList, setEpisodeList] = useState([]);
   const [episodeNumber, setEpisodeNumber] = useState(episodeIdVar || episodes[0].id);
@@ -864,13 +881,16 @@ const AsianDramaPlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVa
 
   const onChangeFindEpisode = (e) => {
     e.preventDefault();
-
     var newEpisodeList = episodes;
     if (e.target.value != "") {
       newEpisodeList = asianFilmsSearchLike(newEpisodeList, e.target.value);
     }
     setEpisodeList(newEpisodeList);
+  }
 
+  const loadSavedMedia = () => {
+    const cookiesSavedMedia = getAllSavedCookiesMedia();
+    setSavedMedia(cookiesSavedMedia);
   }
 
   const onSubmit = (e) => {
@@ -881,10 +901,10 @@ const AsianDramaPlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVa
   }
 
   useEffect(() => {
+    loadSavedMedia();
   }, [])
 
   return (
-    <>
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
 
@@ -922,7 +942,7 @@ const AsianDramaPlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVa
             open={open}
             onClose={handleClose}
           >
-          {savedMedia?.filter(item => item?.mediaId == mediaId).length > 0 && 
+          {savedMedia?.filter(item => item.mediaId == mediaId).length > 0 && 
             <Link className='text-link-without-underline' to={`${url}?episode=${JSON.parse(getCookie(encodeURIComponent(mediaId))).episodeId}`}>
               <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
                 <PlayCircleOutlineIcon />
@@ -1003,7 +1023,6 @@ const AsianDramaPlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVa
 
         </ReusableModal>
     </ThemeProvider>
-    </>
   );
 }
 

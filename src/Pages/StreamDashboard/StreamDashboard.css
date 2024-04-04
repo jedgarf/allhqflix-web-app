@@ -39,7 +39,19 @@
 }
 
 .stream-dashboard-season-episode {
-    margin-top: 15px;
+    margin-top: 11px;
+}
+
+.stream-dashboard-season-episode span {
+    vertical-align: middle;
+    display: inline-flex;
+    font-weight: bolder;
+    background-color: rgba(105, 105, 105, 0.4);
+    color: #ccced1;
+    padding-inline: 15px;
+    padding-block: 7px;
+    border-radius: 20px;
+    font-size: clamp(13px, 2vw, 17px);
 }
 
 .stream-dashboard-video-qualities {
@@ -134,9 +146,6 @@
         font-size: 13px;
     }
     .stream-dashboard-servers {
-        font-size: 13px;
-    }
-    .stream-dashboard-season-episode {
         font-size: 13px;
     }
     .stream-dashboard-video-qualities {
