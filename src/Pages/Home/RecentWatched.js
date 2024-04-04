@@ -4,15 +4,20 @@ import { Link } from 'react-router-dom';
 // React Slick
 import Slider from "react-slick";
 
+// Sweet Alert
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+
 // Themes
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 
 // Material UI Components
-import { Container, Grid, Box, Typography } from '@mui/material';
+import { Container, Grid, Box, Typography, IconButton, Badge } from '@mui/material';
 
 // Icons
 import LiveTvIcon from '@mui/icons-material/LiveTv';
+import CloseIcon from '@mui/icons-material/Close';
 import PauseIcon from '@material-ui/icons/Pause';
 
 // Components
@@ -20,6 +25,9 @@ import RecentMediaCard from "../../Components/LazyImageComponent/RecentMediaCard
 
 // Settings
 import { recent_watch_carousel_settings } from "../../Config/settings.config";
+
+// Helpers
+import { deleteCookie } from "../../Helpers/Cookies";
 
 // Utils
 import { getAllSavedCookiesMedia, secondsToHMS, convertSecondsToHoursAndMinutes } from "../../Services/Utils";
@@ -34,9 +42,36 @@ const TopPlayed = () => {
 
     const [prevWatch, setPrevWatch] = useState([]);
 
-    useEffect(() => {
+    const loadRecentMediaData = () => {
         const savedMedia = getAllSavedCookiesMedia();
-        setPrevWatch(savedMedia.length > 0 ? savedMedia.reverse() : []);
+        setPrevWatch(savedMedia);
+    }
+
+    const deleteRecentMedia = (mediaId, title) => {
+        withReactContent(Swal).fire({
+            background: 'rgba(0, 10, 20, 255)',
+            title: `<p style='color: #ccced1; font-size: 18px;'>Are you sure you want to remove?<br/>${title}</p>`,
+            icon: "warning",
+            showDenyButton: false,
+            showCancelButton: true,
+            confirmButtonColor: '#3B71CA',
+            cancelButtonColor: '#DC4C64',
+            confirmButtonText: 'Yes',
+            cancelButtonText: "No"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                deleteCookie(encodeURIComponent(mediaId));
+                loadRecentMediaData();
+              // withReactContent(Swal).fire("Saved!", "", "success");
+            } else if (result.isDismissed) {
+              // withReactContent(Swal).fire("Changes are not saved", "", "info");
+              return false;
+            }
+        });
+    }
+
+    useEffect(() => {
+        loadRecentMediaData();
       }, []);
 
     return (
@@ -53,30 +88,33 @@ const TopPlayed = () => {
 
                     <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
                         <center>
-                            <Container maxWidth={'xl'}>
+                            <Container className='recent-watched' maxWidth={'xl'}>
                                 <Slider {...recent_watch_carousel_settings}>
                                     {prevWatch.map((item, index) => {
                                         return (
                                             <Fragment key={index}>
                                                 <Box className='movie_card' key={item?.mediaId}>
-                                                    <Link to={`/${item?.category}/stream_dashboard?mediaId=${item?.mediaId}`}>
-                                                        <RecentMediaCard src={item?.image} title={item?.title}/>
-                                                    </Link>
+                                                    <Badge badgeContent={<IconButton onClick={() => deleteRecentMedia(item?.mediaId, item?.title)} size='small'><CloseIcon style={{ fontSize: '14px' }}/></IconButton>} color="error" title='Remove'>
+                                                        <Link to={`/${item?.category}/stream_dashboard?mediaId=${item?.mediaId}`}>
+                                                            <RecentMediaCard src={item?.image} title={item?.title}/>
+                                                        </Link>
+                                                    </Badge>
 
                                                     <div className="fav" style={{ color: '#ccced1', fontSize: '14px', borderRadius: '10px 0 10px 0' }}>
                                                         <PauseIcon style={{ fontSize: '16px', marginBottom: '-3px' }}/> {secondsToHMS(item?.time)}
                                                     </div>
 
-                                                    <div className="vidq">
-                                                        {item?.quality}
-                                                    </div>
+                                                    {item?.quality && 
+                                                        <div className="vidq">
+                                                            {item?.quality}
+                                                        </div>
+                                                    }
 
                                                     <div className={'movies__info inn'}>
                                                         <div className="movie__name" style={{ marginTop: '-3px' }}>
                                                             <Typography variant="h3" className="movie_name" title={item?.title}>{item?.title}</Typography>
                                                         </div>
                                                         <div className="movie__other">
-                                                            
                                                             <p>
                                                                 {item?.category === 'movie' ? 
                                                                     <span>

@@ -2,6 +2,8 @@ import { Button } from "@mui/material";
 import { useState, useEffect, useRef, Fragment } from "react";
 import { Link } from "react-router-dom";
 
+import { maxMediaSaved } from "../Config/settings.config";
+
 const shortenTextHeight = (string, num) => {
   return string?.length > num ? string.substr(0, num - 1) + "..." : string;
 };
@@ -503,7 +505,7 @@ const isJSONString = (str) => {
 const getAllSavedCookiesMedia = () => {
   const cookiesArray = document.cookie ? document.cookie.split(';') : [];
   const cookiesObject = [];
-  cookiesArray.forEach(cookie => {
+  cookiesArray.splice(0, maxMediaSaved).forEach(cookie => {
     const [name, value] = cookie.split('=');
     if (isJSONString(value.trim())) {
         const arrData = JSON.parse(value.trim());
@@ -512,7 +514,7 @@ const getAllSavedCookiesMedia = () => {
         }
     }
   });
-  return cookiesObject;
+  return cookiesObject.reverse();
 };
 
 export { shortenTextHeight, 

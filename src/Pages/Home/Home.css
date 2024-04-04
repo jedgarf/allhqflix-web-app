@@ -151,6 +151,22 @@
     width: 80%;
 }
 
+.recent-watched .slick-slide {
+    height: auto !important;
+}
+
+.recent-watched .slick-track {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: stretch !important;
+}
+
+.recent-watched .slick-slide>div {
+    height: 100%;
+    margin-top: 10px;
+}
+
 
 /* mobile */
 

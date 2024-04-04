@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Skeleton from '@mui/material/Skeleton';
+import { Skeleton } from '@mui/material';
 
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css'; // Import the CSS for the placeholder effect (you can choose a different effect)
@@ -24,8 +24,9 @@ const RecentMediaCard = ({ src, title, contentType = 'movie' }) => {
                     currentTarget.src = noImagePlaceholder;
                 }}
             />
+            {/* <span className="recent-close-badge">Close</span> */}
             <div className="overlay">
-                <PlayCircleIcon/>
+                <PlayCircleIcon title='Continue'/>
             </div>
         </div>
     );

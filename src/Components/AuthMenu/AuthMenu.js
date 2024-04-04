@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 
@@ -41,7 +41,7 @@ const AuthMenu = ({ isStream, isAuth }) => {
       withReactContent(Swal).fire({
         background: 'rgba(0, 10, 20, 255)',
         title: "<p style='color: #ccced1; font-size: 18px;'>Are you sure you want to sign out?</p>",
-        // icon: "warning",
+        icon: "warning",
         showDenyButton: false,
         showCancelButton: true,
         confirmButtonColor: '#3B71CA',
@@ -64,20 +64,19 @@ const AuthMenu = ({ isStream, isAuth }) => {
     useEffect(() => {
       if (getSession("user")) {
         let decodedUser = jwtDecode(getSession("user"));
-        // console.log(decodedUser);
         setUser(decodedUser);
       }
     }, []);
     
     return (
-        <>
+        <Fragment>
             <IconButton
-            sx={{ my: 0, color: 'white', display: 'block' }}
-            aria-controls={openTopMenu ? 'basic-menu' : undefined}
-            aria-haspopup="true"
-            aria-expanded={openTopMenu ? 'true' : undefined}
-            onClick={(event) => handleTopMenuClick(event)}
-            title={user?.name && capitalizeString(user.name)}
+              sx={{ my: 0, color: 'white', display: 'block' }}
+              aria-controls={openTopMenu ? 'basic-menu' : undefined}
+              aria-haspopup="true"
+              aria-expanded={openTopMenu ? 'true' : undefined}
+              onClick={(event) => handleTopMenuClick(event)}
+              title={user?.name && capitalizeString(user.name)}
             >
               {/* <Badge badgeContent={devAlert.length} color="primary"> */}
               <center>
@@ -147,7 +146,7 @@ const AuthMenu = ({ isStream, isAuth }) => {
               <ListItemText className='dark-theme-text-color' sx={{ fontWeight: 'bolder' }} primary="Sign out" />
             </MenuItem>
           </Menu>
-        </>
+        </Fragment>
     );
 };
 

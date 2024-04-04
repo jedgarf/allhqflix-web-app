@@ -44,8 +44,8 @@ import { movie_info, movie_server, movie_stream_links } from "../../Services/Fli
 
 const MovieStreamDashboard = (props) => {
     
-    const { type } = useParams();
     const media = type === "tv" ? "tvshow" : "movies";
+    const { type } = useParams();
     const navigate = useNavigate();
 
     const queryParams = new URLSearchParams(window.location.search);

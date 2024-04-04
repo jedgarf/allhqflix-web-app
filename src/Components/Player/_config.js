@@ -2,7 +2,13 @@
 import Hls from "hls.js";
 import flvjs from "flv.js";
 
+// Config
 import apiConfig from '../../Config/api.config';
+
+// Utils
+import { getAllSavedCookiesMedia } from "../../Services/Utils";
+
+// Helpers
 import { getCookie, addCookie, deleteCookie } from "../../Helpers/Cookies";
 
 export const playFlv = (video, url, art) => {
@@ -54,6 +60,8 @@ export const destroyPlayFlv = () => {
 
 export const saveProgress = (details, mediaId, type, paramDub, seasonNumber, episodeId, episodeNumber, currentTime, duration) => {
 
+    const savedMedia = getAllSavedCookiesMedia();
+
     // _.throttle((currentTime) => {
     //     const mediaProgress = {
     //         dub: paramDub,
@@ -70,21 +78,23 @@ export const saveProgress = (details, mediaId, type, paramDub, seasonNumber, epi
     const title = type === 'anime' ? (details?.title?.english || details?.title?.userPreferred || details?.title?.romaji || details?.title?.native) : details?.title;
     const quality = type === 'movie' || type === 'tv' ? details?.video_quality : '';
 
-    setTimeout(() => {
-        const mediaProgress = {
-            mediaId: mediaId,
-            image: image,
-            title: title,
-            category: type,
-            quality: quality,
-            dub: paramDub,
-            seasonNumber: seasonNumber,
-            episodeId: episodeId,
-            episodeNumber: episodeNumber,
-            time: currentTime,
-            duration: duration,
-        };
-        if (getCookie(encodeURIComponent(mediaId))) deleteCookie(encodeURIComponent(mediaId));
-        addCookie(encodeURIComponent(mediaId), JSON.stringify(mediaProgress), 7);
-    }, 5000);
+    if (savedMedia?.length < 10) {
+        setTimeout(() => {
+            const mediaProgress = {
+                mediaId: mediaId,
+                image: image,
+                title: title,
+                category: type,
+                quality: quality,
+                dub: paramDub,
+                seasonNumber: seasonNumber,
+                episodeId: episodeId,
+                episodeNumber: episodeNumber,
+                time: currentTime,
+                duration: duration,
+            };
+            if (getCookie(encodeURIComponent(mediaId))) deleteCookie(encodeURIComponent(mediaId));
+            addCookie(encodeURIComponent(mediaId), JSON.stringify(mediaProgress), 7);
+        }, 5000);   
+    }
 };

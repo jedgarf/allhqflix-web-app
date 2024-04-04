@@ -34,7 +34,7 @@ import ReusableModal from "./ReusableModal";
 import Latency from "../../Components/Latency/Latency";
 
 // Utilties
-import { allowOnlyNumbers, seriesSearchLike, animeSearchLike, animeSearchNumberBetween, asianFilmsSearchLike, secondsToHMS } from "../../Services/Utils";
+import { allowOnlyNumbers, seriesSearchLike, animeSearchLike, animeSearchNumberBetween, asianFilmsSearchLike, secondsToHMS, getAllSavedCookiesMedia } from "../../Services/Utils";
 
 // Helpers
 import { getCookie, deleteCookie } from "../../Helpers/Cookies";
@@ -42,6 +42,10 @@ import { encryptParams } from "../../Helpers/Crypto";
 
 // Services
 import { movie_server } from "../../Services/FlixHQService";
+
+// =============================================================================================================================================================
+
+const savedMedia = getAllSavedCookiesMedia();
 
 const darkTheme = createTheme({
   palette: {
@@ -168,7 +172,7 @@ const MoviePlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ser
           open={open}
           onClose={handleClose}
         >
-        {getCookie(encodeURIComponent(mediaId)) && 
+        {savedMedia?.filter(item => item?.mediaId == mediaId).length > 0 && 
           <Link className='text-link-without-underline' to={`${url}?server=${encryptParams(serverVar)}`}>
             <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
               <PlayCircleOutlineIcon />
@@ -390,7 +394,7 @@ const SeriesPlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ep
         open={open}
         onClose={handleClose}
       >
-        {getCookie(encodeURIComponent(mediaId)) && 
+        {savedMedia?.filter(item => item?.mediaId == mediaId).length > 0 && 
           <Link className='text-link-without-underline' to={`${url}?season=${seasonIdVar}&episode=${JSON.parse(getCookie(encodeURIComponent(mediaId))).episodeId}&server=${encryptParams(serverVar)}`}>
             <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
               <PlayCircleOutlineIcon />
@@ -707,7 +711,7 @@ const AnimePlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVar, ur
             open={open}
             onClose={handleClose}
           >
-          {getCookie(encodeURIComponent(mediaId)) && 
+          {savedMedia?.filter(item => item?.mediaId == mediaId).length > 0 && 
             <Link className='text-link-without-underline' to={`${url}?dub=${isDub}&episode=${JSON.parse(getCookie(encodeURIComponent(mediaId))).episodeId}`}>
               <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
                 <PlayCircleOutlineIcon />
@@ -918,7 +922,7 @@ const AsianDramaPlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVa
             open={open}
             onClose={handleClose}
           >
-          {getCookie(encodeURIComponent(mediaId)) && 
+          {savedMedia?.filter(item => item?.mediaId == mediaId).length > 0 && 
             <Link className='text-link-without-underline' to={`${url}?episode=${JSON.parse(getCookie(encodeURIComponent(mediaId))).episodeId}`}>
               <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
                 <PlayCircleOutlineIcon />
