@@ -401,6 +401,7 @@ const MovieDashboard = (props) => {
             seekTime={getCookie(encodeURIComponent(indexId)) && JSON.parse(getCookie(encodeURIComponent(indexId))).episodeId === selectedEpisode ? JSON.parse(getCookie(encodeURIComponent(indexId))).time : 0}
             mediaId={indexId}
             episodeId={selectedEpisode}
+            server={selectedServer}
             option={{
               enableAds: true,
               setting: true,

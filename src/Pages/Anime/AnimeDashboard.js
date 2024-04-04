@@ -306,6 +306,7 @@ const AnimeDashboard = (props) => {
             seekTime={getCookie(encodeURIComponent(indexId)) && JSON.parse(getCookie(encodeURIComponent(indexId))).dub == paramDub && JSON.parse(getCookie(encodeURIComponent(indexId))).episodeId === selectedEpisode ? JSON.parse(getCookie(encodeURIComponent(indexId))).time : 0}
             mediaId={indexId}
             episodeId={selectedEpisode}
+            server={null}
             option={{
               enableAds: true,
               hotkey: true,

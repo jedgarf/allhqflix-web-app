@@ -28,6 +28,7 @@ import { recent_watch_carousel_settings } from "../../Config/settings.config";
 
 // Helpers
 import { deleteCookie } from "../../Helpers/Cookies";
+import { encryptParams } from "../../Helpers/Crypto";
 
 // Utils
 import { getAllSavedCookiesMedia, secondsToHMS, convertSecondsToHoursAndMinutes } from "../../Services/Utils";
@@ -91,11 +92,32 @@ const RecentWatched = ({ title = true, loadSavedMedia }) => {
                         {prevWatch.length > 0 ? 
                             <Slider {...recent_watch_carousel_settings}>
                                 {prevWatch.map((item, index) => {
+
+                                    var mediaLink;
+                                    switch (item?.category) {
+                                        case 'movie':
+                                            mediaLink = `/watch/${item?.mediaId}?server=${encryptParams(item?.server || 'upcloud')}`;
+                                            break;
+
+                                        case 'tv':
+                                            mediaLink = `/watch/${item?.mediaId}?season=${item?.seasonNumber}&episode=${item?.episodeId}&server=${encryptParams(item?.server || 'upcloud')}`;
+                                            break;
+                                        
+                                        case 'anime':
+                                            mediaLink = `/watch/${item?.category}/${item?.mediaId}?dub=false&episode=${item?.episodeId}`;
+                                            break;
+                                    
+                                        default:
+                                            mediaLink = `/watch/${item?.category}/${item?.mediaId}?episode=${item?.episodeId}`;
+                                            break;
+                                    }
+
                                     return (
                                         <Fragment key={index}>
                                             <Box className='movie_card' key={item?.mediaId}>
                                                 <Badge badgeContent={<IconButton onClick={() => deleteRecentMedia(item?.mediaId, item?.title)} size='small' title='Remove'><CloseIcon style={{ fontSize: '14px' }}/></IconButton>} color="error">
-                                                    <Link to={`/${item?.category}/stream_dashboard?mediaId=${item?.mediaId}`} title='Play'>
+                                                    {/* <Link to={`/${item?.category}/stream_dashboard?mediaId=${item?.mediaId}`}> */}
+                                                    <Link to={mediaLink}>
                                                         <RecentMediaCard src={item?.image} title={item?.title}/>
                                                     </Link>
                                                 </Badge>

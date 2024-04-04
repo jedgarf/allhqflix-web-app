@@ -76,17 +76,21 @@ const TraillerModal = ({ category, infoValue }) => {
                 <Fade in={modalOpen}>
                     <Box sx={modalStyle} width={{ xs: 380, sm: 620, md: 800 }} height={{ xs: 405, sm: 405, md: 405 }}>
                         <center>
-                            <iframe title={mediaTitle} width="100%" height="350" src={trallerURL} 
-                            name='iframe_video'
-                            frameBorder="0" 
-                            allow="autoplay; encrypted-media"
-                            allowFullScreen="allowfullscreen"
-                            mozallowfullscreen="mozallowfullscreen" 
-                            msallowfullscreen="msallowfullscreen" 
-                            oallowfullscreen="oallowfullscreen" 
-                            webkitallowfullscreen="webkitallowfullscreen">
+                            <iframe 
+                                title={mediaTitle} 
+                                width="100%" 
+                                height="350" 
+                                src={trallerURL} 
+                                name='iframe_video'
+                                frameBorder="0" 
+                                allow="autoplay; encrypted-media"
+                                allowFullScreen="allowfullscreen"
+                                mozallowfullscreen="mozallowfullscreen" 
+                                msallowfullscreen="msallowfullscreen" 
+                                oallowfullscreen="oallowfullscreen" 
+                                webkitallowfullscreen="webkitallowfullscreen"
+                            >
                             </iframe>
-                            {/* <a href={trallerURL} target="iframe_video"><img src={infoValue?.trailer?.thumbnail} alt='Thumbnail'/></a> */}
                             <br/>
                         </center>
                         <div style={{ textAlign: 'center' }}>
