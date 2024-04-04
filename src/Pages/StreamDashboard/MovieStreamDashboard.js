@@ -30,6 +30,7 @@ import SnackBar from "../../Components/SnackBar/SnackBar";
 import { MoviePlayModal, SeriesPlayModal } from "../../Components/Modal/PlayModal";
 import LanguageListTooltip from '../../Components/Tooltip/LanguageListTooltip';
 import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
+import CookiesConsentDialog from "../../Components/CookiesConsentDialog/CookiesConsentDialog";
 
 // Config
 import { pageLoadMS, defaultInternationalServer } from "../../Config/settings.config";
@@ -384,6 +385,7 @@ const MovieStreamDashboard = (props) => {
                     /> {getNumberSuffix(resourceData?.failureCount+1)} retry... {resourceData?.failureCount}/3
                 </div>
             }
+            <CookiesConsentDialog/>
         </Fragment>
     );
 };

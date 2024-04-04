@@ -1,8 +1,11 @@
-import React from "react";
+import React, { Fragment } from "react";
 import "./Footer.css";
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
+
+// Components
+import CookiesConsentDialog from "../CookiesConsentDialog/CookiesConsentDialog";
 
 import { title, version } from "../../Config/settings.config";
 import { moveToTop } from "../../Services/Utils";
@@ -10,7 +13,8 @@ import { moveToTop } from "../../Services/Utils";
 function Footer() {
 
     return (
-        <>
+        <Fragment>
+        <CookiesConsentDialog/>
         <br/><br/><br/>
             <footer className="footer">
                 <Grid container columnSpacing={{ xs: 1, sm: 2, md: 10, lg: 10, xl: 10 }} rowSpacing={1}>
@@ -71,7 +75,7 @@ function Footer() {
                     </Grid>
                 </Grid>
             </footer>
-        </>
+        </Fragment>
     );
 }
 

@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, useParams } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from 'react-query';
 
@@ -7,7 +7,6 @@ import "./Assets/css/App.css";
 
 // Components
 import Favorite from "./Components/Favorite/Favorite";
-import CookiesConsentDialog from './Components/CookiesConsentDialog/CookiesConsentDialog';
 
 // Pages
 import CountryFilter from './Services/CountryFilter';
@@ -19,7 +18,6 @@ import TermsAndConditions from "./Pages/TermsAndConditions/TermsAndConditions";
 import ContactUs from "./Pages/ContactUs/ContactUs";
 
 import { OffLimit } from "./Pages/OffLimit/OffLimit";
-import FloatingButton from './Components/FloatingButton/FloatingButton';
 
 import Home from "./Pages/Home/Home";
 
@@ -122,10 +120,10 @@ const StreamDashboard = () => {
   
   const params = useParams();
 
-  return params.type === "movie" || params.type === 'tv' || params.type === "movies" || params.type === 'tvshow' ? <Fragment><MovieStreamDashboard /><CookiesConsentDialog/></Fragment>
-          : params.type === "anime" ? <Fragment><AnimeStreamDashboard /><CookiesConsentDialog/></Fragment>
-          : params.type === "drama-detail" || params.type === "asian_drama" ? <Fragment><AsianDramaStreamDashboard /><CookiesConsentDialog/></Fragment>
-          : params.type === "drama" || params.type === "asian_films" ? <Fragment><AsianFilmsStreamDashboard /><CookiesConsentDialog/></Fragment>
+  return params.type === "movie" || params.type === 'tv' || params.type === "movies" || params.type === 'tvshow' ? <MovieStreamDashboard />
+          : params.type === "anime" ? <AnimeStreamDashboard />
+          : params.type === "drama-detail" || params.type === "asian_drama" ? <AsianDramaStreamDashboard />
+          : params.type === "drama" || params.type === "asian_films" ? <AsianFilmsStreamDashboard />
           : "";
 }
 
@@ -133,11 +131,11 @@ const Stream = () => {
   
   const params = useParams();
 
-  return params.type === "movie" || params.type === 'tv' || params.type === "movies" || params.type === 'tvshow' ? <Fragment><MovieDashboard /><CookiesConsentDialog/></Fragment>
-          : params.type === "anime" ? <Fragment><AnimeDashboard /><CookiesConsentDialog/></Fragment>
-          : params.type === "drama-detail" || params.type === "asian_drama" ? <Fragment><AsianDramaDashboard /><CookiesConsentDialog/></Fragment>
-          : params.type === "drama" || params.type === "asian_films" ? <Fragment><AsianFilmsDashboard /><CookiesConsentDialog/></Fragment>
-          : params.type === "live_channels" || params.type === "tv_channels" ? <Fragment><TVChannelsDashboard /><CookiesConsentDialog/></Fragment>
+  return params.type === "movie" || params.type === 'tv' || params.type === "movies" || params.type === 'tvshow' ? <MovieDashboard />
+          : params.type === "anime" ? <AnimeDashboard />
+          : params.type === "drama-detail" || params.type === "asian_drama" ? <AsianDramaDashboard />
+          : params.type === "drama" || params.type === "asian_films" ? <AsianFilmsDashboard />
+          : params.type === "live_channels" || params.type === "tv_channels" ? <TVChannelsDashboard />
           : "";
 }
 
@@ -158,7 +156,6 @@ const AppRoutes = () => {
             <Route path="/" element={
                 <CountryFilter>
                   <Home />
-                  <CookiesConsentDialog/>
                 </CountryFilter>
               }
             />
@@ -169,7 +166,6 @@ const AppRoutes = () => {
             <Route path="/foreign/movies" element={
                 <CountryFilter>
                   <Movies />
-                  <CookiesConsentDialog/>
                 </CountryFilter>
               }
             />
@@ -177,7 +173,6 @@ const AppRoutes = () => {
             <Route path="/foreign/popular_movies" element={
                 <CountryFilter>
                   <PopularMovies />
-                  <CookiesConsentDialog/>
                 </CountryFilter>
               }
             />
@@ -185,7 +180,6 @@ const AppRoutes = () => {
             <Route path="/foreign/tvshow" element={
                 <CountryFilter>
                   <TvShow />
-                  <CookiesConsentDialog/>
                 </CountryFilter>
               }
             />
@@ -193,7 +187,6 @@ const AppRoutes = () => {
             <Route path="/foreign/popular_tv_series" element={
                 <CountryFilter>
                   <PopularTVSeries />
-                  <CookiesConsentDialog/>
                 </CountryFilter>
               }
             />
@@ -201,7 +194,6 @@ const AppRoutes = () => {
             <Route path="/foreign/coming_soon" element={
                 <CountryFilter>
                   <ComingSoon />
-                  <CookiesConsentDialog/>
                 </CountryFilter>
               }
             />
@@ -213,7 +205,6 @@ const AppRoutes = () => {
             <Route path="/anime" element={
                 <CountryFilter>
                   <Anime />
-                  <CookiesConsentDialog/>
                 </CountryFilter>
               }
             />
@@ -221,7 +212,6 @@ const AppRoutes = () => {
             <Route path="/anime/popular_anime" element={
                 <CountryFilter>
                   <PopularAnime />
-                  <CookiesConsentDialog/>
                 </CountryFilter>
               }
             />
@@ -229,7 +219,6 @@ const AppRoutes = () => {
             <Route path="/anime/trending_anime" element={
                 <CountryFilter>
                   <TrendingAnime />
-                  <CookiesConsentDialog/>
                 </CountryFilter>
               }
             />
@@ -237,7 +226,6 @@ const AppRoutes = () => {
             <Route path="/anime/recent_anime" element={
                 <CountryFilter>
                   <RecentAnime />
-                  <CookiesConsentDialog/>
                 </CountryFilter>
               }
             />
@@ -245,7 +233,6 @@ const AppRoutes = () => {
             <Route path="/anime/airing_schedule" element={
                 <CountryFilter>
                   <AiringScheduleAnime />
-                  <CookiesConsentDialog/>
                 </CountryFilter>
               }
             />
@@ -259,7 +246,6 @@ const AppRoutes = () => {
             <Route path="/asian_drama" element={
                 <CountryFilter>
                   <AsianDrama />
-                  <CookiesConsentDialog/>
                 </CountryFilter>
               }
             />
@@ -271,7 +257,6 @@ const AppRoutes = () => {
             <Route path="/asian_films" element={
                 <CountryFilter>
                   <AsianFilms />
-                  <CookiesConsentDialog/>
                 </CountryFilter>
               }
             />
@@ -279,7 +264,6 @@ const AppRoutes = () => {
             <Route path="/asian_films/featured_drama" element={
                 <CountryFilter>
                   <AsianFilmsFeaturedDrama />
-                  <CookiesConsentDialog/>
                 </CountryFilter>
               }
             />
@@ -287,7 +271,6 @@ const AppRoutes = () => {
             {/* <Route path="/asian_films/genre/:genre" element={
                 <CountryFilter>
                   <AsianFilmsByGenre />
-                  <CookiesConsentDialog/>
                 </CountryFilter>
               }
             /> */}
@@ -295,7 +278,6 @@ const AppRoutes = () => {
             <Route path="/asian_films/country/:country" element={
                 <CountryFilter>
                   <AsianFilmsByCountry />
-                  <CookiesConsentDialog/>
                 </CountryFilter>
               }
             />
@@ -307,7 +289,6 @@ const AppRoutes = () => {
             <Route path="/tv_channels" element={
                 <CountryFilter>
                   <TVChannels />
-                  <CookiesConsentDialog/>
                 </CountryFilter>
               }
             />
@@ -319,7 +300,6 @@ const AppRoutes = () => {
             <Route path="/native_apps" element={
                 <CountryFilter>
                   <NativeApps />
-                  <CookiesConsentDialog/>
                 </CountryFilter>
               }
             />
@@ -331,15 +311,14 @@ const AppRoutes = () => {
             <Route path="/:type/search" element={
                 <CountryFilter>
                   <Search />
-                  <CookiesConsentDialog/>
                 </CountryFilter>
               }
             />
 
-            <Route path="/:maintype/genre_filter" element={<CountryFilter><GenreFilter/><CookiesConsentDialog/></CountryFilter>}/>
-            <Route path="/:maintype/country_filter" element={<CountryFilter><MovieCountryFilter/><CookiesConsentDialog/></CountryFilter>}/>
-            <Route path="/:maintype/advanced_filter" element={<CountryFilter><GeneralFilter/><CookiesConsentDialog/></CountryFilter>}/>
-            <Route path="/:maintype/advanced_search" element={<CountryFilter><AdvancedSearch/><CookiesConsentDialog/></CountryFilter>}/>
+            <Route path="/:maintype/genre_filter" element={<CountryFilter><GenreFilter/></CountryFilter>}/>
+            <Route path="/:maintype/country_filter" element={<CountryFilter><MovieCountryFilter/></CountryFilter>}/>
+            <Route path="/:maintype/advanced_filter" element={<CountryFilter><GeneralFilter/></CountryFilter>}/>
+            <Route path="/:maintype/advanced_search" element={<CountryFilter><AdvancedSearch/></CountryFilter>}/>
             <Route path="/:type/stream_dashboard" element={<StreamDashboard/>}/>
             <Route path="/watch/:type/:id" element={<Stream/>}/>
             
@@ -354,7 +333,6 @@ const AppRoutes = () => {
             <Route path="/about_developers" element={
                 <CountryFilter>
                   <AboutDevelopers />
-                  <CookiesConsentDialog/>
                 </CountryFilter>
               }
             />
@@ -362,7 +340,6 @@ const AppRoutes = () => {
             <Route path="/terms_and_conditions" element={
                 <CountryFilter>
                   <TermsAndConditions />
-                  <CookiesConsentDialog/>
                 </CountryFilter>
               }
             />
@@ -370,7 +347,6 @@ const AppRoutes = () => {
             <Route path="/privacy_policy" element={
                 <CountryFilter>
                   <PrivacyPolicy />
-                  <CookiesConsentDialog/>
                 </CountryFilter>
               }
             />
@@ -378,7 +354,6 @@ const AppRoutes = () => {
             <Route path="/contact_us" element={
                 <CountryFilter>
                   <ContactUs />
-                  <CookiesConsentDialog/>
                 </CountryFilter>
               }
             />
@@ -390,7 +365,6 @@ const AppRoutes = () => {
             <Route path="/favorite" element={
                 <CountryFilter>
                   <Favorite />
-                  <CookiesConsentDialog/>
                 </CountryFilter>
               }
             />

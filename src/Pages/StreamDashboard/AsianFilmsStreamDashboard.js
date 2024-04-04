@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, Fragment } from 'react';
 import { Link, useParams, useNavigate } from "react-router-dom";
 
 // sanitize DOM
@@ -24,6 +24,7 @@ import TraillerModal from "../../Components/Modal/TraillerModal";
 import SnackBar from "../../Components/SnackBar/SnackBar";
 import { AsianDramaPlayModal } from "../../Components/Modal/PlayModal";
 import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
+import CookiesConsentDialog from "../../Components/CookiesConsentDialog/CookiesConsentDialog";
 
 // Config
 import { pageLoadMS } from "../../Config/settings.config";
@@ -130,7 +131,7 @@ const AsianFilmsStreamDashboard = (props) => {
         isLoading ? 
             <LoadingPage/>
         : 
-        <>
+        <Fragment>
             <ReactQueryTools/>
             <div style={{ backgroundColor: 'rgba(15, 22, 34, 1)', backgroundImage: isMobile ? `linear-gradient(rgba(15, 22, 34, 0.527),rgba(15, 22, 34, 0.5)), url("${BGImage}"), url("${homeBackground}")` : `linear-gradient(90deg, rgba(15, 22, 34, 1) 10%, rgba(15, 22, 34, 0.5) 90%), url("${infoValue?.banner}"), url("${homeBackground}")`, backgroundSize: isMobile ? '100% 100%' : '900px 100%', backgroundPosition: isMobile ? 'center' : 'right', backgroundRepeat: 'no-repeat', width: '99.9%'}} 
                 onError={handleBackgroundImageError}>
@@ -220,7 +221,8 @@ const AsianFilmsStreamDashboard = (props) => {
                     /> {getNumberSuffix(resourceData?.failureCount+1)} retry... {resourceData?.failureCount}/3
                 </div>
             }
-        </>
+            <CookiesConsentDialog/>
+        </Fragment>
     );
 };
 

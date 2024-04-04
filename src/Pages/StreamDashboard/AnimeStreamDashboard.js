@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, Fragment } from 'react';
 import { Link, useParams, useNavigate } from "react-router-dom";
 
 // sanitize DOM
@@ -25,6 +25,7 @@ import TraillerModal from "../../Components/Modal/TraillerModal";
 import SnackBar from "../../Components/SnackBar/SnackBar";
 import { AnimePlayModal } from "../../Components/Modal/PlayModal";
 import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
+import CookiesConsentDialog from "../../Components/CookiesConsentDialog/CookiesConsentDialog";
 
 // Utilities
 import { streamDashboardBackButton, SeparateArrayByComma, convertMinutesToHoursAndMinutes, getNumberSuffix, capitalizeString } from "../../Services/Utils";
@@ -214,7 +215,7 @@ const AnimeStreamDashboard = (props) => {
         isLoading ? 
             <LoadingPage/>
         : 
-        <>
+        <Fragment>
             <ReactQueryTools/>
             <div style={{backgroundImage: isMobile ? `linear-gradient(rgba(15, 22, 34, 0.527),rgba(15, 22, 34, 0.5)), url("${BGImage}"), url("${homeBackground}")` : `linear-gradient(to right, rgba(15, 22, 34, 0.85) 30%, rgba(15, 22, 34, 0.5) 70%), url("${BGImage}"), url("${homeBackground}")`, objectFit: 'cover', backgroundSize: ' 100% 100%', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', width: '100%'}} 
                 onError={handleBackgroundImageError}>
@@ -345,7 +346,8 @@ const AnimeStreamDashboard = (props) => {
                     />
                 </div>
             }
-        </>
+            <CookiesConsentDialog/>
+        </Fragment>
     );
 };
 
