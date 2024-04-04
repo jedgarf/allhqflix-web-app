@@ -210,7 +210,6 @@ const Player = ({ details, episodes, defaultlink, infotitle, infocover, seasonNu
             // End -----------------------------------------------------------------------------------------------------------------------
     
         }
-
     }, []);
 
     return <div ref={artRef} {...rest}></div>;

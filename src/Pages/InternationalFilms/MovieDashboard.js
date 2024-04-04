@@ -239,8 +239,13 @@ const MovieDashboard = (props) => {
     notifyOnChangeProps: "tracked",
     enabled: indexId !== null && episodeIdVar !== null,
     onSuccess: (res) => {
-      setSelectedServer(res?.data[0]?.name);
-      setSelectedRabbitstreamId(res?.data[0]?.rabbitstream_id);
+      if (paramServer) {
+        setSelectedServer(res?.data?.filter(item=>item.name===paramServer)?.name);
+        setSelectedRabbitstreamId(res?.data?.filter(item=>item.name===paramServer)?.rabbitstream_id);
+      } else {
+        setSelectedServer(res?.data[0]?.name);
+        setSelectedRabbitstreamId(res?.data[0]?.rabbitstream_id);
+      }
     }
   });
   let serverValue = serverData?.data;
@@ -554,7 +559,7 @@ const MovieDashboard = (props) => {
                       </h5>
                     </Grid>
                     <Grid item>
-                      <h5>{infoValue?.episodes?.length > 0 ? `${infoValue?.episodes?.length} Episodes` : `${infoValue?.episodes?.length} Episode`}</h5>
+                      <h4>{infoValue?.episodes?.length > 0 ? `${infoValue?.episodes?.length} EPISODES` : `${infoValue?.episodes?.length} EPISODE`}</h4>
                     </Grid>
                   </Grid>
                   : 

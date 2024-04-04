@@ -2,6 +2,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 
+// Framer Motion
+import { motion } from "framer-motion";
+
 // Material UI Componenets
 import { Grid, Container, Box, Typography, InputBase } from '@mui/material';
 import { styled, alpha } from '@mui/material/styles';
@@ -168,9 +171,15 @@ const Home = () => {
       {/* #ccced1 */}
       <hr className="media-categories-divider" style={{ height: 0, width: 0 }}/>
 
-      <div className="media-categories">
-        <MediaCategories/>
-      </div>
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+      >
+        <div className="media-categories">
+          <MediaCategories/>
+        </div>
+      </motion.div>
 
       <div className="media-top-played">
         <TopPlayed/>
