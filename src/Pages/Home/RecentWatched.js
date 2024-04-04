@@ -87,53 +87,57 @@ const RecentWatched = ({ title = true, loadSavedMedia }) => {
                         </Grid>
                     }
 
-                    <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>    
-                        <Slider {...recent_watch_carousel_settings}>
-                            {prevWatch.map((item, index) => {
-                                return (
-                                    <Fragment key={index}>
-                                        <Box className='movie_card' key={item?.mediaId}>
-                                            <Badge badgeContent={<IconButton onClick={() => deleteRecentMedia(item?.mediaId, item?.title)} size='small' title='Remove'><CloseIcon style={{ fontSize: '14px' }}/></IconButton>} color="error">
-                                                <Link to={`/${item?.category}/stream_dashboard?mediaId=${item?.mediaId}`} title='Play'>
-                                                    <RecentMediaCard src={item?.image} title={item?.title}/>
-                                                </Link>
-                                            </Badge>
+                    <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                        {prevWatch.length > 0 ? 
+                            <Slider {...recent_watch_carousel_settings}>
+                                {prevWatch.map((item, index) => {
+                                    return (
+                                        <Fragment key={index}>
+                                            <Box className='movie_card' key={item?.mediaId}>
+                                                <Badge badgeContent={<IconButton onClick={() => deleteRecentMedia(item?.mediaId, item?.title)} size='small' title='Remove'><CloseIcon style={{ fontSize: '14px' }}/></IconButton>} color="error">
+                                                    <Link to={`/${item?.category}/stream_dashboard?mediaId=${item?.mediaId}`} title='Play'>
+                                                        <RecentMediaCard src={item?.image} title={item?.title}/>
+                                                    </Link>
+                                                </Badge>
 
-                                            <div className="fav" style={{ color: '#ccced1', fontSize: '14px', borderRadius: '10px 0 10px 0' }}>
-                                                <PauseIcon style={{ fontSize: '16px', marginBottom: '-3px' }}/> {secondsToHMS(item?.time)}
-                                            </div>
+                                                <div className="fav" style={{ color: '#ccced1', fontSize: '14px', borderRadius: '10px 0 10px 0' }}>
+                                                    <PauseIcon style={{ fontSize: '16px', marginBottom: '-3px' }}/> {secondsToHMS(item?.time)}
+                                                </div>
 
-                                            {item?.quality && 
-                                                <div className="vidq">
-                                                    {item?.quality}
-                                                </div>
-                                            }
+                                                {item?.quality && 
+                                                    <div className="vidq">
+                                                        {item?.quality}
+                                                    </div>
+                                                }
 
-                                            <div className={'movies__info inn'}>
-                                                <div className="movie__name" style={{ marginTop: '-3px' }}>
-                                                    <Typography variant="h3" className="movie_name" title={item?.title}>{item?.title}</Typography>
+                                                <div className={'movies__info inn'}>
+                                                    <div className="movie__name" style={{ marginTop: '-3px' }}>
+                                                        <Typography variant="h3" className="movie_name" title={item?.title}>{item?.title}</Typography>
+                                                    </div>
+                                                    <div className="movie__other">
+                                                        <p>
+                                                            {item?.category === 'movie' ? 
+                                                                <span>
+                                                                    {item?.duration ? `${convertSecondsToHoursAndMinutes(item?.duration)} ` : ''}
+                                                                </span>
+                                                            : 
+                                                                <span>
+                                                                    {item?.seasonNumber ? `S${item?.seasonNumber} ` : ''}
+                                                                    {item?.episodeNumber ? `EP${item?.episodeNumber} ` : ''}
+                                                                </span>
+                                                            }
+                                                        </p>
+                                                        <p>{item?.category}</p>
+                                                    </div>
                                                 </div>
-                                                <div className="movie__other">
-                                                    <p>
-                                                        {item?.category === 'movie' ? 
-                                                            <span>
-                                                                {item?.duration ? `${convertSecondsToHoursAndMinutes(item?.duration)} ` : ''}
-                                                            </span>
-                                                        : 
-                                                            <span>
-                                                                {item?.seasonNumber ? `S${item?.seasonNumber} ` : ''}
-                                                                {item?.episodeNumber ? `EP${item?.episodeNumber} ` : ''}
-                                                            </span>
-                                                        }
-                                                    </p>
-                                                    <p>{item?.category}</p>
-                                                </div>
-                                            </div>
-                                        </Box>
-                                    </Fragment>
-                                )
-                            })}
-                        </Slider>
+                                            </Box>
+                                        </Fragment>
+                                    )
+                                })}
+                            </Slider>
+                        :
+                            <Typography variant="span" className='text-white'>No result found.</Typography>
+                        }
                     </Grid>
 
                 </Grid>
