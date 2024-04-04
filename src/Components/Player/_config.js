@@ -78,6 +78,7 @@ export const saveProgress = (details, mediaId, type, paramDub, seasonNumber, epi
                 episodeNumber: episodeNumber,
                 time: currentTime,
                 duration: duration,
+                expires: ''
             };
             if (getCookie(encodeURIComponent(mediaId))) deleteCookie(encodeURIComponent(mediaId));
             addCookie(encodeURIComponent(mediaId), JSON.stringify(mediaProgress), 7);
