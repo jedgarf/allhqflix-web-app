@@ -286,8 +286,14 @@ const MovieStreamDashboard = (props) => {
                             <Fragment>
                                 <Typography variant='p'>
                                     <b><SubtitlesIcon style={{ marginBottom: '-6px' }}/></b>{' '}
-                                    { resourceValue?.data?.subtitles?.length === 0 && "No available subtitle." }
-                                    { resourceValue?.data?.subtitles?.length > 1 ? `${resourceValue?.data?.subtitles?.length} subtitles available.` : `${resourceValue?.data?.subtitles?.length} subtitle available.` }
+                                    {resourceValue?.data?.subtitles?.length === 0 ? 
+                                       ("No available subtitle.") 
+                                    : 
+                                        resourceValue?.data?.subtitles?.length > 1 ? 
+                                            (`${resourceValue?.data?.subtitles?.length} subtitles available.`) 
+                                        : 
+                                            (`${resourceValue?.data?.subtitles?.length} subtitle available.`)
+                                    }
                                 </Typography>
                                 <br/>
                             </Fragment>

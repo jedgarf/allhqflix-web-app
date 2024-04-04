@@ -25,8 +25,8 @@ const RecentMediaCard = ({ src, title, contentType = 'movie' }) => {
                 }}
             />
             {/* <span className="recent-close-badge">Close</span> */}
-            <div className="overlay">
-                <PlayCircleIcon title='Continue'/>
+            <div className="overlay" title='Continue'>
+                <PlayCircleIcon/>
             </div>
         </div>
     );

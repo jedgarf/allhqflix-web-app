@@ -151,6 +151,10 @@
     width: 80%;
 }
 
+.recent-watched {
+    margin-top: 100px;
+}
+
 .recent-watched .slick-slide {
     height: auto !important;
 }

@@ -37,7 +37,7 @@ const TopPlayed = () => {
 
                     <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
                         <center>
-                            <Typography variant="h5" className='text-white' sx={{ marginBottom: 1, fontWeight: '550' }}><LiveTvIcon sx={{ fontSize: 28, marginBottom: '-4px' }}/> MOST WATCHED</Typography>
+                            <Typography variant="h5" className='text-white' sx={{ marginBottom: 1, fontWeight: '550' }}><LiveTvIcon sx={{ fontSize: 28, marginBottom: '-2px' }}/> MOST WATCHED</Typography>
                         </center>
                     </Grid>
 

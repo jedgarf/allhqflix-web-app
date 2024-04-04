@@ -78,72 +78,66 @@ const RecentWatched = ({ title = true, loadSavedMedia }) => {
     return (
         <ThemeProvider theme={darkTheme}>
             <CssBaseline />
-            <div className='notes' style={{ display: prevWatch.length > 0 ? 'block' : 'none' }}>
+            <Container className='recent-watched' maxWidth={'xl'}>
                 <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={2}>
 
                     {title && 
                         <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
-                            <center>
-                                <Typography variant="h5" className='text-white' sx={{ marginBottom: 1, fontWeight: '550' }}><LiveTvIcon sx={{ fontSize: 28, marginBottom: '-4px' }}/> RECENTLY WATCHED</Typography>
-                            </center>
+                            <Typography variant="h5" className='text-white' sx={{ marginBottom: 1, fontWeight: '550' }}><LiveTvIcon style={{ fontSize: 28, marginBottom: '-2px' }}/> RECENTLY WATCHED</Typography>
                         </Grid>
                     }
 
-                    <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
-                        <center>
-                            <Container className='recent-watched' maxWidth={'xl'}>
-                                <Slider {...recent_watch_carousel_settings}>
-                                    {prevWatch.map((item, index) => {
-                                        return (
-                                            <Fragment key={index}>
-                                                <Box className='movie_card' key={item?.mediaId}>
-                                                    <Badge badgeContent={<IconButton onClick={() => deleteRecentMedia(item?.mediaId, item?.title)} size='small' title='Remove'><CloseIcon style={{ fontSize: '14px' }}/></IconButton>} color="error">
-                                                        <Link to={`/${item?.category}/stream_dashboard?mediaId=${item?.mediaId}`} title='Play'>
-                                                            <RecentMediaCard src={item?.image} title={item?.title}/>
-                                                        </Link>
-                                                    </Badge>
+                    <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>    
+                        <Slider {...recent_watch_carousel_settings}>
+                            {prevWatch.map((item, index) => {
+                                return (
+                                    <Fragment key={index}>
+                                        <Box className='movie_card' key={item?.mediaId}>
+                                            <Badge badgeContent={<IconButton onClick={() => deleteRecentMedia(item?.mediaId, item?.title)} size='small' title='Remove'><CloseIcon style={{ fontSize: '14px' }}/></IconButton>} color="error">
+                                                <Link to={`/${item?.category}/stream_dashboard?mediaId=${item?.mediaId}`} title='Play'>
+                                                    <RecentMediaCard src={item?.image} title={item?.title}/>
+                                                </Link>
+                                            </Badge>
 
-                                                    <div className="fav" style={{ color: '#ccced1', fontSize: '14px', borderRadius: '10px 0 10px 0' }}>
-                                                        <PauseIcon style={{ fontSize: '16px', marginBottom: '-3px' }}/> {secondsToHMS(item?.time)}
-                                                    </div>
+                                            <div className="fav" style={{ color: '#ccced1', fontSize: '14px', borderRadius: '10px 0 10px 0' }}>
+                                                <PauseIcon style={{ fontSize: '16px', marginBottom: '-3px' }}/> {secondsToHMS(item?.time)}
+                                            </div>
 
-                                                    {item?.quality && 
-                                                        <div className="vidq">
-                                                            {item?.quality}
-                                                        </div>
-                                                    }
+                                            {item?.quality && 
+                                                <div className="vidq">
+                                                    {item?.quality}
+                                                </div>
+                                            }
 
-                                                    <div className={'movies__info inn'}>
-                                                        <div className="movie__name" style={{ marginTop: '-3px' }}>
-                                                            <Typography variant="h3" className="movie_name" title={item?.title}>{item?.title}</Typography>
-                                                        </div>
-                                                        <div className="movie__other">
-                                                            <p>
-                                                                {item?.category === 'movie' ? 
-                                                                    <span>
-                                                                        {item?.duration ? `${convertSecondsToHoursAndMinutes(item?.duration)} ` : ''}
-                                                                    </span>
-                                                                : 
-                                                                    <span>
-                                                                        {item?.seasonNumber ? `S${item?.seasonNumber} ` : ''}
-                                                                        {item?.episodeNumber ? `EP${item?.episodeNumber} ` : ''}
-                                                                    </span>
-                                                                }
-                                                            </p>
-                                                            <p>{item?.category}</p>
-                                                        </div>
-                                                    </div>
-                                                </Box>
-                                            </Fragment>
-                                        )
-                                    })}
-                                </Slider>
-                            </Container>
-                        </center>
+                                            <div className={'movies__info inn'}>
+                                                <div className="movie__name" style={{ marginTop: '-3px' }}>
+                                                    <Typography variant="h3" className="movie_name" title={item?.title}>{item?.title}</Typography>
+                                                </div>
+                                                <div className="movie__other">
+                                                    <p>
+                                                        {item?.category === 'movie' ? 
+                                                            <span>
+                                                                {item?.duration ? `${convertSecondsToHoursAndMinutes(item?.duration)} ` : ''}
+                                                            </span>
+                                                        : 
+                                                            <span>
+                                                                {item?.seasonNumber ? `S${item?.seasonNumber} ` : ''}
+                                                                {item?.episodeNumber ? `EP${item?.episodeNumber} ` : ''}
+                                                            </span>
+                                                        }
+                                                    </p>
+                                                    <p>{item?.category}</p>
+                                                </div>
+                                            </div>
+                                        </Box>
+                                    </Fragment>
+                                )
+                            })}
+                        </Slider>
                     </Grid>
 
                 </Grid>
-            </div>
+            </Container>
         </ThemeProvider>
     );
 };

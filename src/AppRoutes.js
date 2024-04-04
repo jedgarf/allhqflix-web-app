@@ -20,6 +20,7 @@ import ContactUs from "./Pages/ContactUs/ContactUs";
 import { OffLimit } from "./Pages/OffLimit/OffLimit";
 
 import Home from "./Pages/Home/Home";
+import MyList from "./Pages/Account/MyList";
 
 import Movies from "./Pages/InternationalFilms/Movies";
 import TvShow from "./Pages/InternationalFilms/TvShow";
@@ -361,7 +362,13 @@ const AppRoutes = () => {
             {/* --------------------------------------------------------------------------------------------------------------------------- */}
 
             {/*---------------------------------------------- Account Management ---------------------------------------------------------- */}
-
+            
+            <Route path="/my_list" element={
+                <CountryFilter>
+                  <MyList />
+                </CountryFilter>
+              }
+            />
             <Route path="/favorite" element={
                 <CountryFilter>
                   <Favorite />

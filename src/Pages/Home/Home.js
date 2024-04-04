@@ -172,10 +172,6 @@ const Home = () => {
         <MediaCategories/>
       </div>
 
-      <div className="media-categories">
-        <RecentWatched/>
-      </div>
-
       <div className="media-top-played">
         <TopPlayed/>
       </div>
