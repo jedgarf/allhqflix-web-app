@@ -48,14 +48,13 @@ import { moveToTop, SeparateArrayByComma, SeparateArrayByCircularSpan, convertMi
 import { anime_info, anime_stream_links } from "../../Services/AnimeService";
 import CallableReactQuery from "../../Services/CallableReactQuery";
 
-// Static Data
-var arcs = require('../../Services/Data/onePieceArcs.json').arcs;
-
 const AnimeDashboard = (props) => {
   
   const queryClient = useQueryClient();
   const { id, type } = useParams();
   const indexId = id;
+  // Static Data
+  const arcs = require('../../Services/Data/onePieceArcs.json').arcs;
   const animeSubtitles = [{"default": true, "html": "US English", "url": "add.vtt"}];
 
   const callableReactQuery = CallableReactQuery();
@@ -103,7 +102,7 @@ const AnimeDashboard = (props) => {
           if (indexId == 21) {
             let currentEpisodeNumber = infoValue?.episodes[getSelEpisodeLength].number;
             let currentArc = arcs.filter(item => item.start_episode <= currentEpisodeNumber && item.end_episode >= currentEpisodeNumber)[0];
-            setSelectedArc(`${currentArc.name.toUpperCase()} ARC`);
+            setSelectedArc(`${currentArc?.name ? currentArc?.name.toUpperCase() : currentArc?.name} ARC`);
           }
 
           break;
@@ -116,7 +115,7 @@ const AnimeDashboard = (props) => {
       // Define Arc Name
       if (indexId == 21) {
         let currentArc = arcs[0];
-        setSelectedArc(`${currentArc.name.toUpperCase()} ARC`);
+        setSelectedArc(`${currentArc?.name ? currentArc.name.toUpperCase() : currentArc?.name} ARC`);
       }
 
     }
@@ -124,7 +123,7 @@ const AnimeDashboard = (props) => {
     setContentTitle(infoValue?.title?.english || infoValue?.title?.userPreferred || infoValue?.title?.romaji || infoValue?.title?.native);
     setRecommendations(infoValue?.relations?.length > 0 ? infoValue?.relations : infoValue?.recommendations);
 
-  }, [selectedEpisode, indexId]);
+  }, [selectedEpisode, indexId, arcs]);
 
   const set_selectedLinkSubtitle = useCallback((resourceValue) => {
 
