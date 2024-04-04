@@ -83,7 +83,7 @@ const RecentWatched = ({ title = true, loadSavedMedia }) => {
 
                     {title && 
                         <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
-                            <Typography variant="h5" className='text-white' sx={{ marginBottom: 1, fontWeight: '550' }}><LiveTvIcon style={{ fontSize: 28, marginBottom: '-2px' }}/> RECENTLY WATCHED</Typography>
+                            <Typography variant="h5" className='text-white' sx={{ marginBottom: 1, fontWeight: '550' }}><LiveTvIcon style={{ fontSize: 28, marginBottom: '-2px' }}/> CONTINUE</Typography>
                         </Grid>
                     }
 
