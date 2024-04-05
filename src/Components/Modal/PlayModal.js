@@ -177,14 +177,14 @@ const MoviePlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ser
           onClose={handleClose}
         >
         {savedMedia?.filter(item => item.mediaId == mediaId).length > 0 && 
-          <Link className='text-link-without-underline' to={`${url}?server=${encryptParams(serverVar)}`}>
+          <Link className='text-link-without-underline' to={`${url}?server=${serverVar === 'upcloud' ? '1' : '2'}`}>
             <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
               <PlayCircleOutlineIcon />
               CONTINUE ({secondsToHMS(JSON.parse(getCookie(encodeURIComponent(mediaId))).time)})
             </MenuItem>
           </Link>
         }
-        <Link className='text-link-without-underline' to={`${url}?server=${encryptParams(serverVar)}`} onClick={() => deleteCookie(encodeURIComponent(mediaId))}>
+        <Link className='text-link-without-underline' to={`${url}?server=${serverVar === 'upcloud' ? '1' : '2'}`} onClick={() => deleteCookie(encodeURIComponent(mediaId))}>
           <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
             <PlayCircleOutlineIcon />
             {savedMedia?.filter(item => item.mediaId == mediaId).length > 0 ? `FROM THE BEGINNING` : `QUICK PLAY`}
@@ -234,7 +234,7 @@ const MoviePlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ser
             <DialogActions>
               <Button size='small' variant='outlined' color='error' startIcon={<CloseIcon/>} onClick={() => handleModal(false)}>Close</Button>
               {resourceData.isSuccess && resourceInfo?.data?.sources?.length > 0 ?
-              (<Link to={`${url}?server=${encryptParams(server)}`} onClick={() => deleteCookie(encodeURIComponent(mediaId))}><Button size='small' variant='contained' color='primary' startIcon={<PlayCircleOutlineIcon/>}>Play</Button></Link>)
+              (<Link to={`${url}?server=${server === 'upcloud' ? '1' : '2'}`} onClick={() => deleteCookie(encodeURIComponent(mediaId))}><Button size='small' variant='contained' color='primary' startIcon={<PlayCircleOutlineIcon/>}>Play</Button></Link>)
                : 
               (<Button size='small' variant='contained' color='primary' onClick={(e) => onSubmit(e)} startIcon={<SaveIcon/>}>Save</Button>)}
             </DialogActions>
@@ -406,21 +406,20 @@ const SeriesPlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ep
         onClose={handleClose}
       >
         {savedMedia?.filter(item => item.mediaId == mediaId).length > 0 && 
-          <Link className='text-link-without-underline' to={`${url}?season=${seasonIdVar}&episode=${JSON.parse(getCookie(encodeURIComponent(mediaId))).episodeId}&server=${encryptParams(serverVar)}`}>
+          <Link className='text-link-without-underline' to={`${url}?season=${seasonIdVar}&episode=${JSON.parse(getCookie(encodeURIComponent(mediaId))).episodeId}&server=${serverVar === 'upcloud' ? '1' : '2'}`}>
             <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
               <PlayCircleOutlineIcon />
               CONTINUE ({`S ${JSON.parse(getCookie(encodeURIComponent(mediaId))).seasonNumber}/EP ${JSON.parse(getCookie(encodeURIComponent(mediaId))).episodeNumber}`} - {secondsToHMS(JSON.parse(getCookie(encodeURIComponent(mediaId))).time)})
             </MenuItem>
           </Link>
         }
-        <Link className='text-link-without-underline' to={`${url}?season=${seasonIdVar}&episode=${episodeIdVar}&server=${encryptParams(serverVar)}`} onClick={() => deleteCookie(encodeURIComponent(mediaId))}>
+        <Link className='text-link-without-underline' to={`${url}?season=${seasonIdVar}&episode=${episodeIdVar}&server=${serverVar === 'upcloud' ? '1' : '2'}`} onClick={() => deleteCookie(encodeURIComponent(mediaId))}>
           <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
             <PlayCircleOutlineIcon />
             FROM THE BEGINNING
           </MenuItem>
         </Link>
-        {/* episodes[seasons.length][episodes.length-1].id */}
-        <Link className='text-link-without-underline' to={`${url}?season=${generateSeasons(episodes).length}&episode=${episodes[generateSeasons(episodes).length][episodes[generateSeasons(episodes).length].length-1].id}&server=${encryptParams(serverVar)}`} onClick={() => deleteCookie(encodeURIComponent(mediaId))}>
+        <Link className='text-link-without-underline' to={`${url}?season=${generateSeasons(episodes).length}&episode=${episodes[generateSeasons(episodes).length][episodes[generateSeasons(episodes).length].length-1].id}&server=${serverVar === 'upcloud' ? '1' : '2'}`} onClick={() => deleteCookie(encodeURIComponent(mediaId))}>
           <MenuItem onClick={handleClose} style={{ fontSize: '15px' }} disableRipple>
             <PlayCircleOutlineIcon />
             LATEST EPISODE
@@ -562,7 +561,7 @@ const SeriesPlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ep
           isDisableSave ?
             <Button size='small' variant='contained' color='primary' startIcon={<PlayCircleOutlineIcon/>} disabled>Play</Button>
           : 
-            <Link to={`${url}?season=${seasonNumber}&episode=${episodeNumber}&server=${encryptParams(server)}`} onClick={() => deleteCookie(encodeURIComponent(mediaId))}>
+            <Link to={`${url}?season=${seasonNumber}&episode=${episodeNumber}&server=${server === 'upcloud' ? '1' : '2'}`} onClick={() => deleteCookie(encodeURIComponent(mediaId))}>
               <Button size='small' variant='contained' color='primary' startIcon={<PlayCircleOutlineIcon/>}>Play</Button>
             </Link>
         : 

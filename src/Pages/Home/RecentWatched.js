@@ -96,11 +96,11 @@ const RecentWatched = ({ title = true, loadSavedMedia }) => {
                                     var mediaLink;
                                     switch (item?.category) {
                                         case 'movie':
-                                            mediaLink = `/watch/${item?.mediaId}?server=${encryptParams(item?.server || 'upcloud')}`;
+                                            mediaLink = `/watch/${item?.mediaId}?server=${item?.server === 'upcloud' ? '1' : '2'}`;
                                             break;
 
                                         case 'tv':
-                                            mediaLink = `/watch/${item?.mediaId}?season=${item?.seasonNumber}&episode=${item?.episodeId}&server=${encryptParams(item?.server || 'upcloud')}`;
+                                            mediaLink = `/watch/${item?.mediaId}?season=${item?.seasonNumber}&episode=${item?.episodeId}&server=${item?.server === 'upcloud' ? '1' : '2'}`;
                                             break;
                                         
                                         case 'anime':

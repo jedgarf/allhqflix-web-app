@@ -50,9 +50,9 @@ const MovieDashboard = (props) => {
   const indexId = type + "/" + id;
   const contentType = type === 'movie' ? 'Movie' : 'TV Series';
   const queryParams = new URLSearchParams(window.location.search);
-  const paramSeasonId = queryParams.get("season") != null ? parseInt(queryParams.get("season")) : null;
-  const paramEpisodeId = queryParams.get("episode") != null ? parseInt(queryParams.get("episode")) : null;
-  const paramServer = queryParams.get("server") != null ? decryptParams(queryParams.get("server")) : null;
+  const paramSeasonId = queryParams.get("season") ? parseInt(queryParams.get("season")) : null;
+  const paramEpisodeId = queryParams.get("episode") ? parseInt(queryParams.get("episode")) : null;
+  const paramServer = queryParams.get("server") ? (queryParams.get("server") === '1' ? 'upcloud' : 'vidcloud') : null;
 
   const [movieServer, setMovieServer] = useState([]);
   const [videoQualities, setVideoQualities] = useState([]);
@@ -240,11 +240,11 @@ const MovieDashboard = (props) => {
     enabled: indexId !== null && episodeIdVar !== null,
     onSuccess: (res) => {
       if (paramServer) {
-        setSelectedServer(res?.data?.filter(item=>item.name===paramServer)?.name);
-        setSelectedRabbitstreamId(res?.data?.filter(item=>item.name===paramServer)?.rabbitstream_id);
+        setSelectedServer(res.data?.filter(item=>item.name===paramServer)?.name);
+        setSelectedRabbitstreamId(res.data?.filter(item=>item.name===paramServer)?.rabbitstream_id);
       } else {
-        setSelectedServer(res?.data[0]?.name);
-        setSelectedRabbitstreamId(res?.data[0]?.rabbitstream_id);
+        setSelectedServer(res.data[0]?.name);
+        setSelectedRabbitstreamId(res.data[0]?.rabbitstream_id);
       }
     }
   });
