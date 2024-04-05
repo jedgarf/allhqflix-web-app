@@ -260,8 +260,8 @@ const AnimeDashboard = (props) => {
 
     if (infoData.isSuccess) {
       document.title = 'AllHQFlix - ' + contentTitle +  `${infoValue?.subOrDub === 'dub' ? ' (English Dub)' : ''}`;
-      set_selectedSeasonEpisode(infoValue);
       setSelectedEpisodeIndex(infoValue?.episodes?.indexOf(infoValue?.episodes?.find((item) => item.id == selectedEpisode)));
+      set_selectedSeasonEpisode(infoValue);
     }
 
     if (resourceData.isSuccess) {

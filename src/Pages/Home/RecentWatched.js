@@ -24,7 +24,7 @@ import PauseIcon from '@material-ui/icons/Pause';
 import RecentMediaCard from "../../Components/LazyImageComponent/RecentMediaCard";
 
 // Settings
-import { recent_watch_carousel_settings } from "../../Config/settings.config";
+import { recent_watch_carousel_settings, maxMediaSaved } from "../../Config/settings.config";
 
 // Helpers
 import { deleteCookie } from "../../Helpers/Cookies";
@@ -84,7 +84,7 @@ const RecentWatched = ({ title = true, loadSavedMedia }) => {
 
                     {title && 
                         <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
-                            <Typography variant="h5" className='text-white' sx={{ marginBottom: 1, fontWeight: '550' }}><LiveTvIcon style={{ fontSize: 28, marginBottom: '-2px' }}/> CONTINUE</Typography>
+                            <Typography variant="h5" className='text-white' sx={{ marginBottom: 1, fontWeight: '550' }}><LiveTvIcon style={{ fontSize: 28, marginBottom: '-2px' }}/> CONTINUE ({prevWatch.length}/{maxMediaSaved})</Typography>
                         </Grid>
                     }
 
