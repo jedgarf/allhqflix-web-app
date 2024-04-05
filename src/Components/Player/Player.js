@@ -84,7 +84,7 @@ const Player = ({ details, episodes, defaultlink, infotitle, infocover, seasonNu
                 lang: navigator.language.toLowerCase(),
                 whitelist: ['*'],
                 moreVideoAttr: {
-                    // crossOrigin: 'anonymous',
+                    crossOrigin: 'anonymous',
                     // preload: 'none', // metadata
                     // playsInline: true,
                 },
