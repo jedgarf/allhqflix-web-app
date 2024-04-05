@@ -154,6 +154,8 @@ const MovieDashboard = (props) => {
   const set_selectedLinkSubtitle = useCallback((resourceValue) => {
 
     // Default Link
+    // let headers = {"referer":"https://flixhq.to/"};
+    // defLink = `${apiConfig.override_cors}/m3u8-proxy?url=${encodeURIComponent(defLink)}&headers=${encodeURIComponent(JSON.stringify(headers))}`;
     let defLink = resourceValue.data?.sources?.filter( (result) => { return result.quality === "auto"; });
     defLink = defLink?.length > 0 ? defLink[0]?.url : "";
     if (apiConfig.hqflix_video_link_enable_override_cors === true) {

@@ -30,14 +30,11 @@ export const playM3u8 = (video, url, art) => {
 
     if (Hls.isSupported()) {
         const hls = new Hls();
-        if (art?.category === "movie" || art?.category === "movie") {
-            hls.xhrSetup = function(xhr, url) {
-                // Add custom Referer header here
-                xhr.setRequestHeader('Referer', apiConfig.flixhq_referer);
-            };
-        }
         hls.loadSource(url);
         hls.attachMedia(video);
+        hls.on(Hls.Events.MANIFEST_PARSED, function() {
+            console.log(url);
+        });
 
         // optional
         art.hls = hls;

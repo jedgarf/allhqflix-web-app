@@ -96,19 +96,23 @@ const RecentWatched = ({ title = true, loadSavedMedia }) => {
                                     var mediaLink;
                                     switch (item?.category) {
                                         case 'movie':
-                                            mediaLink = `/watch/${item?.mediaId}?server=${item?.server === 'upcloud' ? '1' : '2'}`;
+                                            // mediaLink = `/watch/${item?.mediaId}?server=${item?.server === 'upcloud' ? '1' : '2'}`;
+                                            mediaLink = `/${item?.category}/stream_dashboard?mediaId=${item?.mediaId}`;
                                             break;
 
                                         case 'tv':
-                                            mediaLink = `/watch/${item?.mediaId}?season=${item?.seasonNumber}&episode=${item?.episodeId}&server=${item?.server === 'upcloud' ? '1' : '2'}`;
+                                            // mediaLink = `/watch/${item?.mediaId}?season=${item?.seasonNumber}&episode=${item?.episodeId}&server=${item?.server === 'upcloud' ? '1' : '2'}`;
+                                            mediaLink = `/${item?.category}/stream_dashboard?mediaId=${item?.mediaId}`;
                                             break;
                                         
                                         case 'anime':
-                                            mediaLink = `/watch/${item?.category}/${item?.mediaId}?dub=false&episode=${item?.episodeId}`;
+                                            // mediaLink = `/watch/${item?.category}/${item?.mediaId}?dub=false&episode=${item?.episodeId}`;
+                                            mediaLink = `/${item?.category}/stream_dashboard?mediaId=${item?.mediaId}`;
                                             break;
                                     
                                         default:
-                                            mediaLink = `/watch/${item?.category}/${item?.mediaId}?episode=${item?.episodeId}`;
+                                            // mediaLink = `/watch/${item?.category}/${item?.mediaId}?episode=${item?.episodeId}`;
+                                            mediaLink = `/${item?.category}/stream_dashboard?mediaId=${item?.mediaId}`;
                                             break;
                                     }
 
