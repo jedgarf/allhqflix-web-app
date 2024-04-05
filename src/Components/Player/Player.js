@@ -155,9 +155,9 @@ const Player = ({ details, episodes, defaultlink, infotitle, infocover, seasonNu
             
             art.on('video:timeupdate', () => {
                 if (episodeNum === totalEpisodes) {
-                    if (art.currentTime < (art.duration-10)) saveProgress(details, mediaId, type, paramDub, seasonNumber, episodeId, episodeNumber, server, art.currentTime, art.duration); 
+                    if (art.currentTime < (art.duration-10)) saveProgress(details, mediaId, type, paramDub, seasonNumber, episodeId, episodeNum, server, art.currentTime, art.duration); 
                 } else {
-                    saveProgress(details, mediaId, type, paramDub, seasonNumber, episodeId, episodeNumber, server, art.currentTime, art.duration);
+                    saveProgress(details, mediaId, type, paramDub, seasonNumber, episodeId, episodeNum, server, art.currentTime, art.duration);
                     if (episodeNum < totalEpisodes) {
                         if (Math.round(art.currentTime) >= Math.round(art.duration-9)) {
                             const index = episodes.findIndex(item => item.id == episodeId);
