@@ -32,9 +32,9 @@ export const playM3u8 = (video, url, art) => {
         const hls = new Hls();
         hls.loadSource(url);
         hls.attachMedia(video);
-        hls.on(Hls.Events.MANIFEST_PARSED, function() {
-            console.log(url);
-        });
+        // hls.on(Hls.Events.MANIFEST_PARSED, function() {
+        //     console.log(url);
+        // });
 
         // optional
         art.hls = hls;
