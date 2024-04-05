@@ -15,6 +15,15 @@
     margin-left: 5px;
 }
 
+.footer_title b .footer_title_version {
+    background-color: #3B71CA;
+    padding-inline: 10px;
+    /* padding-block: 2px; */
+    border-radius: 10px;
+    font-size: 13px;
+    margin-top: -10px !important;
+}
+
 .footer_text {
     font-size: 12px;
     margin-top: 20px;

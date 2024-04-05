@@ -21,7 +21,7 @@ function Footer() {
                     <Grid item xl={7} lg={7} md={6} sm={12} xs={12} display={{ xs: 'none', sm: 'none', md: 'block' }}>
                         <div className="footer_title footer_content_header">
                             <div className="heading">
-                                <h3><b>{title} v{version}</b></h3>
+                                <h3><b>{title} <span className="footer_title_version">Beta</span></b></h3>
                             </div>
                             <div className="footer_text">
                                 <p>{title} allows users to watch tens of thousands of Movies, TV shows, Anime and Asian Films in HD quality safely, freely, and smoothly. Despite the extensive content library and premium features, {title} does not require any commitment from users. You are not obliged to pay, or even register to enjoy your favorite movies on the site without limits. We update new titles on a daily basis; therefore, you can rest assured, the fun never ends on {title}. Sharing is caring! Introduce {title} to your friends and family to protect them from shady and low-quality sites.</p>
@@ -68,7 +68,7 @@ function Footer() {
                     <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
                         <div className="lower-footer">
                             <div className="copyRight">
-                                {title} 2023. All Rights Reserved.
+                                {title}(Beta) 2023. All Rights Reserved.
                                 {/* {moment().format('YYYY')} */}
                             </div>
                         </div>
