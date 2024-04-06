@@ -690,7 +690,7 @@ const AnimePlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVar, ur
             </LoadingButton>
         ) : (
           <>
-            {episodes.length > 1 || getCookie(mediaId) ? (
+            {episodes.length > 1 || savedMedia?.filter(item => item.mediaId == mediaId).length > 0 ? (
               <Button
                 id="demo-customized-button"
                 size='small'
@@ -705,7 +705,7 @@ const AnimePlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVar, ur
                 style={{ marginRight: '10px' }}
                 disabled={isLoadPlayButton}
               >
-                PLAY
+                {savedMedia?.filter(item => item.mediaId == mediaId).length > 0 ? 'CONTINUE' : 'PLAY'}
               </Button>
             ) : (
               <Link title='Play' to={`${url}?dub=${isDub}&episode=${episodeIdVar}`} disabled={isLoadPlayButton}>
@@ -907,7 +907,7 @@ const AsianDramaPlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVa
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
 
-        {episodes.length > 1 || getCookie(encodeURIComponent(mediaId)) ? (
+        {(episodes.length > 1 || savedMedia?.filter(item => item.mediaId == mediaId).length > 0) ? (
           <Button
             id="demo-customized-button"
             size='small'
@@ -921,7 +921,7 @@ const AsianDramaPlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVa
             endIcon={<KeyboardArrowDownIcon />}
             style={{ marginRight: '10px' }}
           >
-            PLAY
+            {savedMedia?.filter(item => item.mediaId == mediaId).length > 0 ? 'CONTINUE' : 'PLAY'}
           </Button>
         ) : (
           <Link className='text-link-without-underline' to={`${url}?episode=${episodeIdVar}`}>
