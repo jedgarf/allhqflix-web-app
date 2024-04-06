@@ -156,10 +156,10 @@ const MovieDashboard = (props) => {
     // Default Link
     // let headers = {"referer":"https://flixhq.to/"};
     // defLink = `${apiConfig.override_cors}/m3u8-proxy?url=${encodeURIComponent(defLink)}&headers=${encodeURIComponent(JSON.stringify(headers))}`;
-    var defLink = resourceValue.data?.sources?.filter( (result) => { return result.quality === "auto"; });
+    let defLink = resourceValue.data?.sources?.find(item => item.quality === "auto")?.url;
     switch (selectedServer) {
       case "upcloud":
-        defLink = `${apiConfig.hqflix_video_link_enable_override_cors && apiConfig.override_cors}/${defLink.replace("https://", "")}`;
+        defLink = `${apiConfig.hqflix_video_link_enable_override_cors && apiConfig.override_cors}/${defLink?.replace("https://", "")}`;
         break;
       case "vidcloud":
         defLink = `${apiConfig.hqflix_video_link_enable_override_cors && apiConfig.override_cors2}${defLink}`;

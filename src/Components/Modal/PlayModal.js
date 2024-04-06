@@ -157,7 +157,7 @@ const MoviePlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ser
           endIcon={<KeyboardArrowDownIcon />}
           style={{ marginRight: '10px' }}
         >
-          PLAY
+          {savedMedia?.filter(item => item.mediaId == mediaId).length > 0 ? 'CONTINUE' : 'PLAY'}
         </Button>)
       : 
         !resourceData.isLoading && 
@@ -386,7 +386,7 @@ const SeriesPlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ep
           endIcon={<KeyboardArrowDownIcon />}
           style={{ marginRight: '10px' }}
         >
-          PLAY
+          {savedMedia?.filter(item => item.mediaId == mediaId).length > 0 ? 'CONTINUE' : 'PLAY'}
         </Button>
       : 
         !resourceData.isLoading && 
