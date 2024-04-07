@@ -75,6 +75,18 @@
     border-radius: 10px;
 }
 
+.movie_card_with_close {
+    position: relative;
+    width: 150px;
+    margin-right: 30px;
+}
+
+.movie_card_with_close .image-container img {
+    height: 225px !important;
+    width: 150px !important;
+    border-radius: 10px;
+}
+
 .movie_name {
     width: 150px !important;
     /* Set the desired width */
