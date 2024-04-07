@@ -119,7 +119,7 @@ const Anime = () => {
         {/* Genres */}
         {anime_genres.length > 0 ?
         (
-          <div style={{ marginTop: '5px', marginBottom: '5px' }}>
+          <div style={{ marginTop: '10px', marginBottom: '15px' }}>
             <Container maxWidth={'xxl'} display={{ xs: "block", sm: "block", md: "block", lg: "block", xl: "block" }}>
               <Slider {...movie_genre_carousel_settings} style={{ marginInline: isMobile ? '0px' : '13px' }}>
                 {anime_genres.map((item, index) => {
