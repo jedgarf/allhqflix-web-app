@@ -1,5 +1,6 @@
 import Hls from "hls.js";
 import flvjs from "flv.js";
+import dashjs from 'dashjs';
 
 // Config
 import apiConfig from '../../Config/api.config';
@@ -44,6 +45,18 @@ export const playM3u8 = (video, url, art) => {
         video.src = url;
     } else {
         art.notice.show = 'Unsupported playback format: m3u8';
+    }
+}
+
+export const playMpd = (video, url, art) => {
+    if (dashjs.supportsMediaSource()) {
+        if (art.dash) art.dash.destroy();
+        const dash = dashjs.MediaPlayer().create();
+        dash.initialize(video, url, art.option.autoplay);
+        art.dash = dash; 
+        art.on('destroy', () => dash.destroy());
+    } else {
+        art.notice.show = 'Unsupported playback format: mpd';
     }
 }
 

@@ -15,7 +15,7 @@ import { mainLogo, customLoadingFileName, homeBackground } from "../../Config/im
 
 // Utilities
 import { getFileExtention, randomizeArray } from "../../Services/Utils";
-import { playFlv, destroyPlayFlv, playM3u8, destroyPlayM3u8, saveProgress } from "./_config";
+import { playFlv, destroyPlayFlv, playM3u8, destroyPlayM3u8, playMpd, saveProgress } from "./_config";
 
 // Helpers
 import { deleteCookie } from "../../Helpers/Cookies";
@@ -40,6 +40,7 @@ const Player = ({ details, episodes, defaultlink, infotitle, infocover, seasonNu
 
         var art;
         var isAutoPlay = true;
+        const isMobile = navigator.userAgent.match(/(iphone|ipod|ipad|android)/i);
         var customIcons = { loading: `<img width="100" src="${customLoadingFileName}">` };
 
         if (process.env.NODE_ENV === 'development') isAutoPlay = false;
@@ -48,6 +49,7 @@ const Player = ({ details, episodes, defaultlink, infotitle, infocover, seasonNu
         // Custom artplayer values
         Artplayer.ASPECT_RATIO = ['default', '1:1', '2:1', '4:3', '6:5'];
         Artplayer.TOUCH_MOVE_RATIO = 0.5;
+        Artplayer.USE_RAF = true;
 
         try {
             art = new Artplayer({
@@ -58,7 +60,7 @@ const Player = ({ details, episodes, defaultlink, infotitle, infocover, seasonNu
                 fastForward: true,
                 url: defaultlink,
                 type: getFileExtention(defaultlink),
-                customType: { m3u8: playM3u8, flv: playFlv },
+                customType: { m3u8: playM3u8, flv: playFlv, mpd: playMpd },
                 title: infotitle || "Unknown title",
                 poster: infocover || homeBackground,
                 volume: 1,
@@ -118,19 +120,16 @@ const Player = ({ details, episodes, defaultlink, infotitle, infocover, seasonNu
 
         if (art) {
 
-            art.hotkey.add(70, () => {
-                art.fullscreen = !art.fullscreen;
-            });
+            art.hotkey.add(70, () => art.fullscreen = !art.fullscreen);
 
             art.on('ready', () => {
+                if (!isMobile) art.fullscreenWeb = true;
                 art.notice.show = infotitle;
                 art.subtitle.style({
                     fontSize: 'clamp(14px, 3vw, 30px)',
                     marginBottom: '5vh',
                 });
                 if (seekTime > 0) art.seek = seekTime;
-                const isMobile = navigator.userAgent.match(/(iphone|ipod|ipad|android)/i);
-                if (!isMobile) art.fullscreenWeb = true;
             });
     
             art.on('pause', () => {
@@ -139,18 +138,15 @@ const Player = ({ details, episodes, defaultlink, infotitle, infocover, seasonNu
 
             art.on('video:waiting', () => {
                 if (art.currentTime === art.loadedTime) {
-                    setTimeout(() => {
-                        art.notice.show = 'Your connection is too slow.';
-                    }, 3000);   
+                    setTimeout(() => {art.notice.show = 'Your connection is too slow.';}, 3000);   
                 }
             });
 
             art.on('video:ended', () => {
                 if (episodeNum === totalEpisodes) {
                     deleteCookie(decodeURIComponent(mediaId));
-                    art.fullscreenWeb = false;
+                    if (!isMobile) art.fullscreenWeb = false;
                 }
-                // auto next function
                 if (totalEpisodes > 1) nextEpisode();
             });
 
