@@ -517,7 +517,7 @@ const getAllSavedCookiesMedia = () => {
   return cookiesObject.reverse();
 };
 
-function toggleFullscreen() {
+const toggleFullscreen = () => {
   var isFullscreen = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msRequestFullscreen || false;
   if (isFullscreen) {
       exitFullscreen();
@@ -526,7 +526,7 @@ function toggleFullscreen() {
   }
 }
 
-function enterFullscreen() {
+const enterFullscreen = () => {
   var element = document.documentElement;
   if (element.requestFullscreen) {
       element.requestFullscreen();
@@ -539,7 +539,7 @@ function enterFullscreen() {
   }
 }
 
-function exitFullscreen() {
+const exitFullscreen = () => {
   if (document.exitFullscreen) {
       document.exitFullscreen();
   } else if (document.webkitExitFullscreen) {
@@ -548,6 +548,21 @@ function exitFullscreen() {
       document.mozCancelFullScreen();
   } else if (document.msRequestFullscreen) {
     document.msRequestFullscreen();
+  }
+}
+
+const triggerKeyF11 = () => {
+  var e = new Event('keypress');
+  e.which = 122; // Character F11 equivalent.
+  e.altKey=false;
+  e.ctrlKey=false;
+  e.shiftKey=false;
+  e.metaKey=false;
+  e.bubbles=true;
+  document.dispatchEvent(e);
+
+  if (document.documentElement.webkitRequestFullscreen) {
+      document.documentElement.webkitRequestFullscreen();
   }
 }
 
@@ -589,4 +604,5 @@ export { shortenTextHeight,
          getAllSavedCookiesMedia, 
          toggleFullscreen, 
          enterFullscreen, 
-         exitFullscreen };
+         exitFullscreen, 
+         triggerKeyF11 };
