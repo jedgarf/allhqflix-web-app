@@ -138,7 +138,7 @@ const Player = ({ details, episodes, defaultlink, infotitle, infocover, seasonNu
             });
 
             art.on('video:waiting', () => {
-                if (art.currentTime >= art.loadedTime) {
+                if (art.currentTime === art.loadedTime) {
                     setTimeout(() => {
                         art.notice.show = 'Your connection is too slow.';
                     }, 3000);   
@@ -146,11 +146,12 @@ const Player = ({ details, episodes, defaultlink, infotitle, infocover, seasonNu
             });
 
             art.on('video:ended', () => {
-                if (episodeNum === totalEpisodes) deleteCookie(decodeURIComponent(mediaId));
-                // auto next function
-                if (totalEpisodes > 1) {
-                    nextEpisode();
+                if (episodeNum === totalEpisodes) {
+                    deleteCookie(decodeURIComponent(mediaId));
+                    art.fullscreenWeb = false;
                 }
+                // auto next function
+                if (totalEpisodes > 1) nextEpisode();
             });
 
             // Save progress ------------------------------------------------------------------------------------------------------------
