@@ -129,6 +129,8 @@ const Player = ({ details, episodes, defaultlink, infotitle, infocover, seasonNu
                     marginBottom: '5vh',
                 });
                 if (seekTime > 0) art.seek = seekTime;
+                const isMobile = navigator.userAgent.match(/(iphone|ipod|ipad|android)/i);
+                if (!isMobile) art.fullscreenWeb = true;
             });
     
             art.on('pause', () => {
