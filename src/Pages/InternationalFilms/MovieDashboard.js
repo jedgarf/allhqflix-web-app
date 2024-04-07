@@ -1,7 +1,7 @@
 // Packages
 import React, { useState, useEffect, useCallback, useRef, Fragment } from "react";
 import { useQuery } from 'react-query';
-import { Link, useParams, useHistory } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -46,7 +46,6 @@ import { movie_info, movie_server, movie_stream_links } from "../../Services/Fli
 
 const MovieDashboard = (props) => {
   
-  const history = useHistory();
   const { id, type } = useParams();
   const indexId = type + "/" + id;
   const contentType = type === 'movie' ? 'Movie' : 'TV Series';
