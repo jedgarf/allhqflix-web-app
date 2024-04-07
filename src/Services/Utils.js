@@ -517,6 +517,40 @@ const getAllSavedCookiesMedia = () => {
   return cookiesObject.reverse();
 };
 
+function toggleFullscreen() {
+  var isFullscreen = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msRequestFullscreen || false;
+  if (isFullscreen) {
+      exitFullscreen();
+  } else {
+      enterFullscreen();
+  }
+}
+
+function enterFullscreen() {
+  var element = document.documentElement;
+  if (element.requestFullscreen) {
+      element.requestFullscreen();
+  } else if (element.webkitRequestFullscreen) {
+      element.webkitRequestFullscreen();
+  } else if (element.mozRequestFullScreen) {
+      element.mozRequestFullScreen();
+  } else if (element.msRequestFullscreen) {
+    element.msRequestFullscreen();
+  }
+}
+
+function exitFullscreen() {
+  if (document.exitFullscreen) {
+      document.exitFullscreen();
+  } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+  } else if (document.mozCancelFullScreen) {
+      document.mozCancelFullScreen();
+  } else if (document.msRequestFullscreen) {
+    document.msRequestFullscreen();
+  }
+}
+
 export { shortenTextHeight, 
          streamDashboardBackButton, 
          moveToTop, 
@@ -552,4 +586,7 @@ export { shortenTextHeight,
          getNumberSuffix, 
          getLanguageName, 
          isJSONString,
-         getAllSavedCookiesMedia };
+         getAllSavedCookiesMedia, 
+         toggleFullscreen, 
+         enterFullscreen, 
+         exitFullscreen };

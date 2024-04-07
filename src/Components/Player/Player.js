@@ -14,7 +14,7 @@ import { ads } from "../../Config/settings.config";
 import { mainLogo, customLoadingFileName, homeBackground } from "../../Config/images.config";
 
 // Utilities
-import { getFileExtention, randomizeArray } from "../../Services/Utils";
+import { getFileExtention, randomizeArray, enterFullscreen, exitFullscreen } from "../../Services/Utils";
 import { playFlv, destroyPlayFlv, playM3u8, destroyPlayM3u8, playMpd, saveProgress } from "./_config";
 
 // Helpers
@@ -134,6 +134,10 @@ const Player = ({ details, episodes, defaultlink, infotitle, infocover, seasonNu
     
             art.on('pause', () => {
                 art.notice.show = infotitle;
+            });
+
+            art.on('fullscreenWeb', (state) => {
+                // if (state) { enterFullscreen(); } else { exitFullscreen(); }
             });
 
             art.on('video:waiting', () => {
