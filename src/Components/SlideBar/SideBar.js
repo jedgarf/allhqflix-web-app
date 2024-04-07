@@ -99,7 +99,10 @@ const SideBar = ({ Type, subType, haveSearch = true,  transparentBg = true, isSt
     // backgroundColor: alpha(theme.palette.common.white, 0.35),
     backgroundColor: 'transparent',
     '&:hover': {
-      backgroundColor: alpha(theme.palette.common.white, 0.25),
+      backgroundColor: alpha(theme.palette.common.white, 0.20),
+    },
+    '&:focus': {
+      backgroundColor: alpha(theme.palette.common.white, 0.20),
     },
     marginLeft: 0,
     width: '100%',
@@ -203,7 +206,7 @@ const SideBar = ({ Type, subType, haveSearch = true,  transparentBg = true, isSt
                             <StyledInputBase
                             size='small'
                             inputRef={searchRef}
-                            placeholder={'Type your movie/series here'}
+                            placeholder={'Search here...'}
                             inputProps={{ 'aria-label': 'search', defaultValue: `${searchKeyword}` }}
                             required
                             />
