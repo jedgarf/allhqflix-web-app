@@ -31,6 +31,8 @@ import Discovers from "../../Components/InternationalFilms/Discovers";
 import MoviesRow from "../../Components/InternationalFilms/MoviesRow";
 import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
+import { isMobile } from "../../Services/Utils";
+
 // Models
 import { foreign_genre, carousel_settings, movie_card_carousel_settings, movie_genre_carousel_settings } from "../../Config/settings.config";
 import { content_carousel, movie_trending, movie_recent, movie_popular } from "../../Services/FlixHQService";
@@ -123,12 +125,12 @@ const Movies = () => {
             (
               <div style={{ marginTop: '3px', marginBottom: '-5px' }}>
                 <Container maxWidth={'xxl'} display={{ xs: "block", sm: "block", md: "block", lg: "block", xl: "block" }}>
-                  <Slider {...movie_genre_carousel_settings} style={{ marginInline: "13px" }}>
+                  <Slider {...movie_genre_carousel_settings} style={{ marginInline: isMobile ? '0px' : '13px' }}>
                     {foreign_genre.map((item, index) => {
                       return (
                         <Fragment key={index}>
                           <Link className="text-link-without-underline genre-carousel" to={`/foreign/advanced_filter?type=movie&genre=${item.genre_id}`}>
-                            <Button variant="" size="small" color="error" style={{ margin: '5px', color: 'whitesmoke', fontSize: 15, fontWeight: 550 }}>{item.name}</Button>
+                            <Button variant="contained" size="small" color="error" style={{ margin: '5px 8px 5px 0px', color: 'whitesmoke', fontSize: 15, fontWeight: 550 }}>{item.name}</Button>
                           </Link>
                         </Fragment>
                       )
@@ -151,7 +153,7 @@ const Movies = () => {
             {trendingData.isSuccess ? 
               <div style={{ margin: 'auto' }}>
                 <div className="heading content__heading">TRENDING MOVIES</div><br/>
-                <Slider {...movie_card_carousel_settings} style={{ marginInline: '30px' }}>
+                <Slider {...movie_card_carousel_settings} style={{ marginInline: isMobile ? '15px' : '30px' }}>
                   {trendingValue.map((data, i) => (
                     <Fragment key={i}>
                       <MoviesRow
@@ -181,7 +183,7 @@ const Movies = () => {
                     <Button variant="contained" size="small" color="primary">MORE</Button>
                   </Link>
                 </div><br/>
-                  <Slider {...movie_card_carousel_settings} style={{ marginInline: '30px' }}>
+                  <Slider {...movie_card_carousel_settings} style={{ marginInline: isMobile ? '15px' : '30px' }}>
                     {latestValue.map((data, i) => (
                       <Fragment key={i}>
                         <MoviesRow
@@ -211,7 +213,7 @@ const Movies = () => {
                     <Button variant="contained" size="small" color="primary">MORE</Button>
                   </Link>
                 </div><br/>
-                  <Slider {...movie_card_carousel_settings} style={{ marginInline: '30px' }}>
+                  <Slider {...movie_card_carousel_settings} style={{ marginInline: isMobile ? '15px' : '30px' }}>
                     {popularValue.map((data, i) => (
                       <Fragment key={i}>
                         <MoviesRow

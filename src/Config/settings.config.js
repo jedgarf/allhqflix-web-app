@@ -1,4 +1,5 @@
 import packageJSON from '../../package.json';
+import { isMobile } from "../Services/Utils";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
@@ -1891,7 +1892,7 @@ function SamplePrevArrow(props) {
 }
 
 const movie_card_carousel_settings = {
-  arrows: true,
+  arrows: isMobile ? false : true,
   dots: false,
   infinite: true,
   speed: 500,
@@ -1907,7 +1908,7 @@ const movie_card_carousel_settings = {
 };
 
 const suggestion_movie_card_carousel_settings = {
-  arrows: true,
+  arrows: isMobile ? false : true,
   dots: false,
   infinite: false,
   speed: 500,
@@ -1921,7 +1922,7 @@ const suggestion_movie_card_carousel_settings = {
 };
 
 const movie_genre_carousel_settings = {
-  arrows: true,
+  arrows: isMobile ? false : true,
   dots: false,
   infinite: true,
   speed: 500,
@@ -1937,7 +1938,7 @@ const movie_genre_carousel_settings = {
 };
 
 const manual_selection_carousel_settings = {
-  arrows: true,
+  arrows: isMobile ? false : true,
   dots: false,
   speed: 500,
   slidesToScroll: 3,
@@ -1952,7 +1953,7 @@ const manual_selection_carousel_settings = {
 }
 
 const stream_server_carousel_settings = {
-  arrows: true,
+  arrows: isMobile ? false : true,
   dots: false,
   speed: 500,
   slidesToScroll: 3,
@@ -1967,7 +1968,7 @@ const stream_server_carousel_settings = {
 }
 
 const anime_character_carousel_settings = {
-  arrows: true,
+  arrows: isMobile ? false : true,
   dots: false,
   infinite: true,
   speed: 500,
@@ -1982,7 +1983,7 @@ const anime_character_carousel_settings = {
 };
 
 const recent_watch_carousel_settings = {
-  arrows: true,
+  arrows: isMobile ? false : true,
   dots: false,
   infinite: false,
   speed: 500,

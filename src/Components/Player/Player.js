@@ -14,7 +14,7 @@ import { ads } from "../../Config/settings.config";
 import { mainLogo, customLoadingFileName, homeBackground } from "../../Config/images.config";
 
 // Utilities
-import { getFileExtention, randomizeArray, triggerKeyF11, enterFullscreen, exitFullscreen } from "../../Services/Utils";
+import { getFileExtention, randomizeArray, isMobile, triggerKeyF11, enterFullscreen, exitFullscreen } from "../../Services/Utils";
 import { playFlv, destroyPlayFlv, playM3u8, destroyPlayM3u8, playMpd, saveProgress } from "./_config";
 
 // Helpers
@@ -40,7 +40,6 @@ const Player = ({ details, episodes, defaultlink, infotitle, infocover, seasonNu
 
         var art;
         var isAutoPlay = true;
-        const isMobile = navigator.userAgent.match(/(iphone|ipod|ipad|android)/i);
         var customIcons = { loading: `<img width="100" src="${customLoadingFileName}">` };
 
         if (process.env.NODE_ENV === 'development') isAutoPlay = false;

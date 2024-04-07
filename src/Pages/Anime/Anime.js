@@ -31,6 +31,9 @@ import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 // Config
 import { pageLoadMS, carousel_settings, movie_card_carousel_settings, movie_genre_carousel_settings, anime_genres } from "../../Config/settings.config";
 
+// Utils
+import { isMobile } from "../../Services/Utils";
+
 // Services
 import { trending_anime, popular_anime, recent_anime_episodes, anime_airing_schedule } from "../../Services/AnimeService";
 
@@ -118,12 +121,12 @@ const Anime = () => {
         (
           <div style={{ marginTop: '5px', marginBottom: '5px' }}>
             <Container maxWidth={'xxl'} display={{ xs: "block", sm: "block", md: "block", lg: "block", xl: "block" }}>
-              <Slider {...movie_genre_carousel_settings} style={{ marginInline: "13px" }}>
+              <Slider {...movie_genre_carousel_settings} style={{ marginInline: isMobile ? '0px' : '13px' }}>
                 {anime_genres.map((item, index) => {
                   return (
                     <Fragment key={index}>
                       <Link className="text-link-without-underline genre-carousel" to={`/anime/genre_filter?genre=${item}`}>
-                        <Button variant="" size="small" color="error" style={{ margin: '5px', color: 'whitesmoke', fontSize: 15, fontWeight: 550 }}>{item}</Button>
+                        <Button variant="contained" size="small" color="error" style={{ margin: '5px 5px 5px 0px', color: 'whitesmoke', fontSize: 15, fontWeight: 550 }}>{item}</Button>
                       </Link>
                     </Fragment>
                   )
@@ -150,7 +153,7 @@ const Anime = () => {
                 <Button variant="contained" size="small" color="primary">MORE</Button>
               </Link>
             </div><br/>
-            <Slider {...movie_card_carousel_settings} style={{ marginInline: '30px' }}>
+            <Slider {...movie_card_carousel_settings} style={{ marginInline: isMobile ? '15px' : '30px' }}>
               {popularValue?.map((data, i) => (
                 <Fragment key={i}>
                   <AnimeRow
@@ -178,7 +181,7 @@ const Anime = () => {
                 <Button variant="contained" size="small" color="primary">MORE</Button>
               </Link>
             </div><br/>
-            <Slider {...movie_card_carousel_settings} style={{ marginInline: '30px' }}>
+            <Slider {...movie_card_carousel_settings} style={{ marginInline: isMobile ? '15px' : '30px' }}>
                 {trendingValue?.map((data, i) => (
                   <Fragment key={i}>
                     <AnimeRow
@@ -206,7 +209,7 @@ const Anime = () => {
                 <Button variant="contained" size="small" color="primary">MORE</Button>
               </Link>
             </div><br/>
-            <Slider {...movie_card_carousel_settings} style={{ marginInline: '30px' }}>
+            <Slider {...movie_card_carousel_settings} style={{ marginInline: isMobile ? '15px' : '30px' }}>
               {recentValue?.map((data, i) => (
                 <Fragment key={i}>
                   <AnimeRow
@@ -234,7 +237,7 @@ const Anime = () => {
               <Button variant="contained" size="small" color="primary">MORE</Button>
             </Link>
           </div><br/>
-          <Slider {...movie_card_carousel_settings} style={{ marginInline: '30px' }}>
+          <Slider {...movie_card_carousel_settings} style={{ marginInline: isMobile ? '15px' : '30px' }}>
               {airingValue?.map((data, i) => (
                 <Fragment key={i}>
                   <AnimeRow

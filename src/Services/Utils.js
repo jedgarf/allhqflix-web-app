@@ -566,6 +566,8 @@ const triggerKeyF11 = () => {
   }
 }
 
+const isMobile = navigator.userAgent.match(/(iphone|ipod|ipad|android)/i);
+
 export { shortenTextHeight, 
          streamDashboardBackButton, 
          moveToTop, 
@@ -605,4 +607,5 @@ export { shortenTextHeight,
          toggleFullscreen, 
          enterFullscreen, 
          exitFullscreen, 
-         triggerKeyF11 };
+         triggerKeyF11, 
+         isMobile };
