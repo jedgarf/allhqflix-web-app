@@ -1,7 +1,7 @@
 // Packages
 import React, { useState, useEffect, useCallback, useRef, Fragment } from "react";
 import { useQuery } from 'react-query';
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -20,7 +20,7 @@ import SideBar from "../../Components/SlideBar/SideBar";
 import Footer from "../../Components/Footer/Footer";
 import FloatingButton from '../../Components/FloatingButton/FloatingButton';
 import InitPlayerLoading from "../../Components/InitPlayerLoading/InitPlayerLoading";
-import { Player } from "../../Components/Player/Player";
+import { Player, artPlayerInstance } from "../../Components/Player/Player";
 import Suggestions from "../../Components/InternationalFilms/Suggestions";
 import TVEpisodesDrawer from "../../Components/BottomDrawer/TVEpisodesDrawer";
 import MediaDescription from "../../Components/MediaDescription/MediaDescription";
@@ -46,6 +46,7 @@ import { movie_info, movie_server, movie_stream_links } from "../../Services/Fli
 
 const MovieDashboard = (props) => {
   
+  const history = useHistory();
   const { id, type } = useParams();
   const indexId = type + "/" + id;
   const contentType = type === 'movie' ? 'Movie' : 'TV Series';
@@ -367,6 +368,36 @@ const MovieDashboard = (props) => {
     if (serverData.isSuccess) {
       setMovieServer(serverValue);
     }
+
+    // ------------------------------------------------------------------------------------
+
+    const handleBeforeUnload = (event) => {
+      // Cancel the event to prevent the browser from unloading the page immediately
+      event.preventDefault();
+      // Standard-compliant browsers use `returnValue`
+      event.returnValue = '';
+      // Chrome requires `returnValue` to be set
+      return '';
+    };
+
+    const handleUnload = (event) => {
+      // Optionally perform cleanup actions here before leaving the page
+      // For example, stopping video/audio playback
+      try {
+        artPlayerInstance.destroy();
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    // Add event listeners when the component mounts
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    window.addEventListener('unload', handleUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+      window.removeEventListener('unload', handleUnload);
+    };
   }, [infoData.isSuccess, 
       serverData.isSuccess, 
       serverVar, 

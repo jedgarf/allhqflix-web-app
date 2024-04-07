@@ -125,7 +125,7 @@ const Player = ({ details, episodes, defaultlink, infotitle, infocover, seasonNu
             art.on('ready', () => {
                 art.notice.show = infotitle;
                 art.subtitle.style({
-                    fontSize: 'clamp(13px, 2vw, 20px)',
+                    fontSize: 'clamp(14px, 3vw, 30px)',
                     marginBottom: '5vh',
                 });
                 if (seekTime > 0) art.seek = seekTime;
