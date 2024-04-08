@@ -14,10 +14,16 @@ import { noImagePlaceholder } from "../../Config/images.config";
 const MovieCard = ({ src, title, contentType }) => {
     return (
         <div className="image-container">
-            <LazyLoadImage src={`${src}`} placeholder={<Skeleton className="img-card-skeleton" sx={{ bgcolor: 'grey.900' }} variant="rectangular" animation="wave" />} alt={title} effect="blur" onError={({ currentTarget }) => {
-              currentTarget.onerror = null; // prevents looping
-              currentTarget.src = noImagePlaceholder;
-            }} />
+            <LazyLoadImage 
+                src={`${src}`} 
+                placeholder={<Skeleton className="img-card-skeleton" sx={{ bgcolor: 'grey.900' }} variant="rectangular" animation="wave" />} 
+                alt={title} 
+                effect="blur" 
+                onError={({ currentTarget }) => {
+                    currentTarget.onerror = null; // prevents looping
+                    currentTarget.src = noImagePlaceholder;
+                }} 
+            />
             <div className="overlay">
                 <PlayCircleIcon/>
             </div>

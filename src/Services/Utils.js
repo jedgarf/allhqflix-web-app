@@ -502,9 +502,9 @@ const isJSONString = (str) => {
     .replace(/(?:^|:|,)(?:\s*\[)+/g, ''));
 }
 
-const getAllSavedCookiesMedia = () => {
+const getAllSavedCookiesMedia = (mediaId = null) => {
   const cookiesArray = document.cookie ? document.cookie.split(';') : [];
-  const cookiesObject = [];
+  let cookiesObject = [];
   cookiesArray.splice(0, maxMediaSaved+1).forEach(cookie => {
     const [name, value] = cookie.split('=');
     if (isJSONString(value.trim())) {
@@ -514,6 +514,7 @@ const getAllSavedCookiesMedia = () => {
         }
     }
   });
+  if (mediaId) cookiesObject = cookiesObject.filter(item => item.mediaId == mediaId);
   return cookiesObject.reverse();
 };
 

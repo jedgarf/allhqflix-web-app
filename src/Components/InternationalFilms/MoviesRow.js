@@ -1,4 +1,4 @@
-import React, { useState, Suspense } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import Skeleton from '@mui/material/Skeleton';
 import { useDispatch } from "react-redux";
 import { Link, useParams } from "react-router-dom";
@@ -12,9 +12,13 @@ import { Container, Box, Typography } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import PauseIcon from "@mui/icons-material/Pause";
 
 // Pages
 import { favAdd } from "../../Features/favSlice";
+
+// Utils
+import { secondsToHMS, getAllSavedCookiesMedia } from "../../Services/Utils";
 
 // Components
 const MovieCard = React.lazy(() => import('../LazyImageComponent/MovieCard'));
@@ -27,6 +31,7 @@ const MoviesRow = ({isloadImage, cat, img, id, title, type, release_date, rate, 
     contentType = 'tv';
   }
 
+  const [savedMedia, setSavedMedia] = useState([]);
   const year = new Date(release_date);
   const [icon, setIcon] = React.useState(<FavoriteBorderIcon />);
   const dispatch = useDispatch();
@@ -52,8 +57,13 @@ const MoviesRow = ({isloadImage, cat, img, id, title, type, release_date, rate, 
     console.log("Not available at this time.");
   }
 
+  useEffect(() => {
+    const savedCookiesMedia = getAllSavedCookiesMedia(id);
+    setSavedMedia(savedCookiesMedia);
+  }, [id]);
+
   return (
-    <Box className='movie_card' key={id}>
+    <Box className='movie_card' key={id} title={savedMedia.length === 1 ? 'Continue' : 'Play'}>
       <Link to={`/${contentType}/stream_dashboard?mediaId=${id}`}>
         <MovieCard src={img} title={title} contentType={contentType} />
       </Link>
@@ -61,6 +71,12 @@ const MoviesRow = ({isloadImage, cat, img, id, title, type, release_date, rate, 
       {/* <Link onClick={() => movieNotAvailable()}>
         <MovieCard src={img} title={title} contentType={contentType} />
       </Link> */}
+
+      {savedMedia.length === 1 && 
+        <div className="fav" style={{ color: '#ccced1', fontSize: '14px', borderRadius: '10px 0 10px 0' }}>
+          <PauseIcon style={{ fontSize: '16px', marginBottom: '-3px' }}/> {savedMedia[0]?.time && secondsToHMS(savedMedia[0]?.time)}
+        </div>
+      }
 
       <div className="fav" onClick={() => FavHanlder()} hidden>
         {icon}

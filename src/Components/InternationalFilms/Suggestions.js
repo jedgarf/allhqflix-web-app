@@ -13,13 +13,16 @@ import MoviesRow from "../../Components/InternationalFilms/MoviesRow";
 // Config
 import { suggestion_movie_card_carousel_settings } from "../../Config/settings.config";
 
+// Utils
+import { isMobile } from '../../Services/Utils';
+
 export default function Suggestions({Suggest, Type}) {
     
     const contentType = Type === 'movie' ? 'Movie' : 'TV Series';
 
     return (
         <div className='suggestion_content'>
-            <Slider {...suggestion_movie_card_carousel_settings} style={{ marginInline: '30px' }}>
+            <Slider {...suggestion_movie_card_carousel_settings} style={{ marginInline: isMobile ? '10px' : '30px' }}>
                 {Suggest?.filter((item) => item.type == contentType).map((item, i) => {
                     return (
                         <Fragment key={i}>

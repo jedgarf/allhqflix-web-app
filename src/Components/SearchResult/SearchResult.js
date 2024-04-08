@@ -8,16 +8,23 @@ import { Skeleton, Typography } from '@mui/material';
 import StarIcon from "@mui/icons-material/Star";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import PauseIcon from "@mui/icons-material/Pause";
 
 // CSS
 import "./SearchResult.css";
 
 // Pages
 import { favAdd } from "../../Features/favSlice";
+
+// Utils
+import { secondsToHMS, getAllSavedCookiesMedia } from "../../Services/Utils";
+
+// Components
 const MovieCard = React.lazy(() => import('../LazyImageComponent/MovieCard'));
 
 const SearchResult = ({ isloadImage, contentType, img, id, title, type, release_date, rate, season, episode, slug, video_quality, hasLink }) => {
 
+  const [savedMedia, setSavedMedia] = useState([]);
   const [ loadingPicture, setLoadingPicture ] = useState(isloadImage);
   const year = new Date(release_date);
   const [icon, setIcon] = React.useState(<FavoriteBorderIcon />);
@@ -42,8 +49,13 @@ const SearchResult = ({ isloadImage, contentType, img, id, title, type, release_
     );
   };
 
+  useEffect(() => {
+    const savedCookiesMedia = getAllSavedCookiesMedia(id);
+    setSavedMedia(savedCookiesMedia);
+  }, [id]);
+
   return (
-    <div className='result_movie_card' key={id}>
+    <div className='result_movie_card' key={id} title={savedMedia.length === 1 ? 'Continue' : 'Play'}>
       {contentType === "foreign" ? (
         <>
         {hasLink ?
@@ -65,6 +77,12 @@ const SearchResult = ({ isloadImage, contentType, img, id, title, type, release_
           </Suspense>
         </Link>
       )}
+
+      {savedMedia.length === 1 && 
+        <div className="fav" style={{ color: '#ccced1', fontSize: '14px', borderRadius: '10px 0 10px 0' }}>
+          <PauseIcon style={{ fontSize: '16px', marginBottom: '-3px' }}/> {savedMedia[0]?.time && secondsToHMS(savedMedia[0]?.time)}
+        </div>
+      }
 
       <div className="movie_card_fav" onClick={() => FavHanlder()} hidden>
         {icon}

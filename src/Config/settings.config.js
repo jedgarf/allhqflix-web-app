@@ -1970,7 +1970,7 @@ const stream_server_carousel_settings = {
 const anime_character_carousel_settings = {
   arrows: isMobile ? false : true,
   dots: false,
-  infinite: true,
+  infinite: false,
   speed: 500,
   autoplay: false,
   autoplaySpeed: 5000,

@@ -36,6 +36,8 @@ import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 import apiConfig from '../../Config/api.config';
 import { pageLoadMS, foreign_country, anime_character_carousel_settings } from "../../Config/settings.config";
 
+import { isMobile } from '../../Services/Utils';
+
 // Helpers
 import { getCookie } from "../../Helpers/Cookies";
 
@@ -512,23 +514,19 @@ const AnimeDashboard = (props) => {
               </table>
             </Grid>
             <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
-              <div style={{ marginLeft: '-13px' }}>
+              <div>
                 <div className="heading bheading">
                   <h6>CHARACTERS</h6>
-                </div><br/>
-                  <Container maxWidth={'xxl'}>
-                    <Box sx={{ marginInline: '20px', marginTop: '-20px' }} display={{ xs: "block", sm: "block", md: "block", lg: "block", xl: "block" }}>
-                      <Slider {...anime_character_carousel_settings}>
-                        {infoValue?.characters?.map((item, index) => {
-                          return (
-                            <Fragment key={index}>
-                              <AnimeCharacterCard characterInfo={item}/>
-                            </Fragment>
-                          )
-                        })}
-                      </Slider>
-                    </Box>
-                  </Container>
+                </div>
+                  <Slider {...anime_character_carousel_settings} style={{ marginTop: '20px', marginInline: isMobile ? '10px' : '20px' }}>
+                    {infoValue?.characters?.map((item, index) => {
+                      return (
+                        <Fragment key={index}>
+                          <AnimeCharacterCard characterInfo={item}/>
+                        </Fragment>
+                      )
+                    })}
+                  </Slider>
               </div>
             </Grid>
           </Grid>

@@ -5,7 +5,7 @@ import './css/AnimeCharacterCard.css';
 
 const AnimeCharacterCard = ({ characterInfo }) => {
   return (
-    <Card sx={{ width: window.innerWidth < 720 ? 250 : 400, height: window.innerWidth < 720 ? '100%' : 270, marginInline: '10px', backgroundColor: 'rgba(105, 105, 105, 0.4)', color: '#ccced1' }}>
+    <Card sx={{ width: window.innerWidth < 720 ? 250 : 400, height: window.innerWidth < 720 ? '100%' : 270, marginRight: '10px', backgroundColor: 'rgba(105, 105, 105, 0.4)', color: '#ccced1' }}>
       <CardContent>
         <Grid container direction="row" columnSpacing={{ xs: 2, sm: 2, md: 2, lg: 2, xl: 2 }} rowSpacing={2}>
           <Grid item xl={5} lg={5} md={5} sm={12} xs={12}>
