@@ -121,7 +121,6 @@ const RecentWatched = ({ title = true, loadSavedMedia }) => {
                                         <Fragment key={index}>
                                             <Box className='movie_card_with_close' key={item?.mediaId}>
                                                 <Badge badgeContent={<IconButton onClick={() => deleteRecentMedia(item?.mediaId, item?.title)} size='small' title='Remove'><CloseIcon style={{ fontSize: '14px' }}/></IconButton>} color="error">
-                                                    {/* <Link to={`/${item?.category}/stream_dashboard?mediaId=${item?.mediaId}`}> */}
                                                     <Link to={mediaLink}>
                                                         <RecentMediaCard src={item?.image} title={item?.title}/>
                                                     </Link>

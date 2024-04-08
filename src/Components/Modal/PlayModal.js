@@ -34,7 +34,7 @@ import ReusableModal from "./ReusableModal";
 import Latency from "../../Components/Latency/Latency";
 
 // Utilties
-import { allowOnlyNumbers, seriesSearchLike, animeSearchLike, animeSearchNumberBetween, asianFilmsSearchLike, secondsToHMS, getAllSavedCookiesMedia } from "../../Services/Utils";
+import { allowOnlyNumbers, seriesSearchLike, animeSearchLike, animeSearchNumberBetween, asianFilmsSearchLike, secondsToHMS, getAllSavedCookiesMedia, isMobile } from "../../Services/Utils";
 
 // Helpers
 import { getCookie, deleteCookie } from "../../Helpers/Cookies";
@@ -201,29 +201,29 @@ const MoviePlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ser
             {/* Servers */}
             <DialogContent>
               <Typography variant='h6' sx={{ marginBottom: 1 }}>Servers</Typography>
-              <Slider {...manual_selection_carousel_settings} infinite={false} style={{ marginInline: 10 }}>
+              <Slider {...manual_selection_carousel_settings} infinite={false} style={{ marginInline: (isMobile ? 0 : 10) }}>
                   {serverInfo.data.map((item, index) => {
                       return (
                           <Fragment key={index}>
                               {server_status.filter((serverValue) => serverValue.code === item.name).length > 0 ? (
-                                  <>
+                                  <Fragment>
                                   {server_status.filter((serverValue) => serverValue.code === item.name).map((subItem, subNo) => {
                                       return (
-                                          <>
+                                          <Fragment>
                                               {subItem.status === 'stable' ?
-                                              (<Button size='small' variant={server === item.name ? 'contained' : 'outlined'} startIcon={<OndemandVideoIcon/>} style={{ marginInline: 3 }} onClick={() => onSelectServer(item.name)}>
+                                              (<Button size='small' variant={server === item.name ? 'contained' : 'outlined'} startIcon={<OndemandVideoIcon/>} style={{ marginRight: 3 }} onClick={() => onSelectServer(item.name)}>
                                                   {`Server ${index+1}`}
                                               </Button>)
                                               : 
                                               (
-                                                <Button size='small' variant={server === item.name ? 'contained' : 'outlined'} startIcon={<OndemandVideoIcon/>} style={{ marginInline: 3, cursor: 'not-allowed' }} color='error'>
+                                                <Button size='small' variant={server === item.name ? 'contained' : 'outlined'} startIcon={<OndemandVideoIcon/>} style={{ marginRight: 3, cursor: 'not-allowed' }} color='error'>
                                                   {`Server ${index+1}`}
                                                 </Button>
                                               )}
-                                          </>
+                                          </Fragment>
                                       )
                                   })}
-                                  </>
+                                  </Fragment>
                               ) : ("")}        
                           </Fragment>
                       )
@@ -441,10 +441,10 @@ const SeriesPlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ep
           {/* Seasons */}
           <Grid item xl={12} lg={12} md={12} sm={12} xs={12} style={{  display: seasons?.length > 1 ? 'block' : 'none', paddingTop: 10, paddingBottom: 10 }}>
             <Typography variant='h6' sx={{ marginBottom: 1 }}>Seasons ({seasons?.length})</Typography>
-            <Slider {...manual_selection_carousel_settings} infinite={false} style={{ marginInline: 10, marginBottom: 25 }}>
+            <Slider {...manual_selection_carousel_settings} infinite={false} style={{ marginInline: (isMobile ? 0 : 10), marginBottom: 25 }}>
                 {seasons?.map((item, index) => {
                   return (<Fragment key={index}>
-                            <Button size='small' variant={item.id === seasonNumber ? 'contained' : 'outlined'} style={{ marginInline: 3 }} onClick={() => onSelectSeason(item.id, seasonNumber)}>
+                            <Button size='small' variant={item.id === seasonNumber ? 'contained' : 'outlined'} style={{ marginRight: 3 }} onClick={() => onSelectSeason(item.id, seasonNumber)}>
                                 {item.count}
                             </Button>
                           </Fragment>)
@@ -478,10 +478,10 @@ const SeriesPlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ep
           </Grid>
           <Grid item xl={12} lg={12} md={12} sm={12} xs={12} style={{ paddingBottom: 10 }}>
             {episodeList.length > 0 ? (
-              <Slider {...manual_selection_carousel_settings} infinite={false} style={{ marginInline: 10 }}>
+              <Slider {...manual_selection_carousel_settings} infinite={false} style={{ marginInline: (isMobile ? 0 : 10) }}>
                   {episodeList.map((item, index) => {
                     return (<Fragment key={index}>
-                              <Button size='small' variant={item.id === episodeNumber ? 'contained' : 'outlined'} title={item.title} style={{ marginInline: 3 }} onClick={() => onSelectEpisode(item.id, episodeNumber)}>
+                              <Button size='small' variant={item.id === episodeNumber ? 'contained' : 'outlined'} title={item.title} style={{ marginRight: 3 }} onClick={() => onSelectEpisode(item.id, episodeNumber)}>
                                 {item.number}
                               </Button>
                             </Fragment>)
@@ -494,13 +494,13 @@ const SeriesPlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ep
           {/* Servers */}
           <Grid item xl={12} lg={12} md={12} sm={12} xs={12} style={{ paddingTop: 10, paddingBottom: 10 }}>
             {isServerData ? 
-            <center><CircularProgress sx={{ fontSize: 10 }} /></center>
-              : 
-              <>
+              <center><CircularProgress sx={{ fontSize: 10 }} /></center>
+            : 
+              <Fragment>
                 {serverList.length > 0 ? (
-                  <>
+                  <Fragment>
                     <Typography variant='h6' sx={{ marginBottom: 1 }}>Servers</Typography>
-                    <Slider {...manual_selection_carousel_settings} infinite={false} style={{ marginInline: 10 }}>
+                    <Slider {...manual_selection_carousel_settings} infinite={false} style={{ marginInline: (isMobile ? 0 : 10) }}>
                         {serverList.map((item, index) => {
                             return (
                                 <Fragment key={index}>
@@ -511,13 +511,13 @@ const SeriesPlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ep
                                               <>
                                                   {subItem.status === 'stable' ?
                                                   (
-                                                  <Button size='small' variant={server === item.name ? 'contained' : 'outlined'} startIcon={<OndemandVideoIcon/>} style={{ marginInline: 3 }} onClick={() => onSelectServer(item.name)}>
+                                                  <Button size='small' variant={server === item.name ? 'contained' : 'outlined'} startIcon={<OndemandVideoIcon/>} style={{ marginRight: 3 }} onClick={() => onSelectServer(item.name)}>
                                                       {`Server ${index+1}`}
                                                   </Button>
                                                   )
                                                   : 
                                                   (
-                                                    <Button size='small' variant={server === item.name ? 'contained' : 'outlined'} startIcon={<OndemandVideoIcon/>} style={{ marginInline: 3, cursor: 'not-allowed' }} color='error'>
+                                                    <Button size='small' variant={server === item.name ? 'contained' : 'outlined'} startIcon={<OndemandVideoIcon/>} style={{ marginRight: 3, cursor: 'not-allowed' }} color='error'>
                                                       {`Server ${index+1}`}
                                                     </Button>
                                                   )}
@@ -530,7 +530,7 @@ const SeriesPlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ep
                             )
                         })}
                     </Slider>
-                  </>
+                  </Fragment>
                 ) : (
                   <div style={{ textAlign: 'center', marginTop: '15px' }}>
                     {isServerData ? (
@@ -549,7 +549,7 @@ const SeriesPlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ep
                     )}
                   </div>
                 )}
-              </>
+              </Fragment>
             }
           </Grid>
         </Grid>
@@ -817,10 +817,10 @@ const AnimePlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVar, ur
               </Grid>
 
               {episodeList.length > 0 ? (
-                <Slider {...manual_selection_carousel_settings} infinite={false} style={{ marginInline: 10, marginBottom: 25 }}>
+                <Slider {...manual_selection_carousel_settings} infinite={false} style={{ marginInline: (isMobile ? 0 : 10), marginBottom: 25 }}>
                     {episodeList.map((item, index) => {
                       return (<>
-                              <Button size='small' variant={item.id === episodeNumber ? 'contained' : 'outlined'} title={item.title} style={{ marginInline: 3 }} onClick={() => onSelectEpisode(item.id, item.number)}>
+                              <Button size='small' variant={item.id === episodeNumber ? 'contained' : 'outlined'} title={item.title} style={{ marginRight: 3 }} onClick={() => onSelectEpisode(item.id, item.number)}>
                                   {item.number}
                               </Button>
                               </>)
@@ -1003,9 +1003,9 @@ const AsianDramaPlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVa
               </Grid>
 
               {episodeList.length > 0 ? (
-                <Slider {...manual_selection_carousel_settings} infinite={false} style={{ marginInline: 10, marginBottom: 25 }}>
+                <Slider {...manual_selection_carousel_settings} infinite={false} style={{ marginInline: (isMobile ? 0 : 10), marginBottom: 25 }}>
                     {episodeList.map((item, index) => {
-                      return (<><Button size='small' variant={item.id === episodeNumber ? 'contained' : 'outlined'} title={item.title} style={{ marginInline: 3 }} onClick={() => onSelectEpisode(item.id)}>
+                      return (<><Button size='small' variant={item.id === episodeNumber ? 'contained' : 'outlined'} title={item.title} style={{ marginRight: 3 }} onClick={() => onSelectEpisode(item.id)}>
                                   {item.episode}
                               </Button></>)
                     })}
