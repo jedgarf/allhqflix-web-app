@@ -80,7 +80,7 @@ const SearchResult = ({ isloadImage, contentType, img, id, title, type, release_
 
       {savedMedia.length === 1 && 
         <div className="fav" style={{ color: '#ccced1', fontSize: '14px', borderRadius: '10px 0 10px 0' }}>
-          <PauseIcon style={{ fontSize: '16px', marginBottom: '-3px' }}/> {savedMedia[0]?.time && secondsToHMS(savedMedia[0]?.time)}
+          <PauseIcon style={{ fontSize: '16px', marginBottom: '-3px' }}/> {savedMedia[0]?.category === 'tv' ? `S${savedMedia[0]?.seasonNumber} / EP${savedMedia[0]?.episodeNumber}` : secondsToHMS(savedMedia[0]?.time)}
         </div>
       }
 

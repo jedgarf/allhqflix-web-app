@@ -124,19 +124,17 @@ const Movies = () => {
             {foreign_genre.length > 0 ?
             (
               <div style={{ marginTop: '10px', marginBottom: '15px' }}>
-                <Container maxWidth={'xxl'} display={{ xs: "block", sm: "block", md: "block", lg: "block", xl: "block" }}>
-                  <Slider {...movie_genre_carousel_settings} style={{ marginInline: isMobile ? '0px' : '13px', flexWrap: 'wrap' }}>
-                    {foreign_genre.map((item, index) => {
-                      return (
-                        <Fragment key={index}>
-                          <Link className="text-link-without-underline genre-carousel" sx={{ whiteSpace: 'nowrap' }} to={`/foreign/advanced_filter?type=movie&genre=${item.genre_id}`}>
-                            <Button variant="contained" size="small" color="error" style={{ margin: '5px 8px 5px 0px', color: 'whitesmoke', fontSize: 15, fontWeight: 550 }}>{item.name}</Button>
-                          </Link>
-                        </Fragment>
-                      )
-                    })} 
-                  </Slider>
-                </Container>
+                <Slider {...movie_genre_carousel_settings} style={{ marginInline: isMobile ? '15px' : '30px' }}>
+                  {foreign_genre.map((item, index) => {
+                    return (
+                      <Fragment key={index}>
+                        <Link className="text-link-without-underline genre-carousel" to={`/foreign/advanced_filter?type=movie&genre=${item.genre_id}`}>
+                          <Button variant="contained" size="small" color="error" style={{ margin: '5px 8px 5px 0px', color: 'whitesmoke', fontSize: 15, fontWeight: 550 }}>{item.name}</Button>
+                        </Link>
+                      </Fragment>
+                    )
+                  })} 
+                </Slider>
               </div>
             )
             : <></>}
