@@ -608,6 +608,7 @@ const AnimePlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVar, ur
       setEpisodeList(episodes);
       if (mediaId == 21) {
         let selectedArc = arcs.filter(item => item.id === arcId)[0];
+        setArcId(selectedArc.id);
         setEpisodeList(animeSearchNumberBetween(episodes, selectedArc.start_episode, selectedArc.end_episode)); 
       }
   }
@@ -775,7 +776,7 @@ const AnimePlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVar, ur
                         <Select
                           labelId="demo-simple-select-error-label"
                           id="demo-simple-select-error"
-                          defaultValue={1}
+                          defaultValue={arcId}
                           label={`ARC (${arcs.length})`}
                           onChange={handleArcChange}
                           // renderValue={(value) => `⚠️  - ${value}`}
