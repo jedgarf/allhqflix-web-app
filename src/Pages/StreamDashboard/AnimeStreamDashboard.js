@@ -15,6 +15,7 @@ import { styled } from '@mui/material/styles';
 import './StreamDashboard.css';
 
 // Icons
+import StarIcon from '@mui/icons-material/Star';
 import ArrowBackTwoToneIcon from '@mui/icons-material/ArrowBackTwoTone';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import SubtitlesIcon from '@mui/icons-material/Subtitles';
@@ -261,14 +262,15 @@ const AnimeStreamDashboard = (props) => {
                         <div className='stream-dashboard-title'><h1>{ infoValue?.title?.english || infoValue?.title?.userPreferred || infoValue?.title?.romaji || infoValue?.title?.native }</h1>
                         {infoValue?.episodes?.length > 1 ?
                         (<label className='stream-dashboard-servername'>
-                            Episode 1 to {infoValue?.episodes?.length}&nbsp;&nbsp;
-                            {/* | <span style={{ marginRight: 5 }}><StarIcon style={{ marginBottom: '-2px', fontSize: 18, color: "#E4A11B" }}/> {infoValue?.rating}</span> */}
-                            |<ShareModal infoValue={infoValue}/>
+                            <span style={{ marginRight: 2 }}>Episode 1 to {infoValue?.episodes?.length}</span>
+                            &nbsp;&bull;&nbsp;<span style={{ marginRight: 5 }}><StarIcon style={{ marginBottom: '-3px', fontSize: 18, color: "#E4A11B" }}/> {infoValue?.rating}</span>
+                            &nbsp;&bull;&nbsp;<ShareModal infoValue={infoValue} size={'15px'}/>
                         </label>)
                         : 
                         (<label className='stream-dashboard-servername'>
-                            {infoValue?.duration ? convertMinutesToHoursAndMinutes(infoValue?.duration) : ''}&nbsp;
-                            |<ShareModal infoValue={infoValue}/>
+                            {infoValue?.duration ? <span style={{ marginRight: 2 }}>{convertMinutesToHoursAndMinutes(infoValue?.duration)}</span> : ''}
+                            &nbsp;&bull;&nbsp;<span style={{ marginRight: 5 }}><StarIcon style={{ marginBottom: '-3px', fontSize: 18, color: "#E4A11B" }}/> {infoValue?.rating}</span>
+                            &nbsp;&bull;&nbsp;<ShareModal infoValue={infoValue} size={'15px'}/>
                         </label>)}
                         </div>
                         <p className='stream-dashboard-description' title={DOMPurify.sanitize(infoValue?.description).trim()} dangerouslySetInnerHTML={{ __html: infoValue?.description.trim() ? DOMPurify.sanitize(infoValue?.description).replace('<br>', '').replace('</br>', '').trim() : '-'}}/>

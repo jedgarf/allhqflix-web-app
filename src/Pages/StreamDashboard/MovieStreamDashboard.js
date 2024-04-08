@@ -246,14 +246,16 @@ const MovieStreamDashboard = (props) => {
                     <div className='stream-dashboard-title'>
                     <h1 style={{ marginBottom: '7px' }}>{infoValue?.title}</h1>
                     {type === 'tv' ?
-                    <label className='stream-dashboard-servername'>
-                        <span className='videoq-span' style={{ backgroundColor: 'transparent', fontWeight: 'bolder', border: '1px solid white', padding: '1px', marginRight: '9px' }}>{infoValue?.video_quality}</span>
-                            | {ObjectLength(seasons) > 1 ? 'Season 1 to ' + ObjectLength(seasons) : 'Season 1'} | <ShareModal infoValue={infoValue}/>
-                    </label>
-                        : 
-                    <label className='stream-dashboard-servername'>
-                        <span className='videoq-span' style={{ backgroundColor: 'transparent', fontWeight: 'bolder', border: '1px solid white', padding: '1px', marginRight: '9px' }}>{infoValue?.video_quality}</span> 
-                        | {convertMinutesToHoursAndMinutes(infoValue?.duration.replace('min', ''))} |<ShareModal infoValue={infoValue}/>
+                        <label className='stream-dashboard-servername'>
+                            <span className='videoq-span' style={{ backgroundColor: 'transparent', fontWeight: 'bolder', border: '1px solid white', paddingInline: '1px', marginRight: '9px' }}>{infoValue?.video_quality}</span>
+                            &bull;<span style={{ marginLeft: '5px' }}>{ObjectLength(seasons) > 1 ? 'Season 1 to ' + ObjectLength(seasons) : 'Season 1'}</span>
+                            &nbsp;&nbsp;&bull;&nbsp;<ShareModal infoValue={infoValue} size={'15px'}/>
+                        </label>
+                    : 
+                        <label className='stream-dashboard-servername'>
+                            <span className='videoq-span' style={{ backgroundColor: 'transparent', fontWeight: 'bolder', border: '1px solid white', paddingInline: '1px', marginRight: '9px' }}>{infoValue?.video_quality}</span> 
+                            &bull;<span style={{ marginLeft: '5px' }}>{convertMinutesToHoursAndMinutes(infoValue?.duration.replace('min', ''))}</span>
+                            &nbsp;&nbsp;&bull;&nbsp;<ShareModal infoValue={infoValue} size={'15px'}/>
                         </label> }
                     </div>
                     {infoValue?.description.replace(/\s+/g,'') !== "" ?

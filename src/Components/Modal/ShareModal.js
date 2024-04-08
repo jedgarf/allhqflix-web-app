@@ -73,9 +73,7 @@ const ShareModal = ({ infoValue, size = '18px' }) => {
     return (
         <ThemeProvider theme={darkTheme}>
             <CssBaseline />
-            <IconButton title='Share' variant='contained' color='error' size='small' onClick={() => setModalQROpen(true)}>
-                <ShareIcon style={{ fontSize: size, padding: 0 }}/>
-            </IconButton>
+            <ShareIcon onClick={() => setModalQROpen(true)} style={{ fontSize: size, marginBottom: '-2px', padding: 0, color: '#DC4C64', fontWeight: 'bolder', cursor: 'pointer' }}/>
 
             <Modal
                 aria-labelledby="transition-modal-title"

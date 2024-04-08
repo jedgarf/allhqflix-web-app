@@ -128,12 +128,7 @@ const RecentWatched = ({ title = true, loadSavedMedia }) => {
 
                                                 <div className="fav" style={{ color: '#ccced1', fontSize: '14px', borderRadius: '10px 0 10px 0' }}>
                                                     <PauseIcon style={{ fontSize: '16px', marginBottom: '-3px' }}/>{' '}
-                                                    {(item?.category === 'tv' || item?.category === 'anime') ? (item?.category === 'tv' ? `S${item?.seasonNumber} / ` : '') + `EP${item?.episodeNumber}` : secondsToHMS(item?.time)}<br/>
-                                                    {(item?.category === 'tv' || item?.category === 'anime') && 
-                                                        <Fragment>
-                                                            <AccessTimeIcon style={{ fontSize: '16px', marginBottom: '-3px' }}/> {secondsToHMS(item?.time)}
-                                                        </Fragment>
-                                                    }
+                                                    {item?.time && secondsToHMS(item?.time)}
                                                 </div>
 
                                                 {item?.quality && 

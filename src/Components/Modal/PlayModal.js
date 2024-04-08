@@ -14,7 +14,7 @@ import LoadingButton from '@mui/lab/LoadingButton';
 // Icons
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
-import TuneOutlinedIcon from '@mui/icons-material/TuneOutlined';
+import ChecklistIcon from '@mui/icons-material/Checklist';
 import SaveIcon from '@mui/icons-material/Save';
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
@@ -161,7 +161,7 @@ const MoviePlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ser
         </Button>)
       : 
         !resourceData.isLoading && 
-        <Button aria-label='SERVER SELECTION' variant='contained' size='small' style={{ marginRight: '10px' }} onClick={() => handleModal(true)} startIcon={<TuneOutlinedIcon/>}>
+        <Button aria-label='SERVER SELECTION' variant='contained' size='small' style={{ marginRight: '10px' }} onClick={() => handleModal(true)} startIcon={<ChecklistIcon/>}>
           SERVER SELECTION
         </Button>
       }
@@ -191,13 +191,13 @@ const MoviePlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ser
           </MenuItem>
         </Link>
         <MenuItem onClick={() => handleModal(true)} style={{ fontSize: '15px' }} disableRipple>
-          <TuneOutlinedIcon/>
+          <ChecklistIcon/>
           SERVER SELECTION
         </MenuItem>
       </StyledMenu>
 
         {/* Modal */}
-        <ReusableModal isModalOpen={isModalOpen} handleModal={handleModal} OptionIcon={<TuneOutlinedIcon sx={{ marginBottom: '-4px' }} />} title={`SELECTION`}>
+        <ReusableModal isModalOpen={isModalOpen} handleModal={handleModal} OptionIcon={<ChecklistIcon sx={{ marginBottom: '-4px' }} />} title={`SELECTION`}>
             {/* Servers */}
             <DialogContent>
               <Typography variant='h6' sx={{ marginBottom: 1 }}>Servers</Typography>
@@ -390,7 +390,7 @@ const SeriesPlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ep
         </Button>
       : 
         !resourceData.isLoading && 
-        <Button aria-label='SERVER SELECTION' variant='contained' size='small' style={{ marginRight: '10px' }} onClick={() => handleModal(true)} startIcon={<TuneOutlinedIcon/>}>
+        <Button aria-label='SERVER SELECTION' variant='contained' size='small' style={{ marginRight: '10px' }} onClick={() => handleModal(true)} startIcon={<ChecklistIcon/>}>
           SERVER SELECTION
         </Button>
       }
@@ -426,13 +426,13 @@ const SeriesPlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ep
           </MenuItem>
         </Link>
         <MenuItem onClick={() => handleModal(true)} style={{ fontSize: '15px' }} disableRipple>
-          <TuneOutlinedIcon/>
+          <ChecklistIcon/>
           EPISODE SELECTION
         </MenuItem>
       </StyledMenu>
 
       {/* Modal */}
-      <ReusableModal isModalOpen={isModalOpen} handleModal={handleModal} OptionIcon={<TuneOutlinedIcon sx={{ marginBottom: '-4px' }} />} title={resourceData.isSuccess && resourceInfo?.data?.sources?.length > 0 ? `EPISODE SELECTION` : `SERVER SELECTION`}>
+      <ReusableModal isModalOpen={isModalOpen} handleModal={handleModal} OptionIcon={<ChecklistIcon sx={{ marginBottom: '-4px' }} />} title={resourceData.isSuccess && resourceInfo?.data?.sources?.length > 0 ? `EPISODE SELECTION` : `SERVER SELECTION`}>
 
       <DialogContent>
         <Grid container columnSpacing={{ xs: 3, sm: 3, md: 3, lg: 3, xl: 3 }} rowSpacing={0}>
@@ -752,14 +752,14 @@ const AnimePlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVar, ur
           }
           {episodes.length > 1 &&
             <MenuItem onClick={() => handleModal(true)} style={{ fontSize: '15px' }} disableRipple>
-              <TuneOutlinedIcon/>
+              <ChecklistIcon/>
               EPISODE SELECTION
             </MenuItem>
           }
         </StyledMenu>
 
         {/* Modal */}
-        <ReusableModal isModalOpen={isModalOpen} handleModal={handleModal} OptionIcon={<TuneOutlinedIcon sx={{ marginBottom: '-4px' }} />} title={`EPISODE SELECTION`}>
+        <ReusableModal isModalOpen={isModalOpen} handleModal={handleModal} OptionIcon={<ChecklistIcon sx={{ marginBottom: '-4px' }} />} title={`EPISODE SELECTION`}>
           
           <DialogContent>
 
@@ -966,14 +966,14 @@ const AsianDramaPlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVa
           }
           {episodes.length > 1 &&
             <MenuItem onClick={() => handleModal(true)} style={{ fontSize: '15px' }} disableRipple>
-              <TuneOutlinedIcon/>
+              <ChecklistIcon/>
               EPISODE SELECTION
             </MenuItem>
           }
         </StyledMenu>
 
         {/* Modal */}
-        <ReusableModal isModalOpen={isModalOpen} handleModal={handleModal} OptionIcon={<TuneOutlinedIcon sx={{ marginBottom: '-4px' }} />} title={`EPISODE SELECTION`}>
+        <ReusableModal isModalOpen={isModalOpen} handleModal={handleModal} OptionIcon={<ChecklistIcon sx={{ marginBottom: '-4px' }} />} title={`EPISODE SELECTION`}>
             
             <DialogContent>
               {/* Episodes */}

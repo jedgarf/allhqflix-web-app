@@ -74,8 +74,9 @@
 .videoq-span {
     background: rgba(0, 0, 0, 0.70);
     color: var(--four-color);
-    padding: 0px 3px 3px 3px !important;
+    padding: 0px 3px 2px 3px !important;
     border-radius: 5px;
+    font-size: 16px !important;
 }
 
 .stream-dashboard-playbutton button {
