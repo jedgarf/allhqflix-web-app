@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Suspense } from "react";
+import React, { useState, useEffect, Suspense, Fragment } from "react";
 import Skeleton from '@mui/material/Skeleton';
 import { useDispatch } from "react-redux";
 import { Link, useParams } from "react-router-dom";
@@ -13,6 +13,7 @@ import StarIcon from "@mui/icons-material/Star";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import PauseIcon from "@mui/icons-material/Pause";
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 
 // Pages
 import { favAdd } from "../../Features/favSlice";
@@ -74,7 +75,19 @@ const MoviesRow = ({isloadImage, cat, img, id, title, type, release_date, rate, 
 
       {savedMedia.length === 1 && 
         <div className="fav" style={{ color: '#ccced1', fontSize: '14px', borderRadius: '10px 0 10px 0' }}>
-          <PauseIcon style={{ fontSize: '16px', marginBottom: '-3px' }}/> {savedMedia[0]?.time && secondsToHMS(savedMedia[0]?.time)}
+          <PauseIcon style={{ fontSize: '16px', marginBottom: '-3px' }}/>{' '}
+          {(type === 'TV' || type === 'TV Series') ? (savedMedia[0]?.category === 'tv' ? `S${savedMedia[0]?.seasonNumber} / ` : '') + `EP${savedMedia[0]?.episodeNumber}` : secondsToHMS(savedMedia[0]?.time)}<br/>
+          {savedMedia.length === 1 && 
+            <div className="fav" style={{ color: '#ccced1', fontSize: '14px', borderRadius: '10px 0 10px 0' }}>
+              <PauseIcon style={{ fontSize: '16px', marginBottom: '-3px' }}/>{' '}
+              {(type === 'TV' || type === 'TV Series') ? (savedMedia[0]?.category === 'tv' ? `S${savedMedia[0]?.seasonNumber} / ` : '') + `EP${savedMedia[0]?.episodeNumber}` : secondsToHMS(savedMedia[0]?.time)}<br/>
+              {(savedMedia[0]?.category === 'tv' || savedMedia[0]?.category === 'anime') && 
+                <Fragment>
+                  <AccessTimeIcon style={{ fontSize: '16px', marginBottom: '-3px' }}/> {secondsToHMS(savedMedia[0]?.time)}
+                </Fragment>
+              }
+            </div>
+          }
         </div>
       }
 

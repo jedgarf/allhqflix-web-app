@@ -19,6 +19,7 @@ import { Container, Grid, Box, Typography, IconButton, Badge } from '@mui/materi
 import LiveTvIcon from '@mui/icons-material/LiveTv';
 import CloseIcon from '@mui/icons-material/Close';
 import PauseIcon from '@material-ui/icons/Pause';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 
 // Components
 import RecentMediaCard from "../../Components/LazyImageComponent/RecentMediaCard";
@@ -127,7 +128,13 @@ const RecentWatched = ({ title = true, loadSavedMedia }) => {
                                                 </Badge>
 
                                                 <div className="fav" style={{ color: '#ccced1', fontSize: '14px', borderRadius: '10px 0 10px 0' }}>
-                                                    <PauseIcon style={{ fontSize: '16px', marginBottom: '-3px' }}/> {secondsToHMS(item?.time)}
+                                                    <PauseIcon style={{ fontSize: '16px', marginBottom: '-3px' }}/>{' '}
+                                                    {(item?.category === 'tv' || item?.category === 'anime') ? (item?.category === 'tv' ? `S${item?.seasonNumber} / ` : '') + `EP${item?.episodeNumber}` : secondsToHMS(item?.time)}<br/>
+                                                    {(item?.category === 'tv' || item?.category === 'anime') && 
+                                                        <Fragment>
+                                                            <AccessTimeIcon style={{ fontSize: '16px', marginBottom: '-3px' }}/> {secondsToHMS(item?.time)}
+                                                        </Fragment>
+                                                    }
                                                 </div>
 
                                                 {item?.quality && 
