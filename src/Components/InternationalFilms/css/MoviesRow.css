@@ -78,7 +78,7 @@
 .movie_card_with_close {
     position: relative;
     width: 150px;
-    margin-right: 30px;
+    margin-right: 20px;
 }
 
 .movie_card_with_close .image-container img {
