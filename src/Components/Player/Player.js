@@ -128,6 +128,7 @@ const Player = ({ details, episodes, defaultlink, infotitle, infocover, seasonNu
                     marginBottom: '5vh',
                 });
                 if (seekTime > 0) art.seek = seekTime;
+                if (!isMobile) art.fullscreenWeb = true;
             });
             
             art.on('play', () => {
