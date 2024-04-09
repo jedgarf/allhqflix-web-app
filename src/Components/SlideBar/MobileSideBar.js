@@ -130,7 +130,7 @@ const MobileSideBar = ({ Type, subType, getMenu, menu, submenu }) => {
                             <ListItem disablePadding>
                                 <ListItemButton selected={false} style={{ color: '#DC4C64', fontWeight: '550' }}>
                                     <ListItemIcon>
-                                        <WebIcon sx={{ color: "#3B71CA" }} />
+                                        <WebIcon sx={{ color: "#3b71ca" }} />
                                     </ListItemIcon>
                                         {/* <StyledSubBadge badgeContent={`Beta`} color="error"> */}
                                         <ListItemText className='sidebar-no-link-menu' primary={'MEDIA ALCHEMY'} classes={{ primary: classes.text }} />
@@ -152,7 +152,7 @@ const MobileSideBar = ({ Type, subType, getMenu, menu, submenu }) => {
                             <ListItem disablePadding>
                                 <ListItemButton selected={Type === "terms_and_conditions" ? true : false} style={{ color: '#DC4C64', fontWeight: '550' }}>
                                 <ListItemIcon>
-                                    <InfoIcon sx={{ color: "#3B71CA" }} />
+                                    <InfoIcon sx={{ color: "#3b71ca" }} />
                                 </ListItemIcon>
                                     <ListItemText className='sidebar-no-link-menu' primary={'TERMS AND CONDITIONS'} classes={{ primary: classes.text }} />
                                 </ListItemButton>
@@ -162,7 +162,7 @@ const MobileSideBar = ({ Type, subType, getMenu, menu, submenu }) => {
                             <ListItem disablePadding>
                                 <ListItemButton selected={Type === "privacy_policy" ? true : false} style={{ color: '#DC4C64', fontWeight: '550' }}>
                                 <ListItemIcon>
-                                    <PrivacyTipIcon sx={{ color: "#DC4C64" }} />
+                                    <PrivacyTipIcon sx={{ color: "#3b71ca" }} />
                                 </ListItemIcon>
                                     <ListItemText className='sidebar-no-link-menu' primary={'PRIVACY POLICY'} classes={{ primary: classes.text }} />
                                 </ListItemButton>
@@ -182,7 +182,7 @@ const MobileSideBar = ({ Type, subType, getMenu, menu, submenu }) => {
                             <ListItem disablePadding>
                                 <ListItemButton selected={Type === "contact_us" ? true : false} style={{ color: '#DC4C64', fontWeight: '550' }}>
                                 <ListItemIcon>
-                                    <EmailIcon sx={{ color: "#3B71CA" }} />
+                                    <EmailIcon sx={{ color: "#3b71ca" }} />
                                 </ListItemIcon>
                                     <ListItemText className='sidebar-no-link-menu' primary={'CONTACT US'} classes={{ primary: classes.text }} />
                                 </ListItemButton>

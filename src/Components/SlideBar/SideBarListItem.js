@@ -11,6 +11,8 @@ import { styled } from '@mui/material/styles';
 import ReactHtmlParser from 'react-html-parser';
 
 // Icons
+import ChecklistIcon from '@mui/icons-material/Checklist';
+import LiveTvIcon from '@mui/icons-material/LiveTv';
 import LocalMoviesIcon from '@mui/icons-material/LocalMovies';
 import InstallMobileIcon from '@mui/icons-material/InstallMobile';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
@@ -26,6 +28,29 @@ const SideBarListItem = ({ page, subType, subPage, classes, selected }) => {
     const handleClick = () => {
         setOpen((prev) => !prev);
     };
+
+    const RenderIcon = ({ menuName }) => {
+        let result;
+        switch (menuName) {
+            case 'WATCH LIST':
+                result = <ChecklistIcon sx={{ color: "#3b71ca" }} />;
+                break;
+            case 'MOVIES & TV SERIES':
+                result = <LiveTvIcon sx={{ color: "#3b71ca" }} />;
+                break;
+            case 'ANIMES':
+                result = <LocalMoviesIcon sx={{ color: "#3b71ca" }} />;
+                break;
+            case 'MOBILE APP':
+                result = <InstallMobileIcon sx={{ color: "#3b71ca" }} />;
+                break;
+            default:
+                result = <LocalMoviesIcon sx={{ color: "#3b71ca" }} />;
+                break;
+        }
+
+        return result;
+    }
     
     const StyledSubBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
@@ -36,6 +61,7 @@ const SideBarListItem = ({ page, subType, subPage, classes, selected }) => {
     },
     }));
     
+    
     return (
         <React.Fragment>
             {page.link === '' ? 
@@ -43,7 +69,7 @@ const SideBarListItem = ({ page, subType, subPage, classes, selected }) => {
                     <ListItem key={page.id} onClick={handleClick} disablePadding>
                         <ListItemButton selected={selected}  style={{ color: '#DC4C64', fontWeight: '550' }}>
                             <ListItemIcon>
-                                {page.name.toLocaleUpperCase() == 'MOBILE APP' ? <InstallMobileIcon sx={{ color: "#14A44D" }} /> : <LocalMoviesIcon sx={{ color: "#DC4C64" }} />}
+                                <RenderIcon menuName={page.name.toLocaleUpperCase()}/>
                             </ListItemIcon>
 
 
@@ -60,7 +86,7 @@ const SideBarListItem = ({ page, subType, subPage, classes, selected }) => {
                     <ListItem key={page.id} disablePadding>
                         <ListItemButton selected={selected} style={{ color: selected ? '#DC4C64' : '', fontWeight: '550' }}>
                         <ListItemIcon>
-                                {page.name.toLocaleUpperCase() == 'MOBILE APP' ? <InstallMobileIcon sx={{ color: "#14A44D" }} /> : <LocalMoviesIcon sx={{ color: "#DC4C64" }} />}
+                            <RenderIcon menuName={page.name.toLocaleUpperCase()}/>
                         </ListItemIcon>
 
                         {page.is_dev === 1 ?
