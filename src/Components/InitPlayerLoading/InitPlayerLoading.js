@@ -6,7 +6,7 @@ import { Typography, LinearProgress } from "@mui/material";
 // Images
 import { mainLogo } from "../../Config/images.config";
 
-const LoadingPage = () => {
+const LoadingPage = ({ text }) => {
   return (
     <div className="movie_player">
       <div className="player-page-image-container">
@@ -22,7 +22,7 @@ const LoadingPage = () => {
             <LinearProgress />
           </div>
           <div className='player-page-loading-text-div'>
-            <Typography className='player-page-loading-text' variant="p">Initialize Player...</Typography>
+            <Typography className='player-page-loading-text' variant="p">{text || 'Initialize Player...'}</Typography>
           </div>
         </center>
       </div>

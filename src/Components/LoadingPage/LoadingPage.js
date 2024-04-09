@@ -6,7 +6,7 @@ import { Typography, LinearProgress } from "@mui/material";
 // Images
 import { mainLogo, homeBackground } from "../../Config/images.config";
 
-const LoadingPage = () => {
+const LoadingPage = ({ text }) => {
   return (
     <div className="loading-page"style={{backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("${homeBackground}")`, height: '100vh', display: 'flex', flexDirection: 'column' }}>
       <div className="page-image-container">
@@ -22,7 +22,7 @@ const LoadingPage = () => {
             <LinearProgress />
           </div>
           <div className='page-loading-text-div'>
-            <Typography className='page-loading-text' variant="p">Please wait...</Typography>
+            <Typography className='page-loading-text' variant="p">{text || 'Please wait...'}</Typography>
           </div>
         </center>
       </div>

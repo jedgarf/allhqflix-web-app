@@ -229,7 +229,7 @@ const AnimeDashboard = (props) => {
     if (selectedEpisodeIndex > 0 && selectedEpisodeIndex < infoValue?.episodes?.length) {
       additionalControls.push({
         position: 'right',
-        html: `&#8678;`,
+        html: isMobile ? `PREV.` : `&#8678;`,
         tooltip: 'Previous Episode',
         style: {
           fontSize: '43px',
@@ -245,7 +245,7 @@ const AnimeDashboard = (props) => {
     if (selectedEpisodeIndex >= 0 && (selectedEpisodeIndex + 1) < infoValue?.episodes?.length) {
       additionalControls.push({
         position: 'right',
-        html: `&#8680;`,
+        html: isMobile ? `NEXT` : `&#8680;`,
         tooltip: 'Next Episode',
         style: {
           fontSize: '43px',

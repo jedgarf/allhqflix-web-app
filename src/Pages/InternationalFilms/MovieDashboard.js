@@ -35,7 +35,7 @@ import { defaultInternationalServer, defaultInternationalVideoRes, server_status
 import { subtitleLogo, videoQuality, homeBackground } from "../../Config/images.config";
 
 // Utilities
-import { moveToTop, getFileExtention, SeparateArrayByComma, SeparateArrayByCircularSpan, capitalizeString, convertMinutesToHoursAndMinutes, getLanguageName } from "../../Services/Utils";
+import { moveToTop, getFileExtention, SeparateArrayByComma, SeparateArrayByCircularSpan, capitalizeString, convertMinutesToHoursAndMinutes, getLanguageName, isMobile } from "../../Services/Utils";
 
 // Helpers
 import { getCookie } from "../../Helpers/Cookies";
@@ -322,7 +322,7 @@ const MovieDashboard = (props) => {
     if (selectedItemIndex > 0 && selectedItemIndex < infoValue?.episodes?.length) {
       additionalControls.push({
         position: 'right',
-        html: `&#8678;`,
+        html: isMobile ? `PREV.` : `&#8678;`,
         tooltip: 'Previous Episode',
         style: {
           fontSize: '43px',
@@ -337,7 +337,7 @@ const MovieDashboard = (props) => {
     if (selectedItemIndex >= 0 && (selectedItemIndex + 1) < infoValue?.episodes?.length) {
       additionalControls.push({
         position: 'right',
-        html: `&#8680;`,
+        html: isMobile ? `NEXT` : `&#8680;`,
         tooltip: 'Next Episode',
         style: {
           fontSize: '43px',
