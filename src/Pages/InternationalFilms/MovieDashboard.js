@@ -556,7 +556,7 @@ const MovieDashboard = (props) => {
               <TVEpisodesDrawer
                 movieInfo={infoValue} 
                 mediaId={indexId} 
-                seasonId={selectedSeason}
+                seasonId={selectedSeason} 
                 episodeId={selectedEpisode} 
                 server={selectedServer}
                 setSelectedSeason={setSelectedSeason}

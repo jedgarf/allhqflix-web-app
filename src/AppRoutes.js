@@ -363,7 +363,7 @@ const AppRoutes = () => {
 
             {/*---------------------------------------------- Account Management ---------------------------------------------------------- */}
             
-            <Route path="/my_list" element={
+            <Route path="/watch_list" element={
                 <CountryFilter>
                   <MyList />
                 </CountryFilter>
