@@ -122,7 +122,6 @@ const Player = ({ details, episodes, defaultlink, infotitle, infocover, seasonNu
             art.hotkey.add(70, () => art.fullscreen = !art.fullscreen);
 
             art.on('ready', () => {
-                if (!isMobile) art.fullscreenWeb = true;
                 art.notice.show = infotitle;
                 art.subtitle.style({
                     fontSize: 'clamp(14px, 3vw, 30px)',
@@ -130,7 +129,11 @@ const Player = ({ details, episodes, defaultlink, infotitle, infocover, seasonNu
                 });
                 if (seekTime > 0) art.seek = seekTime;
             });
-    
+            
+            art.on('play', () => {
+                if (!isMobile) art.fullscreenWeb = true;
+            });
+
             art.on('pause', () => {
                 art.notice.show = infotitle;
             });

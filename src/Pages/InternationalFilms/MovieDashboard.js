@@ -26,6 +26,7 @@ import TVEpisodesDrawer from "../../Components/BottomDrawer/TVEpisodesDrawer";
 import MediaDescription from "../../Components/MediaDescription/MediaDescription";
 import SnackBar from "../../Components/SnackBar/SnackBar";
 import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
+import { MovieDetailsSkeleton } from "../../Components/MediaDetailsSkeleton/MediaDetailsSkeleton";
 
 // Config
 import apiConfig from '../../Config/api.config';
@@ -582,71 +583,77 @@ const MovieDashboard = (props) => {
                 <h6>{type === "tv" ? 'TV Show' : 'Movie'} Details</h6>
               </div>
             </Grid>
-            <Grid item xl={2} lg={2} md={0} sm={0} xs={0} display={{ xs: 'none', sm: 'none', md: 'none', lg: 'block' }}>
-                <center>
-                  <img src={infoValue?.image} alt={infoValue?.title} style={{ marginTop: '-30px', marginBottom: '30px' }} />
-                </center>
-            </Grid>
-            <Grid item xl={10} lg={10} md={12} sm={12} xs={12}>
-              <h3 className='media-title' style={{ marginTop: '-30px', marginLeft: '10px' }}><b>{infoValue?.title}</b></h3>
-              <div className='media_props'>
-                {type === 'tv' ? 
-                  <Grid container alignItems="center" spacing={0.4} style={{ marginLeft: '8px' }}>
-                    <Grid item>
-                      <h5 style={{ marginRight: 10 }}>
-                        <span className='stream-video-quality-span' style={{ backgroundColor: 'transparent', fontWeight: 'bolder', border: '1.5px solid white' }}>{infoValue?.video_quality}</span>
-                      </h5>
-                    </Grid>
-                    <Grid item>
-                      <h4>{infoValue?.episodes?.length > 0 ? `${infoValue?.episodes?.length} EPISODES` : `${infoValue?.episodes?.length} EPISODE`}</h4>
-                    </Grid>
-                  </Grid>
-                  : 
-                  <Grid container alignItems="center" spacing={0.4} style={{ marginLeft: '8px' }}>
-                    <Grid item>
-                      <h5 style={{ marginRight: 10 }}>
-                        <span className='stream-video-quality-span' style={{ backgroundColor: 'transparent', fontWeight: 'bolder', border: '1.5px solid white' }}>{infoValue?.video_quality}</span>
-                      </h5>
-                    </Grid>
-                    <Grid item>
-                      <AccessTimeFilledIcon style={{ fontSize: 16, marginBottom: -2, color: "#54B4D3" }}/>
-                    </Grid>
-                    <Grid item>
-                      <h5>{convertMinutesToHoursAndMinutes(infoValue?.duration.replace('min', ''))}</h5>
-                    </Grid>
-                  </Grid>}
-              </div>
-              <MediaDescription text={infoValue?.description}/>
-              <table>
-                <tbody>
-                  <tr>
-                    <th>Country:</th>
-                    <td><Link className='text-link' style={{ cursor: 'pointer' }} title={`${infoValue?.country}`} to={`/foreign/country_filter?country=${infoValue?.country}`}>{infoValue?.country}</Link></td>
-                  </tr>
-                  <tr>
-                    <th>Genre:</th>
-                    <td><SeparateArrayByCircularSpan type={'site_link'} data={infoValue?.genres} link={'/foreign/genre_filter?genre='} /></td>
-                  </tr>
-                  <tr>
-                    <th>Released:</th>
-                    <td>{infoValue?.releaseDate == null ? infoValue?.releaseDate : moment(infoValue?.releaseDate).format('MMMM D, YYYY') }</td>
-                  </tr>
-                  <tr>
-                    <th>Production:</th>
-                    <td>
-                      <a className='text-link' href={`https://www.google.com/search?q=${infoValue?.production}`} alt={infoValue?.production} title={infoValue?.production} rel='noreferrer' target='_blank' style={{ color: '#ccced1', cursor: 'pointer' }}>
-                        {infoValue?.production}
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th>Casts:</th>
-                    <td><SeparateArrayByCircularSpan type={'google_link'} data={infoValue?.casts} link={'https://www.google.com/search?q='} /></td>
-                  </tr>
-                </tbody>
-              </table>
 
-            </Grid>
+            {infoData.isSuccess ? 
+              <Fragment>
+                <Grid item xl={2} lg={2} md={0} sm={0} xs={0} display={{ xs: 'none', sm: 'none', md: 'none', lg: 'block' }}>
+                    <center>
+                      <img src={infoValue?.image} alt={infoValue?.title} style={{ marginTop: '-30px', marginBottom: '30px' }} />
+                    </center>
+                </Grid>
+                <Grid item xl={10} lg={10} md={12} sm={12} xs={12}>
+                  <h3 className='media-title' style={{ marginTop: '-30px', marginLeft: '10px' }}><b>{infoValue?.title}</b></h3>
+                  <div className='media_props'>
+                    {type === 'tv' ? 
+                      <Grid container alignItems="center" spacing={0.4} style={{ marginLeft: '8px' }}>
+                        <Grid item>
+                          <h5 style={{ marginRight: 10 }}>
+                            <span className='stream-video-quality-span' style={{ backgroundColor: 'transparent', fontWeight: 'bolder', border: '1.5px solid white' }}>{infoValue?.video_quality}</span>
+                          </h5>
+                        </Grid>
+                        <Grid item>
+                          <h4>{infoValue?.episodes?.length > 0 ? `${infoValue?.episodes?.length} EPISODES` : `${infoValue?.episodes?.length} EPISODE`}</h4>
+                        </Grid>
+                      </Grid>
+                      : 
+                      <Grid container alignItems="center" spacing={0.4} style={{ marginLeft: '8px' }}>
+                        <Grid item>
+                          <h5 style={{ marginRight: 10 }}>
+                            <span className='stream-video-quality-span' style={{ backgroundColor: 'transparent', fontWeight: 'bolder', border: '1.5px solid white' }}>{infoValue?.video_quality}</span>
+                          </h5>
+                        </Grid>
+                        <Grid item>
+                          <AccessTimeFilledIcon style={{ fontSize: 16, marginBottom: -2, color: "#54B4D3" }}/>
+                        </Grid>
+                        <Grid item>
+                          <h5>{convertMinutesToHoursAndMinutes(infoValue?.duration.replace('min', ''))}</h5>
+                        </Grid>
+                      </Grid>}
+                  </div>
+                  <MediaDescription text={infoValue?.description}/>
+                  <table>
+                    <tbody>
+                      <tr>
+                        <th>Country:</th>
+                        <td><Link className='text-link' style={{ cursor: 'pointer' }} title={`${infoValue?.country}`} to={`/foreign/country_filter?country=${infoValue?.country}`}>{infoValue?.country}</Link></td>
+                      </tr>
+                      <tr>
+                        <th>Genre:</th>
+                        <td><SeparateArrayByCircularSpan type={'site_link'} data={infoValue?.genres} link={'/foreign/genre_filter?genre='} /></td>
+                      </tr>
+                      <tr>
+                        <th>Released:</th>
+                        <td>{infoValue?.releaseDate == null ? infoValue?.releaseDate : moment(infoValue?.releaseDate).format('MMMM D, YYYY') }</td>
+                      </tr>
+                      <tr>
+                        <th>Production:</th>
+                        <td>
+                          <a className='text-link' href={`https://www.google.com/search?q=${infoValue?.production}`} alt={infoValue?.production} title={infoValue?.production} rel='noreferrer' target='_blank' style={{ color: '#ccced1', cursor: 'pointer' }}>
+                            {infoValue?.production}
+                          </a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>Casts:</th>
+                        <td><SeparateArrayByCircularSpan type={'google_link'} data={infoValue?.casts} link={'https://www.google.com/search?q='} /></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </Grid>
+              </Fragment>
+            : 
+              <MovieDetailsSkeleton/>
+            }
 
           </Grid>
         </div>

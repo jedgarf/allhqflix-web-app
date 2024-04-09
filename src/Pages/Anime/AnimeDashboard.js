@@ -4,7 +4,7 @@ import { useQuery, useQueryClient } from 'react-query';
 import { useParams } from "react-router-dom";
 
 // Material UI Components
-import { Grid, Box, Container, Button } from '@mui/material';
+import { Grid, Box, Container, Button, Skeleton } from '@mui/material';
 
 // React Slick
 import Slider from "react-slick";
@@ -17,6 +17,7 @@ import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
 import ReplayIcon from '@mui/icons-material/Replay';
 import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
 import SkipNextIcon from '@mui/icons-material/SkipNext';
+import StarIcon from '@mui/icons-material/Star';
 
 // Components
 import SideBar from "../../Components/SlideBar/SideBar";
@@ -31,6 +32,7 @@ import OnePieceEpisodesDrawer from "../../Components/BottomDrawer/OnePieceEpisod
 import AnimeCharacterCard from "../../Components/Anime/AnimeCharacterCard";
 import MediaDescription from "../../Components/MediaDescription/MediaDescription";
 import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
+import { AnimeDetailsSkeleton } from "../../Components/MediaDetailsSkeleton/MediaDetailsSkeleton";
 
 // Config
 import apiConfig from '../../Config/api.config';
@@ -452,83 +454,93 @@ const AnimeDashboard = (props) => {
                 <h6>Anime Details</h6>
               </div>
             </Grid>
-            <Grid item xl={2} lg={2} md={0} sm={0} xs={0} display={{ xs: 'none', sm: 'none', md: 'none', lg: 'block' }}>
-                <center>
-                  <img src={infoValue?.image} alt={contentTitle} style={{ marginTop: '-30px', marginBottom: '30px' }} />
-                </center>
-            </Grid>
-            <Grid item xl={10} lg={10} md={12} sm={12} xs={12}>
-              <h3 className='media-title' style={{ marginTop: '-30px', marginLeft: '10px' }}><b>{contentTitle}{indexId == 21 ? `: ${selectedArc}` : ''}</b></h3>
-              <div className="media_props">
-                {/* <Typography variant="subtitle1" style={{ verticalAlign: 'middle', marginLeft: '10px', marginRight: '15px', display: 'inline-flex' }}>
-                    <StarIcon style={{ marginRight: '8px', color: "#E4A11B" }}/> {infoValue?.rating}
-                </Typography> */}
-                <Grid container spacing={0.4} style={{ marginLeft: '5px' }}>
-                  <Grid item>
-                    <h5 style={{ marginRight: 10 }}>
-                      <span className='stream-video-quality-span' style={{ color: 'rgba(129,181,223,255)', backgroundColor: 'transparent', fontWeight: 'bolder', border: '1.5px solid' }}>
-                        {infoValue?.subOrDub === 'dub' ? 'English Dub' : 'English Subtitle'}
-                      </span>
-                    </h5>
-                  </Grid>
-                  <Grid item>
-                    <AccessTimeFilledIcon style={{ fontSize: 16, marginBottom: -1, color: "#54B4D3" }}/>
-                  </Grid>
-                  <Grid item>
-                    <h5>{convertMinutesToHoursAndMinutes(infoValue?.duration)}</h5>
-                  </Grid>
-                  {/* <Grid item>
-                    <ShareModal infoValue={infoValue}/>
-                  </Grid> */}
+            {/* infoData.isError */}
+            { infoData.isSuccess ? 
+              <Fragment>
+                <Grid item xl={2} lg={2} md={0} sm={0} xs={0} display={{ xs: 'none', sm: 'none', md: 'none', lg: 'block' }}>
+                  <center>
+                    <img src={infoValue?.image} alt={contentTitle} style={{ marginTop: '-30px', marginBottom: '30px' }} />
+                  </center>
                 </Grid>
-                {/* <TraillerModal category="anime" infoValue={infoValue}/> */}
-              </div>
-              <MediaDescription text={infoValue?.description}/>
-              <table>
-                <tbody>
-                  <tr>
-                    <th>Country:</th>
-                    <td>{foreign_country.filter((item) => item.code === infoValue?.countryOfOrigin).length > 0 ? foreign_country.filter((item) => item.code === infoValue?.countryOfOrigin)[0].name : '-'}</td>
-                  </tr>
-                  <tr>
-                    <th>Season:</th>
-                    <td>{infoValue?.season ? capitalizeString(infoValue?.season) : '-'}</td>
-                  </tr>
-                  <tr>
-                    <th>Genre:</th>
-                    <td><SeparateArrayByCircularSpan type={'site_link'} data={infoValue?.genres} link={'/anime/genre_filter?genre='} /></td>
-                  </tr>
-                  <tr>
-                    <th>Released:</th>
-                    <td>{infoValue?.releaseDate}</td>
-                  </tr>
-                  <tr>
-                    <th>Status:</th>
-                    <td>{infoValue?.status}</td>
-                  </tr>
-                  <tr>
-                    <th>Synonyms:</th>
-                    <td><SeparateArrayByCircularSpan type={'google_link'} data={infoValue?.synonyms} link={'https://www.google.com/search?q='} /></td>
-                  </tr>
-                </tbody>
-              </table>
-            </Grid>
-            <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
-              <div>
-                <div className="heading bheading">
-                  <h6>CHARACTERS</h6>
+                <Grid item xl={10} lg={10} md={12} sm={12} xs={12}>
+                  <h3 className='media-title' style={{ marginTop: '-30px', marginLeft: '10px' }}><b>{contentTitle}{indexId == 21 ? `: ${selectedArc}` : ''}</b></h3>
+                  <div className="media_props">
+                    <Grid container spacing={0.4} style={{ marginLeft: '5px' }}>
+                      <Grid item>
+                        <h5 style={{ marginRight: 10 }}>
+                          <span className='stream-video-quality-span' style={{ color: 'rgba(129,181,223,255)', backgroundColor: 'transparent', fontWeight: 'bolder', border: '1.5px solid' }}>
+                            {infoValue?.subOrDub === 'dub' ? 'English Dub' : 'English Subtitle'}
+                          </span>
+                        </h5>
+                      </Grid>
+                      <Grid item>
+                        <AccessTimeFilledIcon style={{ fontSize: 16, marginBottom: -1, color: "#54B4D3" }}/>
+                      </Grid>
+                      <Grid item>
+                        <h5>{convertMinutesToHoursAndMinutes(infoValue?.duration)}</h5>
+                      </Grid>
+                      {/* <Grid item>
+                        <span style={{ marginLeft: 5 }}><StarIcon style={{ marginBottom: '-3px', fontSize: 20, color: "#E4A11B" }}/> {infoValue?.rating}</span>
+                      </Grid> */}
+                      {/* <Grid item>
+                        <ShareModal infoValue={infoValue}/>
+                      </Grid> */}
+                    </Grid>
+                    {/* <TraillerModal category="anime" infoValue={infoValue}/> */}
+                  </div>
+                  <MediaDescription text={infoValue?.description}/>
+                  <table>
+                    <tbody>
+                      <tr>
+                        <th>Country:</th>
+                        <td>{foreign_country.filter((item) => item.code === infoValue?.countryOfOrigin).length > 0 ? foreign_country.filter((item) => item.code === infoValue?.countryOfOrigin)[0].name : '-'}</td>
+                      </tr>
+                      <tr>
+                        <th>Season:</th>
+                        <td>{infoValue?.season ? capitalizeString(infoValue?.season) : '-'}</td>
+                      </tr>
+                      <tr>
+                        <th>Genre:</th>
+                        <td><SeparateArrayByCircularSpan type={'site_link'} data={infoValue?.genres} link={'/anime/genre_filter?genre='} /></td>
+                      </tr>
+                      <tr>
+                        <th>Released:</th>
+                        <td>{infoValue?.releaseDate}</td>
+                      </tr>
+                      <tr>
+                        <th>Status:</th>
+                        <td>{infoValue?.status}</td>
+                      </tr>
+                      <tr>
+                        <th>Synonyms:</th>
+                        <td><SeparateArrayByCircularSpan type={'google_link'} data={infoValue?.synonyms} link={'https://www.google.com/search?q='} /></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </Grid>
+              </Fragment>
+            : 
+              <AnimeDetailsSkeleton/>
+            }
+
+            {infoValue?.characters?.length > 0 && 
+              <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                <div>
+                  <div className="heading bheading">
+                    <h6>CHARACTERS</h6>
+                  </div>
+                    <Slider {...anime_character_carousel_settings} style={{ marginTop: '20px', marginInline: isMobile ? '10px' : '20px' }}>
+                      {infoValue?.characters?.map((item, index) => {
+                        return (
+                          <Fragment key={index}>
+                            <AnimeCharacterCard characterInfo={item}/>
+                          </Fragment>
+                        )
+                      })}
+                    </Slider>
                 </div>
-                  <Slider {...anime_character_carousel_settings} style={{ marginTop: '20px', marginInline: isMobile ? '10px' : '20px' }}>
-                    {infoValue?.characters?.map((item, index) => {
-                      return (
-                        <Fragment key={index}>
-                          <AnimeCharacterCard characterInfo={item}/>
-                        </Fragment>
-                      )
-                    })}
-                  </Slider>
-              </div>
-            </Grid>
+              </Grid>
+            }
           </Grid>
         </div>
       </div>
