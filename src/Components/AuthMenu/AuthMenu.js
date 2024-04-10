@@ -7,6 +7,7 @@ import { IconButton, Badge, Menu, MenuItem, ListItemIcon, ListItemText, Avatar }
 
 // Material UI Icons
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 
 // Sweet Alert
@@ -18,10 +19,15 @@ import { getSession, removeSession } from "../../Helpers/Sessions";
 // Utils
 import { capitalizeString } from "../../Services/Utils";
 
+// Modals
+import SettingsModal from "../Modal/SettingsModal";
+
 const AuthMenu = ({ isStream, isAuth }) => {
 
     const navigate = useNavigate();
     const { id, type } = useParams();
+
+    const [settingModal, setSettingModal] = useState(false);
 
     const [user, setUser] = useState([]);
     const [anchorEl, setAnchorEl] = useState(null);
@@ -39,7 +45,7 @@ const AuthMenu = ({ isStream, isAuth }) => {
     const onLogoutSession = () => {
       handleTopMenuClose();
       withReactContent(Swal).fire({
-        background: 'rgba(0, 10, 20, 255)',
+        background: 'rgba(56,56,56,255)',
         title: "<p style='color: #ccced1; font-size: 18px;'>Are you sure you want to sign out?</p>",
         icon: "warning",
         showDenyButton: false,
@@ -59,6 +65,10 @@ const AuthMenu = ({ isStream, isAuth }) => {
           return false;
         }
       });
+    }
+
+    const handleSettingModal = () => {
+      setSettingModal(!settingModal);
     }
 
     useEffect(() => {
@@ -139,6 +149,12 @@ const AuthMenu = ({ isStream, isAuth }) => {
               </ListItemIcon>
               <ListItemText className='dark-theme-text-color' sx={{ fontWeight: 'bolder' }} primary={user?.name ? `${capitalizeString(user.name)}` : 'Guest'} />
             </MenuItem>
+            <MenuItem onClick={() => handleSettingModal()} disableGutters={false}>
+              <ListItemIcon>
+                <SettingsIcon sx={{ color: '#3B71CA' }} />
+              </ListItemIcon>
+              <ListItemText className='dark-theme-text-color' sx={{ fontWeight: 'bolder' }} primary={`Settings`} />
+            </MenuItem>
             <MenuItem onClick={() => onLogoutSession()} disableGutters={false}>
               <ListItemIcon>
                 <LogoutIcon sx={{ color: '#DC4C64' }} />
@@ -146,6 +162,12 @@ const AuthMenu = ({ isStream, isAuth }) => {
               <ListItemText className='dark-theme-text-color' sx={{ fontWeight: 'bolder' }} primary="Sign out" />
             </MenuItem>
           </Menu>
+
+          {/* -------------------------------- Modals --------------------------------------- */}
+
+          <SettingsModal settingModal={settingModal} setSettingModal={setSettingModal} setUpperMenu={setAnchorEl}/>
+
+          {/* ------------------------------------------------------------------------------- */}
         </Fragment>
     );
 };

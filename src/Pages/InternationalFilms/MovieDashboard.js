@@ -326,8 +326,9 @@ const MovieDashboard = (props) => {
         html: isMobile ? `PREV.` : `&#8678;`,
         tooltip: 'Previous Episode',
         style: {
-          fontSize: '43px',
-          marginTop: '-8px'
+          fontSize: isMobile ? '15px' : '43px',
+          marginTop: isMobile ? 0 : '-8px',
+          marginRight: isMobile ? '8px' : 0
         },
         click: (item) => {
           previousEpisode();
@@ -341,8 +342,9 @@ const MovieDashboard = (props) => {
         html: isMobile ? `NEXT` : `&#8680;`,
         tooltip: 'Next Episode',
         style: {
-          fontSize: '43px',
-          marginTop: '-8px'
+          fontSize: isMobile ? '15px' : '43px',
+          marginTop: isMobile ? 0 : '-8px',
+          marginRight: isMobile ? '8px' : 0
         },
         click: (item) => {
           nextEpisode();

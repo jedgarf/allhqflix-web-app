@@ -19,6 +19,7 @@ import { playFlv, destroyPlayFlv, playM3u8, destroyPlayM3u8, playMpd, saveProgre
 
 // Helpers
 import { deleteCookie } from "../../Helpers/Cookies";
+import { getLocalStorage } from "../../Helpers/LocalStorage";
 
 var artPlayerInstance = null;
 
@@ -33,16 +34,17 @@ const Player = ({ details, episodes, defaultlink, infotitle, infocover, seasonNu
     const paramDub = queryParams.get("dub") ? queryParams.get("dub") == 'true' : false;
     const playerAds = randomizeArray(ads);
     const artRef = useRef();
+    const player_auto_play = getLocalStorage('player_auto_play') === 'true' ? true : false;
+    const player_auto_next = getLocalStorage('player_auto_next') === 'true' ? true : false;
+    const player_auto_fullscreen = getLocalStorage('player_auto_fullscreen') === 'true' ? true : false;
 
     if(episodeNumber === null) episodeNumber = episodeNum;
 
     useEffect(() => {
 
         var art;
-        var isAutoPlay = true;
         var customIcons = { loading: `<img width="100" src="${customLoadingFileName}">` };
 
-        if (process.env.NODE_ENV === 'development') isAutoPlay = false;
         if (process.env.NODE_ENV === 'production') Artplayer.DEBUG = false;
 
         // Custom artplayer values
@@ -64,7 +66,7 @@ const Player = ({ details, episodes, defaultlink, infotitle, infocover, seasonNu
                 poster: infocover || homeBackground,
                 volume: 1,
                 muted: false,
-                autoplay: isAutoPlay,
+                autoplay: player_auto_play,
                 pip: false,
                 autoSize: false,
                 autoMini: true,
@@ -128,11 +130,11 @@ const Player = ({ details, episodes, defaultlink, infotitle, infocover, seasonNu
                     marginBottom: '5vh',
                 });
                 if (seekTime > 0) art.seek = seekTime;
-                if (!isMobile) art.fullscreenWeb = true;
+                if (player_auto_fullscreen && !isMobile) art.fullscreenWeb = true;
             });
             
             art.on('play', () => {
-                if (!isMobile) art.fullscreenWeb = true;
+                if (player_auto_fullscreen && !isMobile) art.fullscreenWeb = true;
             });
 
             art.on('pause', () => {
@@ -154,8 +156,9 @@ const Player = ({ details, episodes, defaultlink, infotitle, infocover, seasonNu
                 if (episodeNum === totalEpisodes) {
                     deleteCookie(decodeURIComponent(mediaId));
                     if (!isMobile) art.fullscreenWeb = false;
+                } else {
+                    if (player_auto_next && totalEpisodes > 1) nextEpisode();
                 }
-                if (totalEpisodes > 1) nextEpisode();
             });
 
             // Save progress ------------------------------------------------------------------------------------------------------------
@@ -165,7 +168,8 @@ const Player = ({ details, episodes, defaultlink, infotitle, infocover, seasonNu
                     if (art.currentTime < (art.duration-10)) saveProgress(details, mediaId, type, paramDub, seasonNumber, episodeId, episodeNum, server, art.currentTime, art.duration); 
                 } else {
                     saveProgress(details, mediaId, type, paramDub, seasonNumber, episodeId, episodeNum, server, art.currentTime, art.duration);
-                    if (episodeNum < totalEpisodes) {
+                    
+                    if (player_auto_next && episodeNum < totalEpisodes) {
                         if (Math.round(art.currentTime) >= Math.round(art.duration-9)) {
                             const index = episodes.findIndex(item => item.id == episodeId);
                             if (type === "movie" || type === "tv") {
@@ -175,6 +179,7 @@ const Player = ({ details, episodes, defaultlink, infotitle, infocover, seasonNu
                             }
                         }   
                     }
+
                 }
             });
 

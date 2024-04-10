@@ -139,7 +139,6 @@ const MoviePlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ser
   }, [])
   
   return (
-    <>
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
 
@@ -241,7 +240,6 @@ const MoviePlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ser
 
         </ReusableModal>
     </ThemeProvider>
-    </>
   );
 }
 

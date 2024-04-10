@@ -51,7 +51,7 @@ const RecentWatched = ({ title = true, loadSavedMedia }) => {
 
     const deleteRecentMedia = (mediaId, title) => {
         withReactContent(Swal).fire({
-            background: 'rgba(0, 10, 20, 255)',
+            background: 'rgba(56,56,56,255)',
             title: `<p style='color: #ccced1; font-size: 18px;'>Are you sure you want to remove?<br/>${title}</p>`,
             icon: "warning",
             showDenyButton: false,
@@ -65,9 +65,7 @@ const RecentWatched = ({ title = true, loadSavedMedia }) => {
                 deleteCookie(encodeURIComponent(mediaId));
                 loadRecentMediaData();
                 if (typeof loadSavedMedia === 'function') loadSavedMedia();
-              // withReactContent(Swal).fire("Saved!", "", "success");
             } else if (result.isDismissed) {
-              // withReactContent(Swal).fire("Changes are not saved", "", "info");
               return false;
             }
         });

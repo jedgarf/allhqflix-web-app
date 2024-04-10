@@ -108,7 +108,7 @@ const MobileSideBar = ({ Type, subType, getMenu, menu, submenu }) => {
                 <div>
                     <List subheader={
                     <ListSubheader component="div" id="nested-list-subheader">
-                        CATEGORIES
+                        MAIN MENU
                     </ListSubheader>
                     }>
                         {menu?.filter((item) => { return item.is_active === true }).sort((a, b) => { return a.sequence - b.sequence }).map((page, index) => {
