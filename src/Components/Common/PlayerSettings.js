@@ -11,6 +11,7 @@ const PlayerSettings = ({ playerSettings, setPlayerSettings }) => {
 
     const queryParams = new URLSearchParams(window.location.search);
     const episode = queryParams.get('episode');
+    const server = queryParams.get('server');
     const [autoPlay, setAutoPlay] = useState(playerSettings.auto_play);
     const [autoNext, setAutoNext] = useState(playerSettings.auto_next);
     const [autoFullscreen, setAutoFullscreen] = useState(playerSettings.auto_fullscreen);
@@ -59,7 +60,7 @@ const PlayerSettings = ({ playerSettings, setPlayerSettings }) => {
                 <FormControlLabel control={<Checkbox checked={autoNext} onChange={(event) => handleAutoNext(event)} />} label="Auto next episodes (series)" />
                 <FormControlLabel control={<Checkbox checked={autoFullscreen} onChange={(event) => handleAutoFullscreen(event)} />} label="Auto fullscreen (temporary not available in android and IOS)" />
             </FormGroup>
-            {episode && 
+            {(episode || server) && 
             <Typography variant='span' style={{ color: '#DC4C64', marginTop: '20px' }}><b>Note:</b> Changes take effect in the next episode.</Typography>
             }
         </ThemeProvider>
