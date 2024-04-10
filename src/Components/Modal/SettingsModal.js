@@ -48,7 +48,7 @@ const SettingsModal = ({ settingModal, setSettingModal, setUpperMenu }) => {
     const [isAuth, setIsAuth] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const theme = coreCreateTheme();
-    const isMobileSize = useMediaQuery(theme.breakpoints.down('sm'));
+    const isMobileSize = false;
 
     // Player Settings
     const [playerSettings, setPlayerSettings] = useState([]);
@@ -109,7 +109,7 @@ const SettingsModal = ({ settingModal, setSettingModal, setUpperMenu }) => {
                 : 
                     <DialogContent>
                         <center>
-                            <Typography variant='span'>You must login first to access settings.</Typography>
+                            <Typography variant='span'>You must sign in first to access settings.</Typography>
                             <Login isMobileSize={isMobileSize} haveSearch={haveSearch} isStream={isStream} isAuth={handleIsAuth} align={'center'}/>
                         </center>
                     </DialogContent>
