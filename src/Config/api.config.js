@@ -1,4 +1,4 @@
-const localIp = '192.168.183.1' || process.env.REACT_APP_API_LOCAL_IP_ADDRESS;
+const localIp = '192.168.139.1' || process.env.REACT_APP_API_LOCAL_IP_ADDRESS;
 const localBaseUrl = `http://${localIp}:${process.env.REACT_APP_API_LOCAL_PORT}`;
 const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.hostname === process.env.REACT_APP_API_LOCAL_IP_ADDRESS;
 

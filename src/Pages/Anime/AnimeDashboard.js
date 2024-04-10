@@ -98,7 +98,7 @@ const AnimeDashboard = (props) => {
       // setSelectedEpisode(selectedEpisode);
       setTotalEpisodes(infoValue?.episodes?.length);
       for (let getSelEpisodeLength = 0; getSelEpisodeLength < infoValue?.episodes.length; getSelEpisodeLength++) {
-        if (infoValue?.episodes[getSelEpisodeLength].id === selectedEpisode) {
+        if (infoValue?.episodes[getSelEpisodeLength]?.id === selectedEpisode) {
           setEpisodeNum(getSelEpisodeLength + 1);
           setSelectedEpisodeName("EP " + (getSelEpisodeLength + 1) + ": " + infoValue?.episodes[getSelEpisodeLength].title)
 
@@ -113,7 +113,7 @@ const AnimeDashboard = (props) => {
         }
       }
     } else {
-      setSelectedEpisode(infoValue?.episodes[0].id);
+      setSelectedEpisode(infoValue?.episodes[0]?.id);
       setSelectedEpisodeName("EP 1: " + infoValue?.episodes[0].title);
 
       // Define Arc Name
@@ -172,7 +172,7 @@ const AnimeDashboard = (props) => {
   let episodeIdVar = selectedEpisode;
 
   if (infoData.isSuccess) {
-      episodeIdVar = selectedEpisode || (infoValue?.episodes?.length > 0 ? infoValue.episodes[0].id : undefined);
+      episodeIdVar = selectedEpisode || (infoValue?.episodes?.length > 0 ? infoValue.episodes[0]?.id : undefined);
   }
 
   // movie link
@@ -203,7 +203,7 @@ const AnimeDashboard = (props) => {
     if (selectedEpisodeIndex > 0 && selectedEpisodeIndex < infoValue?.episodes?.length) {
       const getTargetEpisode = infoValue?.episodes[selectedEpisodeIndex-1];
       setLoadingEpisode(true);
-      setSelectedEpisode(getTargetEpisode.id); 
+      setSelectedEpisode(getTargetEpisode?.id); 
       moveToTop();
       return true;
     } else {
@@ -215,7 +215,7 @@ const AnimeDashboard = (props) => {
     if (selectedEpisodeIndex >= 0 && (selectedEpisodeIndex + 1) < infoValue?.episodes?.length) {
       const getTargetEpisode = infoValue?.episodes[selectedEpisodeIndex+1];
       setLoadingEpisode(true);
-      setSelectedEpisode(getTargetEpisode.id); 
+      setSelectedEpisode(getTargetEpisode?.id); 
       moveToTop();
       return true;
     } else {
@@ -264,7 +264,7 @@ const AnimeDashboard = (props) => {
 
     if (infoData.isSuccess) {
       document.title = 'AllHQFlix - ' + contentTitle +  `${infoValue?.subOrDub === 'dub' ? ' (English Dub)' : ''}`;
-      setSelectedEpisodeIndex(infoValue?.episodes?.indexOf(infoValue?.episodes?.find((item) => item.id == selectedEpisode)));
+      setSelectedEpisodeIndex(infoValue?.episodes?.indexOf(infoValue?.episodes?.find((item) => item?.id == selectedEpisode)));
       set_selectedSeasonEpisode(infoValue);
     }
 
