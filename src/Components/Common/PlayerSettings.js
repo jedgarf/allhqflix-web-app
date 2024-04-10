@@ -58,10 +58,13 @@ const PlayerSettings = ({ playerSettings, setPlayerSettings }) => {
             <FormGroup>
                 <FormControlLabel control={<Checkbox checked={autoPlay} onChange={(event) => handleAutoPlay(event)} />} label="Auto play" />
                 <FormControlLabel control={<Checkbox checked={autoNext} onChange={(event) => handleAutoNext(event)} />} label="Auto next episodes (series)" />
-                <FormControlLabel control={<Checkbox checked={autoFullscreen} onChange={(event) => handleAutoFullscreen(event)} />} label="Auto fullscreen (temporary not available in android and IOS)" />
+                <FormControlLabel control={<Checkbox checked={autoFullscreen} onChange={(event) => handleAutoFullscreen(event)} />} label="Auto fullscreen (not available in android and IOS)" />
             </FormGroup>
             {(episode || server) && 
-            <Typography variant='span' style={{ color: '#DC4C64', marginTop: '20px' }}><b>Note:</b> Changes take effect in the next episode.</Typography>
+                <Typography variant='span' style={{ color: '#DC4C64', marginTop: '20px' }}>
+                    <b>Note:</b>{' '}
+                    Changes take effect in the next movie or episode.
+                </Typography>
             }
         </ThemeProvider>
     );
