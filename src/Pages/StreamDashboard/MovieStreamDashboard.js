@@ -91,11 +91,17 @@ const MovieStreamDashboard = (props) => {
             setSeasonIdVar(response.data.episodes.length > 0 ? response.data.episodes[0].season : undefined);
             setEpisodeIdVar(response.data.episodes.length > 0 ? response.data.episodes[0].id : undefined);
         },
-        onError: (error) => {
+        onError: (error, _query, _retries, _status) => {
+            
             setSnackBarType('error');
             setSnackBarMessage(`${error.response.data.message}.`);
             setSnackBarOpen(true);
             setSnackBarWithLoading(false);
+
+            if (_retries >= 3) {
+              console.log('All retry attempts failed for query:', _query);
+              streamDashboardBackButton(navigate, type, isShare);
+            }
         }
     });
 

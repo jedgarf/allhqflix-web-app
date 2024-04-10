@@ -152,6 +152,12 @@ const AnimeStreamDashboard = (props) => {
                 // }
             }
             setEpisodeIdVar(response.data.episodes.length > 0 ? response.data.episodes[0].id : undefined);
+        },
+        onError: (error, _query, _retries, _status) => {
+            if (_retries >= 3) {
+              console.log('All retry attempts failed for query:', _query);
+              streamDashboardBackButton(navigate, type, isShare);
+            }
         }
     });
     let infoValue = infoData?.data?.data;
