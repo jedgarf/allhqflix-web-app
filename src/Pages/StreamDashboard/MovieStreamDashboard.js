@@ -7,7 +7,7 @@ import { useQuery } from 'react-query';
 // sanitize DOM
 import DOMPurify from 'dompurify';
 
-import { Grid, Skeleton, Box, Typography, Button, CircularProgress } from '@mui/material';
+import { Grid, Skeleton, Box, Typography, Button, CircularProgress, IconButton } from '@mui/material';
 
 // Package for date and time formatter
 import moment from 'moment';
@@ -19,6 +19,7 @@ import './StreamDashboard.css';
 import ArrowBackTwoToneIcon from '@mui/icons-material/ArrowBackTwoTone';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import SubtitlesIcon from '@mui/icons-material/Subtitles';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 // Components
 import LoadingPage from "../../Components/LoadingPage/LoadingPage";
@@ -30,6 +31,7 @@ import { MoviePlayModal, SeriesPlayModal } from "../../Components/Modal/PlayModa
 import LanguageListTooltip from '../../Components/Tooltip/LanguageListTooltip';
 import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 import CookiesConsentDialog from "../../Components/CookiesConsentDialog/CookiesConsentDialog";
+import SettingsModal from "../../Components/Modal/SettingsModal";
 
 // Config
 import { pageLoadMS, defaultInternationalServer, maxMediaSaved, maxMediaSavedMessage } from "../../Config/settings.config";
@@ -47,7 +49,7 @@ const MovieStreamDashboard = (props) => {
     const media = type === "tv" ? "tvshow" : "movies";
 
     const navigate = useNavigate();
-
+    const [settingModal, setSettingModal] = useState(false);
     const queryParams = new URLSearchParams(window.location.search);
     const indexId = queryParams.get("mediaId").replace("ttps://flixhq.pe/", "");
     const isShare = queryParams.get("share");
@@ -168,6 +170,10 @@ const MovieStreamDashboard = (props) => {
     const loadSavedMedia = () => {
         const cookiesMediaData = getAllSavedCookiesMedia();
         setSavedMedia(cookiesMediaData);
+    }
+
+    const handleSettingModal = () => {
+        setSettingModal(!settingModal);
     }
 
     //choose the screen size 
@@ -324,6 +330,10 @@ const MovieStreamDashboard = (props) => {
                         </div>
                     }
                     <div className='stream-dashboard-playbutton'>
+                        {infoData.isSuccess && resourceData.isSuccess && 
+                            infoValue?.episodes?.length > 0 && resourceValue?.data?.sources?.length > 0 && 
+                                <IconButton color="primary" size='small' onClick={() => handleSettingModal()}><SettingsIcon/></IconButton>
+                        }
                         {(resourceData.isSuccess && savedMedia?.length >= maxMediaSaved && savedMedia?.filter(item => item?.mediaId == indexId).length === 0) && 
                             <SaveListModal loadSavedMedia={loadSavedMedia}/>
                         }
@@ -390,6 +400,9 @@ const MovieStreamDashboard = (props) => {
                 </div>
             }
             <CookiesConsentDialog/>
+            {/* -------------------------------- Modals --------------------------------------- */}
+            <SettingsModal settingModal={settingModal} setSettingModal={setSettingModal}/>
+            {/* ------------------------------------------------------------------------------- */}
         </Fragment>
     );
 };

@@ -43,16 +43,12 @@ import { streamDashboardBackButton, SeparateArrayByComma, convertMinutesToHoursA
 import { pageLoadMS, foreign_country, maxMediaSaved, maxMediaSavedMessage } from "../../Config/settings.config";
 import { homeBackground } from "../../Config/images.config";
 
-// Helpers
-import { getSession } from "../../Helpers/Sessions";
-
 // Services
 import { anime_info, anime_stream_links } from "../../Services/AnimeService";
 
 const AnimeStreamDashboard = (props) => {
 
     const selectedEpisode = null;
-    const [isAuth, setIsAuth] = useState(false);
     const [settingModal, setSettingModal] = useState(false);
     const [savedMedia, setSavedMedia] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -120,15 +116,7 @@ const AnimeStreamDashboard = (props) => {
     }));
 
     const handleSettingModal = () => {
-        setSettingModal(!settingModal);  
-        // if (isAuth) {
-        //     setSettingModal(!settingModal);   
-        // } else {
-        //     withReactContent(Swal).fire({
-        //         background: 'rgba(56,56,56,255)',
-        //         title: "<p style='color: #ccced1; font-size: 18px;'>You must sign in to access the settings.</p>",
-        //         icon: "warning"});
-        // }
+        setSettingModal(!settingModal);
     }
 
     const handleDubSwitch = (e) => setDubCheckbox(e.target.checked);
@@ -213,7 +201,6 @@ const AnimeStreamDashboard = (props) => {
     const handleBackgroundImageError = () => setBGImage(homeBackground);
 
     useEffect(() => {
-        setIsAuth(getSession('is_auth') === 'true');
         loadSavedMedia();
         if (infoData.isSuccess) {
             document.title = `AllHQFlix - ${ infoValue?.title?.english || infoValue?.title?.userPreferred || infoValue?.title?.romaji || infoValue?.title?.native }`;
@@ -335,7 +322,10 @@ const AnimeStreamDashboard = (props) => {
                             </div>
                         }
                         <div className='stream-dashboard-playbutton'>
-                            <IconButton color="primary" size='small' onClick={() => handleSettingModal()}><SettingsIcon/></IconButton>
+                            {infoData.isSuccess && resourceData.isSuccess && 
+                                infoValue?.episodes?.length > 0 && resourceValue?.data?.sources?.length > 0 && 
+                                    <IconButton color="primary" size='small' onClick={() => handleSettingModal()}><SettingsIcon/></IconButton>
+                            }
                             {(resourceData.isSuccess && savedMedia?.length >= maxMediaSaved && savedMedia?.filter(item => item?.mediaId == indexId).length === 0) && 
                                 <SaveListModal loadSavedMedia={loadSavedMedia}/>
                             }
