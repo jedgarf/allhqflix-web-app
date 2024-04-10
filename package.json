@@ -84,6 +84,7 @@
     },
     "scripts": {
         "dev": "set PORT=3001 && react-scripts start",
+        "dev:both": "concurrently \"npm run dev\" \"cd ../allhqflix_backend && npm run dev\"",
         "start": "serve -s build",
         "build": "react-scripts build",
         "deploy": "gh-pages -d build",
@@ -117,6 +118,7 @@
         "babel-preset-es2015": "^6.24.1",
         "babel-preset-react": "^6.24.1",
         "babel-register": "^6.26.0",
+        "concurrently": "^8.2.2",
         "dotenv": "^16.0.3",
         "dotenv-webpack": "^8.0.1",
         "electron": "^27.0.4",
