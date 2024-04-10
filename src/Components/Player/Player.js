@@ -20,6 +20,7 @@ import { playFlv, destroyPlayFlv, playM3u8, destroyPlayM3u8, playMpd, saveProgre
 // Helpers
 import { deleteCookie } from "../../Helpers/Cookies";
 import { getLocalStorage } from "../../Helpers/LocalStorage";
+import { getSession } from "../../Helpers/Sessions";
 
 var artPlayerInstance = null;
 
@@ -34,9 +35,9 @@ const Player = ({ details, episodes, defaultlink, infotitle, infocover, seasonNu
     const paramDub = queryParams.get("dub") ? queryParams.get("dub") == 'true' : false;
     const playerAds = randomizeArray(ads);
     const artRef = useRef();
-    const player_auto_play = getLocalStorage('player_auto_play') === 'true' ? true : false;
-    const player_auto_next = getLocalStorage('player_auto_next') === 'true' ? true : false;
-    const player_auto_fullscreen = getLocalStorage('player_auto_fullscreen') === 'true' ? true : false;
+    const player_auto_play = getLocalStorage('player_auto_play') === 'true' && getSession('user') ? true : false;
+    const player_auto_next = getLocalStorage('player_auto_next') === 'true' && getSession('user') ? true : false;
+    const player_auto_fullscreen = getLocalStorage('player_auto_fullscreen') === 'true' && getSession('user') ? true : false;
 
     if(episodeNumber === null) episodeNumber = episodeNum;
 
