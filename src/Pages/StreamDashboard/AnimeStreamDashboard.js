@@ -7,8 +7,12 @@ import DOMPurify from 'dompurify';
 // React Query
 import { useQuery } from 'react-query';
 
+// Sweet Alert
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+
 // Material UI Components
-import { Grid, Skeleton, Box, Typography, Button, FormControlLabel, Switch, CircularProgress } from '@mui/material';
+import { Grid, Skeleton, Box, Typography, Button, FormControlLabel, Switch, CircularProgress, IconButton } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 // CSS
@@ -19,6 +23,7 @@ import StarIcon from '@mui/icons-material/Star';
 import ArrowBackTwoToneIcon from '@mui/icons-material/ArrowBackTwoTone';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import SubtitlesIcon from '@mui/icons-material/Subtitles';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 // Components
 import LoadingPage from "../../Components/LoadingPage/LoadingPage";
@@ -29,6 +34,7 @@ import SnackBar from "../../Components/SnackBar/SnackBar";
 import { AnimePlayModal } from "../../Components/Modal/PlayModal";
 import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 import CookiesConsentDialog from "../../Components/CookiesConsentDialog/CookiesConsentDialog";
+import SettingsModal from "../../Components/Modal/SettingsModal";
 
 // Utilities
 import { streamDashboardBackButton, SeparateArrayByComma, convertMinutesToHoursAndMinutes, getNumberSuffix, capitalizeString, getAllSavedCookiesMedia } from "../../Services/Utils";
@@ -37,12 +43,17 @@ import { streamDashboardBackButton, SeparateArrayByComma, convertMinutesToHoursA
 import { pageLoadMS, foreign_country, maxMediaSaved, maxMediaSavedMessage } from "../../Config/settings.config";
 import { homeBackground } from "../../Config/images.config";
 
+// Helpers
+import { getSession } from "../../Helpers/Sessions";
+
 // Services
 import { anime_info, anime_stream_links } from "../../Services/AnimeService";
 
 const AnimeStreamDashboard = (props) => {
 
     const selectedEpisode = null;
+    const [isAuth, setIsAuth] = useState(false);
+    const [settingModal, setSettingModal] = useState(false);
     const [savedMedia, setSavedMedia] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -107,6 +118,18 @@ const AnimeStreamDashboard = (props) => {
           margin: 2,
         },
     }));
+
+    const handleSettingModal = () => {
+        setSettingModal(!settingModal);  
+        // if (isAuth) {
+        //     setSettingModal(!settingModal);   
+        // } else {
+        //     withReactContent(Swal).fire({
+        //         background: 'rgba(56,56,56,255)',
+        //         title: "<p style='color: #ccced1; font-size: 18px;'>You must sign in to access the settings.</p>",
+        //         icon: "warning"});
+        // }
+    }
 
     const handleDubSwitch = (e) => setDubCheckbox(e.target.checked);
 
@@ -190,7 +213,7 @@ const AnimeStreamDashboard = (props) => {
     const handleBackgroundImageError = () => setBGImage(homeBackground);
 
     useEffect(() => {
-
+        setIsAuth(getSession('is_auth') === 'true');
         loadSavedMedia();
         if (infoData.isSuccess) {
             document.title = `AllHQFlix - ${ infoValue?.title?.english || infoValue?.title?.userPreferred || infoValue?.title?.romaji || infoValue?.title?.native }`;
@@ -312,6 +335,7 @@ const AnimeStreamDashboard = (props) => {
                             </div>
                         }
                         <div className='stream-dashboard-playbutton'>
+                            <IconButton color="primary" size='small' onClick={() => handleSettingModal()}><SettingsIcon/></IconButton>
                             {(resourceData.isSuccess && savedMedia?.length >= maxMediaSaved && savedMedia?.filter(item => item?.mediaId == indexId).length === 0) && 
                                 <SaveListModal loadSavedMedia={loadSavedMedia}/>
                             }
@@ -367,6 +391,9 @@ const AnimeStreamDashboard = (props) => {
                 </div>
             }
             <CookiesConsentDialog/>
+            {/* -------------------------------- Modals --------------------------------------- */}
+            <SettingsModal settingModal={settingModal} setSettingModal={setSettingModal}/>
+            {/* ------------------------------------------------------------------------------- */}
         </Fragment>
     );
 };

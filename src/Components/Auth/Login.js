@@ -18,7 +18,7 @@ const Login = ({ isMobileSize, haveSearch, isStream, isAuth }) => {
   };
 
   return (
-    <div style={{ display: 'flex', alignItems: 'center', height: '6.5vh', justifyContent: 'right' }}>
+    <div style={{ display: 'flex', alignItems: 'center', height: '6.5vh', justifyContent: 'center' }}>
       <GoogleLoginBtn
         isMobileSize={isMobileSize}
         haveSearch={haveSearch}

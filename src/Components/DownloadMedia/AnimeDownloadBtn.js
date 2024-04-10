@@ -22,7 +22,7 @@ const AnimeDownloadBtn = ({ url }) => {
         } else {
             // unable to download dialog box
             withReactContent(Swal).fire({
-            background: 'rgba(0, 10, 20, 255)',
+            background: 'rgba(56,56,56,255)',
             title: "<p style='color: #ccced1; font-size: 18px;'>You must sign in to download</p>",
             icon: "warning"});
         }

@@ -241,7 +241,7 @@ const SideBar = ({ Type, subType, haveSearch = true,  transparentBg = true, isSt
               { auth ?
                 <AuthMenu isStream={isStream} isAuth={isAuth}/>
                : 
-                <Login isMobileSize={isMobileSize} haveSearch={haveSearch} isStream={isStream} isAuth={isAuth}/>
+                <Login isMobileSize={isMobileSize} haveSearch={haveSearch} isStream={isStream} isAuth={isAuth} align={'right'}/>
               }
             </Box>
 

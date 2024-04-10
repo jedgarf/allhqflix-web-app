@@ -6,6 +6,8 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 
 // Material UI Themes
+import { useMediaQuery } from "@material-ui/core";
+import { createTheme as coreCreateTheme } from "@material-ui/core";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 
@@ -25,11 +27,13 @@ import OndemandVideoIcon from '@mui/icons-material/OndemandVideo';
 import SettingsIcon from '@mui/icons-material/Settings';
 
 // Components
+import Login from "../Auth/Login";
 import PlayerSettings from "../Common/PlayerSettings";
 import ReusableModal from "./ReusableModal";
 
 // Helpers
 import { addLocalStorage, getLocalStorage } from "../../Helpers/LocalStorage";
+import { getSession } from "../../Helpers/Sessions";
 
 const darkTheme = createTheme({
     palette: {
@@ -39,12 +43,20 @@ const darkTheme = createTheme({
 
 const SettingsModal = ({ settingModal, setSettingModal, setUpperMenu }) => {
 
+    const haveSearch = true;
+    const isStream = false;
+    const [isAuth, setIsAuth] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const theme = coreCreateTheme();
+    const isMobileSize = useMediaQuery(theme.breakpoints.down('sm'));
 
     // Player Settings
     const [playerSettings, setPlayerSettings] = useState([]);
 
     const handleModal = (status) => setSettingModal(status);
+
+
+    const handleIsAuth = (authStatus) => setIsAuth(authStatus);
 
     const onSubmit = (evt) => {
         evt.preventDefault();
@@ -69,6 +81,7 @@ const SettingsModal = ({ settingModal, setSettingModal, setUpperMenu }) => {
 
 
     useEffect(() => {
+        setIsAuth(getSession('user') ? true : false);
         setUpperMenu && setUpperMenu(false);
         setIsModalOpen(settingModal);
         setPlayerSettings({
@@ -82,14 +95,25 @@ const SettingsModal = ({ settingModal, setSettingModal, setUpperMenu }) => {
         <ThemeProvider theme={darkTheme}>
             <CssBaseline />
             <ReusableModal isModalOpen={isModalOpen} handleModal={handleModal} OptionIcon={<SettingsIcon sx={{ marginBottom: '-4px' }} />} title={`SETTINGS`}>
-                <DialogContent>
-                    <PlayerSettings playerSettings={playerSettings} setPlayerSettings={setPlayerSettings}/>
-                </DialogContent>
-                <Divider/>
-                <DialogActions>
-                    <Button size='small' variant='outlined' color='error' startIcon={<CloseIcon/>} onClick={() => handleModal(false)}>Close</Button>
-                    <Button size='small' variant='contained' color='primary' onClick={(evt) => onSubmit(evt)} startIcon={<SaveIcon/>}>Save</Button>
-                </DialogActions>
+                {isAuth ? 
+                    <Fragment>
+                        <DialogContent>
+                            <PlayerSettings playerSettings={playerSettings} setPlayerSettings={setPlayerSettings}/>
+                        </DialogContent>
+                        <Divider/>
+                        <DialogActions>
+                            <Button size='small' variant='outlined' color='error' startIcon={<CloseIcon/>} onClick={() => handleModal(false)}>Close</Button>
+                            <Button size='small' variant='contained' color='primary' onClick={(evt) => onSubmit(evt)} startIcon={<SaveIcon/>}>Save</Button>
+                        </DialogActions>
+                    </Fragment>
+                : 
+                    <DialogContent>
+                        <center>
+                            <Typography variant='span'>You must login first to access settings.</Typography>
+                            <Login isMobileSize={isMobileSize} haveSearch={haveSearch} isStream={isStream} isAuth={handleIsAuth} align={'center'}/>
+                        </center>
+                    </DialogContent>
+                }
             </ReusableModal>
         </ThemeProvider>
     );
