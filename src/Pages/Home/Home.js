@@ -159,9 +159,9 @@ const Home = () => {
                     </form>
                 </Box>
 
-                <Box display={{ xs: 'block', md: 'none' }} style={{ marginTop: '100px', marginBottom: '-100px' }}>
+                {/* <Box display={{ xs: 'block', md: 'none' }} style={{ marginTop: '100px', marginBottom: '-100px' }}>
                   <div className="text-white" style={{ cursor: 'pointer' }} onClick={() => moveToClassName('media-categories-divider')}><ArrowDownwardIcon sx={{ fontSize: '23px', marginBottom: '-5px' }}/> See More</div>
-                </Box>
+                </Box> */}
               </Grid>
             </Grid>
           </Container>
@@ -169,9 +169,9 @@ const Home = () => {
       </div>
 
       {/* #ccced1 */}
-      <Box display={{ xs: 'block', md: 'none' }}>
+      {/* <Box display={{ xs: 'block', md: 'none' }}>
         <hr className="media-categories-divider" style={{ height: 0, width: 0 }}/>
-      </Box>
+      </Box> */}
 
       <motion.div
         initial={{ opacity: 0 }}
