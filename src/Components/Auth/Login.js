@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom';
 import GoogleLoginBtn from '../SocialAuth/GoogleLoginBtn';
 import { addSession } from "../../Helpers/Sessions";
 
-const Login = ({ isMobileSize, haveSearch, isStream, isAuth }) => {
+const Login = ({ isMobileSize, haveSearch, isStream, isAuth, align }) => {
 
   const { id, type } = useParams();
 
@@ -18,7 +18,7 @@ const Login = ({ isMobileSize, haveSearch, isStream, isAuth }) => {
   };
 
   return (
-    <div style={{ display: 'flex', alignItems: 'center', height: '6.5vh', justifyContent: 'center' }}>
+    <div style={{ display: 'flex', alignItems: 'center', height: '6.5vh', justifyContent: align }}>
       <GoogleLoginBtn
         isMobileSize={isMobileSize}
         haveSearch={haveSearch}
