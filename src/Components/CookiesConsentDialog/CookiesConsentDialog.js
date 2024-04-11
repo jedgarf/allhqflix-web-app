@@ -19,7 +19,7 @@ function CookiesConsentDialog() {
   return (
     <Fragment>
       {(!consentGiven && !getSession('allow_cookies')) && (
-        <div style={{ position: 'fixed', bottom: 0, left: 0, width: '100%', backgroundColor: 'rgba(0, 0, 0, 0.5)', color: '#fff', padding: '18px', textAlign: 'center', fontWeight: 'normal' }}>
+        <div style={{ position: 'fixed', bottom: 0, left: 0, width: '100%', backgroundColor: 'rgba(0, 0, 0, 0.5)', color: '#fff', padding: '18px', textAlign: 'center', fontWeight: 'normal', zIndex: 20 }}>
             <Typography variant='span'>
                 By continuing, you agree to save your watching progress using cookies.
             </Typography>
