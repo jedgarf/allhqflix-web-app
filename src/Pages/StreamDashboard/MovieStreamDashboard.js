@@ -220,13 +220,13 @@ const MovieStreamDashboard = (props) => {
         : 
         <Fragment>
             <ReactQueryTools/>
-            <div style={{backgroundImage: isMobile ? `linear-gradient(rgba(15, 22, 34, 0.527),rgba(15, 22, 34, 0.5)), url("${BGImage}"), url("${homeBackground}")` : `linear-gradient(to right, rgba(15, 22, 34, 0.85) 30%, rgba(15, 22, 34, 0.5) 70%), url("${BGImage}"), url("${homeBackground}")`, objectFit: 'cover', backgroundSize: ' 100% 100%', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', width: '100%'}} 
+            <div className='stream-dashboard' style={{backgroundImage: isMobile ? `linear-gradient(rgba(15, 22, 34, 0.527),rgba(15, 22, 34, 0.5)), url("${BGImage}"), url("${homeBackground}")` : `linear-gradient(to right, rgba(15, 22, 34, 0.85) 30%, rgba(15, 22, 34, 0.5) 70%), url("${BGImage}"), url("${homeBackground}")`, objectFit: 'cover', backgroundSize: ' 100% 100%', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', width: '100%'}} 
                 onError={handleBackgroundImageError}>
                 <SnackBar severity={snackBarType} handleSnackBarOpen={handleSnackBarOpen} status={snackBarOpen} snackBarMessage={snackBarMessage} withLoading={snackBarWithLoading} />
-                <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={1} justifyContent="center">
-                    <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>
+                <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={1} justifyContent="left">
+                    <Grid item xl={6} lg={6} md={6} sm={6} xs={6} style={{ marginTop: 8, marginLeft: 0, textAlign: 'left' }}>
                         <Button onClick={() => streamDashboardBackButton(navigate, media, isShare)}>
-                            <ArrowBackTwoToneIcon sx={{ fontSize: { xs: '35px', sm: '40px' }, margin: '10px', color: '#DC4C64' }}/>
+                            <ArrowBackTwoToneIcon sx={{ fontSize: { xs: '35px', sm: '40px' }, color: '#DC4C64' }}/>
                         </Button>
                     </Grid>
                     <Grid item xl={6} lg={6} md={6} sm={6} xs={6} style={{ marginTop: 8, marginRight: 0, textAlign: 'right' }}>

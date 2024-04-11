@@ -169,7 +169,9 @@ const Home = () => {
       </div>
 
       {/* #ccced1 */}
-      <hr className="media-categories-divider" style={{ height: 0, width: 0 }}/>
+      <Box display={{ xs: 'block', md: 'none' }}>
+        <hr className="media-categories-divider" style={{ height: 0, width: 0 }}/>
+      </Box>
 
       <motion.div
         initial={{ opacity: 0 }}
@@ -195,15 +197,6 @@ const Home = () => {
         <Faq/>
       </div>
 
-      <hr className="media-communities-divider" style={{ color: 'rgba(0, 0, 0, 255)', backgroundColor: 'rgba(0, 0, 0, 255)', marginInline: '30px', height: 0, width: 0 }} hidden/>
-
-      <div className="footer-advertisements" hidden>
-        <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={1} justifyContent="center">
-          <Grid item xl={'auto'} lg={'auto'} md={'auto'} sm={'auto'} xs={'auto'}>
-            <div id="container-8edd6f971e91335abcef94ec9add6c1b"></div>
-          </Grid>
-        </Grid>
-      </div>
       <FloatingButton/>
       <Footer />
     </div>

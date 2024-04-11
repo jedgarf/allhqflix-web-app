@@ -125,7 +125,7 @@ const Anime = () => {
                 return (
                   <Fragment key={index}>
                     <Link className="text-link-without-underline genre-carousel" to={`/anime/genre_filter?genre=${item}`}>
-                      <Button variant="contained" size="small" color="error" style={{ margin: '5px 5px 5px 0px', color: 'whitesmoke', fontSize: 15, fontWeight: 550 }}>{item}</Button>
+                      <Button variant="contained" size="small" color="error" style={{ margin: '5px 5px 5px 0px', backgroundColor: 'rgba(105, 105, 105, 0.4)', color: 'whitesmoke', fontSize: 15, fontWeight: 550 }}>{item}</Button>
                     </Link>
                   </Fragment>
                 )

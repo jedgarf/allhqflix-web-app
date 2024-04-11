@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Montserrat:100,200,300,regular,500,600,700,800,900,100italic,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic);
+/* @import url(https://fonts.googleapis.com/css?family=Montserrat:100,200,300,regular,500,600,700,800,900,100italic,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic); */
 :root {
     --main-color: #01a3ff;
     --second-color: #14A44D;
@@ -25,7 +25,7 @@ body {
     margin: 0;
     font-weight: bold;
     box-sizing: border-box;
-    transition: .3s;
+    /* transition: .3s; */
     background-color: var(--body);
 }
 
@@ -42,10 +42,10 @@ body {
 *,
 *::before,
 *::after {
-    margin: 0;
+    /* margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    transition: .3s;
+    box-sizing: border-box; */
+    /* transition: .3s; */
     font-family: "Roboto","Helvetica","Arial",sans-serif !important;
 }
 
@@ -53,9 +53,9 @@ body {
     color: var(--four-color) !important;
 }
 
-html {
+/* html {
     overflow: hidden;
-}
+} */
 
 .MuiDrawer-paper {
     scrollbar-width: thin;

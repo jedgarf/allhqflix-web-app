@@ -1,3 +1,9 @@
+.stream-dashboard {
+    /* display: flex; */
+    height: 100vh;
+    /* overflow: hidden; */
+}
+
 .stream-dashboard-content {
     max-width: 100% !important;
     padding-inline: 15px;

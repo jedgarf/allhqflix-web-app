@@ -133,7 +133,7 @@ const TvShow = () => {
                 return (
                   <Fragment key={index}>
                     <Link className="text-link-without-underline genre-carousel" to={`/foreign/advanced_filter?type=tv&genre=${item.genre_id}`}>
-                      <Button variant="contained" size="small" color="error" style={{ margin: '5px 8px 5px 0px', color: 'whitesmoke', fontSize: 15, fontWeight: 550 }}>{item.name}</Button>
+                      <Button variant="contained" size="small" color="error" style={{ margin: '5px 8px 5px 0px', backgroundColor: 'rgba(105, 105, 105, 0.4)', color: 'whitesmoke', fontSize: 15, fontWeight: 550 }}>{item.name}</Button>
                     </Link>
                   </Fragment>
                 )

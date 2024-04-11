@@ -136,7 +136,7 @@ const AsianFilmsStreamDashboard = (props) => {
         : 
         <Fragment>
             <ReactQueryTools/>
-            <div style={{ backgroundColor: 'rgba(15, 22, 34, 1)', backgroundImage: isMobile ? `linear-gradient(rgba(15, 22, 34, 0.527),rgba(15, 22, 34, 0.5)), url("${BGImage}"), url("${homeBackground}")` : `linear-gradient(90deg, rgba(15, 22, 34, 1) 10%, rgba(15, 22, 34, 0.5) 90%), url("${infoValue?.banner}"), url("${homeBackground}")`, backgroundSize: isMobile ? '100% 100%' : '900px 100%', backgroundPosition: isMobile ? 'center' : 'right', backgroundRepeat: 'no-repeat', width: '99.9%'}} 
+            <div className='stream-dashboard' style={{ backgroundColor: 'rgba(15, 22, 34, 1)', backgroundImage: isMobile ? `linear-gradient(rgba(15, 22, 34, 0.527),rgba(15, 22, 34, 0.5)), url("${BGImage}"), url("${homeBackground}")` : `linear-gradient(90deg, rgba(15, 22, 34, 1) 10%, rgba(15, 22, 34, 0.5) 90%), url("${infoValue?.banner}"), url("${homeBackground}")`, backgroundSize: isMobile ? '100% 100%' : '900px 100%', backgroundPosition: isMobile ? 'center' : 'right', backgroundRepeat: 'no-repeat', width: '99.9%'}} 
                 onError={handleBackgroundImageError}>
                 <SnackBar severity={snackBarType} handleSnackBarOpen={handleSnackBarOpen} status={snackBarOpen} snackBarMessage={snackBarMessage} withLoading={snackBarWithLoading} />
                 <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={1} justifyContent="center">

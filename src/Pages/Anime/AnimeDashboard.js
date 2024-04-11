@@ -461,13 +461,13 @@ const AnimeDashboard = (props) => {
               <Fragment>
                 <Grid item xl={2} lg={2} md={0} sm={0} xs={0} display={{ xs: 'none', sm: 'none', md: 'none', lg: 'block' }}>
                   <center>
-                    <img src={infoValue?.image} alt={contentTitle} style={{ marginTop: '-30px', marginBottom: '30px' }} />
+                    <img src={infoValue?.image} alt={contentTitle} style={{ marginTop: '-60px', marginBottom: '30px' }} />
                   </center>
                 </Grid>
                 <Grid item xl={10} lg={10} md={12} sm={12} xs={12}>
-                  <h3 className='media-title' style={{ marginTop: '-30px', marginLeft: '10px' }}><b>{contentTitle}{indexId == 21 ? `: ${selectedArc}` : ''}</b></h3>
-                  <div className="media_props">
-                    <Grid container spacing={0.4} style={{ marginLeft: '5px' }}>
+                  <h3 className='media-title' style={{ marginTop: '-80px', marginLeft: '10px' }}><b>{contentTitle}{indexId == 21 ? `: ${selectedArc}` : ''}</b></h3>
+                  <div className="media_props" style={{ marginBlock: '-20px' }}>
+                    <Grid container spacing={0.1} style={{ marginLeft: '5px' }}>
                       <Grid item>
                         <h5 style={{ marginRight: 10 }}>
                           <span className='stream-video-quality-span' style={{ color: 'rgba(129,181,223,255)', backgroundColor: 'transparent', fontWeight: 'bolder', border: '1.5px solid' }}>
@@ -475,9 +475,9 @@ const AnimeDashboard = (props) => {
                           </span>
                         </h5>
                       </Grid>
-                      <Grid item>
+                      {/* <Grid item>
                         <AccessTimeFilledIcon style={{ fontSize: 16, marginBottom: -1, color: "#54B4D3" }}/>
-                      </Grid>
+                      </Grid> */}
                       <Grid item>
                         <h5>{convertMinutesToHoursAndMinutes(infoValue?.duration)}</h5>
                       </Grid>

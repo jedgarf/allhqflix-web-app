@@ -591,12 +591,12 @@ const MovieDashboard = (props) => {
               <Fragment>
                 <Grid item xl={2} lg={2} md={0} sm={0} xs={0} display={{ xs: 'none', sm: 'none', md: 'none', lg: 'block' }}>
                     <center>
-                      <img src={infoValue?.image} alt={infoValue?.title} style={{ marginTop: '-30px', marginBottom: '30px' }} />
+                      <img src={infoValue?.image} alt={infoValue?.title} style={{ marginTop: '-60px', marginBottom: '30px' }} />
                     </center>
                 </Grid>
                 <Grid item xl={10} lg={10} md={12} sm={12} xs={12}>
-                  <h3 className='media-title' style={{ marginTop: '-30px', marginLeft: '10px' }}><b>{infoValue?.title}</b></h3>
-                  <div className='media_props'>
+                  <h3 className='media-title' style={{ marginTop: '-80px', marginLeft: '10px' }}><b>{infoValue?.title}</b></h3>
+                  <div className='media_props' style={{ marginBlock: '-20px' }}>
                     {type === 'tv' ? 
                       <Grid container alignItems="center" spacing={0.4} style={{ marginLeft: '8px' }}>
                         <Grid item>
@@ -615,9 +615,9 @@ const MovieDashboard = (props) => {
                             <span className='stream-video-quality-span' style={{ backgroundColor: 'transparent', fontWeight: 'bolder', border: '1.5px solid white' }}>{infoValue?.video_quality}</span>
                           </h5>
                         </Grid>
-                        <Grid item>
+                        {/* <Grid item>
                           <AccessTimeFilledIcon style={{ fontSize: 16, marginBottom: -2, color: "#54B4D3" }}/>
-                        </Grid>
+                        </Grid> */}
                         <Grid item>
                           <h5>{convertMinutesToHoursAndMinutes(infoValue?.duration.replace('min', ''))}</h5>
                         </Grid>
