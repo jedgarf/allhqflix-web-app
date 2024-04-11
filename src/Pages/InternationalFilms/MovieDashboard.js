@@ -164,6 +164,7 @@ const MovieDashboard = (props) => {
         break;
       case "vidcloud":
         defLink = `${apiConfig.hqflix_video_link_enable_override_cors && apiConfig.override_cors2}${defLink}`;
+        // defLink = `${apiConfig.hqflix_video_link_enable_override_cors && apiConfig.override_cors}/${defLink}`;
         break;
       default:
         defLink = defLink?.length > 0 ? defLink[0]?.url : "";

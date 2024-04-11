@@ -119,7 +119,7 @@ const Anime = () => {
         {/* Genres */}
         {anime_genres.length > 0 ?
         (
-          <div style={{ marginTop: '10px', marginBottom: '15px' }}>
+          <div style={{ marginTop: '10px', marginBottom: '15px', visibility: trendingData.isLoading ? 'hidden' : 'visible' }}>
             <Slider {...movie_genre_carousel_settings} style={{ marginInline: isMobile ? '15px' : '30px' }}>
               {anime_genres.map((item, index) => {
                 return (

@@ -127,7 +127,7 @@ const TvShow = () => {
         {/* Genres */}
         {foreign_genre.length > 0 ?
           (
-          <div style={{ marginTop: '10px', marginBottom: '15px' }}>
+          <div style={{ marginTop: '10px', marginBottom: '15px', visibility: discoverData.isLoading ? 'hidden' : 'visible' }}>
             <Slider {...movie_genre_carousel_settings} style={{ marginInline: isMobile ? '15px' : '30px' }}>
               {foreign_genre.map((item, index) => {
                 return (

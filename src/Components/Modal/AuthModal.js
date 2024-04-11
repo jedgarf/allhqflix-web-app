@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, Fragment } from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 
@@ -75,12 +75,12 @@ const a11yProps = (index) => {
 }
 
 export default function AuthModal() {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   const theme = useTheme();
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -91,7 +91,7 @@ export default function AuthModal() {
   };
 
   return (
-    <div>
+    <Fragment>
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
       <IconButton onClick={handleOpen}><AccountCircleIcon sx={{ color: '#DC4C64', fontSize: '25px' }}/></IconButton>
@@ -138,6 +138,6 @@ export default function AuthModal() {
         </Box>
       </Modal>
     </ThemeProvider>
-    </div>
+    </Fragment>
   );
 }

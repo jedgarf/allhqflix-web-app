@@ -35,6 +35,7 @@ import { AnimePlayModal } from "../../Components/Modal/PlayModal";
 import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 import CookiesConsentDialog from "../../Components/CookiesConsentDialog/CookiesConsentDialog";
 import SettingsModal from "../../Components/Modal/SettingsModal";
+import StarRating from "../../Components/UI/StarRating";
 
 // Utilities
 import { streamDashboardBackButton, SeparateArrayByComma, convertMinutesToHoursAndMinutes, getNumberSuffix, capitalizeString, getAllSavedCookiesMedia } from "../../Services/Utils";
@@ -279,13 +280,15 @@ const AnimeStreamDashboard = (props) => {
                         {infoValue?.episodes?.length > 1 ?
                         (<label className='stream-dashboard-servername'>
                             <span style={{ marginRight: 2 }}>Episode 1 to {infoValue?.episodes?.length}</span>
-                            &nbsp;&bull;&nbsp;<span style={{ marginRight: 5 }}><StarIcon style={{ marginBottom: '-3px', fontSize: 18, color: "#E4A11B" }}/> {infoValue?.rating}</span>
+                            {/* &nbsp;&bull;&nbsp;<span style={{ marginRight: 5 }}><StarIcon style={{ marginBottom: '-3px', fontSize: 18, color: "#E4A11B" }}/> {infoValue?.rating}</span> */}
+                            &nbsp;&bull;&nbsp;<span style={{ paddingBottom: '-4px !important' }}><StarRating value={infoValue?.rating} /></span>
                             &nbsp;&bull;&nbsp;<ShareModal infoValue={infoValue} size={'15px'}/>
                         </label>)
                         : 
                         (<label className='stream-dashboard-servername'>
                             {infoValue?.duration ? <span style={{ marginRight: 2 }}>{convertMinutesToHoursAndMinutes(infoValue?.duration)}</span> : ''}
-                            &nbsp;&bull;&nbsp;<span style={{ marginRight: 5 }}><StarIcon style={{ marginBottom: '-3px', fontSize: 18, color: "#E4A11B" }}/> {infoValue?.rating}</span>
+                            {/* &nbsp;&bull;&nbsp;<span style={{ marginRight: 5 }}><StarIcon style={{ marginBottom: '-3px', fontSize: 18, color: "#E4A11B" }}/> {infoValue?.rating}</span> */}
+                            &nbsp;&bull;&nbsp;<span style={{ marginRight: 5 }}><StarRating value={infoValue?.rating} /></span>
                             &nbsp;&bull;&nbsp;<ShareModal infoValue={infoValue} size={'15px'}/>
                         </label>)}
                         </div>
