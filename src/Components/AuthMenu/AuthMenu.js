@@ -56,12 +56,10 @@ const AuthMenu = ({ isStream, isAuth }) => {
         cancelButtonText: "No"
       }).then((result) => {
         if (result.isConfirmed) {
-          
           removeSession('user');
           isAuth(false);
           // withReactContent(Swal).fire("Saved!", "", "success");
         } else if (result.isDismissed) {
-          // withReactContent(Swal).fire("Changes are not saved", "", "info");
           return false;
         }
       });

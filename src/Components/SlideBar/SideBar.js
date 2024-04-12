@@ -42,7 +42,7 @@ import { getSession } from "../../Helpers/Sessions";
 // Models
 import { menus, sub_menus } from "../../Services/SettingService";
 
-const SideBar = ({ Type, subType, haveSearch = true,  transparentBg = true, isStream = false }) => {
+const SideBar = ({ Type, subType, haveSearch = true,  transparentBg = true, isStream = false, setIsPageAuth }) => {
 
   const searchRef = useRef("");
   const [isGetMenu, setIsGetMenu] = useState(true);
@@ -61,6 +61,7 @@ const SideBar = ({ Type, subType, haveSearch = true,  transparentBg = true, isSt
 
   const isAuth = (authStatus) => {
     setAuth(authStatus);
+    if(typeof setIsPageAuth === 'function') setIsPageAuth(authStatus);
   }
 
   const queryHandler = (e) => {

@@ -41,6 +41,7 @@ const ContactUs = () => {
         },
     });
 
+    const [isPageAuth, setIsPageAuth] = useState(false);
     const [user, setUser] = useState(null);
     const [email, setEmail] = useState('');
     const [subject, setSubject] = useState('');
@@ -121,15 +122,14 @@ const ContactUs = () => {
     };
 
     useEffect(() => {
-        document.getElementsByClassName('divFocus')[0].focus();
         setUser(getSession('user') ? jwtDecode(getSession('user')) : null);
-        if (user?.email) setEmail(user?.email);
-    }, [email, user?.email])
+        setEmail(user?.email ? user?.email : '');
+    }, [email, isPageAuth, user?.email])
 
     return (
         <div className="landing-page">
             <ReactQueryTools/>
-            <SideBar Type={type} subType={null} haveSearch={true} transparentBg={false} isStream={true}/>
+            <SideBar Type={type} subType={null} haveSearch={true} transparentBg={false} isStream={true} setIsPageAuth={setIsPageAuth}/>
             <div className="divFocus" style={{backgroundImage: `linear-gradient(rgba(2, 9, 22, 0.8),rgba(2, 9, 22, 0.8))` }}>
                 <SnackBar severity={snackBarType} handleSnackBarOpen={handleSnackBarOpen} status={snackBarOpen} snackBarMessage={snackBarMessage} />
                 <div style={{ marginTop: '70px', minHeight: 600, width: '99vw' }}>
