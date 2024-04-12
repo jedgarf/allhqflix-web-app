@@ -106,7 +106,7 @@ const AnimeDashboard = (props) => {
           if (indexId == 21) {
             let currentEpisodeNumber = infoValue?.episodes[getSelEpisodeLength].number;
             let currentArc = arcs.filter(item => item.start_episode <= currentEpisodeNumber && item.end_episode >= currentEpisodeNumber)[0];
-            setSelectedArc(`${currentArc?.name ? currentArc?.name.toUpperCase() : currentArc?.name} ARC`);
+            setSelectedArc(`${currentArc?.name ? currentArc?.name.toUpperCase() : currentArc?.name}`);
           }
 
           break;
@@ -119,7 +119,7 @@ const AnimeDashboard = (props) => {
       // Define Arc Name
       if (indexId == 21) {
         let currentArc = arcs[0];
-        setSelectedArc(`${currentArc?.name ? currentArc.name.toUpperCase() : currentArc?.name} ARC`);
+        setSelectedArc(`${currentArc?.name ? currentArc.name.toUpperCase() : currentArc?.name}`);
       }
 
     }
@@ -465,7 +465,7 @@ const AnimeDashboard = (props) => {
                   </center>
                 </Grid>
                 <Grid item xl={10} lg={10} md={12} sm={12} xs={12}>
-                  <h3 className='media-title' style={{ marginTop: '-80px', marginLeft: '10px' }}><b>{contentTitle}{indexId == 21 ? `: ${selectedArc}` : ''}</b></h3>
+                  <h3 className='media-title' style={{ marginTop: '-80px', marginLeft: '10px' }}><b>{contentTitle}{indexId == 21 && `: ${selectedArc}`}</b></h3>
                   <div className="media_props" style={{ marginBlock: '-20px' }}>
                     <Grid container spacing={0.1} style={{ marginLeft: '5px' }}>
                       <Grid item>

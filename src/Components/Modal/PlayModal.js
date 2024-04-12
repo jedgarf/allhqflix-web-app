@@ -769,7 +769,7 @@ const AnimePlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVar, ur
                   </Grid> */}
                   <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
                     <Box sx={{ minWidth: '250px' }}>
-                      <FormControl sx={{ m: 0, minWidth: '100%' }} size="small">
+                      <FormControl sx={{ m: 0 }} fullWidth size="small">
                         <InputLabel id="demo-simple-select-error-label">ARC ({arcs.length})</InputLabel>
                         <Select
                           labelId="demo-simple-select-error-label"

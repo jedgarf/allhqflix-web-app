@@ -1,5 +1,5 @@
 // Packages
-import React, { useEffect, useState, Fragment } from "react";
+import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 
 // React Slick
@@ -18,9 +18,6 @@ import CircularProgress from '@mui/material/CircularProgress';
 import "./css/Movies.css";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
-
-// Config
-import { pageLoadMS } from "../../Config/settings.config";
 
 // Pages
 import SideBar from "../../Components/SlideBar/SideBar";
@@ -44,8 +41,6 @@ const Movies = () => {
   const urlContentType = "foreign";
   const urlContentSubType = "movie";
   const currentYear = new Date().getFullYear();
-
-  const [isLoading, setIsLoading] = useState(true);
 
   let discoverData = useQuery(['movie_carousel', { type: urlContentSubType }], content_carousel, {
     cacheTime: 24 * 60 * 60 * 1000, // 24 hours
@@ -75,12 +70,6 @@ const Movies = () => {
   });
   let popularValue = popularData?.data?.data?.results?.filter( (result) => { return result.type === contentType; });
 
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, pageLoadMS);
-  }, []);
-
   return (
       discoverData.isLoading ? 
         <LoadingPage/>
@@ -88,71 +77,130 @@ const Movies = () => {
       <div className="movies">
       <ReactQueryTools/>
       <SideBar Type={urlContentType} subType={urlContentSubType}/>
-        {<>
-          <Box
-            display={{ xs: 'block', md: 'block' }}
-          >
-            {discoverData.isSuccess ? 
-              <Slider {...carousel_settings}>
-                {discoverValue.map((item, i) => (
-                  <Fragment key={i}>
-                    <div className="movies__boxx">
-                      <Discovers
-                        id={item.id}
-                        banner={item.cover}
-                        title={item.title}
-                        des={item.description}
-                        year={item.releaseDate}
-                        genres={item.genres}
-                        slug={item.slug}
-                        video_quality={item.video_quality}
-                        urlContentSubType={urlContentSubType}
-                        key={i}
-                      />
-                    </div>
-                  </Fragment>
-                ))}
+        <Box
+          display={{ xs: 'block', md: 'block' }}
+        >
+          {discoverData.isSuccess ? 
+            <Slider {...carousel_settings}>
+              {discoverValue.map((item, i) => (
+                <Fragment key={i}>
+                  <div className="movies__boxx">
+                    <Discovers
+                      id={item.id}
+                      banner={item.cover}
+                      title={item.title}
+                      des={item.description}
+                      year={item.releaseDate}
+                      genres={item.genres}
+                      slug={item.slug}
+                      video_quality={item.video_quality}
+                      urlContentSubType={urlContentSubType}
+                      key={i}
+                    />
+                  </div>
+                </Fragment>
+              ))}
+            </Slider>
+            : 
+            <div className="carousel-skeleton" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+              <CircularProgress sx={{ fontSize: 100 }} />
+            </div>
+          }
+        </Box>
+
+          {/* Genres */}
+          {foreign_genre.length > 0 && 
+            <div style={{ marginTop: '10px', marginBottom: '15px', visibility: discoverData.isLoading ? 'hidden' : 'visible' }}>
+              <Slider {...movie_genre_carousel_settings} style={{ marginInline: isMobile ? '15px' : '30px' }}>
+                {foreign_genre.map((item, index) => {
+                  return (
+                    <Fragment key={index}>
+                      <Link className="text-link-without-underline genre-carousel" to={`/foreign/advanced_filter?type=movie&genre=${item.genre_id}`}>
+                        <Button variant="contained" size="small" color="error" style={{ margin: '5px 8px 5px 0px', backgroundColor: 'rgba(105, 105, 105, 0.4)', color: 'whitesmoke', fontSize: 15, fontWeight: 550 }}>{item.name}</Button>
+                      </Link>
+                    </Fragment>
+                  )
+                })} 
               </Slider>
-              : 
-              <div className="carousel-skeleton" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            </div>
+          }
+
+          {(recentData.isLoading && trendingData.isLoading && popularData.isLoading) && 
+            <div className="top_content">
+              <div style={{ minHeight: '350px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 <CircularProgress sx={{ fontSize: 100 }} />
               </div>
-            }
-          </Box>
+            </div>
+          }
+            
+          {/* Trending */}
+          {trendingData.isSuccess && 
+            <div style={{ margin: 'auto' }}>
+              <div className="heading content__heading">TRENDING MOVIES</div><br/>
+              <Slider {...movie_card_carousel_settings} style={{ marginInline: isMobile ? '15px' : '30px' }}>
+                {trendingValue.map((data, i) => (
+                  <Fragment key={i}>
+                    <MoviesRow
+                      isloadImage={true}
+                      cat={'default'}
+                      id={data?.id}
+                      img={data?.image}
+                      title={data?.title || data?.name || data?.aka || data?.slug}
+                      release_date={data?.releaseDate || data?.Year?.name}
+                      // rate={data?.liked}
+                      type={data?.type || data?.Type?.name}
+                      // slug={data?.slug}
+                      video_quality={data?.video_quality}
+                      key={i}
+                    />
+                  </Fragment>
+                  ))}
+              </Slider>
+            </div>
+          }
 
-            {/* Genres */}
-            {foreign_genre.length > 0 ?
-            (
-              <div style={{ marginTop: '10px', marginBottom: '15px', visibility: discoverData.isLoading ? 'hidden' : 'visible' }}>
-                <Slider {...movie_genre_carousel_settings} style={{ marginInline: isMobile ? '15px' : '30px' }}>
-                  {foreign_genre.map((item, index) => {
-                    return (
-                      <Fragment key={index}>
-                        <Link className="text-link-without-underline genre-carousel" to={`/foreign/advanced_filter?type=movie&genre=${item.genre_id}`}>
-                          <Button variant="contained" size="small" color="error" style={{ margin: '5px 8px 5px 0px', backgroundColor: 'rgba(105, 105, 105, 0.4)', color: 'whitesmoke', fontSize: 15, fontWeight: 550 }}>{item.name}</Button>
-                        </Link>
-                      </Fragment>
-                    )
-                  })} 
-                </Slider>
-              </div>
-            )
-            : <></>}
-
-            {recentData.isLoading && trendingData.isLoading && popularData.isLoading ?
-              <div className="top_content">
-                <div style={{ minHeight: '350px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                  <CircularProgress sx={{ fontSize: 100 }} />
-                </div>
-              </div>
-            : ''}
-              
-            {/* Trending */}
-            {trendingData.isSuccess ? 
-              <div style={{ margin: 'auto' }}>
-                <div className="heading content__heading">TRENDING MOVIES</div><br/>
+          {/* Latest */}
+          {recentData.isSuccess && 
+            <div className="top_content">
+              <div className="heading content__heading">
+                LATEST MOVIES
+                <Link className="text-link-without-underline" to={`/foreign/advanced_filter?type=movie&year=${currentYear}`} style={{ float: 'right', fontSize: '20px', marginRight: 10 }}>
+                  <Button variant="contained" size="small" color="primary">MORE</Button>
+                </Link>
+              </div><br/>
+              <Slider {...movie_card_carousel_settings} style={{ marginInline: isMobile ? '15px' : '30px' }}>
+                {latestValue.map((data, i) => (
+                  <Fragment key={i}>
+                    <MoviesRow
+                      isloadImage={true}
+                      cat={'default'}
+                      id={data?.id}
+                      img={data?.image}
+                      title={data?.title || data?.name || data?.aka || data?.slug}
+                      release_date={data?.releaseDate || data?.Year?.name}
+                      // rate={data?.liked}
+                      type={data?.type || data?.Type?.name}
+                      // slug={data?.slug}
+                      video_quality={data?.video_quality}
+                      key={i}
+                    />
+                  </Fragment>
+                  ))}
+              </Slider>
+            </div>
+          }
+          
+          {/* Popular */}
+          {popularData.isSuccess && 
+            <div className="top_content">
+              <div className="heading content__heading">
+                POPULAR MOVIES
+                <Link className="text-link-without-underline" to="/foreign/popular_movies" style={{ float: 'right', fontSize: '20px', marginRight: 10 }}>
+                  <Button variant="contained" size="small" color="primary">MORE</Button>
+                </Link>
+              </div><br/>
                 <Slider {...movie_card_carousel_settings} style={{ marginInline: isMobile ? '15px' : '30px' }}>
-                  {trendingValue.map((data, i) => (
+                  {popularValue.map((data, i) => (
                     <Fragment key={i}>
                       <MoviesRow
                         isloadImage={true}
@@ -170,70 +218,10 @@ const Movies = () => {
                     </Fragment>
                     ))}
                 </Slider>
-              </div> : <></> }
-
-            {/* Latest */}
-            {recentData.isSuccess ? 
-              <div className="top_content">
-                <div className="heading content__heading">
-                  LATEST MOVIES
-                  <Link className="text-link-without-underline" to={`/foreign/advanced_filter?type=movie&year=${currentYear}`} style={{ float: 'right', fontSize: '20px', marginRight: 10 }}>
-                    <Button variant="contained" size="small" color="primary">MORE</Button>
-                  </Link>
-                </div><br/>
-                  <Slider {...movie_card_carousel_settings} style={{ marginInline: isMobile ? '15px' : '30px' }}>
-                    {latestValue.map((data, i) => (
-                      <Fragment key={i}>
-                        <MoviesRow
-                          isloadImage={true}
-                          cat={'default'}
-                          id={data?.id}
-                          img={data?.image}
-                          title={data?.title || data?.name || data?.aka || data?.slug}
-                          release_date={data?.releaseDate || data?.Year?.name}
-                          // rate={data?.liked}
-                          type={data?.type || data?.Type?.name}
-                          // slug={data?.slug}
-                          video_quality={data?.video_quality}
-                          key={i}
-                        />
-                      </Fragment>
-                      ))}
-                  </Slider>
-              </div> : <></> }
-            
-            {/* Popular */}
-            {popularData.isSuccess ? 
-              <div className="top_content">
-                <div className="heading content__heading">
-                  POPULAR MOVIES
-                  <Link className="text-link-without-underline" to="/foreign/popular_movies" style={{ float: 'right', fontSize: '20px', marginRight: 10 }}>
-                    <Button variant="contained" size="small" color="primary">MORE</Button>
-                  </Link>
-                </div><br/>
-                  <Slider {...movie_card_carousel_settings} style={{ marginInline: isMobile ? '15px' : '30px' }}>
-                    {popularValue.map((data, i) => (
-                      <Fragment key={i}>
-                        <MoviesRow
-                          isloadImage={true}
-                          cat={'default'}
-                          id={data?.id}
-                          img={data?.image}
-                          title={data?.title || data?.name || data?.aka || data?.slug}
-                          release_date={data?.releaseDate || data?.Year?.name}
-                          // rate={data?.liked}
-                          type={data?.type || data?.Type?.name}
-                          // slug={data?.slug}
-                          video_quality={data?.video_quality}
-                          key={i}
-                        />
-                      </Fragment>
-                      ))}
-                  </Slider>
-              </div> : <></> }
-          <FloatingButton/>
-          <Footer />
-        </>}
+            </div>
+          }
+        <FloatingButton/>
+        <Footer />
       </div>
   );
 }
