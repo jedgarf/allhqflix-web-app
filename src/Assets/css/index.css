@@ -20,8 +20,8 @@
     --body-content: rgba(45, 45, 45, 255);
     --body-content-contain: rgba(25, 25, 45, 255);
     --skeleton-loader-transparent: rgba(25, 27, 29, 0.8);
-    /* --modal-bg: rgba(56,56,56,255); */
-    -modal-bg: rgba(0, 10, 20, 0.5);
+    --modal-bg: rgba(56,56,56,255);
+    /* -modal-bg: rgba(0, 10, 20, 0.5); */
 }
 
 body {
