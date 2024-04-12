@@ -46,7 +46,7 @@ const MediaCategories = () => {
                     <Grid item xl={12} lg={12} md={12} sm={12} xs={12} className='text-white' style={{ marginBottom: 15 }}>
                         <center>
                             <Typography variant="h5" sx={{ marginBottom: 1, fontWeight: '550' }}><SubscriptionsIcon sx={{ fontSize: 28, marginBottom: '-6px' }}/> CATEGORIES</Typography>
-                            <Typography variant="p" sx={{ fontWeight: '550', textTransform: 'uppercase' }}>Unlimited movies, TV shows and more.</Typography>
+                            <Typography variant="p" sx={{ fontWeight: '550', textTransform: 'uppercase' }}>Unlimited Movies, TV Series and more.</Typography>
                         </center>
                     </Grid>
 
