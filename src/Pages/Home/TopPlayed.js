@@ -9,7 +9,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 
 // Material UI Components
-import { Grid, Typography } from "@mui/material";
+import { Grid, Typography, Container } from "@mui/material";
 
 // Icons
 import LiveTvIcon from '@mui/icons-material/LiveTv';
@@ -32,7 +32,7 @@ const TopPlayed = () => {
     return (
         <ThemeProvider theme={darkTheme}>
             <CssBaseline />
-            <div className='notes'>
+            <Container  maxWidth="xl">
                 <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={2}>
 
                     <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
@@ -51,7 +51,7 @@ const TopPlayed = () => {
                                         </Grid>
                                         <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
                                             <Link className='text-link-without-underline' to={`tv/stream_dashboard?mediaId=tv/watch-stranger-things-39444`}>
-                                                <div className="image-container">
+                                                <div className="top-played-image-container">
                                                     <img src={`${strangerThingsBanner}`} alt={''} width={'auto'} effect="blur" style={{ borderRadius: 10 }} />
                                                     <div className="overlay" title='Play'>
                                                         <PlayCircleIcon sx={{ fontSize: '60px' }}/>
@@ -68,7 +68,7 @@ const TopPlayed = () => {
                                         </Grid>
                                         <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
                                             <Link className='text-link-without-underline' to={`tv/stream_dashboard?mediaId=tv/watch-all-of-us-are-dead-76681`}>
-                                                <div className="image-container">
+                                                <div className="top-played-image-container">
                                                     <img src={`${allOfUsAreDeadBanner}`} alt={''} width={'auto'} effect="blur" style={{ borderRadius: 10 }} />
                                                     <div className="overlay" title='Play'>
                                                         <PlayCircleIcon sx={{ fontSize: '60px' }}/>
@@ -85,7 +85,7 @@ const TopPlayed = () => {
                                         </Grid>
                                         <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
                                             <Link className='text-link-without-underline' to={`anime/stream_dashboard?mediaId=21`}>
-                                                <div className="image-container">
+                                                <div className="top-played-image-container">
                                                     <img src={`${onePieceBanner}`} alt={''} width={'auto'} effect="blur" style={{ borderRadius: 10 }} />
                                                     <div className="overlay" title='Play'>
                                                         <PlayCircleIcon sx={{ fontSize: '60px' }}/>
@@ -102,7 +102,7 @@ const TopPlayed = () => {
                                         </Grid>
                                         <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
                                             <Link className='text-link-without-underline' to={`tv/stream_dashboard?mediaId=tv/watch-one-piece-99826`}>
-                                                <div className="image-container">
+                                                <div className="top-played-image-container">
                                                     <img src={`${onePieceNetflixBanner}`} alt={''} width={'auto'} effect="blur" style={{ borderRadius: 10 }} />
                                                     <div className="overlay" title='Play'>
                                                         <PlayCircleIcon sx={{ fontSize: '60px' }}/>
@@ -119,7 +119,7 @@ const TopPlayed = () => {
                                         </Grid>
                                         <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
                                             <Link className='text-link-without-underline' to={`tv/stream_dashboard?mediaId=tv/watch-yu-yu-hakusho-103906`}>
-                                                <div className="image-container">
+                                                <div className="top-played-image-container">
                                                     <img src={`${yuYuHakushoBanner}`} alt={''} width={'auto'} effect="blur" style={{ borderRadius: 10 }} />
                                                     <div className="overlay" title='Play'>
                                                         <PlayCircleIcon sx={{ fontSize: '60px' }}/>
@@ -139,7 +139,7 @@ const TopPlayed = () => {
                     </Grid>
 
                 </Grid>
-            </div>
+            </Container>
         </ThemeProvider>
     );
 };

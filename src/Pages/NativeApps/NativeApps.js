@@ -44,14 +44,14 @@ const NativeApps = () => {
         isLoading ? 
             <LoadingPage/>
         : 
-        <div className="movies">
+        <div className="landing-page">
             <ReactQueryTools/>
             <SideBar Type={type} subType={null} haveSearch={true} transparentBg={false} isStream={true}/>
             <div className="divFocus">
                 <ThemeProvider theme={darkTheme}>
                     <CssBaseline />
                     <div style={{ paddingBlock: `5vh` }}>
-                        <div style={{ width: '99vw' }}>
+                        <div style={{ width: '100%' }}>
 
                             <Container maxWidth={'md'}>
                                 <div className="appdownloads" style={{ backgroundImage: `linear-gradient(rgba(10, 10, 10, 0.5), rgba(10, 10, 10, 0.5)) , url("${homeBackground}")`, borderRadius: 10, padding: 40, minHeight: '450px', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '130px' }}>

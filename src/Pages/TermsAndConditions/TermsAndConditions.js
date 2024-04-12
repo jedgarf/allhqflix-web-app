@@ -27,11 +27,11 @@ const TermsAndConditions = () => {
 
     return (
         <div>
-            <div className="movies">
+            <div className="landing-page">
                 <ReactQueryTools/>
                 <SideBar Type={type} subType={null} haveSearch={true} transparentBg={false} isStream={true}/>
                     <div className="divFocus" style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5))`, color: '#ccced1' }}>
-                        <div style={{ marginTop: '70px', minHeight: 500, width: '99vw' }}>
+                        <div style={{ marginTop: '70px', minHeight: 500, width: '100%' }}>
 
                         <Grid container rowSpacing={9}>
                             <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>

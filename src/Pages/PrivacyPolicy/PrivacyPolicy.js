@@ -27,11 +27,11 @@ const PrivacyPolicy = () => {
 
     return (
         <div>
-            <div className="movies">
+            <div className="landing-page">
                 <ReactQueryTools/>
                 <SideBar Type={type} subType={null} haveSearch={true} transparentBg={false} isStream={true}/>
                     <div className="divFocus" style={{backgroundImage: `linear-gradient(rgba(2, 9, 22, 0.8),rgba(2, 9, 22, 0.8))` }}>
-                        <div style={{ marginTop: '70px', minHeight: 600, width: '99vw' }}>
+                        <div style={{ marginTop: '70px', minHeight: 600, width: '100%' }}>
 
                         <Grid container rowSpacing={9}>
                             <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>

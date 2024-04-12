@@ -3,7 +3,7 @@
     /* overflow-y: scroll;
     overflow-x: hidden; */
     background: var(--body);
-    /* width: 100%; */
+    width: 100%;
     /* height: 100vh; */
 }
 
@@ -174,6 +174,11 @@
 .media-categories-divider {
     color: var(--body) !important;
     background-color: var(--body) !important;
+}
+
+.top-played-image-container image {
+    width: 100%;
+    height: 300px;
 }
 
 /* mobile */

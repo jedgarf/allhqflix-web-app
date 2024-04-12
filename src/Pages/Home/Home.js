@@ -121,15 +121,15 @@ const Home = () => {
     isLoading ? 
       <LoadingPage/>
      : 
-    <div className="movies">
+    <div className="landing-page">
       <ReactQueryTools/>
       <SideBar Type={type} subType={null} haveSearch={false}/>
 
-      <div className="divFocus home-bg">
+      <div className="home-bg" style={{ position: 'relative', width: '100%', height: '100vh' }}>
         <center>
-          <Container>
+          <Container style={{ position: 'absolute', top: '40%', left: '50%', transform: 'translate(-50%,-50%)', width: '100%', height: 'inherit' }}>
             <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={0} justifyContent="center">
-              <Grid item xl={12} lg={12} md={12} sm={12} xs={12} style={{ marginBottom: -50 }}>
+              <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
                 <div className="owner-image">
                       <img
                         src={mainLogo}
@@ -139,7 +139,6 @@ const Home = () => {
                 </div>
               </Grid>
               <Grid item xl={12} lg={12} md={12} sm={12} xs={12} style={{ marginBottom: 20 }}>
-                {/* <Typography variant="h5" style={{ marginBottom: 1, fontWeight: '550', color: '#ccced1 !important' }}>Watch Everywhere</Typography> */}
                 <Typography variant="p" className="text-white" style={{ marginBottom: 1, fontWeight: '550' }}>
                   For optimal viewing, use a PC or laptop for the best performance.
                 </Typography>
@@ -185,7 +184,7 @@ const Home = () => {
         </div>
       </motion.div>
 
-      <div className="media-top-played">
+      <div className="media-top-played" hidden>
         <TopPlayed/>
       </div>
 
