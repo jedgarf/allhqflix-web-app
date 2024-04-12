@@ -52,7 +52,7 @@ const Home = () => {
       <ReactQueryTools/>
       <SideBar Type={type} subType={null} haveSearch={true}/>
 
-      <div className="divFocus" style={{backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 1)), url("${homeBackground}")`, height: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <div className="divFocus home-bg">
             <Container maxWidth={'xl'}>
                 <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={0}>
                 <Grid item xl={12} lg={12} md={12} sm={12} xs={12} style={{ marginBottom: -50 }}>

@@ -242,7 +242,7 @@ const AnimeStreamDashboard = (props) => {
         : 
         <Fragment>
             <ReactQueryTools/>
-            <div className='stream-dashboard' style={{backgroundImage: isMobile ? `linear-gradient(rgba(15, 22, 34, 0.527),rgba(15, 22, 34, 0.5)), url("${BGImage}"), url("${homeBackground}")` : `linear-gradient(to right, rgba(15, 22, 34, 0.85) 30%, rgba(15, 22, 34, 0.5) 70%), url("${BGImage}"), url("${homeBackground}")`, objectFit: 'cover', backgroundSize: ' 100% 100%', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', width: '100%'}} 
+            <div className='stream-dashboard' style={{backgroundImage: isMobile ? `linear-gradient(rgba(10, 10, 10, 0.527),rgba(10, 10, 10, 0.5)), url("${BGImage}"), url("${homeBackground}")` : `linear-gradient(to right, rgba(10, 10, 10, 0.85) 30%, rgba(10, 10, 10, 0.5) 70%), url("${BGImage}"), url("${homeBackground}")`, objectFit: 'cover', backgroundSize: ' 100% 100%', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', width: '100%'}} 
                 onError={handleBackgroundImageError}>
                 <SnackBar severity={snackBarType} handleSnackBarOpen={handleSnackBarOpen} status={snackBarOpen} snackBarMessage={snackBarMessage} withLoading={snackBarWithLoading} hideDuration={hideDuration} />
                 <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={1} justifyContent="center">
@@ -275,7 +275,7 @@ const AnimeStreamDashboard = (props) => {
                         <Skeleton animation="pulse" variant="rectangular" sx={{ bgcolor: '#54B4D3', width: {xs: '30%', sm: '30%', md: '40%'} }} height="40px" />
                     </Box>
                 : 
-                    <div className='stream-dashboard-content' style={{ backgroundColor: isMobile ? 'rgba(15, 22, 34, 0.5)' : 'transparent' }}>
+                    <div className='stream-dashboard-content' style={{ backgroundColor: isMobile ? 'rgba(10, 10, 10, 0.5)' : 'transparent' }}>
                         <div className='stream-dashboard-title'><h1>{ infoValue?.title?.english || infoValue?.title?.userPreferred || infoValue?.title?.romaji || infoValue?.title?.native }</h1>
                         {infoValue?.episodes?.length > 1 ?
                         (<label className='stream-dashboard-servername'>

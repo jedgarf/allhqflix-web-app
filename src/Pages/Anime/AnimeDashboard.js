@@ -293,7 +293,7 @@ const AnimeDashboard = (props) => {
     <div className="movie_dashboard">
       <ReactQueryTools/>
       <SideBar Type={type} subType={null} transparentBg={false} isStream={true} />
-      <div className="movie_cover" style={{backgroundImage: `linear-gradient(rgba(0, 0, 10, 1),rgba(0, 0, 10, 0.5), rgba(0, 0, 10, 0.2)), url("${infoValue?.cover}"), url("${homeBackground}")`}}>
+      <div className="movie_cover" style={{backgroundImage: `linear-gradient(rgba(10, 10, 10, 1),rgba(10, 10, 10, 0.5), rgba(10, 10, 10, 0.2)), url("${infoValue?.cover}"), url("${homeBackground}")`}}>
         <div className="heading cheading movie-stream-title">
           <h6> </h6>
         </div>

@@ -15,10 +15,11 @@
     --appbar: rgba(0, 10, 20, 0.7);
     --appbar-stream: rgba(0, 10, 20, 1);
     --footer: rgba(0, 10, 20, 255);
-    --body: rgba(0, 0, 0, 255);
+    --body-raw-color: 10, 10, 10;
+    --body: rgba(var(--body-raw-color), 1);
     --body-content: rgba(45, 45, 45, 255);
     --body-content-contain: rgba(25, 25, 45, 255);
-    --skeleton-loader-transparent: rgba(10, 12, 15, 0.8);
+    --skeleton-loader-transparent: rgba(25, 27, 29, 0.8);
 }
 
 body {
@@ -27,6 +28,13 @@ body {
     box-sizing: border-box;
     /* transition: .3s; */
     background-color: var(--body);
+}
+
+.home-bg {
+    background-image: linear-gradient(to bottom, rgba(var(--body-raw-color), 0.1), rgba(var(--body-raw-color), 0.3), rgba(var(--body-raw-color), 0.5), rgba(var(--body-raw-color), 0.6), rgba(var(--body-raw-color), 1)), url('../images/movies-background.jpg');
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 .makeStyles-text-1 {
