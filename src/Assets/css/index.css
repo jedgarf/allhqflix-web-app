@@ -1,34 +1,7 @@
-/* @import url(https://fonts.googleapis.com/css?family=Montserrat:100,200,300,regular,500,600,700,800,900,100italic,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic); */
-:root {
-    --main-color: #01a3ff;
-    --second-color: #14A44D;
-    --third-color: #222222;
-    --four-color: #ccced1;
-    --five-color: #2e2e31;
-    --six-color: #314846;
-    --text-color: #353b45;
-    --submenu-color: rgba(53, 59, 69, 255);
-    --footer-link: #8394f5;
-    --main-red: #DC4C64;
-    --sidebar: rgba(0, 10, 20, 255);
-    --sidebar-transparent: rgba(10, 12, 15, 0.3);
-    --appbar: rgba(0, 10, 20, 0.7);
-    --appbar-stream: rgba(0, 10, 20, 1);
-    --footer: rgba(0, 10, 20, 255);
-    --body-raw-color: 10, 10, 10;
-    --body: rgba(var(--body-raw-color), 1);
-    --body-content: rgba(45, 45, 45, 255);
-    --body-content-contain: rgba(25, 25, 45, 255);
-    --skeleton-loader-transparent: rgba(25, 27, 29, 0.8);
-    --modal-bg: rgba(56,56,56,255);
-    /* --modal-bg: rgba(0, 10, 20, 0.5); */
-}
-
 body {
-    margin: 0;
-    /* font-weight: bold; */
     /* box-sizing: border-box; */
     /* transition: .3s; */
+    margin: 0;
     background-color: var(--body);
 }
 

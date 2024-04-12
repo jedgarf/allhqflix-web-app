@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from "react-dom/client";
-import './Assets/css/index.css';
 
 // Routes
 import AppRoutes from './AppRoutes';
@@ -18,6 +17,12 @@ import { disableReactDevTools } from '@fvilers/disable-react-devtools';
 // Vercel monitoring
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
+
+// Importing all css file (Assets/css)
+const importAll = (r) => {
+  r.keys().forEach(r);
+};
+importAll(require.context('./Assets/css', false, /\.css$/));
 
 if (process.env.NODE_ENV === 'production') {
   init({

@@ -1,5 +1,5 @@
 // Packages
-import React, { useEffect, useState, Fragment, Suspense } from "react";
+import React, { useEffect, useState, Fragment } from "react";
 import { Link } from "react-router-dom";
 
 // React Slick
@@ -9,7 +9,7 @@ import Slider from "react-slick";
 import { useQuery } from 'react-query';
 
 // Material UI Components
-import { Button, Container, Box } from "@mui/material";
+import { Button, Box } from "@mui/material";
 
 // Icon
 import CircularProgress from '@mui/material/CircularProgress';
