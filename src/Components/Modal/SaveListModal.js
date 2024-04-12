@@ -42,7 +42,7 @@ const SaveListModal = ({ loadSavedMedia }) => {
 
                 {/* Modal */}
                 <ReusableModal isModalOpen={isModalOpen} handleModal={handleModal} OptionIcon={<ChecklistIcon sx={{ marginBottom: '-4px' }} />} title={`RECENT WATCHED`}>
-                    <DialogContent>
+                    <DialogContent className='modal-container'>
                         <RecentWatched title={false} loadSavedMedia={handleLoadSavedMedia}/>
                     </DialogContent>
                 </ReusableModal>

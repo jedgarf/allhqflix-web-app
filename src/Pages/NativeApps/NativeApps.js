@@ -50,11 +50,11 @@ const NativeApps = () => {
             <div className="divFocus">
                 <ThemeProvider theme={darkTheme}>
                     <CssBaseline />
-                    <div style={{ marginBlock: `10vh` }}>
+                    <div style={{ paddingBlock: `5vh` }}>
                         <div style={{ width: '99vw' }}>
 
                             <Container maxWidth={'md'}>
-                                <div className="appdownloads" style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)) , url("${homeBackground}")`, borderRadius: 10, padding: 40, minHeight: '450px', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '130px' }}>
+                                <div className="appdownloads" style={{ backgroundImage: `linear-gradient(rgba(10, 10, 10, 0.5), rgba(10, 10, 10, 0.5)) , url("${homeBackground}")`, borderRadius: 10, padding: 40, minHeight: '450px', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '130px' }}>
                                     <div className="apd-container">
                                         <div className="apdc-content text-white">
                                             <Grid container direction="row" columnSpacing={{ xs: 2, sm: 2, md: 2, lg: 2, xl: 2 }} rowSpacing={2}>

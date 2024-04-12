@@ -97,11 +97,11 @@ const SettingsModal = ({ settingModal, setSettingModal, setUpperMenu }) => {
             <ReusableModal isModalOpen={isModalOpen} handleModal={handleModal} OptionIcon={<SettingsIcon sx={{ marginBottom: '-4px' }} />} title={`SETTINGS`}>
                 {isAuth ? 
                     <Fragment>
-                        <DialogContent>
+                        <DialogContent className='modal-container'>
                             <PlayerSettings playerSettings={playerSettings} setPlayerSettings={setPlayerSettings}/>
                         </DialogContent>
                         <Divider/>
-                        <DialogActions>
+                        <DialogActions className='modal-container'>
                             <Button size='small' variant='outlined' color='error' startIcon={<CloseIcon/>} onClick={() => handleModal(false)}>Close</Button>
                             <Button size='small' variant='contained' color='primary' onClick={(evt) => onSubmit(evt)} startIcon={<SaveIcon/>}>Save</Button>
                         </DialogActions>

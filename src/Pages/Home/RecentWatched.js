@@ -51,7 +51,7 @@ const RecentWatched = ({ title = true, loadSavedMedia }) => {
 
     const deleteRecentMedia = (mediaId, title) => {
         withReactContent(Swal).fire({
-            background: 'rgba(56,56,56,255)',
+            customClass: 'swal-container',
             title: `<p style='color: #ccced1; font-size: 18px;'>Are you sure you want to remove?<br/>${title}</p>`,
             icon: "warning",
             showDenyButton: false,

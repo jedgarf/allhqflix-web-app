@@ -1,14 +1,14 @@
 .search_result {
     width: 100%;
-    /* max-height: 950px; */
+    height: 100vh;
     background: var(--body);
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
 }
 
-.search_result::-webkit-scrollbar {
+/* .search_result::-webkit-scrollbar {
     display: none;
     scroll-behavior: smooth;
-}
+} */
 
 .search__top {
     margin-top: 30px;
@@ -62,7 +62,7 @@
 }
 
 .search_result_content {
-    min-height: 100% !important;
+    min-height: 75% !important;
 }
 
 .content_types {

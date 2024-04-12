@@ -45,7 +45,7 @@ const AuthMenu = ({ isStream, isAuth }) => {
     const onLogoutSession = () => {
       handleTopMenuClose();
       withReactContent(Swal).fire({
-        background: 'rgba(56,56,56,255)',
+        customClass: 'swal-container',
         title: "<p style='color: #ccced1; font-size: 18px;'>Are you sure you want to sign out?</p>",
         icon: "warning",
         showDenyButton: false,

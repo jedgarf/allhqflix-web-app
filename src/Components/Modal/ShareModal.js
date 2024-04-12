@@ -65,7 +65,7 @@ const ShareModal = ({ infoValue, size = '18px' }) => {
         transform: 'translate(-50%, -50%)',
         // width: 430,
         // height: 410,
-        bgcolor: '#0f1622',
+        // bgcolor: '#0f1622',
         borderRadius: '4px',
         // p: 4,
     };
@@ -89,7 +89,7 @@ const ShareModal = ({ infoValue, size = '18px' }) => {
                 }}
                 >
                 <Fade in={modalQROpen}>
-                <Box sx={modalQRStyle} width={{ xs: 305, sm: 580, md: 600 }} height={{ xs: 590, sm: 350 }}>
+                <Box className='modal-container' sx={modalQRStyle} width={{ xs: 305, sm: 580, md: 600 }} height={{ xs: 590, sm: 350 }}>
                 <center>
                     <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={1} justifyContent="center" style={{ marginTop: 20, marginRight: 10 }}>
                         <Grid item xl={5} lg={5} md={5} sm={5} xs={12}>
@@ -230,7 +230,7 @@ const ShareModal = ({ infoValue, size = '18px' }) => {
                             <hr style={{ marginTop: 14 }} />
                         </Grid>
                         <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
-                            <Button variant='outlined' color='error' size='small' style={{ fontWeight: 'bolder', marginTop: 6 }} startIcon={<CloseIcon/>} onClick={handleModalQRClose}>Close</Button>
+                            <Button variant='outlined' color='error' size='small' style={{ fontWeight: 'bolder' }} startIcon={<CloseIcon/>} onClick={handleModalQRClose}>Close</Button>
                         </Grid>
                     </Grid>
                 </center>

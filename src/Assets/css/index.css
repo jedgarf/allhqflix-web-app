@@ -20,12 +20,14 @@
     --body-content: rgba(45, 45, 45, 255);
     --body-content-contain: rgba(25, 25, 45, 255);
     --skeleton-loader-transparent: rgba(25, 27, 29, 0.8);
+    /* --modal-bg: rgba(56,56,56,255); */
+    -modal-bg: rgba(0, 10, 20, 0.5);
 }
 
 body {
     margin: 0;
-    font-weight: bold;
-    box-sizing: border-box;
+    /* font-weight: bold; */
+    /* box-sizing: border-box; */
     /* transition: .3s; */
     background-color: var(--body);
 }
@@ -35,6 +37,13 @@ body {
     height: 100vh;
     display: flex;
     flex-direction: column;
+}
+
+.swal-container {
+    background-color: var(-modal-bg);
+}
+.modal-container {
+    background-color: var(-modal-bg);
 }
 
 .makeStyles-text-1 {
@@ -54,6 +63,7 @@ body {
     padding: 0;
     box-sizing: border-box; */
     /* transition: .3s; */
+    scrollbar-width: thin;
     font-family: "Roboto","Helvetica","Arial",sans-serif !important;
 }
 

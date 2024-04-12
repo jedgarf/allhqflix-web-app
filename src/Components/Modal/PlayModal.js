@@ -198,7 +198,7 @@ const MoviePlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ser
         {/* Modal */}
         <ReusableModal isModalOpen={isModalOpen} handleModal={handleModal} OptionIcon={<ChecklistIcon sx={{ marginBottom: '-4px' }} />} title={`SELECTION`}>
             {/* Servers */}
-            <DialogContent>
+            <DialogContent className='modal-container'>
               <Typography variant='h6' sx={{ marginBottom: 1 }}>Servers</Typography>
               <Slider {...manual_selection_carousel_settings} infinite={false} style={{ marginInline: (isMobile ? 0 : 10) }}>
                   {serverInfo.data.map((item, index) => {
@@ -230,7 +230,7 @@ const MoviePlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ser
               </Slider>
             </DialogContent>
             <Divider/>
-            <DialogActions>
+            <DialogActions className='modal-container'>
               <Button size='small' variant='outlined' color='error' startIcon={<CloseIcon/>} onClick={() => handleModal(false)}>Close</Button>
               {resourceData.isSuccess && resourceInfo?.data?.sources?.length > 0 ?
               (<Link to={`${url}?server=${server === 'upcloud' ? '1' : '2'}`} onClick={() => deleteCookie(encodeURIComponent(mediaId))}><Button size='small' variant='contained' color='primary' startIcon={<PlayCircleOutlineIcon/>}>Play</Button></Link>)
@@ -432,7 +432,7 @@ const SeriesPlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ep
       {/* Modal */}
       <ReusableModal isModalOpen={isModalOpen} handleModal={handleModal} OptionIcon={<ChecklistIcon sx={{ marginBottom: '-4px' }} />} title={resourceData.isSuccess && resourceInfo?.data?.sources?.length > 0 ? `EPISODE SELECTION` : `SERVER SELECTION`}>
 
-      <DialogContent>
+      <DialogContent className='modal-container'>
         <Grid container columnSpacing={{ xs: 3, sm: 3, md: 3, lg: 3, xl: 3 }} rowSpacing={0}>
           {resourceData.isSuccess && resourceInfo?.data?.sources?.length > 0 && 
           <>
@@ -553,7 +553,7 @@ const SeriesPlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ep
         </Grid>
       </DialogContent>
       <Divider/>
-      <DialogActions>
+      <DialogActions className='modal-container'>
         <Button size='small' variant='outlined' color='error' startIcon={<CloseIcon/>} onClick={() => handleModal(false)}>Close</Button>
         {resourceData.isSuccess && resourceInfo?.data?.sources?.length > 0 ?
           isDisableSave ?
@@ -759,7 +759,7 @@ const AnimePlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVar, ur
         {/* Modal */}
         <ReusableModal isModalOpen={isModalOpen} handleModal={handleModal} OptionIcon={<ChecklistIcon sx={{ marginBottom: '-4px' }} />} title={`EPISODE SELECTION`}>
           
-          <DialogContent>
+          <DialogContent className='modal-container'>
 
               {/* ARC */}
               {mediaId == 21 && 
@@ -828,7 +828,7 @@ const AnimePlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVar, ur
               ) : (<Typography sx={{ textAlign: 'center', marginBottom: 2 }}>No result found.</Typography>)}
           </DialogContent>
           <Divider/>
-          <DialogActions>
+          <DialogActions className='modal-container'>
             <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={0}>
               <Grid item xl={6} lg={6} md={6} sm={6} xs={6} style={{ paddingTop: '2.8px' }}>
                 <span style={{ fontWeight: '550' }}>SELECTED: {episodeNum}</span>
@@ -973,7 +973,7 @@ const AsianDramaPlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVa
         {/* Modal */}
         <ReusableModal isModalOpen={isModalOpen} handleModal={handleModal} OptionIcon={<ChecklistIcon sx={{ marginBottom: '-4px' }} />} title={`EPISODE SELECTION`}>
             
-            <DialogContent>
+            <DialogContent className='modal-container'>
               {/* Episodes */}
               <Grid container columnSpacing={{ xs: 3, sm: 3, md: 3, lg: 3, xl: 3 }} rowSpacing={0}>
                 <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>
@@ -1012,7 +1012,7 @@ const AsianDramaPlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVa
               ) : (<Typography sx={{ textAlign: 'center', marginBottom: 2 }}>No result found.</Typography>)}
             </DialogContent>
             <Divider/>
-            <DialogActions>
+            <DialogActions className='modal-container'>
               <Button size='small' variant='outlined' color='error' startIcon={<CloseIcon/>} onClick={() => handleModal(false)}>Close</Button>
               <Link className='text-link-without-underline' to={`${url}?episode=${episodeNumber}`} onClick={() => deleteCookie(mediaId)}>
                 <Button size='small' variant='contained' color='primary' startIcon={<PlayCircleOutlineIcon/>}>Play</Button>

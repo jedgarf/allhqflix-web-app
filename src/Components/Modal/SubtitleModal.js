@@ -54,7 +54,7 @@ const SubtitleModal = ({ subtitles, isMobile }) => {
         transform: 'translate(-50%, -50%)',
         // width: 430,
         // height: 410,
-        bgcolor: '#0f1622',
+        // bgcolor: '#0f1622',
         borderRadius: '4px',
         // p: 4,
       };
@@ -96,7 +96,7 @@ const SubtitleModal = ({ subtitles, isMobile }) => {
                 }}
                 >
                 <Fade in={modalSubtitleOpen}>
-                <Box sx={modalQRStyle} width={{ xs: 340, sm: 570, md: 600 }} height={{ xs: 290, sm: 290 }}>
+                <Box className='modal-container' sx={modalQRStyle} width={{ xs: 340, sm: 570, md: 600 }} height={{ xs: 290, sm: 290 }}>
                     <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={0} justifyContent="center">
                         <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
                             <Box sx={{ width: '100%' }}>

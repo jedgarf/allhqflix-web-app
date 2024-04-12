@@ -244,7 +244,7 @@ function AdvancedSearch() {
   }, [currentYear]);
 
   return (
-    <div className="search_result">
+    <div className="movies" style={{ height: '100vh' }}>
         <ReactQueryTools/>
         <div className="search_result_content">
             <div className="search__top">

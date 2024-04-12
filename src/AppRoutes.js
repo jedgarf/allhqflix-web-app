@@ -2,9 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, useParams } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from 'react-query';
 
-// CSS
-import "./Assets/css/App.css";
-
 // Components
 import Favorite from "./Components/Favorite/Favorite";
 

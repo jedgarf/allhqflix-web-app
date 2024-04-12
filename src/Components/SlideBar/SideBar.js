@@ -103,7 +103,8 @@ const SideBar = ({ Type, subType, haveSearch = true,  transparentBg = true, isSt
       backgroundColor: alpha(theme.palette.common.white, 0.20),
     },
     '&:focus': {
-      backgroundColor: alpha(theme.palette.common.white, 0.20),
+      backgroundColor: alpha(theme.palette.common.white, 1),
+      opacity: 1,
     },
     marginLeft: 0,
     width: '100%',

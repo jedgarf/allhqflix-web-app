@@ -15,7 +15,6 @@ function Footer() {
     return (
         <Fragment>
         <CookiesConsentDialog/>
-        <br/><br/><br/>
             <footer className="footer">
                 <Grid container columnSpacing={{ xs: 1, sm: 2, md: 10, lg: 10, xl: 10 }} rowSpacing={1}>
                     <Grid item xl={7} lg={7} md={6} sm={12} xs={12} display={{ xs: 'none', sm: 'none', md: 'block' }}>

@@ -47,7 +47,7 @@ const TraillerModal = ({ category, infoValue }) => {
         transform: 'translate(-50%, -50%)',
         // width: 700,
         // height: 400,
-        bgcolor: '#0f1622',
+        // bgcolor: '#0f1622',
         // border: '2px solid #000',
         // boxShadow: 24,
         // p: 4,
@@ -74,7 +74,7 @@ const TraillerModal = ({ category, infoValue }) => {
                 }}
             >
                 <Fade in={modalOpen}>
-                    <Box sx={modalStyle} width={{ xs: 380, sm: 620, md: 800 }} height={{ xs: 405, sm: 405, md: 405 }}>
+                    <Box className='modal-container' sx={modalStyle} width={{ xs: 380, sm: 620, md: 800 }} height={{ xs: 405, sm: 405, md: 405 }}>
                         <center>
                             <iframe 
                                 title={mediaTitle} 
