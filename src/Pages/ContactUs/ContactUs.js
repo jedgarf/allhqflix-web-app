@@ -41,7 +41,7 @@ const ContactUs = () => {
         },
     });
 
-    const [isPageAuth, setIsPageAuth] = useState(false);
+    const [isPageAuth, setIsPageAuth] = useState(getSession('user') ? true : false);
     const [user, setUser] = useState(null);
     const [email, setEmail] = useState('');
     const [subject, setSubject] = useState('');
