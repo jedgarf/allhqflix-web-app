@@ -32,7 +32,7 @@ const AboutDevelopers = () => {
 
     return (
         <div>
-            <div className="landing-page">
+            <div className="movies">
                 <ReactQueryTools/>
                 <SideBar Type={type} subType={null} haveSearch={true} transparentBg={false} isStream={true}/>
                     <div className="divFocus" style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5))` }}>

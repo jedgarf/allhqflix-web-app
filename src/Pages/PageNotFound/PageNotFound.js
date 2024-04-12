@@ -1,11 +1,4 @@
-// Packages
-import React, { useEffect } from "react";
-import Grid from '@mui/material/Grid';
-
-// Icons
-import FacebookIcon from '@mui/icons-material/Facebook';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import GitHubIcon from '@mui/icons-material/GitHub';
+import React, { Fragment } from "react";
 
 // CSS
 import "./PageNotFound.css";
@@ -20,7 +13,7 @@ import { notFoundImage } from "../../Config/images.config";
 function PageNotFound() {
 
   return (
-    <>
+    <Fragment>
       <div className="landing-page">
         <SideBar Type={'home'} subType={null}/>
         <div className="error_404_image">
@@ -28,7 +21,7 @@ function PageNotFound() {
         </div>
         <Footer />
       </div>
-    </>
+    </Fragment>
   );
 }
 

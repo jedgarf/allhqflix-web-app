@@ -7,6 +7,7 @@ import { Grid, Container, Card, CardContent, Typography } from '@mui/material';
 // Pages
 import SideBar from "../../Components/SlideBar/SideBar";
 import Footer from "../../Components/Footer/Footer";
+import FloatingButton from '../../Components/FloatingButton/FloatingButton';
 import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
 // Config
@@ -26,7 +27,7 @@ const PrivacyPolicy = () => {
 
     return (
         <div>
-            <div className="landing-page">
+            <div className="movies">
                 <ReactQueryTools/>
                 <SideBar Type={type} subType={null} haveSearch={true} transparentBg={false} isStream={true}/>
                     <div className="divFocus" style={{backgroundImage: `linear-gradient(rgba(2, 9, 22, 0.8),rgba(2, 9, 22, 0.8))` }}>
@@ -102,6 +103,7 @@ const PrivacyPolicy = () => {
                         </Grid>
 
                         </div>
+                        <FloatingButton/>
                         <Footer />
                     </div>
             </div>

@@ -7,6 +7,7 @@ import { Grid, Container, Card, CardContent, Typography } from '@mui/material';
 // Pages
 import SideBar from "../../Components/SlideBar/SideBar";
 import Footer from "../../Components/Footer/Footer";
+import FloatingButton from '../../Components/FloatingButton/FloatingButton';
 import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 
 // Config
@@ -26,7 +27,7 @@ const TermsAndConditions = () => {
 
     return (
         <div>
-            <div className="landing-page">
+            <div className="movies">
                 <ReactQueryTools/>
                 <SideBar Type={type} subType={null} haveSearch={true} transparentBg={false} isStream={true}/>
                     <div className="divFocus" style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5))`, color: '#ccced1' }}>
@@ -96,6 +97,7 @@ const TermsAndConditions = () => {
                         </Grid>
 
                         </div>
+                        <FloatingButton/>
                         <Footer />
                     </div>
             </div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Fab, useScrollTrigger, Zoom } from "@mui/material";
 
 import './css/FloatingButton.css';
@@ -21,18 +21,20 @@ const FloatingButton = () => {
   };
 
   return (
-    <Zoom in={!trigger}>
-      <div onClick={scrollToTop} role="presentation">
-        <Fab 
-          color="primary"
-          size="small"
-          aria-label="scroll back to top"
-          style={{ position: 'fixed', bottom: 16, right: 16 }}
-        >
-          <NorthIcon sx={{ fontSize: 20 }}/>
-        </Fab>
-      </div>
-    </Zoom>
+    <Fragment>
+      <Zoom in={trigger}>
+        <div onClick={scrollToTop} role="presentation">
+          <Fab 
+            color="primary"
+            size="small"
+            aria-label="scroll back to top"
+            style={{ position: 'fixed', bottom: 16, right: 16 }}
+          >
+            <NorthIcon sx={{ fontSize: 20 }}/>
+          </Fab>
+        </div>
+      </Zoom>
+    </Fragment>
   );
 };
 

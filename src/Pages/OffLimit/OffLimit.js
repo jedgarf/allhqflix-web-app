@@ -18,13 +18,13 @@ const OffLimit = () => {
 
     return (
         <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: '100vh',
-        width: '100%',
-        backgroundImage: `linear-gradient(rgba(2, 9, 22, 0.8),rgba(2, 9, 22, 0.8)) , url("${homeBackground}")`
-      }}>
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '100vh',
+            width: '100%',
+            backgroundImage: `linear-gradient(rgba(2, 9, 22, 0.8),rgba(2, 9, 22, 0.8)) , url("${homeBackground}")`
+        }}>
             <Grid container direction="row" columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={2} justifyContent="center">
                 <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
                     <center>

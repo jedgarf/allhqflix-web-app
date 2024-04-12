@@ -19,6 +19,7 @@ import SideBar from "../../Components/SlideBar/SideBar";
 import Footer from "../../Components/Footer/Footer";
 import SnackBar from "../../Components/SnackBar/SnackBar";
 import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
+import FloatingButton from '../../Components/FloatingButton/FloatingButton';
 
 // Config
 import { title, site_email } from "../../Config/settings.config";
@@ -227,6 +228,7 @@ const ContactUs = () => {
                         </Grid>
                     </ThemeProvider>
                 </div>
+                <FloatingButton/>
                 <Footer />
             </div>
         </div>

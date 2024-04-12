@@ -48,7 +48,7 @@ const Home = () => {
     isLoading ? 
       <LoadingPage/>
      : 
-    <div className="landing-page">
+    <div className="movies">
       <ReactQueryTools/>
       <SideBar Type={type} subType={null} haveSearch={true}/>
 

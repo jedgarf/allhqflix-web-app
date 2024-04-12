@@ -44,7 +44,7 @@ const NativeApps = () => {
         isLoading ? 
             <LoadingPage/>
         : 
-        <div className="landing-page">
+        <div className="movies">
             <ReactQueryTools/>
             <SideBar Type={type} subType={null} haveSearch={true} transparentBg={false} isStream={true}/>
             <div className="divFocus">
