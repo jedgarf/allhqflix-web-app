@@ -88,7 +88,7 @@
 }
 
 .movie__name h3 {
-    margin: 5px 0;
+    margin: 5px 0 0 0;
     color: var(--four-color);
     font-size: 14px;
 }
@@ -110,21 +110,22 @@
 .movie__other span {
     display: flex;
     align-items: center;
-    gap: 2px;
+    gap: 1px;
     color: #DC4C64 !important;
 }
 
 .movie__other p:nth-child(2) {
     display: flex;
     align-items: center;
-    font-size: 12px !important;
+    font-size: 11px !important;
     font-weight: 580 !important;
     padding: 0px 3px 0px 2px !important;
     color: var(--four-color) !important;
     text-transform: uppercase !important;
     border-radius: 2px;
     /* background-color: #3B71CA; */
-    /* border: 1px solid var(--four-color) !important; */
+    color: #3B71CA;
+    border: 1px solid var(--four-color) !important;
 }
 
 .top_content {
