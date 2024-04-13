@@ -57,7 +57,7 @@ const NativeApps = () => {
                                 <div className="appdownloads" style={{ backgroundImage: `linear-gradient(rgba(10, 10, 10, 0.5), rgba(10, 10, 10, 0.5)) , url("${homeBackground}")`, borderRadius: 10, padding: 40, minHeight: '450px', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '130px' }}>
                                     <div className="apd-container">
                                         <div className="apdc-content text-white">
-                                            <Grid container direction="row" columnSpacing={{ xs: 2, sm: 2, md: 2, lg: 2, xl: 2 }} rowSpacing={2}>
+                                            <Grid container direction="row" columnSpacing={{ xs: 2, sm: 2, md: 2, lg: 2, xl: 2 }} rowSpacing={0}>
                                                 <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
                                                     <center>
                                                         <div className="app-demo">
@@ -66,15 +66,15 @@ const NativeApps = () => {
                                                     </center>
                                                 </Grid>
                                                 <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
-                                                    <h1 className="app-heading"><strong>AllHQFLix Official Mobile App</strong></h1><br/>
-                                                    <div className="app-desc">
+                                                    <h1 className="app-heading"><strong>AllHQFLix Official Mobile App</strong></h1>
+                                                    <div className="app-desc" style={{ marginLeft: '-20px' }}>
                                                         <ul>
-                                                            <li>Free HD Movies and TV Series for Android Phones and Android TV.</li>
-                                                            <li>Absolutely No Ads.</li>
-                                                            <li>Daily update on both Movies and Shows.</li>
+                                                            <li>Free HD Movies and Series for Android Phones and Android TV.</li>
+                                                            <li>Absolutely no ads.</li>
+                                                            <li>Chrome cast support.</li>
+                                                            <li>Daily update on both Movies and Series.</li>
                                                         </ul>
                                                     </div>
-                                                    <br/><br/>
                                                     <div className="app-btn" style={{ textAlign: 'center' }}>
                                                         {/* https://dl.getmenow.click/onstream-latest.apk?ref=289 */}
                                                         {/* <a href="https://drive.google.com/file/d/1C3GxpI17MdX5_yRoWzhRRIUAUOkuLUe6/view" target='__blank' className='text-link-without-underline' style={{ maxWidth: '100px' }}>
