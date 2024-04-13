@@ -80,7 +80,7 @@ function PopularTVSeries() {
     popularData.isLoading ? 
       <LoadingPage/>
     : 
-    <div className="movies" style={{ height: '100vh' }}>
+    <div className="movies" style={{ height: popularValue?.length > 0 ? '100%' : '100vh' }}>
     <ReactQueryTools/>
       <div className="search_result_content">
         <div className="search__top">

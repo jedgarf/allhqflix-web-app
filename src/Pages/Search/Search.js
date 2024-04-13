@@ -151,7 +151,7 @@ function Search() {
     isLoading && content.data?.results ? 
       <LoadingPage/>
     : 
-    <div className="movies" style={{ height: '100vh' }}>
+    <div className="movies" style={{ height: content.data?.results?.length > 0 ? '100%' : '100vh' }}>
       <ReactQueryTools/>
       <div className="search_result_content">
         <div className="search__top">
