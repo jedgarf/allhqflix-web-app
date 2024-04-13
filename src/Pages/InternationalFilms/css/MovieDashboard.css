@@ -1,7 +1,7 @@
 .movie_dashboard {
-    /* flex: 1.0;
-    overflow-y: scroll;
-    overflow-x: hidden; */
+    /* flex: 1.0; */
+    /* overflow-y: scroll; */
+    /* overflow-x: hidden; */
     background: var(--body);
     /* width: 100%; */
     /* height: 100vh; */
@@ -26,21 +26,21 @@
     width: 100%;
 } */
 
-/* .movies__box,
+.movies__box,
 .movies__boxx {
-    display: flex;
-    align-items: center;
+    /* display: flex;
+    align-items: center; */
     gap: 20px;
     overflow-x: scroll;
-    height: 350px;
+    /* height: 350px; */
     overflow-y: hidden;
-    margin: 0 20px;
-} */
+    /* margin: 0 20px; */
+}
 
-/* .movies__boxx {
-    height: 500px;
+.movies__boxx {
+    /* height: 500px; */
     overflow-x: hidden;
-} */
+}
 
 /* .movies__box::-webkit-scrollbar,
 .movies__boxx::-webkit-scrollbar {
@@ -67,7 +67,7 @@
     font-weight: bolder;
     text-transform: uppercase;
     color: var(--four-color);
-    margin: -40px 0 20px 0 !important;
+    margin: -40px 0 -20px 0 !important;
     position: relative;
 }
 
@@ -224,9 +224,9 @@ td {
 .movie_server {
     color: var(--four-color);
     font-size: 15px !important;
-    /* margin-bottom: -50px !important; */
-    /* margin-top: 30px; */
-    /* text-align: center; */
+    margin-bottom: -50px !important;
+    margin-top: 30px;
+    text-align: center;
 }
 
 .movie_server_content_note {
@@ -238,10 +238,8 @@ td {
 }
 
 .movie_server_content {
-    width: 30%;
-    /* margin-left: auto;
-    margin-right: auto; */
-    /* margin-top: 30px; */
+    width: 100%;
+    margin-inline: auto;
     margin-bottom: 5px;
 }
 
@@ -293,6 +291,10 @@ td {
     margin-bottom: 5px;
 }
 
+.movie_server_tv {
+    margin-top: 25px !important;
+}
+
 
 /* ---------------------------------------------------- */
 
@@ -336,9 +338,7 @@ td {
         width: 95% !important;
         height: 100% !important;
     }
-    .movie_dashboard .bheading {
-        margin-top: -10px !important;
-    }
+
     .episodesBtn {
         margin-top: 140px !important;
         margin-inline: 10px !important;
@@ -346,9 +346,9 @@ td {
 }
 
 @media (max-width: 1200px) {
-    .movie_dashboard {
+    /* .movie_dashboard {
         flex: 1;
-    }
+    } */
     .movie-stream-title h6 {
         margin-top: -64px !important;
         margin-bottom: -12px !important;
@@ -393,6 +393,9 @@ td {
     .movie_info .media-title {
         margin-top: 100px !important;
     }
+    .movie_dashboard .bheading {
+        margin-top: -50px !important;
+    }
 }
 
 @media (max-width: 400px) {
@@ -401,9 +404,8 @@ td {
     }
 }
 
-@media (max-width: 600px) {
+/* @media (max-width: 600px) {
     .movie_cover {
-        /* padding-top: 20px; */
         position: fixed;
         z-index: 10;
         padding-bottom: 5px !important;
@@ -413,7 +415,7 @@ td {
         background-position: center;
         background-size: cover;
     }
-}
+} */
 
 @media (max-width: 600px) {
     .movie_info .media-title {
@@ -448,7 +450,7 @@ td {
         /* padding-top: 20px; */
         position: fixed;
         z-index: 10;
-        padding-bottom: 6px !important;
+        padding-bottom: 3px !important;
         margin-top: 50px !important;
         width: 100%;
         height: 272px !important;
@@ -459,10 +461,10 @@ td {
         /* padding-top: 20px; */
         position: fixed;
         z-index: 10;
-        padding-bottom: 250px !important;
-        margin-top: 55px !important;
+        padding-bottom: 3px !important;
+        margin-top: 50px !important;
         width: 100%;
-        height: 244px !important;
+        height: 272px !important;
         background-position: center;
         background-size: cover;
     }
@@ -525,5 +527,11 @@ td {
     .episodesBtn {
         margin-top: 340px !important;
         margin-inline: 10px !important;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .floating-player {
+        display: none !important;
     }
 }

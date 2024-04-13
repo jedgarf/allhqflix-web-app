@@ -35,7 +35,7 @@
 
 .footer_links {
     margin-top: 20px;
-    /* margin-left: 10px !important; */
+    margin-left: -40px;
     font-size: 15px;
 }
 
@@ -96,7 +96,7 @@
     }
     .footer_links {
         font-size: 13px;
-        margin-left: 10px !important;
+        margin-left: -30px;
     }
 }
 

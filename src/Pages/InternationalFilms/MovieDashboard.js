@@ -44,6 +44,7 @@ import { decryptParams } from "../../Helpers/Crypto";
 
 // Services
 import { movie_info, movie_server, movie_stream_links } from "../../Services/FlixHQService";
+import { Container } from "@mui/material";
 
 const MovieDashboard = (props) => {
   
@@ -420,7 +421,6 @@ const MovieDashboard = (props) => {
       <ReactQueryTools/>
       <SideBar Type={'foreign'} subType={null} transparentBg={false} isStream={true}/>
       <SnackBar severity={snackBarType} handleSnackBarOpen={handleSnackBarOpen} status={snackBarOpen} snackBarMessage={snackBarMessage} />
-
       <div className="movie_cover" style={{backgroundImage: `linear-gradient(rgba(10, 10, 10, 1),rgba(10, 10, 10, 0.5),rgba(10, 10, 10, 0.2)), url("${infoValue?.cover}"), url("${homeBackground}")`}}>
         <div className="heading cheading movie-stream-title">
           <h6> </h6>
@@ -537,7 +537,7 @@ const MovieDashboard = (props) => {
       <div className={type === 'tv' ? 'tv_info' : 'movie_info'}>
       
         {type === 'tv' ?
-          <Fragment>
+          <Container maxWidth={'xxl'}>
             <Box className="episodesBtn" display={{ xs: 'block', sm: 'block', md: 'none', lg: 'none' }}>
               <TVEpisodesDrawer
                 movieInfo={infoValue} 
@@ -572,14 +572,14 @@ const MovieDashboard = (props) => {
                 drawerAlign={'right'}
               />
             </Box>
-          </Fragment>
+          </Container>
         :  
           <Box display={{ xs: 'none', sm: 'none', md: 'block', lg: 'block', xl: 'block' }}>
             <br/><br/><br/>
           </Box>
         }
 
-        <div className="content-details">
+        <Container maxWidth={'xxl'} className="content-details">
           <Grid container columnSpacing={{ xs: 1, sm: 2, md: 5, lg: 5, xl: 5 }} rowSpacing={5}>
             <Grid item xl={12} lg={12} md={12} sm={12} xs={12} display={{ xs: 'none', sm: 'none', md: 'none', lg: 'block' }}>
               <div className="heading cheading">
@@ -659,16 +659,17 @@ const MovieDashboard = (props) => {
             }
 
           </Grid>
-        </div>
+        </Container>
+
       </div>
       <br/><br/>
       {recommendations.filter((item) => item.type == contentType).length > 0 && 
-        <Fragment>
+        <Container maxWidth={'xxl'}>
           <div className="heading bheading">
             <h6>You May Also Like</h6>
           </div>
           <Suggestions Suggest={recommendations} Type={type} />
-        </Fragment>
+        </Container>
       }
       <FloatingButton/>
       <Footer/>

@@ -1,151 +1,4 @@
-.movie_dashboard {
-    flex: 1.0;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    background: var(--body);
-    width: 100%;
-    height: 100vh;
-}
 
-.heading a {
-    color: whitesmoke;
-    text-decoration: none;
-}
-
-.heading a:hover {
-    color: gray;
-}
-
-.movie_dashboard::-webkit-scrollbar {
-    display: none;
-    width: 100%;
-}
-
-.movies__box,
-.movies__boxx {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    overflow-x: scroll;
-    height: 350px;
-    overflow-y: hidden;
-    margin: 0 20px;
-}
-
-.movies__boxx {
-    height: 500px;
-    overflow-x: hidden;
-}
-
-.movies__box::-webkit-scrollbar,
-.movies__boxx::-webkit-scrollbar {
-    display: none;
-}
-
-.movie_dashboard .heading {
-    padding-left: 20px;
-    font-size: 18px;
-    color: var(--four-color);
-    margin: 20px 0;
-    position: relative;
-}
-
-.movie_dashboard .heading::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 8px;
-    background: var(--second-color);
-    width: 3px;
-    height: 100%;
-}
-
-.movie__info {
-    display: flex;
-    flex-direction: column;
-}
-
-.movie__name {
-    white-space: nowrap;
-}
-
-.movie__name h3 {
-    margin: 5px 0;
-    color: var(--four-color);
-    font-size: 14px;
-}
-
-.movie__other {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.movie__other p:nth-child(1) {
-    display: flex;
-    align-items: center;
-    font-size: 13px;
-    gap: 8px;
-    color: var(--four-color);
-}
-
-.movie__other span {
-    display: flex;
-    align-items: center;
-    gap: 2px;
-    color: gold;
-}
-
-.movie__other p:nth-child(2) {
-    font-size: 12px;
-    padding: 2px;
-    color: var(--four-color);
-    text-transform: capitalize;
-    border: 1px solid gray;
-}
-
-.movie_cover {
-    /* padding-top: 20px; */
-    /* padding-bottom: 20px; */
-    width: 100%;
-    height: 73.2%;
-    background-position: center;
-    background-size: cover;
-}
-
-.movie_player {
-    margin: auto;
-    align-items: center;
-    width: 70%;
-    height: 100% !important;
-}
-
-.movie_info {
-    margin: 50px auto auto auto;
-    align-items: center;
-    width: 95%;
-    color: whitesmoke;
-}
-
-.movie_info .movie_description {
-    text-align: justify;
-    font-size: 15px;
-}
-
-.movie_info img {
-    border-radius: 10px;
-    height: 47vh;
-    width: 15vw;
-}
-
-.movie_info table {
-    text-align: left;
-}
-
-.movie_info table th,
-td {
-    padding: 10px;
-}
 
 .asian_tv_info {
     margin: -70px auto auto auto !important;
@@ -224,9 +77,9 @@ td {
 }
 
 @media (max-width: 1000px) {
-    .movie_dashboard {
+    /* .movie_dashboard {
         flex: 1;
-    }
+    } */
     .asian_tv_info {
         margin-top: -20px !important;
     }
@@ -239,12 +92,12 @@ td {
     .asian_tv_info {
         margin-top: -20px !important;
     }
-    .movies__boxx {
+    /* .movies__boxx {
         height: 370px;
-    }
+    } */
 }
 
-.top__heading {
+/* .top__heading {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -263,15 +116,15 @@ td {
 .top__heading span .MuiSvgIcon-root {
     font-size: 30px;
     cursor: pointer;
-}
+} */
 
-.movie_server {
+/* .movie_server {
     color: whitesmoke;
     margin-top: 30px;
     text-align: center;
-}
+} */
 
-.movie_server_content_note {
+/* .movie_server_content_note {
     margin-top: 30px;
     margin-bottom: 30px;
 }
@@ -285,12 +138,10 @@ td {
 }
 
 .movie_server_content .movie_server_content_div {
-    /* border: 1px solid #f7f7f7; */
     width: 80%;
     height: 40px;
     border-radius: 10px;
-    /* background-color: #0275d8; */
-}
+} */
 
 
 /* .movie_server_content .active {
@@ -300,16 +151,16 @@ td {
     background-color: #d9534f;
 } */
 
-.movie_player {
+/* .movie_player {
     width: 86vw;
     height: 73vh;
     margin: 10px auto auto auto;
-}
+} */
 
 
 /* season */
 
-.seasons_content {
+/* .seasons_content {
     margin: 40px auto auto auto;
     align-items: center;
     width: 95%;
@@ -337,13 +188,13 @@ td {
     margin-top: 50px;
     text-align: center;
     color: var(--four-color);
-}
+} */
 
 
 /* ---------------------------------------------------- */
 
 @media (max-width: 600px) {
-    .top__heading {
+    /* .top__heading {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -358,8 +209,6 @@ td {
         width: 90%;
     }
     .movie_cover {
-        /* padding-top: 20px; */
-        /* padding-bottom: 20px; */
         position: fixed;
         z-index: 10;
         width: 100%;
@@ -368,11 +217,9 @@ td {
         background-size: cover;
     }
     .movie_player {
-        /* margin: auto; */
-        /* align-items: center; */
         width: 97%;
         height: 400px !important;
-    }
+    } */
     .movie_dashboard .asian-movie {
         margin-top: -140px !important;
     }

@@ -39,7 +39,7 @@ const Faq = () => {
                             <Typography variant="p">
                                 <div>
                                 <b>{ title }</b> allows users to watch tens of thousands of Movies, TV shows, Anime and Asian Dramas in HD quality safely, freely, and smoothly. Despite the extensive content library and premium features, <b>{ title }</b> does not require any commitment from users. You are not obliged to pay, or even register to enjoy your favorite movies on the site without limits. We update new titles on a daily basis; therefore, you can rest assured, the fun never ends on <b>{ title }</b>. Sharing is caring! Introduce <b>{ title }</b> to your friends and family to protect them from shady and low-quality sites.
-                                </div><br/>
+                                </div>
                                 <p>Only available in 
                                 {
                                     allowed_countries.map((country, index) => {
@@ -77,7 +77,6 @@ const Faq = () => {
                                 <div className="faq">
                                 {/* <big>1. Is <b>{ title }</b> safe?</big> */}
                                 <p>Using <b>{ title }</b> to watch Movies, TV shows, Anime and Asian Dramas online is as safe as using Google to search for results. <b>{ title }</b> does not pose any risk to your device and identity. Normally hackers use ad links to install viruses and malware into your device. Therefore, you are completely safe. In addition, <b>{ title }</b> does not require any registration or signup, which protects users from information leakage. Apart from excellent security, <b>{ title }</b> also provides users with these premium features:</p>
-                                <br/>
                                 <ul type="none">
                                 <li>- An extensive pool of TV shows and series with tens of thousands of titles.</li>
                                 <li>- HD Resolution (720p, adjustable).</li>
@@ -90,9 +89,8 @@ const Faq = () => {
                                 <li>- Auto-saving watching progress and can continue later.</li>
                                 <li>- No signup or registration required.</li>
                                 </ul>
-                                {/* <br/>
-                                <big>2. What is the purpose of this project?</big>
-                                <p>- for professional portfolio content only, not to compete with other streaming sites</p> */}
+                                {/* <big>What is the purpose of this project?</big>
+                                <p>- for practical purposes only.</p> */}
                                 </div>
                             </Typography>
                             </AccordionDetails>
@@ -216,55 +214,55 @@ const Faq = () => {
                             <AccordionDetails className="home_accordion_about_body">
                                 <Typography variant="div">
                                     <Grid container columnSpacing={{ xs: 0, sm: 0, md: 3, lg: 10, xl: 10 }} rowSpacing={5}>
-                                    <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
-                                        <table border={1} width="100%">
-                                            <tbody>
-                                                <tr>
-                                                <th>
-                                                    <span><b>Front-End (<a className='text-link' href={`${googleSearch}progressive web app`} target='__blank'>Progressive Web App</a>)</b></span>
-                                                </th>
-                                                <td>
-                                                    <ul className="main_features_text">
-                                                        <li><a className='text-link' href={`${googleSearch}HTML5`} target='__blank'>HTML5</a></li>
-                                                        <li><a className='text-link' href={`${googleSearch}CSS3`} target='__blank'>CSS3</a>/<a className='text-link' href={`${googleSearch}Material UI`} target='__blank'>Material UI Design</a></li>
-                                                        <li><a className='text-link' href={`${googleSearch}Javascript`} target='__blank'>JavaScript ES5/ES6</a></li>
-                                                        <li><a className='text-link' href={`${googleSearch}ReactJS`} target='__blank'>ReactJS CRA (Front-End Framework)</a></li>
-                                                        <li><a className='text-link' href={`${googleSearch}Google OAuth 2.0 API`} target='__blank'>Google OAuth 2.0 API</a></li>
-                                                        <li><a className='text-link' href={`${googleSearch}TanStack Query`} target='__blank'>TanStack Query (Caching Management)</a></li>
-                                                        <li><a className='text-link' href={`${googleSearch}Redux`} target='__blank'>Redux Toolkit (State Management)</a></li>
-                                                    </ul>
-                                                </td>
-                                                </tr>
-                                                <tr>
-                                                <th>
-                                                    <span><b>Back-End (<a className='text-link' href={`${googleSearch}REST API`} target='__blank'>REST API</a>)</b></span>
-                                                </th>
-                                                <td>
-                                                    <ul className="main_features_text">
-                                                    <li><a className='text-link' href={`${googleSearch}Javascript`} target='__blank'>JavaScript ES5/ES6</a></li>
-                                                    <li><a className='text-link' href={`${googleSearch}NodeJS`} target='__blank'>NodeJS v.20</a></li>
-                                                    <li><a className='text-link' href={`${googleSearch}ExpressJS`} target='__blank'>ExpressJS (REST API Framework)</a></li>
-                                                    <li><a className='text-link' href={`${googleSearch}Firebase`} target='__blank'>Firebase (Storage Management)</a></li>
-                                                    {/* <li><a className='text-link' href={`${googleSearch}MySQL`} target='__blank'>MySQL Database</a></li>
-                                                    <li><a className='text-link' href={`${googleSearch}Sequelize`} target='__blank'>Sequelize (ORM)</a></li> */}
-                                                    </ul>
-                                                </td>
-                                                </tr>
-                                                <tr>
-                                                <th>
-                                                    <span><b>Mobile App</b> <span style={{ color: '#3B71CA', fontWeight: 'bolder' }}>(Soon)</span></span>
-                                                </th>
-                                                <td>
-                                                    <ul className="main_features_text">
-                                                    <li><a className='text-link' href={`${googleSearch}Dart Programming`} target='__blank'>Dart Programming</a></li>
-                                                    <li><a className='text-link' href={`${googleSearch}Flutter`} target='__blank'>Flutter (UI Software Development Kit)</a></li>
-                                                    <li><a className='text-link' href={`${googleSearch}flutter BLoC`} target='__blank'>Flutter BLoC (State Management Pattern)</a></li>
-                                                    </ul>
-                                                </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </Grid>
+                                        <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                                            <table border={1} width="100%">
+                                                <tbody>
+                                                    <tr>
+                                                        <th>
+                                                            <span><b>Front-End (<a className='text-link' href={`${googleSearch}progressive web app`} target='__blank'>Progressive Web App</a>)</b></span>
+                                                        </th>
+                                                        <td>
+                                                            <ul className="main_features_text">
+                                                                <li><a className='text-link' href={`${googleSearch}HTML5`} target='__blank'>HTML5</a></li>
+                                                                <li><a className='text-link' href={`${googleSearch}CSS3`} target='__blank'>CSS3</a>/<a className='text-link' href={`${googleSearch}Material UI`} target='__blank'>Material UI Design</a></li>
+                                                                <li><a className='text-link' href={`${googleSearch}Javascript`} target='__blank'>JavaScript ES5/ES6</a></li>
+                                                                <li><a className='text-link' href={`${googleSearch}ReactJS`} target='__blank'>ReactJS CRA (Front-End Framework)</a></li>
+                                                                <li><a className='text-link' href={`${googleSearch}Google OAuth 2.0 API`} target='__blank'>Google OAuth 2.0 API</a></li>
+                                                                <li><a className='text-link' href={`${googleSearch}TanStack Query`} target='__blank'>TanStack Query (Caching Management)</a></li>
+                                                                <li><a className='text-link' href={`${googleSearch}Redux`} target='__blank'>Redux Toolkit (State Management)</a></li>
+                                                            </ul>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>
+                                                            <span><b>Back-End (<a className='text-link' href={`${googleSearch}REST API`} target='__blank'>REST API</a>)</b></span>
+                                                        </th>
+                                                        <td>
+                                                            <ul className="main_features_text">
+                                                            <li><a className='text-link' href={`${googleSearch}Javascript`} target='__blank'>JavaScript ES5/ES6</a></li>
+                                                            <li><a className='text-link' href={`${googleSearch}NodeJS`} target='__blank'>NodeJS v.20</a></li>
+                                                            <li><a className='text-link' href={`${googleSearch}ExpressJS`} target='__blank'>ExpressJS (REST API Framework)</a></li>
+                                                            <li><a className='text-link' href={`${googleSearch}Firebase`} target='__blank'>Firebase (Storage Management)</a></li>
+                                                            {/* <li><a className='text-link' href={`${googleSearch}MySQL`} target='__blank'>MySQL Database</a></li>
+                                                            <li><a className='text-link' href={`${googleSearch}Sequelize`} target='__blank'>Sequelize (ORM)</a></li> */}
+                                                            </ul>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>
+                                                            <span><b>Mobile App</b> <span style={{ color: '#3B71CA', fontWeight: 'bolder' }}>(Soon)</span></span>
+                                                        </th>
+                                                        <td>
+                                                            <ul className="main_features_text">
+                                                            <li><a className='text-link' href={`${googleSearch}Dart Programming`} target='__blank'>Dart Programming</a></li>
+                                                            <li><a className='text-link' href={`${googleSearch}Flutter`} target='__blank'>Flutter (UI Software Development Kit)</a></li>
+                                                            <li><a className='text-link' href={`${googleSearch}flutter BLoC`} target='__blank'>Flutter BLoC (State Management Pattern)</a></li>
+                                                            </ul>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </Grid>
                                     </Grid>
                                 </Typography>
                             </AccordionDetails>

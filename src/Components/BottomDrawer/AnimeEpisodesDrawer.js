@@ -113,7 +113,7 @@ export default function AnimeEpisodesDrawer({ details, downloadUrl, mediaId, epi
             </Grid>
             <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>
               <div style={{ textAlign: 'right' }}>
-                {downloadUrl && <AnimeDownloadBtn url={downloadUrl}/>}
+                {downloadUrl && <AnimeDownloadBtn url={downloadUrl} hasManyEpisode={details?.episodes?.length > 1}/>}
                 {details?.episodes?.length > 1 && 
                   <Button className="channel_list_btn" variant="outlined" color='primary' size='small' onClick={toggleDrawer(anchor, true)} startIcon={<ListIcon/>}>EPISODES</Button>
                 }

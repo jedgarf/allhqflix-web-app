@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 
 // Material UI Components
-import { IconButton } from '@mui/material';
+import { IconButton, Button } from '@mui/material';
 
 // Icons
 import DownloadIcon from '@mui/icons-material/Download';
@@ -13,7 +13,7 @@ import DownloadIcon from '@mui/icons-material/Download';
 // Helpers
 import { getSession } from "../../Helpers/Sessions";
 
-const AnimeDownloadBtn = ({ url }) => {
+const AnimeDownloadBtn = ({ url, hasManyEpisode }) => {
 
     const handleOnDownload = (e, url) => {
         if (getSession('user')) {
@@ -28,7 +28,27 @@ const AnimeDownloadBtn = ({ url }) => {
         }
     }
 
-    return <IconButton variant="contained" color='primary' size='small' title='Download' onClick={(e) => handleOnDownload(e, url)} style={{ marginRight: 10 }}><DownloadIcon /></IconButton>;
+    return hasManyEpisode ? 
+        <IconButton 
+            variant="outlined" 
+            color='primary' 
+            size='small' 
+            title='Download' 
+            onClick={(e) => handleOnDownload(e, url)} 
+            style={{ marginRight: 10 }}>
+                <DownloadIcon />
+        </IconButton>
+    : 
+        <Button 
+            variant="outlined" 
+            color='primary' 
+            size='small' 
+            title='Download' 
+            onClick={(e) => handleOnDownload(e, url)} 
+            style={{ marginRight: 10 }}
+            startIcon={<DownloadIcon />}>
+                Download
+        </Button>;
 };
 
 export default AnimeDownloadBtn;

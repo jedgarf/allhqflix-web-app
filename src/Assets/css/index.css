@@ -1,5 +1,5 @@
 body {
-    box-sizing: border-box;
+    /* box-sizing: border-box; */
     /* transition: .3s; */
     margin: 0;
     background-color: var(--body);
@@ -32,9 +32,9 @@ body {
 *,
 *::before,
 *::after {
-    /* margin: 0;
-    padding: 0;
-    box-sizing: border-box; */
+    /* margin: 0; */
+    /* padding: 0; */
+    /* box-sizing: border-box; */
     /* transition: .3s; */
     scrollbar-width: thin;
     font-family: "Roboto","Helvetica","Arial",sans-serif !important;

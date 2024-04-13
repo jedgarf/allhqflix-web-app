@@ -4,13 +4,14 @@ import { useQuery, useQueryClient } from 'react-query';
 import { useParams } from "react-router-dom";
 
 // Material UI Components
-import { Grid, Box, Container, Button, Skeleton } from '@mui/material';
+import { Grid, Box, Container, Button } from '@mui/material';
 
 // React Slick
 import Slider from "react-slick";
 
 // CSS
 import "./css/AnimeDashboard.css";
+// import "../InternationalFilms/css/MovieDashboard.css";
 
 // Icons
 import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
@@ -25,7 +26,7 @@ import Footer from "../../Components/Footer/Footer";
 import FloatingButton from '../../Components/FloatingButton/FloatingButton';
 import LoadingPage from "../../Components/LoadingPage/LoadingPage";
 import InitPlayerLoading from "../../Components/InitPlayerLoading/InitPlayerLoading";
-import { Player } from "../../Components/Player/Player";
+import { Player, artPlayerInstance } from "../../Components/Player/Player";
 import AnimeSuggestions from "../../Components/Anime/AnimeSuggestions";
 import AnimeEpisodesDrawer from "../../Components/BottomDrawer/AnimeEpisodesDrawer";
 import OnePieceEpisodesDrawer from "../../Components/BottomDrawer/OnePieceEpisodesDrawer";
@@ -33,6 +34,7 @@ import AnimeCharacterCard from "../../Components/Anime/AnimeCharacterCard";
 import MediaDescription from "../../Components/MediaDescription/MediaDescription";
 import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 import { AnimeDetailsSkeleton } from "../../Components/MediaDetailsSkeleton/MediaDetailsSkeleton";
+import SnackBar from "../../Components/SnackBar/SnackBar";
 
 // Config
 import apiConfig from '../../Config/api.config';
@@ -72,6 +74,11 @@ const AnimeDashboard = (props) => {
   const [recommendations, setRecommendations] = useState([]);
   const [downloadLinks, setDownloadLinks] = useState([]);
 
+  // alert variable
+  const [snackBarType, setSnackBarType] = useState("info");
+  const [snackBarMessage, setSnackBarMessage] = useState("");
+  const [snackBarOpen, setSnackBarOpen] = useState(false);
+
   // Picture loading
   const [loadingEpisode, setLoadingEpisode] = useState(true);
 
@@ -92,6 +99,10 @@ const AnimeDashboard = (props) => {
 
   // -------------------------------------------------------------------------------------------------------------------------------
 
+  const handleSnackBarOpen = (event, reason) => {
+    setSnackBarType("");
+    setSnackBarOpen(false);
+  };
   const set_selectedSeasonEpisode = useCallback((infoValue) => {
 
     if (selectedEpisode) {
@@ -287,12 +298,43 @@ const AnimeDashboard = (props) => {
     // }
     // , callableReactQuery.isSuccess, downloadLinks
 
+    // ------------------------------------------------------------------------------------
+
+    const handleBeforeUnload = (event) => {
+      // Cancel the event to prevent the browser from unloading the page immediately
+      event.preventDefault();
+      // Standard-compliant browsers use `returnValue`
+      event.returnValue = '';
+      // Chrome requires `returnValue` to be set
+      return '';
+    };
+
+    const handleUnload = (event) => {
+      // Optionally perform cleanup actions here before leaving the page
+      // For example, stopping video/audio playback
+      try {
+        artPlayerInstance.destroy();
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    // Add event listeners when the component mounts
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    window.addEventListener('unload', handleUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+      window.removeEventListener('unload', handleUnload);
+    };
+
   }, [contentTitle, infoData.isSuccess, resourceData.isSuccess, infoValue, resourceValue, episodeNum, set_selectedSeasonEpisode, set_selectedLinkSubtitle, selectedEpisode]);
 
   return (
     <div className="movie_dashboard">
       <ReactQueryTools/>
       <SideBar Type={type} subType={null} transparentBg={false} isStream={true} />
+      <SnackBar severity={snackBarType} handleSnackBarOpen={handleSnackBarOpen} status={snackBarOpen} snackBarMessage={snackBarMessage} />
       <div className="movie_cover" style={{backgroundImage: `linear-gradient(rgba(10, 10, 10, 1),rgba(10, 10, 10, 0.5), rgba(10, 10, 10, 0.2)), url("${infoValue?.cover}"), url("${homeBackground}")`}}>
         <div className="heading cheading movie-stream-title">
           <h6> </h6>
@@ -386,64 +428,66 @@ const AnimeDashboard = (props) => {
 
       <div className="anime_info">
 
-        <Box className="episodesBtn" display={{ xs: 'block', sm: 'block', md: 'none', lg: 'none' }}>
-          {indexId == '21' ?
-            <OnePieceEpisodesDrawer
-              details={infoValue}
-              downloadUrl={resourceValue?.data?.download}
-              mediaId={indexId}
-              episodeId={selectedEpisode}
-              setSelectedEpisode={setSelectedEpisode}
-              setLoadingEpisode={setLoadingEpisode}
-              itemsPerPage={episodesPerPage}
-              episodesCurrentPage={episodesCurrentPage}
-              moveToTop={moveToTop}
-              drawerAlign={'bottom'}
-            />
-           : 
-           <AnimeEpisodesDrawer
-              details={infoValue}
-              downloadUrl={resourceValue?.data?.download}
-              mediaId={indexId}
-              episodeId={selectedEpisode}
-              setSelectedEpisode={setSelectedEpisode}
-              setLoadingEpisode={setLoadingEpisode}
-              itemsPerPage={episodesPerPage}
-              episodesCurrentPage={episodesCurrentPage}
-              moveToTop={moveToTop}
-              drawerAlign={'bottom'}
-            />}
-        </Box>
-        <Box className="episodesBtn" display={{ xs: 'none', sm: 'none', md: 'block', lg: 'block' }}>
-          {indexId == '21' ?
-            <OnePieceEpisodesDrawer
-              details={infoValue}
-              downloadUrl={resourceValue?.data?.download}
-              mediaId={indexId}
-              episodeId={selectedEpisode}
-              setSelectedEpisode={setSelectedEpisode}
-              setLoadingEpisode={setLoadingEpisode}
-              itemsPerPage={episodesPerPage}
-              episodesCurrentPage={episodesCurrentPage}
-              moveToTop={moveToTop}
-              drawerAlign={'right'}
-            />
-           : 
+        <Container maxWidth={'xxl'}>
+          <Box className="episodesBtn" display={{ xs: 'block', sm: 'block', md: 'none', lg: 'none' }}>
+            {indexId == '21' ?
+              <OnePieceEpisodesDrawer
+                details={infoValue}
+                downloadUrl={resourceValue?.data?.download}
+                mediaId={indexId}
+                episodeId={selectedEpisode}
+                setSelectedEpisode={setSelectedEpisode}
+                setLoadingEpisode={setLoadingEpisode}
+                itemsPerPage={episodesPerPage}
+                episodesCurrentPage={episodesCurrentPage}
+                moveToTop={moveToTop}
+                drawerAlign={'bottom'}
+              />
+            : 
             <AnimeEpisodesDrawer
-              details={infoValue}
-              downloadUrl={resourceValue?.data?.download}
-              mediaId={indexId}
-              episodeId={selectedEpisode}
-              setSelectedEpisode={setSelectedEpisode}
-              setLoadingEpisode={setLoadingEpisode}
-              itemsPerPage={episodesPerPage}
-              episodesCurrentPage={episodesCurrentPage}
-              moveToTop={moveToTop}
-              drawerAlign={'right'}
-            />}
-        </Box>
+                details={infoValue}
+                downloadUrl={resourceValue?.data?.download}
+                mediaId={indexId}
+                episodeId={selectedEpisode}
+                setSelectedEpisode={setSelectedEpisode}
+                setLoadingEpisode={setLoadingEpisode}
+                itemsPerPage={episodesPerPage}
+                episodesCurrentPage={episodesCurrentPage}
+                moveToTop={moveToTop}
+                drawerAlign={'bottom'}
+              />}
+          </Box>
+          <Box className="episodesBtn" display={{ xs: 'none', sm: 'none', md: 'block', lg: 'block' }}>
+            {indexId == '21' ?
+              <OnePieceEpisodesDrawer
+                details={infoValue}
+                downloadUrl={resourceValue?.data?.download}
+                mediaId={indexId}
+                episodeId={selectedEpisode}
+                setSelectedEpisode={setSelectedEpisode}
+                setLoadingEpisode={setLoadingEpisode}
+                itemsPerPage={episodesPerPage}
+                episodesCurrentPage={episodesCurrentPage}
+                moveToTop={moveToTop}
+                drawerAlign={'right'}
+              />
+            : 
+              <AnimeEpisodesDrawer
+                details={infoValue}
+                downloadUrl={resourceValue?.data?.download}
+                mediaId={indexId}
+                episodeId={selectedEpisode}
+                setSelectedEpisode={setSelectedEpisode}
+                setLoadingEpisode={setLoadingEpisode}
+                itemsPerPage={episodesPerPage}
+                episodesCurrentPage={episodesCurrentPage}
+                moveToTop={moveToTop}
+                drawerAlign={'right'}
+              />}
+          </Box>
+        </Container>
 
-        <div className={infoValue?.episodes?.length > 1 ? 'content-details' : 'content-details asian-movie'}>
+        <Container maxWidth={'xxl'} className={infoValue?.episodes?.length > 1 ? 'content-details' : 'content-details asian-movie'}>
           <Grid container columnSpacing={{ xs: 1, sm: 2, md: 5, lg: 5, xl: 5 }} rowSpacing={5}>
             <Grid item xl={12} lg={12} md={12} sm={12} xs={12} display={{ xs: 'none', sm: 'none', md: 'none', lg: 'block' }}>
               {infoValue?.episodes?.length > 1 ? 
@@ -544,16 +588,16 @@ const AnimeDashboard = (props) => {
               </Grid>
             }
           </Grid>
-        </div>
+        </Container>
       </div>
-      <br/><br/><br/>
+      <br/>
       {recommendations?.length > 0 ?
-        <>
+        <Container maxWidth={'xxl'}>
           <div className="heading bheading">
             <h6>You May Also Like</h6>
           </div>
           <AnimeSuggestions Suggest={recommendations} />
-        </>
+        </Container>
       : ""}
       
       <FloatingButton/>

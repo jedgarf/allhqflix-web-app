@@ -103,3 +103,13 @@ td {
         font-size: 15px;
     }
 }
+
+@media only screen and (max-width: 768px) {
+    .artplayer-floating.artplayer-controller {
+        position: static !important;
+        transform: none !important;
+        width: auto !important;
+        max-width: none !important;
+        margin: 0 !important;
+    }
+}
