@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 
 // Material UI Components
-import { IconButton, Badge, Menu, MenuItem, ListItemIcon, ListItemText, Avatar } from '@mui/material';
+import { IconButton, Badge, Menu, MenuItem, ListItemIcon, ListItemText, Avatar, Divider } from '@mui/material';
 
 // Material UI Icons
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -153,6 +153,7 @@ const AuthMenu = ({ isStream, isAuth }) => {
               </ListItemIcon>
               <ListItemText className='dark-theme-text-color' sx={{ fontWeight: 'bolder' }} primary={`Settings`} />
             </MenuItem>
+            <Divider variant="middle" component="li" />
             <MenuItem onClick={() => onLogoutSession()} disableGutters={false}>
               <ListItemIcon>
                 <LogoutIcon sx={{ color: '#DC4C64' }} />
