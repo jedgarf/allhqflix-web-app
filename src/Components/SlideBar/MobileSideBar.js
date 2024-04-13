@@ -88,11 +88,12 @@ const MobileSideBar = ({ Type, subType, getMenu, menu, submenu }) => {
                     <Box
                         component="img"
                         sx={{
-                        my: 4,
-                        mx: 0,
-                        height: 123,
-                        width: 175,
-                        display: { xs: 'flex', sm: 'flex', md: 'flex', lg: 'none' },
+                            mt: 4,
+                            mb: 1,
+                            mx: 0,
+                            height: 123,
+                            width: 175,
+                            display: { xs: 'flex', sm: 'flex', md: 'flex', lg: 'none' }
                         }}
                         alt={title}
                         src={main_logo}
@@ -103,7 +104,7 @@ const MobileSideBar = ({ Type, subType, getMenu, menu, submenu }) => {
             <center><CircularProgress sx={{ fontSize: 10 }} /></center>
                 : 
             <Fragment>
-                <Divider />
+                {/* <Divider /> */}
 
                 <div>
                     <List subheader={

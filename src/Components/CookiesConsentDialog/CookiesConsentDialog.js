@@ -1,5 +1,5 @@
-import React, { Fragment, useState } from 'react';
-import { Button, Typography } from "@mui/material";
+import React, { useState } from 'react';
+import { Button, Typography, Container } from "@mui/material";
 
 // Material UI Icons
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
@@ -17,7 +17,7 @@ function CookiesConsentDialog() {
   };
 
   return (
-    <Fragment>
+    <Container maxWidth={'xxl'}>
       {(!consentGiven && !getSession('allow_cookies')) && (
         <div style={{ position: 'fixed', bottom: 0, left: 0, width: '100%', backgroundColor: 'rgba(0, 0, 0, 0.5)', color: '#fff', padding: '18px', textAlign: 'center', fontWeight: 'normal', zIndex: 20 }}>
             <Typography variant='span'>
@@ -28,7 +28,7 @@ function CookiesConsentDialog() {
             </div>
         </div>
       )}
-    </Fragment>
+    </Container>
   );
 }
 

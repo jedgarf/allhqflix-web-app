@@ -103,7 +103,6 @@ const SideBar = ({ Type, subType, haveSearch = true,  transparentBg = true, isSt
       backgroundColor: alpha(theme.palette.common.white, 0.20),
     },
     '&:focus': {
-      backgroundColor: alpha(theme.palette.common.white, 1),
       opacity: 1,
     },
     marginLeft: 0,
@@ -142,12 +141,18 @@ const SideBar = ({ Type, subType, haveSearch = true,  transparentBg = true, isSt
         width: searchKeyword ? '30ch' : '0ch',
         '&:focus': {
           width: '30ch',
+          opacity: 1,
+          borderRadius: 5,
+          backgroundColor: 'rgba(0, 10, 20, 0.5)',
         },
       },
       [theme.breakpoints.only('xs')]: {
         width: searchKeyword ? 'auto' : '0ch',
         '&:focus': {
           width: 'auto',
+          opacity: 1,
+          borderRadius: 5,
+          backgroundColor: 'rgba(0, 10, 20, 0.5)',
         },
       },
     },

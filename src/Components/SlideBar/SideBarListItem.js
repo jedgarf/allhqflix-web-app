@@ -72,7 +72,6 @@ const SideBarListItem = ({ page, subType, subPage, classes, selected }) => {
                                 <RenderIcon menuName={page.name.toLocaleUpperCase()}/>
                             </ListItemIcon>
 
-
                             {page.is_dev === 1 ?
                             <ListItemText className='sidebar-no-link-menu' primary={<StyledSubBadge badgeContent={page.badge_message} color='error'>{page.name.toLocaleUpperCase()}</StyledSubBadge>} classes={{ primary: classes.text }} />
                             : <ListItemText className='sidebar-no-link-menu' primary={page.name.toLocaleUpperCase()} classes={{ primary: classes.text }} />}
@@ -94,10 +93,6 @@ const SideBarListItem = ({ page, subType, subPage, classes, selected }) => {
                         : 
                             <ListItemText primary={page.name.toLocaleUpperCase()} classes={{ primary: classes.text }} />
                         }
-
-                        {/* {subPage?.length > 0 && 
-                            open ? <ExpandLessIcon sx={{ color: "#DC4C64" }} /> : <ExpandMoreIcon sx={{ color: "#DC4C64" }} />
-                        } */}
                         </ListItemButton>
                     </ListItem>
                 </Link>
