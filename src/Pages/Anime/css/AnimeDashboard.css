@@ -1,5 +1,5 @@
 .anime_info {
-    margin: -70px auto auto auto !important;
+    margin: -60px auto auto auto !important;
     align-items: center;
     width: 98.5% !important;
     color: var(--four-color);
@@ -43,7 +43,7 @@ td {
 
 @media (max-width: 1800px) {
     .anime_info {
-        margin-top: -130px !important;
+        margin-top: -118px !important;
     }
     .anime_info .episodesBtn {
         margin-bottom: -125px !important;
