@@ -780,7 +780,7 @@ const AnimePlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVar, ur
                           // renderValue={(value) => `⚠️  - ${value}`}
                         >
                           {arcs.map((item, no) => {
-                              return <MenuItem value={item.id}>{item.name} Arc ({item.start_episode} - {item.end_episode === 99999 ? 'Ongoing' : item.end_episode})</MenuItem>
+                              return <MenuItem value={item.id}>{item.name} ({item.start_episode} - {item.end_episode === 99999 ? 'Ongoing' : item.end_episode})</MenuItem>
                           })}
                         </Select>
                       </FormControl>
