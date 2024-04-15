@@ -50,7 +50,7 @@ import { getCookie } from "../../Helpers/Cookies";
 import { subtitleLogo, videoQuality, homeBackground } from "../../Config/images.config";
 
 // Services
-import { moveToTop, SeparateArrayByComma, SeparateArrayByCircularSpan, convertMinutesToHoursAndMinutes, getFileExtention, capitalizeString } from "../../Services/Utils";
+import { moveToTop, SeparateArrayByComma, SeparateArrayByCircularSpan, convertMinutesToHoursAndMinutes, getFileExtention, capitalizeString, getAllSavedCookiesMedia } from "../../Services/Utils";
 import { anime_info, anime_stream_links } from "../../Services/AnimeService";
 import CallableReactQuery from "../../Services/CallableReactQuery";
 
@@ -59,6 +59,7 @@ const AnimeDashboard = (props) => {
   const queryClient = useQueryClient();
   const { id, type } = useParams();
   const indexId = id;
+  const savedMedia = getAllSavedCookiesMedia(indexId);
   // Static Data
   const arcs = require('../../Services/Data/onePieceArcs.json').arcs;
   const animeSubtitles = [{"default": true, "html": "US English", "url": "add.vtt"}];
@@ -66,8 +67,14 @@ const AnimeDashboard = (props) => {
   const callableReactQuery = CallableReactQuery();
 
   const queryParams = new URLSearchParams(window.location.search);
-  const paramEpisode = queryParams.get("episode") != null ? queryParams.get("episode") : null;
-  const paramDub = queryParams.get("dub") != null ? queryParams.get("dub") == 'true' : false;
+  var paramEpisode = queryParams.get("episode") ? queryParams.get("episode") : null;
+  var paramDub = queryParams.get("dub") ? queryParams.get("dub") == 'true' : false;
+
+  // Get save data in cookies
+  if (savedMedia.length > 0) {
+    paramEpisode = savedMedia[0].episodeId ? savedMedia[0].episodeId : null;
+    paramDub = savedMedia[0].dub ? savedMedia[0].dub == 'true' : false;
+  }
 
   const [selectedArc, setSelectedArc] = useState("");
   const [videoQualities, setVideoQualities] = useState([]);
@@ -162,11 +169,8 @@ const AnimeDashboard = (props) => {
         }
       } 
     }
-
     setVideoQualities(videoQualitiesContent);
-
     setLoadingEpisode(false);
-
   }, []);
 
 // ----------------------------------------------------------------------------------------------------------------------------

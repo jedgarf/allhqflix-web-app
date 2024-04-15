@@ -86,21 +86,21 @@
 }
 
 .movie_cover {
-    padding-top: 0.5px !important;
-    padding-bottom: 18px;
+    padding-top: 1px !important;
+    padding-bottom: 13px;
     margin-top: 67px;
     width: 100%;
-    height: 78% !important;
+    height: 70% !important;
     background-position: center;
     background-size: cover;
 }
 
 .tv_cover {
-    padding-top: 0.5px !important;
-    padding-bottom: 10px;
+    padding-top: 1px !important;
+    padding-bottom: 13px;
     margin-top: 67px;
     width: 100%;
-    height: 92% !important;
+    height: 70% !important;
     background-position: center;
     background-size: cover;
 }

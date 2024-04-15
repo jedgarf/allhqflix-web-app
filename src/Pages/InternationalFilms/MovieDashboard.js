@@ -2,9 +2,8 @@
 import React, { useState, useEffect, useCallback, useRef, Fragment } from "react";
 import { useQuery } from 'react-query';
 import { Link, useParams } from "react-router-dom";
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
+
+import { Container, Divider, Grid, Box, Button } from "@mui/material";
 import moment from 'moment';
 
 // CSS
@@ -36,25 +35,31 @@ import { defaultInternationalServer, defaultInternationalVideoRes, server_status
 import { subtitleLogo, videoQuality, homeBackground } from "../../Config/images.config";
 
 // Utilities
-import { moveToTop, getFileExtention, SeparateArrayByComma, SeparateArrayByCircularSpan, capitalizeString, convertMinutesToHoursAndMinutes, getLanguageName, isMobile } from "../../Services/Utils";
+import { moveToTop, getFileExtention, SeparateArrayByComma, SeparateArrayByCircularSpan, capitalizeString, convertMinutesToHoursAndMinutes, getAllSavedCookiesMedia, isMobile } from "../../Services/Utils";
 
 // Helpers
 import { getCookie } from "../../Helpers/Cookies";
-import { decryptParams } from "../../Helpers/Crypto";
 
 // Services
 import { movie_info, movie_server, movie_stream_links } from "../../Services/FlixHQService";
-import { Container, Divider } from "@mui/material";
 
 const MovieDashboard = (props) => {
   
   const { id, type } = useParams();
   const indexId = type + "/" + id;
+  const savedMedia = getAllSavedCookiesMedia(indexId);
   const contentType = type === 'movie' ? 'Movie' : 'TV Series';
   const queryParams = new URLSearchParams(window.location.search);
-  const paramSeasonId = queryParams.get("season") ? parseInt(queryParams.get("season")) : null;
-  const paramEpisodeId = queryParams.get("episode") ? parseInt(queryParams.get("episode")) : null;
-  const paramServer = queryParams.get("server") ? (queryParams.get("server") === '1' ? 'upcloud' : 'vidcloud') : null;
+  var paramSeasonId = queryParams.get("season") ? parseInt(queryParams.get("season")) : null;
+  var paramEpisodeId = queryParams.get("episode") ? parseInt(queryParams.get("episode")) : null;
+  var paramServer = queryParams.get("server") ? (queryParams.get("server") === '1' ? 'upcloud' : 'vidcloud') : null;
+
+  // Get save data in cookies
+  if (savedMedia.length > 0) {
+    paramSeasonId = savedMedia[0].seasonNumber ? savedMedia[0].seasonNumber : null;
+    paramEpisodeId = savedMedia[0].episodeId ? savedMedia[0].episodeId : null;
+    // paramServer = savedMedia[0].server ? (savedMedia[0].server === '1' ? 'upcloud' : 'vidcloud') : null;
+  }
 
   const [movieServer, setMovieServer] = useState([]);
   const [videoQualities, setVideoQualities] = useState([]);
@@ -535,7 +540,7 @@ const MovieDashboard = (props) => {
               })}
             </center>
           </div>
-          <Divider  variant="middle"/>
+          <Divider variant="middle"/>
         </div>
       : <div className={type === 'tv' ? 'movie_server_tv' : 'movie_server'}></div>}
 
