@@ -56,9 +56,11 @@ const MovieDashboard = (props) => {
 
   // Get save data in cookies
   if (savedMedia.length > 0) {
-    paramSeasonId = savedMedia[0].seasonNumber ? savedMedia[0].seasonNumber : null;
-    paramEpisodeId = savedMedia[0].episodeId ? savedMedia[0].episodeId : null;
-    // paramServer = savedMedia[0].server ? (savedMedia[0].server === '1' ? 'upcloud' : 'vidcloud') : null;
+    if (savedMedia[0].category === 'tv') {
+      paramSeasonId = savedMedia[0].seasonNumber ? savedMedia[0].seasonNumber : null;
+      paramEpisodeId = savedMedia[0].episodeId ? savedMedia[0].episodeId : null;
+      // paramServer = savedMedia[0].server ? (savedMedia[0].server === '1' ? 'upcloud' : 'vidcloud') : null; 
+    }
   }
 
   const [movieServer, setMovieServer] = useState([]);
