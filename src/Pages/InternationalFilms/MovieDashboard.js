@@ -192,13 +192,15 @@ const MovieDashboard = (props) => {
     let videoSubtitlesContent = [];
     let vidSub = resourceValue.data?.subtitles;
     let processParam = "eng";
-    let engVidSub = vidSub?.filter((condition) => condition.lang.indexOf(processParam.toLowerCase()) > -1 || condition.lang.indexOf(processParam.toUpperCase()) > -1 || condition.lang.indexOf(processParam.charAt(0).toUpperCase() + processParam.slice(1)) > -1);
+    let engVidSub = vidSub?.filter(item => item.label?.indexOf(processParam.toLowerCase()) > -1 || item.label?.indexOf(processParam.toUpperCase()) > -1 || item.label?.indexOf(processParam.charAt(0).toUpperCase() + processParam.slice(1)) > -1);
+    console.log('engVidSub', vidSub);
 
     // Default Subtitle
-    let defSubtitle = vidSub?.length > 0 ? vidSub[0]?.url : "";
+    let defSubtitle = vidSub?.length > 0 ? vidSub[0]?.file : "";
 
+    // auto selection to english subtitle
     if (engVidSub?.length > 0) {
-      defSubtitle = engVidSub[0]?.url;
+      defSubtitle = engVidSub[0]?.file;
     }
     setDefaultSubtitle(defSubtitle);
 
@@ -206,18 +208,18 @@ const MovieDashboard = (props) => {
     if (vidSub !== undefined) {
       for (let videoSubtitlesLength = 0; videoSubtitlesLength < vidSub?.length; videoSubtitlesLength++) {
         if (engVidSub?.length > 0) {
-          if (vidSub[videoSubtitlesLength]?.lang === engVidSub[0]?.lang) {
-            setDefaultSubtitleToolTip(getLanguageName(vidSub[videoSubtitlesLength]?.lang, videoSubtitlesLength));
-            videoSubtitlesContent.push({"default": true, "html": getLanguageName(vidSub[videoSubtitlesLength]?.lang, videoSubtitlesLength), "url": vidSub[videoSubtitlesLength]?.url});
+          if (vidSub[videoSubtitlesLength]?.label === engVidSub[0]?.label) {
+            setDefaultSubtitleToolTip(vidSub[videoSubtitlesLength]?.label);
+            videoSubtitlesContent.push({"default": true, "html": vidSub[videoSubtitlesLength]?.label, "url": vidSub[videoSubtitlesLength]?.file});
           } else {
-            videoSubtitlesContent.push({"default": false, "html": getLanguageName(vidSub[videoSubtitlesLength]?.lang, videoSubtitlesLength), "url": vidSub[videoSubtitlesLength]?.url});
+            videoSubtitlesContent.push({"default": false, "html": vidSub[videoSubtitlesLength]?.label, "url": vidSub[videoSubtitlesLength]?.file});
           }
         } else {
           if (videoSubtitlesLength === 0) {
-            setDefaultSubtitleToolTip(getLanguageName(vidSub[videoSubtitlesLength]?.lang, videoSubtitlesLength));
-            videoSubtitlesContent.push({"default": true, "html": getLanguageName(vidSub[videoSubtitlesLength]?.lang, videoSubtitlesLength), "url": vidSub[videoSubtitlesLength]?.url});
+            setDefaultSubtitleToolTip(vidSub[videoSubtitlesLength]?.label);
+            videoSubtitlesContent.push({"default": true, "html": vidSub[videoSubtitlesLength]?.label, "url": vidSub[videoSubtitlesLength]?.file});
           } else {
-            videoSubtitlesContent.push({"default": false, "html": getLanguageName(vidSub[videoSubtitlesLength]?.lang, videoSubtitlesLength), "url": vidSub[videoSubtitlesLength]?.url});
+            videoSubtitlesContent.push({"default": false, "html": vidSub[videoSubtitlesLength]?.label, "url": vidSub[videoSubtitlesLength]?.file});
           }
         }
       }

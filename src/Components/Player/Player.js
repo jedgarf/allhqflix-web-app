@@ -4,6 +4,7 @@ import { SpinnerDotted } from 'spinners-react';
 
 // ArtPlayerJS
 import Artplayer from 'artplayer';
+// import ArtplayerToolThumbnail from 'artplayer-tool-thumbnail';
 import artplayerPluginAds from 'artplayer-plugin-ads';
 // import artplayerPluginControl from "artplayer-plugin-control";
 
@@ -14,7 +15,7 @@ import { ads } from "../../Config/settings.config";
 import { mainLogo, customLoadingFileName, homeBackground } from "../../Config/images.config";
 
 // Utilities
-import { getFileExtention, randomizeArray, isMobile, triggerKeyF11, enterFullscreen, exitFullscreen } from "../../Services/Utils";
+import { getFileExtention, randomizeArray, isMobile } from "../../Services/Utils";
 import { playFlv, destroyPlayFlv, playM3u8, destroyPlayM3u8, playMpd, saveProgress } from "./_config";
 
 // Helpers
@@ -70,7 +71,7 @@ const Player = ({ details, episodes, defaultlink, infotitle, infocover, seasonNu
                 autoplay: player_auto_play,
                 pip: false,
                 autoSize: false,
-                autoMini: false,
+                autoMini: true,
                 loop: false,
                 flip: true,
                 playbackRate: true,
@@ -92,12 +93,12 @@ const Player = ({ details, episodes, defaultlink, infotitle, infocover, seasonNu
                     // preload: 'none', // metadata
                     // playsInline: true,
                 },
-                // contextmenu: [{
-                //     html: 'Custom menu',
-                //     click: function(contextmenu) {
-                //         contextmenu.show = false;
-                //     },
-                // }],
+                contextmenu: [{
+                    html: 'Download',
+                    click: function(contextmenu) {
+                        contextmenu.show = true;
+                    },
+                }],
                 layers: [
                     {
                         html: `<img src="${mainLogo}">`,
@@ -114,7 +115,7 @@ const Player = ({ details, episodes, defaultlink, infotitle, infocover, seasonNu
                         },
                     }
                 ],
-                icons: customIcons
+                icons: customIcons,
             });
         } catch (err) {
             console.error("ArtPlayer", err);
@@ -223,9 +224,9 @@ const Player = ({ details, episodes, defaultlink, infotitle, infocover, seasonNu
             // End -----------------------------------------------------------------------------------------------------------------------
     
         }
-    }, []);
+    }, [defaultlink]);
 
-    return <div ref={artRef} {...rest}></div>;
+    return <div ref={artRef} {...rest}/>;
 }
 
 export {
