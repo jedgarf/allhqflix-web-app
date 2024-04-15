@@ -63,7 +63,7 @@ const SettingsModal = ({ settingModal, setSettingModal, setUpperMenu }) => {
         addLocalStorage('player_auto_play', playerSettings.auto_play);
         addLocalStorage('player_auto_next', playerSettings.auto_next);
         addLocalStorage('player_auto_fullscreen', playerSettings.auto_fullscreen);
-        if (getLocalStorage('player_auto_next') && getLocalStorage('player_auto_fullscreen')) {
+        if (getLocalStorage('player_auto_play') && getLocalStorage('player_auto_next') && getLocalStorage('player_auto_fullscreen')) {
             setSettingModal(false);
             withReactContent(Swal).fire({
                 background: 'rgba(56,56,56,255)',
@@ -103,7 +103,7 @@ const SettingsModal = ({ settingModal, setSettingModal, setUpperMenu }) => {
                         <Divider/>
                         <DialogActions className='modal-container'>
                             <Button size='small' variant='outlined' color='error' startIcon={<CloseIcon/>} onClick={() => handleModal(false)}>Close</Button>
-                            <Button size='small' variant='contained' color='primary' onClick={(evt) => onSubmit(evt)} startIcon={<SaveIcon/>}>Save</Button>
+                            {/* <Button size='small' variant='contained' color='primary' onClick={(evt) => onSubmit(evt)} startIcon={<SaveIcon/>}>Save</Button> */}
                         </DialogActions>
                     </Fragment>
                 : 

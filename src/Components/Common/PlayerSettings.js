@@ -7,6 +7,9 @@ import CssBaseline from '@mui/material/CssBaseline';
 // Material UI Components
 import { FormGroup, FormControlLabel, Checkbox, Typography } from "@mui/material";
 
+// Helpers
+import { addLocalStorage } from "../../Helpers/LocalStorage";
+
 const PlayerSettings = ({ playerSettings, setPlayerSettings }) => {
 
     const queryParams = new URLSearchParams(window.location.search);
@@ -24,16 +27,18 @@ const PlayerSettings = ({ playerSettings, setPlayerSettings }) => {
 
     const handleAutoPlay = (event) => {
         setAutoPlay(event.target.checked);
+        addLocalStorage('player_auto_play', event.target.checked);
         const newPlayerSettings = {
             "auto_play": event.target.checked,
             "auto_next": playerSettings.auto_next,
             "auto_fullscreen": playerSettings.auto_fullscreen
-        };
+        }; 
         setPlayerSettings(newPlayerSettings);
     }
 
     const handleAutoNext = (event) => {
         setAutoNext(event.target.checked);
+        addLocalStorage('player_auto_next', event.target.checked);
         const newPlayerSettings = {
             "auto_play": playerSettings.auto_play,
             "auto_next": event.target.checked,
@@ -44,6 +49,7 @@ const PlayerSettings = ({ playerSettings, setPlayerSettings }) => {
 
     const handleAutoFullscreen = (event) => {
         setAutoFullscreen(event.target.checked);
+        addLocalStorage('player_auto_fullscreen', event.target.checked);
         const newPlayerSettings = {
             "auto_play": playerSettings.auto_play,
             "auto_next": playerSettings.auto_next,
