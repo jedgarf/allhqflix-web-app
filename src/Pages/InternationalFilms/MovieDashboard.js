@@ -44,7 +44,7 @@ import { decryptParams } from "../../Helpers/Crypto";
 
 // Services
 import { movie_info, movie_server, movie_stream_links } from "../../Services/FlixHQService";
-import { Container } from "@mui/material";
+import { Container, Divider } from "@mui/material";
 
 const MovieDashboard = (props) => {
   
@@ -191,18 +191,20 @@ const MovieDashboard = (props) => {
 
     let videoSubtitlesContent = [];
     let vidSub = resourceValue.data?.subtitles;
-    let processParam = "eng";
-    let engVidSub = vidSub?.filter(item => item.label?.indexOf(processParam.toLowerCase()) > -1 || item.label?.indexOf(processParam.toUpperCase()) > -1 || item.label?.indexOf(processParam.charAt(0).toUpperCase() + processParam.slice(1)) > -1);
-    console.log('engVidSub', vidSub);
 
-    // Default Subtitle
-    let defSubtitle = vidSub?.length > 0 ? vidSub[0]?.file : "";
+    // =================== Default Subtitle ===========================================
+    let defSubtitle = vidSub?.length > 0 ? (vidSub.filter(item => item?.default === true).length > 0 ? vidSub.find(item => item?.default === true).file : vidSub[0]?.file) : "";
+    // ==================================================================================
+    
+    // ============ auto selection to english subtitle ================================
+    let engKeyword = "eng";
+    let engVidSub = vidSub?.filter(item => item.label?.indexOf(engKeyword.toLowerCase()) > -1 || item.label?.indexOf(engKeyword.toUpperCase()) > -1 || item.label?.indexOf(engKeyword.charAt(0).toUpperCase() + engKeyword.slice(1)) > -1);
 
-    // auto selection to english subtitle
     if (engVidSub?.length > 0) {
       defSubtitle = engVidSub[0]?.file;
     }
     setDefaultSubtitle(defSubtitle);
+    // ==================================================================================
 
     // video subtitles
     if (vidSub !== undefined) {
@@ -533,6 +535,7 @@ const MovieDashboard = (props) => {
               })}
             </center>
           </div>
+          <Divider  variant="middle"/>
         </div>
       : <div className={type === 'tv' ? 'movie_server_tv' : 'movie_server'}></div>}
 
