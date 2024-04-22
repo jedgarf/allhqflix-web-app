@@ -55,12 +55,13 @@ const SearchResult = ({ isloadImage, contentType, img, id, title, type, release_
     const savedCookiesMedia = getAllSavedCookiesMedia(id);
     setSavedMedia(savedCookiesMedia);
 
-    if (id === "21") {
+    if (id == "21") {
       var arcs = require('../../Services/Data/onePieceArcs.json').arcs;
-      setCardImage(savedCookiesMedia.length === 1 ? 
-        arcs.find(item => item.start_episode <= savedMedia[0]?.episodeNumber && item.end_episode >= savedMedia[0]?.episodeNumber).mini_banner
+      setCardImage(savedMedia?.filter(item => item?.mediaId == id).length > 0 ? 
+        arcs.find(item => item.start_episode <= savedMedia[0]?.episodeNumber && item.end_episode >= savedMedia[0]?.episodeNumber)?.mini_banner
         : 
-        arcs.find(item => item.start_episode <= parseInt(episode) && item.end_episode >= parseInt(episode)).mini_banner);
+        arcs.find(item => item.start_episode <= parseInt(episode) && item.end_episode >= parseInt(episode))?.mini_banner
+      );
     }
   }, [id, episode, img, savedMedia]);
 
