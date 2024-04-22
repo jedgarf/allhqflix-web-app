@@ -1,7 +1,8 @@
 .stream-dashboard {
     /* display: flex; */
     height: 100vh;
-    overflow: hidden;
+    width: 100vh;
+    /* overflow: hidden; */
 }
 
 .stream-dashboard-content {
