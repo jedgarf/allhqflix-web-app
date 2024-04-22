@@ -73,7 +73,7 @@ export const saveProgress = (details, mediaId, type, paramDub, seasonNumber, epi
     const savedMedia = getAllSavedCookiesMedia();
     var image = details?.image;
 
-    if(indexId == 21) {
+    if(mediaId == 21) {
         const arcs = require('../../Services/Data/onePieceArcs.json').arcs;
         image = arcs.find(item => item.start_episode <= parseInt(episodeNumber) && item.end_episode >= parseInt(episodeNumber))?.mini_banner;
     }
