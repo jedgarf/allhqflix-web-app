@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import "./Footer.css";
 import moment from 'moment';
 import { Link } from 'react-router-dom';
-import Grid from '@mui/material/Grid';
+import { Grid, Container } from '@mui/material';
 
 // Components
 import CookiesConsentDialog from "../CookiesConsentDialog/CookiesConsentDialog";
@@ -14,7 +14,9 @@ function Footer() {
 
     return (
         <Fragment>
-        <CookiesConsentDialog/>
+        <Container maxWidth={'xxl'}>
+            <CookiesConsentDialog/>
+        </Container>
             <footer className="footer">
                 <Grid container columnSpacing={{ xs: 1, sm: 2, md: 10, lg: 10, xl: 10 }} rowSpacing={1}>
                     <Grid item xl={7} lg={7} md={6} sm={12} xs={12} display={{ xs: 'none', sm: 'none', md: 'block' }}>
