@@ -25,7 +25,7 @@ import TVEpisodesDrawer from "../../Components/BottomDrawer/TVEpisodesDrawer";
 import MediaDescription from "../../Components/MediaDescription/MediaDescription";
 import SnackBar from "../../Components/SnackBar/SnackBar";
 import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
-import { MovieDetailsSkeleton } from "../../Components/MediaDetailsSkeleton/MediaDetailsSkeleton";
+import { MovieDetailsSkeleton } from "../../Components/SkeletonLoader/MediaDetailsSkeleton";
 
 // Config
 import apiConfig from '../../Config/api.config';

@@ -33,7 +33,7 @@ import OnePieceEpisodesDrawer from "../../Components/BottomDrawer/OnePieceEpisod
 import AnimeCharacterCard from "../../Components/Anime/AnimeCharacterCard";
 import MediaDescription from "../../Components/MediaDescription/MediaDescription";
 import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
-import { AnimeDetailsSkeleton } from "../../Components/MediaDetailsSkeleton/MediaDetailsSkeleton";
+import { AnimeDetailsSkeleton } from "../../Components/SkeletonLoader/MediaDetailsSkeleton";
 import SnackBar from "../../Components/SnackBar/SnackBar";
 
 // Config

@@ -29,6 +29,7 @@ import SaveListModal from "../../Components/Modal/SaveListModal";
 import SnackBar from "../../Components/SnackBar/SnackBar";
 import { MoviePlayModal, SeriesPlayModal } from "../../Components/Modal/PlayModal";
 import LanguageListTooltip from '../../Components/Tooltip/LanguageListTooltip';
+import { MediaDashboardSkeleton } from "../../Components/SkeletonLoader/MediaDashboardDetailsSkeleton";
 import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 import CookiesConsentDialog from "../../Components/CookiesConsentDialog/CookiesConsentDialog";
 import SettingsModal from "../../Components/Modal/SettingsModal";
@@ -235,131 +236,130 @@ const MovieStreamDashboard = (props) => {
                         </Link>
                     </Grid>
                 </Grid>
-                {infoData.isLoading || serverData.isLoading
-                ? 
-                <Box className='stream-dashboard-content' sx={{ pl: 3, pr: 3, pt: 3, width: {xs: '100%', sm: '100%', md: '60%'} }} style={{ backgroundColor: isMobile ? 'rgba(15, 22, 34, 0.5)' : 'transparent' }}>
-                    <Skeleton animation="pulse" sx={{ bgcolor: '#54B4D3' }} height="60px" width="60%" />
-                    <Skeleton animation="pulse" sx={{ bgcolor: '#54B4D3' }} height="40px" width="30%" />
-                    <Skeleton animation="pulse" sx={{ bgcolor: '#54B4D3' }} height="40px" width="100%" />
-                    <Skeleton animation="pulse" sx={{ bgcolor: '#54B4D3' }} height="40px" width="100%" />
-                    <Skeleton animation="pulse" sx={{ bgcolor: '#54B4D3' }} height="40px" width="100%" />
-
-                    <Skeleton animation="pulse" sx={{ bgcolor: '#54B4D3' }} height="20px" width="60%" />
-                    <Skeleton animation="pulse" sx={{ bgcolor: '#54B4D3' }} height="20px" width="60%" />
-                    <Skeleton animation="pulse" sx={{ bgcolor: '#54B4D3' }} height="20px" width="60%" />
-                    <Skeleton animation="pulse" sx={{ bgcolor: '#54B4D3' }} height="20px" width="60%" />
-                    <Skeleton animation="pulse" sx={{ bgcolor: '#54B4D3' }} height="20px" width="50%" />
-                    <Skeleton animation="pulse" sx={{ bgcolor: '#54B4D3' }} height="20px" width="50%" />
-                    <Skeleton animation="pulse" sx={{ bgcolor: '#54B4D3' }} height="20px" width="50%" /><br/>
-                    <Skeleton animation="pulse" variant="rectangular" sx={{ bgcolor: '#54B4D3', width: {xs: '30%', sm: '30%', md: '40%'} }} height="40px" />
-                </Box>
+                {infoData.isLoading || serverData.isLoading ?  
+                    <MediaDashboardSkeleton />
                 : 
-                <div className='stream-dashboard-content' style={{ backgroundColor: isMobile ? 'rgba(10, 10, 10, 0.5)' : 'transparent' }}>
-                    <div className='stream-dashboard-title'>
-                    <h1 style={{ marginBottom: '7px' }}>{infoValue?.title}</h1>
-                    {type === 'tv' ?
-                        <label className='stream-dashboard-servername'>
-                            <span className='videoq-span' style={{ backgroundColor: 'transparent', fontWeight: 'bolder', border: '1px solid white', paddingInline: '1px', marginRight: '9px' }}>{infoValue?.video_quality}</span>
-                            &bull;<span style={{ marginLeft: '5px' }}>{ObjectLength(seasons) > 1 ? 'Season 1 to ' + ObjectLength(seasons) : 'Season 1'}</span>
-                            &nbsp;&nbsp;&bull;&nbsp;<ShareModal infoValue={infoValue} size={'15px'}/>
-                        </label>
-                    : 
-                        <label className='stream-dashboard-servername'>
-                            <span className='videoq-span' style={{ backgroundColor: 'transparent', fontWeight: 'bolder', border: '1px solid white', paddingInline: '1px', marginRight: '9px' }}>{infoValue?.video_quality}</span> 
-                            &bull;<span style={{ marginLeft: '5px' }}>{convertMinutesToHoursAndMinutes(infoValue?.duration.replace('min', ''))}</span>
-                            &nbsp;&nbsp;&bull;&nbsp;<ShareModal infoValue={infoValue} size={'15px'}/>
-                        </label> }
-                    </div>
-                    {infoValue?.description.replace(/\s+/g,'') !== "" ?
-                    <div className='stream-dashboard-description' title={DOMPurify.sanitize(infoValue?.description).trim()}>{DOMPurify.sanitize(infoValue?.description).trim()}</div>
-                        : <div className='stream-dashboard-description'>{`-`}</div>}
+                    <div className='stream-dashboard-content' style={{ backgroundColor: isMobile ? 'rgba(10, 10, 10, 0.5)' : 'transparent' }}>
+                        <div className='stream-dashboard-title'>
+                        <h1 style={{ marginBottom: '7px' }}>{infoValue?.title}</h1>
+                        {type === 'tv' ?
+                            <label className='stream-dashboard-servername'>
+                                <span className='videoq-span' style={{ backgroundColor: 'transparent', fontWeight: 'bolder', border: '1px solid white', paddingInline: '1px', marginRight: '9px' }}>{infoValue?.video_quality}</span>
+                                &bull;<span style={{ marginLeft: '5px' }}>{ObjectLength(seasons) > 1 ? 'Season 1 to ' + ObjectLength(seasons) : 'Season 1'}</span>
+                                &nbsp;&nbsp;&bull;&nbsp;<ShareModal infoValue={infoValue} size={'15px'}/>
+                            </label>
+                        : 
+                            <label className='stream-dashboard-servername'>
+                                <span className='videoq-span' style={{ backgroundColor: 'transparent', fontWeight: 'bolder', border: '1px solid white', paddingInline: '1px', marginRight: '9px' }}>{infoValue?.video_quality}</span> 
+                                &bull;<span style={{ marginLeft: '5px' }}>{convertMinutesToHoursAndMinutes(infoValue?.duration.replace('min', ''))}</span>
+                                &nbsp;&nbsp;&bull;&nbsp;<ShareModal infoValue={infoValue} size={'15px'}/>
+                            </label> }
+                        </div>
+                        {infoValue?.description.replace(/\s+/g,'') !== "" ?
+                        <div className='stream-dashboard-description' title={DOMPurify.sanitize(infoValue?.description).trim()}>{DOMPurify.sanitize(infoValue?.description).trim()}</div>
+                            : <div className='stream-dashboard-description'>{`-`}</div>}
 
-                    <div className='stream-dashboard-description-details'>
-                        <b style={{ color: '#DC4C64', marginRight: '5px' }}>Released Date:</b> 
-                        {infoValue?.releaseDate !== undefined ? moment(infoValue?.releaseDate).format('MMMM D, YYYY') : ''}
-                        <br/>
-                        <b style={{ color: '#DC4C64', marginRight: '5px' }}>Country:</b> 
-                        <Link className='text-link' style={{ cursor: 'pointer' }} title={ infoValue?.country } to={`/foreign/country_filter?country=${infoValue?.country}`}>{ infoValue?.country }</Link>
-                        <br/>
-                        {infoValue?.casts?.length > 0 ?
-                            <div>
-                                <b style={{ color: '#DC4C64', marginRight: '5px' }}>Main Casts:</b>
-                                <SeparateArrayByComma type={'google_link'} data={infoValue?.casts} link={'https://www.google.com/search?q='} />
-                                <br/>
-                            </div>
-                        : ""}
-                            
-                        {infoValue?.genres?.length > 0 ?
-                            <Fragment>
-                                <b style={{ color: '#DC4C64', marginRight: '5px' }}>Genres:</b>
-                                <SeparateArrayByComma type={'site_link'} data={infoValue?.genres} link={'/foreign/genre_filter?genre='} />
-                                <br/>
-                            </Fragment>
-                        : ""}
-                        {type === 'movie' && resourceData.isSuccess ? 
-                            <Fragment>
-                                <Typography variant='p'>
-                                    <b><SubtitlesIcon style={{ marginBottom: '-6px' }}/></b>{' '}
-                                    {resourceValue?.data?.subtitles?.length === 0 ? 
-                                       ("No available subtitle.") 
-                                    : 
-                                        resourceValue?.data?.subtitles?.length > 1 ? 
-                                            (`${resourceValue?.data?.subtitles?.length} subtitles available.`) 
+                        <div className='stream-dashboard-description-details'>
+                            <b style={{ color: '#DC4C64', marginRight: '5px' }}>Released Date:</b> 
+                            {infoValue?.releaseDate !== undefined ? moment(infoValue?.releaseDate).format('MMMM D, YYYY') : ''}
+                            <br/>
+                            <b style={{ color: '#DC4C64', marginRight: '5px' }}>Country:</b> 
+                            <Link className='text-link' style={{ cursor: 'pointer' }} title={ infoValue?.country } to={`/foreign/country_filter?country=${infoValue?.country}`}>{ infoValue?.country }</Link>
+                            <br/>
+                            {infoValue?.casts?.length > 0 ?
+                                <div>
+                                    <b style={{ color: '#DC4C64', marginRight: '5px' }}>Main Casts:</b>
+                                    <SeparateArrayByComma type={'google_link'} data={infoValue?.casts} link={'https://www.google.com/search?q='} />
+                                    <br/>
+                                </div>
+                            : ""}
+                                
+                            {infoValue?.genres?.length > 0 ?
+                                <Fragment>
+                                    <b style={{ color: '#DC4C64', marginRight: '5px' }}>Genres:</b>
+                                    <SeparateArrayByComma type={'site_link'} data={infoValue?.genres} link={'/foreign/genre_filter?genre='} />
+                                    <br/>
+                                </Fragment>
+                            : ""}
+                            {type === 'movie' && resourceData.isSuccess ? 
+                                <Fragment>
+                                    <Typography variant='p'>
+                                        <b><SubtitlesIcon style={{ marginBottom: '-6px' }}/></b>{' '}
+                                        {resourceValue?.data?.subtitles?.length === 0 ? 
+                                        ("No available subtitle.") 
                                         : 
-                                            (`${resourceValue?.data?.subtitles?.length} subtitle available.`)
-                                    }
+                                            resourceValue?.data?.subtitles?.length > 1 ? 
+                                                (`${resourceValue?.data?.subtitles?.length} subtitles available.`) 
+                                            : 
+                                                (`${resourceValue?.data?.subtitles?.length} subtitle available.`)
+                                        }
+                                    </Typography>
+                                    <br/>
+                                </Fragment>
+                            : ""}
+                        </div>
+                        {infoData.isSuccess && infoValue?.episodes?.length > 0 ? ""
+                        : 
+                            <div className='stream-dashboard-season-episode'>
+                                <Typography variant="span">
+                                    No episode available
                                 </Typography>
-                                <br/>
-                            </Fragment>
-                        : ""}
-                    </div>
-                    {infoData.isSuccess && infoValue?.episodes?.length > 0 ? ""
-                    : 
-                        <div className='stream-dashboard-season-episode'>
-                            <Typography variant="span">
-                                No episode available
-                            </Typography>
-                        </div>
-                    }
-                    {errorMessage && 
-                        <div className='stream-dashboard-season-episode'>
-                            <Typography variant="span">
-                                {errorMessage}
-                            </Typography>
-                        </div>
-                    }
-                    {(resourceData.isSuccess && savedMedia?.length >= maxMediaSaved && savedMedia?.filter(item => item?.mediaId == indexId).length === 0) && 
-                        <div className='stream-dashboard-season-episode'>
-                            <Typography variant="span">
-                                {maxMediaSavedMessage}
-                            </Typography>
-                        </div>
-                    }
-                    <div className='stream-dashboard-playbutton'>
-                        {infoData.isSuccess && resourceData.isSuccess && 
-                            infoValue?.episodes?.length > 0 && resourceValue?.data?.sources?.length > 0 && 
-                                <IconButton color="primary" size='small' onClick={() => handleSettingModal()}><SettingsIcon/></IconButton>
+                            </div>
+                        }
+                        {errorMessage && 
+                            <div className='stream-dashboard-season-episode'>
+                                <Typography variant="span">
+                                    {errorMessage}
+                                </Typography>
+                            </div>
                         }
                         {(resourceData.isSuccess && savedMedia?.length >= maxMediaSaved && savedMedia?.filter(item => item?.mediaId == indexId).length === 0) && 
-                            <SaveListModal loadSavedMedia={loadSavedMedia}/>
+                            <div className='stream-dashboard-season-episode'>
+                                <Typography variant="span">
+                                    {maxMediaSavedMessage}
+                                </Typography>
+                            </div>
                         }
-                        {infoData.isSuccess && <TraillerModal category="foreign" infoValue={infoValue} setSnackBarType={setSnackBarType} setSnackBarMessage={setSnackBarMessage} setSnackBarOpen={setSnackBarOpen}/>}
-                        {(resourceData.isLoading || !resourceValue?.data?.sources) && !resourceData.isError && 
-                            <CircularProgress
-                                sx={{ color: 'white', marginBottom: '-5px !important', marginRight: '10px' }} 
-                                size={20} 
-                                thickness={5} 
-                            />
-                        }
-                        {infoData.isSuccess && serverData.isSuccess ? 
-                            infoValue?.episodes?.length > 0 && serverValue?.data?.length > 0 ? 
-                                type === 'movie' ? (
-                                    hasPlayButton && infoData.isSuccess && serverData.isSuccess &&
-                                        <MoviePlayModal mediaInfo={infoValue} serverInfo={serverValue} resourceData={resourceData} resourceInfo={resourceValue} serverVar={serverVar} setServerVar={setServerVar} url={`/watch/${indexId}`} />
-                                ) : (
-                                    hasPlayButton && infoData.isSuccess && serverData.isSuccess &&
-                                        <SeriesPlayModal mediaInfo={infoValue} serverInfo={serverValue} resourceData={resourceData} resourceInfo={resourceValue} serverVar={serverVar} seasonIdVar={seasonIdVar} episodeIdVar={episodeIdVar} episodes={seasons} setServerVar={setServerVar} setSeasonIdVar={setSeasonIdVar} setEpisodeIdVar={setEpisodeIdVar} url={`/watch/${indexId}`} />
-                                )
+                        <div className='stream-dashboard-playbutton'>
+                            {infoData.isSuccess && resourceData.isSuccess && 
+                                infoValue?.episodes?.length > 0 && resourceValue?.data?.sources?.length > 0 && 
+                                    <IconButton color="primary" size='small' onClick={() => handleSettingModal()}><SettingsIcon/></IconButton>
+                            }
+                            {(resourceData.isSuccess && savedMedia?.length >= maxMediaSaved && savedMedia?.filter(item => item?.mediaId == indexId).length === 0) && 
+                                <SaveListModal loadSavedMedia={loadSavedMedia}/>
+                            }
+                            {infoData.isSuccess && <TraillerModal category="foreign" infoValue={infoValue} setSnackBarType={setSnackBarType} setSnackBarMessage={setSnackBarMessage} setSnackBarOpen={setSnackBarOpen}/>}
+                            {(resourceData.isLoading || !resourceValue?.data?.sources) && !resourceData.isError && 
+                                <CircularProgress
+                                    sx={{ color: 'white', marginBottom: '-5px !important', marginRight: '10px' }} 
+                                    size={20} 
+                                    thickness={5} 
+                                />
+                            }
+                            {infoData.isSuccess && serverData.isSuccess ? 
+                                infoValue?.episodes?.length > 0 && serverValue?.data?.length > 0 ? 
+                                    type === 'movie' ? (
+                                        hasPlayButton && infoData.isSuccess && serverData.isSuccess &&
+                                            <MoviePlayModal mediaInfo={infoValue} serverInfo={serverValue} resourceData={resourceData} resourceInfo={resourceValue} serverVar={serverVar} setServerVar={setServerVar} url={`/watch/${indexId}`} />
+                                    ) : (
+                                        hasPlayButton && infoData.isSuccess && serverData.isSuccess &&
+                                            <SeriesPlayModal mediaInfo={infoValue} serverInfo={serverValue} resourceData={resourceData} resourceInfo={resourceValue} serverVar={serverVar} seasonIdVar={seasonIdVar} episodeIdVar={episodeIdVar} episodes={seasons} setServerVar={setServerVar} setSeasonIdVar={setSeasonIdVar} setEpisodeIdVar={setEpisodeIdVar} url={`/watch/${indexId}`} />
+                                    )
+                                : 
+                                    <Button 
+                                        id="demo-customized-button"
+                                        size='small'
+                                        aria-controls={undefined}
+                                        aria-haspopup="true"
+                                        aria-expanded={undefined}
+                                        variant="contained"
+                                        disableElevation
+                                        startIcon={<PlayCircleOutlineIcon />}
+                                        style={{ marginRight: '10px' }}
+                                        disabled={true}
+                                    >
+                                    PLAY
+                                    </Button>
                             : 
                                 <Button 
                                     id="demo-customized-button"
@@ -375,24 +375,9 @@ const MovieStreamDashboard = (props) => {
                                 >
                                 PLAY
                                 </Button>
-                        : 
-                            <Button 
-                                id="demo-customized-button"
-                                size='small'
-                                aria-controls={undefined}
-                                aria-haspopup="true"
-                                aria-expanded={undefined}
-                                variant="contained"
-                                disableElevation
-                                startIcon={<PlayCircleOutlineIcon />}
-                                style={{ marginRight: '10px' }}
-                                disabled={true}
-                            >
-                            PLAY
-                            </Button>
-                        }
+                            }
+                        </div>
                     </div>
-                </div>
                 }
             </div>
             {/* refetching count */}

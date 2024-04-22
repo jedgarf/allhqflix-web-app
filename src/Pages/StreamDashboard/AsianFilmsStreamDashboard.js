@@ -24,6 +24,7 @@ import TraillerModal from "../../Components/Modal/TraillerModal";
 import SaveListModal from "../../Components/Modal/SaveListModal";
 import SnackBar from "../../Components/SnackBar/SnackBar";
 import { AsianDramaPlayModal } from "../../Components/Modal/PlayModal";
+import { MediaDashboardSkeleton } from "../../Components/SkeletonLoader/MediaDashboardDetailsSkeleton";
 import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 import CookiesConsentDialog from "../../Components/CookiesConsentDialog/CookiesConsentDialog";
 
@@ -151,78 +152,61 @@ const AsianFilmsStreamDashboard = (props) => {
                         </Link>
                     </Grid>
                 </Grid>
-                {infoData.isLoading
-                ? 
-                    <>
-                    <Box className='stream-dashboard-content' sx={{ pl: 3, pr: 3, pt: 3, width: {xs: '100%', sm: '100%', md: '60%'} }} style={{ backgroundColor: isMobile ? 'rgba(15, 22, 34, 0.5)' : 'transparent' }}>
-                        <Skeleton animation="pulse" sx={{ bgcolor: '#54B4D3' }} height="60px" width="60%" />
-                        <Skeleton animation="pulse" sx={{ bgcolor: '#54B4D3' }} height="40px" width="30%" />
-                        <Skeleton animation="pulse" sx={{ bgcolor: '#54B4D3' }} height="40px" width="100%" />
-                        <Skeleton animation="pulse" sx={{ bgcolor: '#54B4D3' }} height="40px" width="100%" />
-                        <Skeleton animation="pulse" sx={{ bgcolor: '#54B4D3' }} height="40px" width="100%" />
-
-                        <Skeleton animation="pulse" sx={{ bgcolor: '#54B4D3' }} height="20px" width="60%" />
-                        <Skeleton animation="pulse" sx={{ bgcolor: '#54B4D3' }} height="20px" width="60%" />
-                        <Skeleton animation="pulse" sx={{ bgcolor: '#54B4D3' }} height="20px" width="60%" />
-                        <Skeleton animation="pulse" sx={{ bgcolor: '#54B4D3' }} height="20px" width="60%" />
-                        <Skeleton animation="pulse" sx={{ bgcolor: '#54B4D3' }} height="20px" width="50%" />
-                        <Skeleton animation="pulse" sx={{ bgcolor: '#54B4D3' }} height="20px" width="50%" />
-                        <Skeleton animation="pulse" sx={{ bgcolor: '#54B4D3' }} height="20px" width="50%" /><br/>
-                        <Skeleton animation="pulse" variant="rectangular" sx={{ bgcolor: '#54B4D3', width: {xs: '30%', sm: '30%', md: '40%'} }} height="40px" />
-                    </Box>
-                    </>
+                {infoData.isLoading ? 
+                    <MediaDashboardSkeleton />
                 : 
-                <div className='stream-dashboard-content' style={{ backgroundColor: isMobile ? 'rgba(15, 22, 34, 0.5)' : 'transparent' }}>
-                    <div className='stream-dashboard-title'><h1>{ infoValue?.title }</h1>
+                    <div className='stream-dashboard-content' style={{ backgroundColor: isMobile ? 'rgba(15, 22, 34, 0.5)' : 'transparent' }}>
+                        <div className='stream-dashboard-title'><h1>{ infoValue?.title }</h1>
 
-                    <label className='stream-dashboard-servername'>
-                        <span className='stream-video-quality-span' style={{ fontSize: '14px', backgroundColor: 'transparent', fontWeight: 'bolder', border: '1.5px solid', marginRight: '5px' }}>
-                            English Subtitle
-                        </span> | {infoValue?.episodes?.length > 1 ? `Episode 1 to ${infoValue?.episodes?.length} |` : ''}<ShareModal infoValue={infoValue}/></label>
+                        <label className='stream-dashboard-servername'>
+                            <span className='stream-video-quality-span' style={{ fontSize: '14px', backgroundColor: 'transparent', fontWeight: 'bolder', border: '1.5px solid', marginRight: '5px' }}>
+                                English Subtitle
+                            </span> | {infoValue?.episodes?.length > 1 ? `Episode 1 to ${infoValue?.episodes?.length} |` : ''}<ShareModal infoValue={infoValue}/></label>
 
-                    </div>
-                    <p className='stream-dashboard-description' title={DOMPurify.sanitize(infoValue?.description).trim()} dangerouslySetInnerHTML={{ __html: infoValue?.description.trim() ? DOMPurify.sanitize(infoValue?.description).trim() : '-'}}/>
-                    <div className='stream-dashboard-description-details'>
-                        <b style={{ color: '#DC4C64', marginRight: '5px' }}>Country:</b> 
-                            <Link className='text-link' to={`/asian_films/country_filter?country=${infoValue?.country}`}>{infoValue?.country}</Link>
-                        <br/>
-                        <b style={{ color: '#DC4C64', marginRight: '5px' }}>Released:</b> 
-                            { infoValue?.releaseDate ? infoValue?.releaseDate : '-' }
-                        <br/>
-                        <b style={{ color: '#DC4C64', marginRight: '5px' }}>Director:</b> 
-                            { infoValue?.director ? (<Link className='text-link' to={`https://www.google.com/search?q=${infoValue?.director}`}>{infoValue?.director}</Link>) : "-" }
-                        <br/>
-                        <b style={{ color: '#DC4C64', marginRight: '5px' }}>Other Names:</b> 
-                        {infoValue?.otherNames ? (
-                            <SeparateArrayByComma type={'google_link'} data={infoValue?.otherNames} link={'https://www.google.com/search?q='} />
-                        ) : (
-                            "-"
-                        )}
-                        <br/>
-                        <b style={{ color: '#DC4C64', marginRight: '5px' }}>Genres:</b> 
-                        <SeparateArrayByComma type={'site_link'} data={infoValue?.genre} link={'/asian_films/genre_filter?genre='} />
-                    </div>
-                    {(resourceData.isSuccess && savedMedia?.length >= maxMediaSaved && savedMedia?.filter(item => item?.mediaId == indexId).length === 0) && 
-                        <div className='stream-dashboard-season-episode'>
-                            <Typography variant="span">
-                                {maxMediaSavedMessage}
-                            </Typography>
                         </div>
-                    }
-                    <div className='stream-dashboard-playbutton'>
+                        <p className='stream-dashboard-description' title={DOMPurify.sanitize(infoValue?.description).trim()} dangerouslySetInnerHTML={{ __html: infoValue?.description.trim() ? DOMPurify.sanitize(infoValue?.description).trim() : '-'}}/>
+                        <div className='stream-dashboard-description-details'>
+                            <b style={{ color: '#DC4C64', marginRight: '5px' }}>Country:</b> 
+                                <Link className='text-link' to={`/asian_films/country_filter?country=${infoValue?.country}`}>{infoValue?.country}</Link>
+                            <br/>
+                            <b style={{ color: '#DC4C64', marginRight: '5px' }}>Released:</b> 
+                                { infoValue?.releaseDate ? infoValue?.releaseDate : '-' }
+                            <br/>
+                            <b style={{ color: '#DC4C64', marginRight: '5px' }}>Director:</b> 
+                                { infoValue?.director ? (<Link className='text-link' to={`https://www.google.com/search?q=${infoValue?.director}`}>{infoValue?.director}</Link>) : "-" }
+                            <br/>
+                            <b style={{ color: '#DC4C64', marginRight: '5px' }}>Other Names:</b> 
+                            {infoValue?.otherNames ? (
+                                <SeparateArrayByComma type={'google_link'} data={infoValue?.otherNames} link={'https://www.google.com/search?q='} />
+                            ) : (
+                                "-"
+                            )}
+                            <br/>
+                            <b style={{ color: '#DC4C64', marginRight: '5px' }}>Genres:</b> 
+                            <SeparateArrayByComma type={'site_link'} data={infoValue?.genre} link={'/asian_films/genre_filter?genre='} />
+                        </div>
                         {(resourceData.isSuccess && savedMedia?.length >= maxMediaSaved && savedMedia?.filter(item => item?.mediaId == indexId).length === 0) && 
-                            <SaveListModal loadSavedMedia={loadSavedMedia}/>
+                            <div className='stream-dashboard-season-episode'>
+                                <Typography variant="span">
+                                    {maxMediaSavedMessage}
+                                </Typography>
+                            </div>
                         }
-                        {infoData.isSuccess && <TraillerModal category="asian_films" infoValue={infoValue} setSnackBarType={setSnackBarType} setSnackBarMessage={setSnackBarMessage} setSnackBarOpen={setSnackBarOpen}/>}
-                        {infoData.isSuccess && resourceData.isSuccess ? 
-                        <>
-                            {infoValue?.episodes?.length > 0 && resourceValue?.data?.sources?.length > 0 && 
-                                <AsianDramaPlayModal infoValue={infoValue} episodes={infoValue?.episodes} episodeIdVar={episodeIdVar} setEpisodeIdVar={setEpisodeIdVar} url={`/watch/${indexId}`} />
+                        <div className='stream-dashboard-playbutton'>
+                            {(resourceData.isSuccess && savedMedia?.length >= maxMediaSaved && savedMedia?.filter(item => item?.mediaId == indexId).length === 0) && 
+                                <SaveListModal loadSavedMedia={loadSavedMedia}/>
                             }
-                        </>
-                        : <></>}
+                            {infoData.isSuccess && <TraillerModal category="asian_films" infoValue={infoValue} setSnackBarType={setSnackBarType} setSnackBarMessage={setSnackBarMessage} setSnackBarOpen={setSnackBarOpen}/>}
+                            {infoData.isSuccess && resourceData.isSuccess ? 
+                            <>
+                                {infoValue?.episodes?.length > 0 && resourceValue?.data?.sources?.length > 0 && 
+                                    <AsianDramaPlayModal infoValue={infoValue} episodes={infoValue?.episodes} episodeIdVar={episodeIdVar} setEpisodeIdVar={setEpisodeIdVar} url={`/watch/${indexId}`} />
+                                }
+                            </>
+                            : <></>}
+                        </div>
                     </div>
-                </div>}
+                }
             </div>
             {/* refetching count */}
             {(resourceData?.failureCount > 0 && resourceData?.failureCount <= 3) && 
