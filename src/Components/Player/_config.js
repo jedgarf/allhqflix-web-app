@@ -71,7 +71,13 @@ export const destroyPlayFlv = () => {
 export const saveProgress = (details, mediaId, type, paramDub, seasonNumber, episodeId, episodeNumber, server, currentTime, duration) => {
 
     const savedMedia = getAllSavedCookiesMedia();
-    const image = details?.image;
+    var image = details?.image;
+
+    if(indexId == 21) {
+        const arcs = require('../../Services/Data/onePieceArcs.json').arcs;
+        image = arcs.find(item => item.start_episode <= parseInt(episodeNumber) && item.end_episode >= parseInt(episodeNumber))?.mini_banner;
+    }
+
     const title = type === 'anime' ? (details?.title?.english || details?.title?.userPreferred || details?.title?.romaji || details?.title?.native) : details?.title;
     const quality = type === 'movie' || type === 'tv' ? details?.video_quality : '';
     if (savedMedia?.length < maxMediaSaved) {
