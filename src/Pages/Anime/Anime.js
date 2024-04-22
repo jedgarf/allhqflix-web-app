@@ -97,7 +97,7 @@ const Anime = () => {
                     <div className="movies__boxx">
                       <AnimeDiscovers
                         id={item?.id}
-                        banner={item?.cover}
+                        banner={item?.id == '21' ? 'https://artworks.thetvdb.com/banners/series/81797/backgrounds/5fc04e62ebaba.jpg' : item?.cover}
                         title={item?.title.english || item?.title.userPreferred || item?.title.romaji}
                         des={item?.description}
                         year={item?.releaseDate}

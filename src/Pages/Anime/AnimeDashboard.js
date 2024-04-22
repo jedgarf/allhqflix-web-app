@@ -76,6 +76,8 @@ const AnimeDashboard = (props) => {
     paramDub = savedMedia[0].dub ? savedMedia[0].dub == 'true' : false;
   }
 
+  const [BGImage, setBGImage] = useState("");
+  const [bannerImage, setBannerImage] = useState("");
   const [selectedArc, setSelectedArc] = useState("");
   const [videoQualities, setVideoQualities] = useState([]);
   const [recommendations, setRecommendations] = useState([]);
@@ -217,8 +219,9 @@ const AnimeDashboard = (props) => {
   const previousEpisode = () => {
     if (selectedEpisodeIndex > 0 && selectedEpisodeIndex < infoValue?.episodes?.length) {
       const getTargetEpisode = infoValue?.episodes[selectedEpisodeIndex-1];
+      handleChangeBGImage(); 
       setLoadingEpisode(true);
-      setSelectedEpisode(getTargetEpisode?.id); 
+      setSelectedEpisode(getTargetEpisode?.id);
       moveToTop();
       return true;
     } else {
@@ -229,6 +232,7 @@ const AnimeDashboard = (props) => {
   const nextEpisode = () => {
     if (selectedEpisodeIndex >= 0 && (selectedEpisodeIndex + 1) < infoValue?.episodes?.length) {
       const getTargetEpisode = infoValue?.episodes[selectedEpisodeIndex+1];
+      handleChangeBGImage(); 
       setLoadingEpisode(true);
       setSelectedEpisode(getTargetEpisode?.id); 
       moveToTop();
@@ -277,6 +281,16 @@ const AnimeDashboard = (props) => {
     }
   }
 
+  const handleChangeBGImage = () => {
+    const episodeNumber = infoValue?.episodes?.find((item) => item?.id == selectedEpisode)?.number;
+    if(indexId == 21) {
+        setBGImage(arcs.find(item => item.start_episode <= parseInt(episodeNumber) && item.end_episode >= parseInt(episodeNumber))?.big_banner || infoValue?.artwork[6].img);
+        setBannerImage(arcs.find(item => item.start_episode <= parseInt(episodeNumber) && item.end_episode >= parseInt(episodeNumber))?.mini_banner || infoValue?.image);
+    } else {
+        setBGImage(infoValue?.cover);
+    }
+  }
+
   useEffect(() => {
 
     if (infoData.isSuccess) {
@@ -301,6 +315,8 @@ const AnimeDashboard = (props) => {
     //   console.log('downloadLinks', downloadLinks);
     // }
     // , callableReactQuery.isSuccess, downloadLinks
+
+    handleChangeBGImage();
 
     // ------------------------------------------------------------------------------------
 
@@ -339,7 +355,7 @@ const AnimeDashboard = (props) => {
       <ReactQueryTools/>
       <SideBar Type={type} subType={null} transparentBg={false} isStream={true} />
       <SnackBar severity={snackBarType} handleSnackBarOpen={handleSnackBarOpen} status={snackBarOpen} snackBarMessage={snackBarMessage} />
-      <div className="movie_cover" style={{backgroundImage: `linear-gradient(rgba(10, 10, 10, 1),rgba(10, 10, 10, 0.5), rgba(10, 10, 10, 0.2)), url("${infoValue?.cover}"), url("${homeBackground}")`}}>
+      <div className="movie_cover" style={{backgroundImage: `linear-gradient(rgba(10, 10, 10, 1),rgba(10, 10, 10, 0.5), rgba(10, 10, 10, 0.2)), url("${BGImage}"), url("${homeBackground}")`}}>
         <div className="heading cheading movie-stream-title">
           <h6> </h6>
         </div>
@@ -350,7 +366,7 @@ const AnimeDashboard = (props) => {
             episodes={infoValue?.episodes}
             defaultlink={defaultLink}
             infotitle={totalEpisodes > 1 ? `${contentTitle} - Episode ${episodeNum} ${infoValue?.subOrDub === 'dub' ? '(English Dub)' : ''}` : `${contentTitle} ${infoValue?.subOrDub === 'dub' ? '(English Dub)' : ''}`}
-            infocover={infoValue?.cover}
+            infocover={BGImage}
             episodeNum={episodeNum}
             totalEpisodes={totalEpisodes}
             nextEpisode={nextEpisode}
@@ -444,6 +460,7 @@ const AnimeDashboard = (props) => {
                 setLoadingEpisode={setLoadingEpisode}
                 itemsPerPage={episodesPerPage}
                 episodesCurrentPage={episodesCurrentPage}
+                handleChangeBGImage={handleChangeBGImage}
                 moveToTop={moveToTop}
                 drawerAlign={'bottom'}
               />
@@ -472,6 +489,7 @@ const AnimeDashboard = (props) => {
                 setLoadingEpisode={setLoadingEpisode}
                 itemsPerPage={episodesPerPage}
                 episodesCurrentPage={episodesCurrentPage}
+                handleChangeBGImage={handleChangeBGImage}
                 moveToTop={moveToTop}
                 drawerAlign={'right'}
               />
@@ -509,7 +527,9 @@ const AnimeDashboard = (props) => {
               <Fragment>
                 <Grid item xl={2} lg={2} md={0} sm={0} xs={0} display={{ xs: 'none', sm: 'none', md: 'none', lg: 'block' }}>
                   <center>
-                    <img src={infoValue?.image} alt={contentTitle} style={{ marginTop: '-60px', marginBottom: '30px' }} />
+                    <img 
+                      src={bannerImage} 
+                      alt={contentTitle} style={{ marginTop: '-60px', marginBottom: '30px' }} />
                   </center>
                 </Grid>
                 <Grid item xl={10} lg={10} md={12} sm={12} xs={12}>

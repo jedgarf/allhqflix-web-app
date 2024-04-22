@@ -22,6 +22,8 @@ const MovieCard = React.lazy(() => import('../LazyImageComponent/MovieCard'));
 
 function AnimeRow({ isloadImage, cat, img, id, title, type, release_date, rate, episode, season, grid, slug }) {
 
+  const arcs = id === "21" ? require('../../Services/Data/onePieceArcs.json').arcs : [];
+  const [cardImage, setCardImage] = useState("");
   const [savedMedia, setSavedMedia] = useState([]);
   
   const year = new Date(release_date);
@@ -49,13 +51,21 @@ function AnimeRow({ isloadImage, cat, img, id, title, type, release_date, rate, 
   useEffect(() => {
     const savedCookiesMedia = getAllSavedCookiesMedia(id);
     setSavedMedia(savedCookiesMedia);
-  }, [id]);
+
+    if (id === "21") {
+      setCardImage(savedCookiesMedia.length === 1 ? 
+        arcs.find(item => item.start_episode <= savedMedia[0]?.episodeNumber && item.end_episode >= savedMedia[0]?.episodeNumber)?.mini_banner
+        : 
+        arcs.find(item => item.start_episode <= parseInt(episode) && item.end_episode >= parseInt(episode))?.mini_banner
+      );
+    }
+  }, [id, episode, img, savedMedia]);
   
   return (
     <div className='movie_card' key={id} title={savedMedia.length === 1 ? 'Continue' : 'Play'}>
 
       <Link to={`/${contentType}/stream_dashboard?mediaId=${id}`}>
-        <MovieCard src={img} title={title} contentType={contentType} />
+        <MovieCard src={cardImage || img} title={title} contentType={contentType} />
       </Link>
 
       {savedMedia.length === 1 && 

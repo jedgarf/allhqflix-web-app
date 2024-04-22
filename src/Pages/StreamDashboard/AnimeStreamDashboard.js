@@ -81,6 +81,7 @@ const AnimeStreamDashboard = (props) => {
     const queryParams = new URLSearchParams(window.location.search);
     const indexId = queryParams.get("mediaId");
     const isShare = queryParams.get("share");
+    var arcs = indexId == 21 ? require('../../Services/Data/onePieceArcs.json').arcs : [];
 
     const Android12Switch = styled(Switch)(({ theme }) => ({
         marginLeft: 8,
@@ -194,20 +195,36 @@ const AnimeStreamDashboard = (props) => {
     const handleResize = useCallback(() => {
         if (window.innerWidth < 720) {
             setBGImage(infoValue?.image);
+            if(indexId == 21) {
+                if (savedMedia?.filter(item => item?.mediaId == indexId).length > 0) {
+                    const savedCurrentData = savedMedia?.filter(item => item?.mediaId == indexId);
+                    setBGImage(arcs.find(item => item.start_episode <= savedCurrentData[0]?.episodeNumber && item.end_episode >= savedCurrentData[0]?.episodeNumber)?.mini_banner || infoValue?.image);
+                } else {
+                    setBGImage(arcs.find(item => item.start_episode <= infoValue?.episodes?.length && item.end_episode >= infoValue?.episodes?.length)?.mini_banner || infoValue?.image);
+                }
+            } else {
+                setBGImage(infoValue?.image);
+            }
             setIsMobile(true);
         } else {
-            if(indexId == 21 && infoValue?.artwork?.length > 6) {
-                setBGImage(infoValue?.artwork[6].img);
+            if(indexId == 21) {
+                if (savedMedia?.filter(item => item?.mediaId == indexId).length > 0) {
+                    const savedCurrentData = savedMedia?.filter(item => item?.mediaId == indexId)[0];
+                    setBGImage(arcs.find(item => item.start_episode <= savedCurrentData?.episodeNumber && item.end_episode >= savedCurrentData?.episodeNumber)?.big_banner || infoValue?.artwork[6].img);
+                } else {
+                    setBGImage(arcs.find(item => item.start_episode <= infoValue?.episodes?.length && item.end_episode >= infoValue?.episodes?.length)?.big_banner || infoValue?.artwork[6].img);
+                }
             } else {
                 setBGImage(infoValue?.cover);
             }
             setIsMobile(false);
         }
-    }, [indexId, infoValue?.image, infoValue?.artwork, infoValue?.cover]);
+    }, [indexId, infoValue?.image, infoValue?.artwork, infoValue?.cover, arcs, infoValue?.episodes?.length, BGImage]);
 
     const handleBackgroundImageError = () => setBGImage(homeBackground);
 
     useEffect(() => {
+
         loadSavedMedia();
         if (infoData.isSuccess) {
             document.title = `AllHQFlix - ${ infoValue?.title?.english || infoValue?.title?.userPreferred || infoValue?.title?.romaji || infoValue?.title?.native }`;

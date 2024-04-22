@@ -25,6 +25,7 @@ const MovieCard = React.lazy(() => import('../LazyImageComponent/MovieCard'));
 
 const SearchResult = ({ isloadImage, contentType, img, id, title, type, release_date, rate, season, episode, slug, video_quality, hasLink }) => {
 
+  const [cardImage, setCardImage] = useState("");
   const [savedMedia, setSavedMedia] = useState([]);
   const [ loadingPicture, setLoadingPicture ] = useState(isloadImage);
   const year = new Date(release_date);
@@ -53,7 +54,15 @@ const SearchResult = ({ isloadImage, contentType, img, id, title, type, release_
   useEffect(() => {
     const savedCookiesMedia = getAllSavedCookiesMedia(id);
     setSavedMedia(savedCookiesMedia);
-  }, [id]);
+
+    if (id === "21") {
+      var arcs = require('../../Services/Data/onePieceArcs.json').arcs;
+      setCardImage(savedCookiesMedia.length === 1 ? 
+        arcs.find(item => item.start_episode <= savedMedia[0]?.episodeNumber && item.end_episode >= savedMedia[0]?.episodeNumber).mini_banner
+        : 
+        arcs.find(item => item.start_episode <= parseInt(episode) && item.end_episode >= parseInt(episode)).mini_banner);
+    }
+  }, [id, episode, img, savedMedia]);
 
   return (
     <div className='result_movie_card' key={id} title={savedMedia.length === 1 ? 'Continue' : 'Play'}>
@@ -62,19 +71,19 @@ const SearchResult = ({ isloadImage, contentType, img, id, title, type, release_
         {hasLink ?
           <Link to={`/${foreignType}/stream_dashboard?mediaId=${id}`}>
             <Suspense fallback={<Skeleton className="img-card-result-skeleton" sx={{ bgcolor: 'grey.900' }} style={{marginTop: '-19px'}} variant="rectangular" />}>
-              <MovieCard src={img} title={title} />
+              <MovieCard src={cardImage || img} title={title} />
             </Suspense>
           </Link>
           : 
           <Suspense fallback={<Skeleton className="img-card-result-skeleton" sx={{ bgcolor: 'grey.900' }} style={{marginTop: '-19px'}} variant="rectangular" />}>
-            <MovieCard src={img} title={title} />
+            <MovieCard src={cardImage || img} title={title} />
           </Suspense>
         }
         </>
       ) : (
         <Link to={`/${contentType}/stream_dashboard?mediaId=${id}`}>
           <Suspense fallback={<Skeleton className="img-card-result-skeleton" sx={{ bgcolor: 'grey.900' }} style={{marginTop: '-19px'}} variant="rectangular" />}>
-            <MovieCard src={img} title={title} />
+            <MovieCard src={cardImage || img} title={title} />
           </Suspense>
         </Link>
       )}

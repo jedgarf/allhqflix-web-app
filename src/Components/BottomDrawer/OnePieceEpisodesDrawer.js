@@ -20,7 +20,7 @@ import ListIcon from '@mui/icons-material/List';
 // Utils
 import { animeSearchNumberBetween } from "../../Services/Utils";
 
-export default function OnePieceEpisodesDrawer({ details, downloadUrl, mediaId, episodeId, setSelectedEpisode, setLoadingEpisode, itemsPerPage, episodesCurrentPage, moveToTop, drawerAlign }) {
+export default function OnePieceEpisodesDrawer({ details, downloadUrl, mediaId, episodeId, setSelectedEpisode, setLoadingEpisode, itemsPerPage, episodesCurrentPage, handleChangeBGImage, moveToTop, drawerAlign }) {
 
   const [state, setState] = React.useState({ bottom: false });
   const norm_episodes = details?.episodes;
@@ -66,6 +66,7 @@ export default function OnePieceEpisodesDrawer({ details, downloadUrl, mediaId, 
 
   const handleChangeEpisode = (e, epId, anchor) => {
     e.preventDefault();
+    handleChangeBGImage();
     setLoadingEpisode(true);
     setSelectedEpisode(epId);
     setState({ ...state, [anchor]: false });
