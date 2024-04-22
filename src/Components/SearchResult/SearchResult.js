@@ -57,11 +57,12 @@ const SearchResult = ({ isloadImage, contentType, img, id, title, type, release_
 
     if (id == "21") {
       var arcs = require('../../Services/Data/onePieceArcs.json').arcs;
-      setCardImage(savedMedia?.filter(item => item?.mediaId == id).length > 0 ? 
-        arcs.find(item => item.start_episode <= savedMedia[0]?.episodeNumber && item.end_episode >= savedMedia[0]?.episodeNumber)?.mini_banner
-        : 
-        arcs.find(item => item.start_episode <= parseInt(episode) && item.end_episode >= parseInt(episode))?.mini_banner
-      );
+      // setCardImage(savedMedia?.filter(item => item?.mediaId == id).length > 0 ? 
+      //   arcs.find(item => item.start_episode <= savedMedia[0]?.episodeNumber && item.end_episode >= savedMedia[0]?.episodeNumber)?.mini_banner
+      //   : 
+      //   arcs.find(item => item.start_episode <= parseInt(episode) && item.end_episode >= parseInt(episode))?.mini_banner
+      // );
+      setCardImage(arcs.find(item => item.start_episode <= parseInt(episode) && item.end_episode >= parseInt(episode))?.mini_banner);
     }
   }, [id, episode, img, savedMedia]);
 
@@ -90,9 +91,9 @@ const SearchResult = ({ isloadImage, contentType, img, id, title, type, release_
       )}
 
       {savedMedia.length === 1 && 
-        <div className="fav" style={{ color: '#ccced1', fontSize: '14px', borderRadius: '10px 0 10px 0' }}>
+        <div className="fav" style={{ color: '#ccced1', fontSize: '12px', borderRadius: '10px 0 10px 0' }}>
           <PauseIcon style={{ fontSize: '16px', marginBottom: '-3px' }}/>{' '}
-          {(type === 'TV' || type === 'TV Series') ? (savedMedia[0]?.category === 'tv' ? `S${savedMedia[0]?.seasonNumber} / ` : '') + `EP${savedMedia[0]?.episodeNumber}` : secondsToHMS(savedMedia[0]?.time)}<br/>
+          {(type === 'TV' || type === 'TV Series') ? (savedMedia[0]?.category === 'tv' ? `S ${savedMedia[0]?.seasonNumber} / ` : '') + `EP ${savedMedia[0]?.episodeNumber}` : secondsToHMS(savedMedia[0]?.time)}<br/>
           {(savedMedia[0]?.category === 'tv' || savedMedia[0]?.category === 'anime') && 
             <Fragment>
               <AccessTimeIcon style={{ fontSize: '16px', marginBottom: '-3px' }}/> {secondsToHMS(savedMedia[0]?.time)}
