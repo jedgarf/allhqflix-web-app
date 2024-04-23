@@ -38,7 +38,7 @@ function Footer() {
                             <Grid item xl={5} lg={5} md={5} sm={5} xs={5}>
                                 <div className="footer_links">
                                     <ul type='none'>
-                                        <li><Link className="text-link" to="/" onClick={moveToTop}>Home Page</Link></li>
+                                        {/* <li><Link className="text-link" to="/" onClick={moveToTop}>Home Page</Link></li> */}
                                         <li><Link className="text-link" to="/foreign/movies">Movies</Link></li>
                                         <li><Link className="text-link" to="/foreign/tvshow">TV Series</Link></li>
                                         <li><Link className="text-link" to="/anime">Anime</Link></li>
