@@ -217,7 +217,7 @@ const ContactUs = () => {
                                                         </Grid>
                                                         <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
                                                             <Typography>Contact Email: <a className='text-link' href={`mailto:${site_email}`}>{site_email}</a></Typography>
-                                                            <Typography>Creator: <a className='text-link' href={`https://jefdev.vercel.app/`} target='__blank'>JEFDEV Projects</a></Typography>
+                                                            {/* <Typography>Creator: <a className='text-link' href={`https://jefdev.vercel.app/`} target='__blank'>JEFDEV Projects</a></Typography> */}
                                                         </Grid>
                                                     </Grid>
                                                 </Container>

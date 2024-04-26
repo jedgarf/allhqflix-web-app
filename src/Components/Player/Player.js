@@ -45,7 +45,10 @@ const Player = ({ details, episodes, defaultlink, infotitle, infocover, seasonNu
     useEffect(() => {
 
         var art;
-        var customIcons = { loading: `<img width="100" src="${customLoadingFileName}">` };
+        var customIcons = { 
+            loading: `<img width="100" src="${customLoadingFileName}">`, 
+            // state: `<img width="100" src="${details?.image}">`
+        };
 
         if (process.env.NODE_ENV === 'production') Artplayer.DEBUG = false;
 
@@ -155,6 +158,7 @@ const Player = ({ details, episodes, defaultlink, infotitle, infocover, seasonNu
             });
 
             art.on('video:ended', () => {
+                art.poster = infocover || homeBackground;
                 if (episodeNum === totalEpisodes) {
                     deleteCookie(decodeURIComponent(mediaId));
                     if (!isMobile) art.fullscreenWeb = false;
