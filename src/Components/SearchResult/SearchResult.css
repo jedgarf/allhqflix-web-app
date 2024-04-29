@@ -48,9 +48,12 @@
     .result_movie_card .image-container img {
         height: 170px !important;
         width: 120px !important;
-        border-radius: 10px;
     }
     .movie_result_name {
+        width: 120px !important;
+    }
+    .img-card-result-skeleton {
+        height: 170px !important;
         width: 120px !important;
     }
 }
