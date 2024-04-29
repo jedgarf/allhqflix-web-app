@@ -43,8 +43,8 @@ function Discovers({ banner, title, des, id, year, season, genres, slug, video_q
               {title} <span>{urlContentSubType === "movie" && '(' + year.split("-")[0] + ')'}</span>
             </Typography>
             <Typography variant="p" sx={{ display: { xs: 'none', lg: 'flex' }, marginTop: '10px' }}>
-              <span style={{ backgroundColor: 'rgba(0, 0, 0, 0.50)', padding: '8px 5px', borderRadius: 5 }}>
-                <SeparateArrayButtons type={'site_link'} color={'primary'} data={genres} link={'/foreign/genre_filter?genre='} />
+              <span style={{ padding: '8px 5px', borderRadius: 5 }}>
+                <SeparateArrayButtons type={'site_link'} color={''} data={genres} link={'/foreign/genre_filter?genre='} />
               </span>
             </Typography>
             <Typography display={{ xs: 'none', md: 'flex' }} style={{marginTop: '5px'}}>{des ? truncate(des, 250) : '-'}</Typography>

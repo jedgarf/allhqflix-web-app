@@ -189,14 +189,14 @@ const useContainerDimensions = myRef => {
             <span key={i}>
               {type === "site_link" ?
                 <Link className='text-link-without-underline' title={item} to={`${link}${item}`} style={{ cursor: 'pointer', marginRight: '5px' }}>
-                  <Button variant="outlined" size="small" color={color}>{item}</Button>
+                  <Button variant="outlined" size="small" color={color || 'primary'} style={color ? {} : { color: 'var(--four-color)', border: 'var(--four-color) 1px solid' }}>{item}</Button>
                 </Link>
                : type === "google_link" ? 
                 <a className='text-link-without-underline' href={`${link}${item}`} alt={item} title={item} rel='noreferrer' target='_blank' style={{ cursor: 'pointer', marginRight: '5px' }}>
-                  <Button variant="outlined" size="small" color={color}>{item}</Button>
+                  <Button variant="outlined" size="small" color={color || 'primary'} style={color ? {} : { color: 'var(--four-color)', border: 'var(--four-color) 1px solid' }}>{item}</Button>
                 </a>
                : 
-               <Button variant="outlined" size="small" color={color} style={{ cursor: 'pointer', marginRight: '5px' }}>{item}</Button>}
+               <Button variant="outlined" size="small" color={color || 'primary'} style={{ cursor: 'pointer', marginRight: '5px' }}>{item}</Button>}
             </span>
           );
         })}

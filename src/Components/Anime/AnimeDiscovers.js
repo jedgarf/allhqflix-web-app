@@ -41,8 +41,8 @@ function AnimeDiscovers({ banner, title, des, id, year, season, genres, episode,
               {title}
             </Typography>
             <Typography variant="p" sx={{ display: { xs: 'none', lg: 'flex' }, marginTop: '10px' }}>
-              <span style={{ backgroundColor: 'rgba(0, 0, 0, 0.50)', padding: '8px 5px', borderRadius: 5 }}>
-                <SeparateArrayButtons type={'site_link'} color={'primary'} data={genres} link={'/anime/genre_filter?genre='} />
+              <span style={{ padding: '8px 5px', borderRadius: 5 }}>
+                <SeparateArrayButtons type={'site_link'} color={''} data={genres} link={'/anime/genre_filter?genre='} />
               </span>
             </Typography>
             <Typography display={{ xs: 'none', sm: 'flex' }} style={{marginTop: '5px'}}>{truncate(des, 250)}</Typography>
