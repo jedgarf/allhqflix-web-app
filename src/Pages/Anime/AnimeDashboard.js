@@ -253,8 +253,8 @@ const AnimeDashboard = (props) => {
         html: isMobile ? `PREV.` : `&#8678;`,
         tooltip: 'Previous Episode',
         style: {
-          fontSize: isMobile ? '15px' : '43px',
-          marginTop: isMobile ? 0 : '-8px',
+          fontSize: isMobile ? '15px' : '30px',
+          marginTop: isMobile ? 0 : '-6px',
           marginRight: isMobile ? '8px' : 0
         },
         click: function (item) {
@@ -270,8 +270,8 @@ const AnimeDashboard = (props) => {
         html: isMobile ? `NEXT` : `&#8680;`,
         tooltip: 'Next Episode',
         style: {
-          fontSize: isMobile ? '15px' : '43px',
-          marginTop: isMobile ? 0 : '-8px',
+          fontSize: isMobile ? '15px' : '30px',
+          marginTop: isMobile ? 0 : '-6px',
           marginRight: isMobile ? '8px' : 0
         },
         click: function (item) {
