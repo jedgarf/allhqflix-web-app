@@ -123,7 +123,7 @@ const Home = () => {
       <LoadingPage/>
      : 
     <div className="landing-page">
-      <ParticleEffect containerId="landing-page"/>
+      <ParticleEffect/>
       <ReactQueryTools/>
       <SideBar Type={type} subType={null} haveSearch={false}/>
 
