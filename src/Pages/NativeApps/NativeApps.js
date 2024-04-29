@@ -21,6 +21,9 @@ import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 import { pageLoadMS } from "../../Config/settings.config";
 import { homeBackground, appPhoto } from "../../Config/images.config";
 
+// CSS
+import './NativeApps.css';
+
 const darkTheme = createTheme({
     palette: {
       mode: 'dark',
@@ -29,7 +32,7 @@ const darkTheme = createTheme({
 
 const NativeApps = () => {
 
-    document.title = 'AllHQFlix - Native Apps';
+    document.title = 'AllHQFlix - Mobile App';
     const type = 'native_apps';
 
     const [isLoading, setIsLoading] = useState(true);
@@ -44,59 +47,53 @@ const NativeApps = () => {
         isLoading ? 
             <LoadingPage/>
         : 
-        <div className="landing-page">
+        <div className="home-bg-only" style={{ height: '100%' }}>
             <ReactQueryTools/>
-            <SideBar Type={type} subType={null} haveSearch={true} transparentBg={false} isStream={true}/>
-            <div className="divFocus">
-                <ThemeProvider theme={darkTheme}>
-                    <CssBaseline />
-                    <div style={{ paddingBlock: `5vh` }}>
-                        <div style={{ width: '100%' }}>
-
-                            <Container maxWidth={'md'}>
-                                <div className="appdownloads" style={{ backgroundImage: `linear-gradient(rgba(10, 10, 10, 0.5), rgba(10, 10, 10, 0.5)) , url("${homeBackground}")`, borderRadius: 10, padding: 40, minHeight: '450px', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '130px' }}>
-                                    <div className="apd-container">
-                                        <div className="apdc-content text-white">
-                                            <Grid container direction="row" columnSpacing={{ xs: 2, sm: 2, md: 2, lg: 2, xl: 2 }} rowSpacing={0}>
-                                                <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
-                                                    <center>
-                                                        <div className="app-demo">
-                                                            <div className="app-screen"><img src={appPhoto} alt='' width={260}/></div>
-                                                        </div>
-                                                    </center>
-                                                </Grid>
-                                                <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
-                                                    <h1 className="app-heading"><strong>AllHQFLix Official Mobile App</strong></h1>
-                                                    <div className="app-desc" style={{ marginLeft: '-20px' }}>
-                                                        <ul>
-                                                            <li>Free HD Movies and Series for Android Phones and Android TV.</li>
-                                                            <li>Absolutely no ads.</li>
-                                                            <li>Chrome cast support.</li>
-                                                            <li>Daily update on both Movies and Series.</li>
-                                                        </ul>
-                                                    </div>
-                                                    <div className="app-btn" style={{ textAlign: 'center' }}>
-                                                        {/* https://dl.getmenow.click/onstream-latest.apk?ref=289 */}
-                                                        {/* <a href="https://drive.google.com/file/d/1C3GxpI17MdX5_yRoWzhRRIUAUOkuLUe6/view" target='__blank' className='text-link-without-underline' style={{ maxWidth: '100px' }}>
-                                                            <Button variant='contained' color='primary' style={{ color: 'black !important' }} size='small' fullWidth startIcon={<InstallMobileIcon/>}>
-                                                                Download for hybrid android app
-                                                            </Button>
-                                                        </a><br/> */}
-                                                        <Button variant='contained' color='primary' style={{ color: 'black !important' }} size='small' fullWidth startIcon={<InstallMobileIcon/>} disabled={true}>
-                                                            Download (Soon)
-                                                        </Button>
-                                                    </div>
-                                                </Grid>
-                                            </Grid>
-                                        </div>
-                                    </div>
+            <SideBar Type={type} subType={null} haveSearch={true} transparentBg={false} isStream={false}/>
+            <ThemeProvider theme={darkTheme}>
+                <CssBaseline />
+                <div style={{ width: '100%' }}>
+                    <Container>
+                        <div className="appdownloads">
+                            <div className="apd-container">
+                                <div className="apdc-content text-white">
+                                    <Grid container direction="row" columnSpacing={{ xs: 2, sm: 2, md: 2, lg: 2, xl: 2 }} rowSpacing={0}>
+                                        <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
+                                            <center>
+                                                <div className="app-demo">
+                                                    <div className="app-screen"><img src={appPhoto} alt='' width={260}/></div>
+                                                </div>
+                                            </center>
+                                        </Grid>
+                                        <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
+                                            <h1 className="app-heading"><strong>AllHQFLix Official Mobile App</strong></h1>
+                                            <div className="app-desc" style={{ marginLeft: '-20px' }}>
+                                                <ul>
+                                                    <li>Free HD Movies and Series for Android Phones and Android TV.</li>
+                                                    <li>Absolutely no ads.</li>
+                                                    <li>Chrome cast support.</li>
+                                                    <li>Daily update on both Movies and Series.</li>
+                                                </ul>
+                                            </div>
+                                            <div className="app-btn" style={{ textAlign: 'center' }}>
+                                                {/* https://dl.getmenow.click/onstream-latest.apk?ref=289 */}
+                                                {/* <a href="https://drive.google.com/file/d/1C3GxpI17MdX5_yRoWzhRRIUAUOkuLUe6/view" target='__blank' className='text-link-without-underline' style={{ maxWidth: '100px' }}>
+                                                    <Button variant='contained' color='primary' style={{ color: 'black !important' }} size='small' fullWidth startIcon={<InstallMobileIcon/>}>
+                                                        Download for hybrid android app
+                                                    </Button>
+                                                </a><br/> */}
+                                                <Button variant='contained' color='primary' style={{ color: 'black !important' }} size='small' fullWidth startIcon={<InstallMobileIcon/>} disabled={true}>
+                                                    Download (Soon)
+                                                </Button>
+                                            </div>
+                                        </Grid>
+                                    </Grid>
                                 </div>
-                            </Container>
-
+                            </div>
                         </div>
-                    </div>
-                </ThemeProvider>
-            </div>
+                    </Container>
+                </div>
+            </ThemeProvider>
             <FloatingButton/>
             <Footer />
         </div>
