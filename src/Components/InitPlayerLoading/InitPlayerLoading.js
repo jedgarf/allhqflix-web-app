@@ -22,7 +22,7 @@ const LoadingPage = ({ text }) => {
             <LinearProgress />
           </div>
           <div className='player-page-loading-text-div'>
-            <Typography className='player-page-loading-text' variant="p">{text || 'Initialize Player...'}</Typography>
+            <Typography className='player-page-loading-text' variant="p">{text || 'Initializing Player...'}</Typography>
           </div>
         </center>
       </div>

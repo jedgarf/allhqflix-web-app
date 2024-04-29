@@ -1,4 +1,4 @@
-import React from 'react';
+import { Fragment, useState } from 'react';
 
 import Skeleton from '@mui/material/Skeleton';
 
@@ -11,23 +11,38 @@ import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 // Images
 import { noImagePlaceholder } from "../../Config/images.config";
 
-const MovieCard = ({ src, title, contentType }) => {
+const MovieCard = ({ src, title, contentType, setIsImageReady }) => {
+
+    const [isImageReveal, setIsImageReveal] = useState(false);
+
+    const handleImageLoadingComplete = () => {
+        setIsImageReveal(true);
+        setIsImageReady(true);
+    }
+    
     return (
-        <div className="image-container">
-            <LazyLoadImage 
-                src={`${src}`} 
-                placeholder={<Skeleton className="img-card-skeleton" sx={{ bgcolor: 'grey.900' }} variant="rectangular" animation="wave" />} 
-                alt={title} 
-                effect="blur" 
-                onError={({ currentTarget }) => {
-                    currentTarget.onerror = null; // prevents looping
-                    currentTarget.src = noImagePlaceholder;
-                }} 
-            />
-            <div className="overlay">
-                <PlayCircleIcon/>
+        <Fragment>
+            <div className="image-container">
+                <div style={{ width: isImageReveal ? 'auto' : 0, height: isImageReveal ? 'auto' : 0 }}>
+                    <LazyLoadImage 
+                        src={`${src}`} 
+                        alt={title} 
+                        effect="blur" 
+                        onLoad={() => handleImageLoadingComplete()}
+                        onError={({ currentTarget }) => {
+                            currentTarget.onerror = null; // prevents looping
+                            currentTarget.src = noImagePlaceholder;
+                        }} 
+                    />
+                    <div className="overlay">
+                        <PlayCircleIcon/>
+                    </div>
+                </div>
+                {!isImageReveal && 
+                    <Skeleton className="img-card-skeleton" sx={{ bgcolor: 'grey.900' }} variant="rectangular" animation="wave" />
+                }
             </div>
-        </div>
+        </Fragment>
     );
 };
 

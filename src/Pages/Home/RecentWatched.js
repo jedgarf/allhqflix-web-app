@@ -42,6 +42,7 @@ const RecentWatched = ({ title = true, loadSavedMedia }) => {
         },
     });
 
+    const [isImageReady, setIsImageReady] = useState(false);
     const [prevWatch, setPrevWatch] = useState([]);
 
     const loadRecentMediaData = () => {
@@ -120,7 +121,7 @@ const RecentWatched = ({ title = true, loadSavedMedia }) => {
                                             <Box className='movie_card_with_close' key={item?.mediaId}>
                                                 <Badge badgeContent={<CloseIcon onClick={() => deleteRecentMedia(item?.mediaId, item?.title)} style={{ fontSize: '14px', cursor: 'pointer' }} title='Remove'/>} color="error">
                                                     <Link to={mediaLink}>
-                                                        <RecentMediaCard src={item?.image} title={item?.title}/>
+                                                        <RecentMediaCard src={item?.image} title={item?.title} setIsImageReady={setIsImageReady}/>
                                                     </Link>
                                                 </Badge>
 

@@ -25,6 +25,7 @@ const MovieCard = React.lazy(() => import('../LazyImageComponent/MovieCard'));
 
 const SearchResult = ({ isloadImage, contentType, img, id, title, type, release_date, rate, season, episode, slug, video_quality, hasLink }) => {
 
+  const [isImageReady, setIsImageReady] = useState(false);
   const [cardImage, setCardImage] = useState("");
   const [savedMedia, setSavedMedia] = useState([]);
   const [ loadingPicture, setLoadingPicture ] = useState(isloadImage);
@@ -68,27 +69,21 @@ const SearchResult = ({ isloadImage, contentType, img, id, title, type, release_
 
   return (
     <div className='result_movie_card' key={id} title={savedMedia.length === 1 ? 'Continue' : 'Play'}>
-      {contentType === "foreign" ? (
-        <>
-        {hasLink ?
-          <Link to={`/${foreignType}/stream_dashboard?mediaId=${id}`}>
-            <Suspense fallback={<Skeleton className="img-card-result-skeleton" sx={{ bgcolor: 'grey.900' }} style={{marginTop: '-19px'}} variant="rectangular" />}>
-              <MovieCard src={cardImage || img} title={title} />
-            </Suspense>
-          </Link>
+      {contentType === "foreign" ? 
+        hasLink && isImageReady ?
+            <Link to={`/${foreignType}/stream_dashboard?mediaId=${id}`}>
+              <MovieCard src={cardImage || img} title={title} contentType={''} setIsImageReady={setIsImageReady} />
+            </Link>
           : 
-          <Suspense fallback={<Skeleton className="img-card-result-skeleton" sx={{ bgcolor: 'grey.900' }} style={{marginTop: '-19px'}} variant="rectangular" />}>
-            <MovieCard src={cardImage || img} title={title} />
-          </Suspense>
-        }
-        </>
-      ) : (
-        <Link to={`/${contentType}/stream_dashboard?mediaId=${id}`}>
-          <Suspense fallback={<Skeleton className="img-card-result-skeleton" sx={{ bgcolor: 'grey.900' }} style={{marginTop: '-19px'}} variant="rectangular" />}>
-            <MovieCard src={cardImage || img} title={title} />
-          </Suspense>
-        </Link>
-      )}
+            <MovieCard src={cardImage || img} title={title} contentType={''} setIsImageReady={setIsImageReady} />
+      : 
+        isImageReady ? 
+          <Link to={`/${contentType}/stream_dashboard?mediaId=${id}`}>
+            <MovieCard src={cardImage || img} title={title} contentType={''} setIsImageReady={setIsImageReady} />
+          </Link>
+        : 
+          <MovieCard src={cardImage || img} title={title} contentType={''} setIsImageReady={setIsImageReady} />
+      }
 
       {savedMedia.length === 1 && 
         <div className="fav" style={{ color: '#ccced1', fontSize: '12px', borderRadius: '10px 0 10px 0' }}>
@@ -106,11 +101,11 @@ const SearchResult = ({ isloadImage, contentType, img, id, title, type, release_
         {icon}
       </div>
 
-      {video_quality === "" || video_quality === null || video_quality === undefined ?
-        ''
-        : <div className="vidq">
+      {(video_quality && isImageReady) && 
+        <div className="vidq">
           {video_quality}
-        </div>}
+        </div>
+      }
 
       <div className='movies__info inn' style={{ marginTop: '-8px' }}>
         <div className="movie__name">

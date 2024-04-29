@@ -32,6 +32,7 @@ const MoviesRow = ({isloadImage, cat, img, id, title, type, release_date, rate, 
     contentType = 'tv';
   }
 
+  const [isImageReady, setIsImageReady] = useState(false);
   const [savedMedia, setSavedMedia] = useState([]);
   const year = new Date(release_date);
   const [icon, setIcon] = React.useState(<FavoriteBorderIcon />);
@@ -54,10 +55,6 @@ const MoviesRow = ({isloadImage, cat, img, id, title, type, release_date, rate, 
     );
   };
 
-  const movieNotAvailable = () => {
-    console.log("Not available at this time.");
-  }
-
   useEffect(() => {
     const savedCookiesMedia = getAllSavedCookiesMedia(id);
     setSavedMedia(savedCookiesMedia);
@@ -65,13 +62,14 @@ const MoviesRow = ({isloadImage, cat, img, id, title, type, release_date, rate, 
 
   return (
     <Box className='movie_card' key={id} title={savedMedia.length === 1 ? 'Continue' : 'Play'}>
-      <Link to={`/${contentType}/stream_dashboard?mediaId=${id}`}>
-        <MovieCard src={img} title={title} contentType={contentType} />
-      </Link>
 
-      {/* <Link onClick={() => movieNotAvailable()}>
-        <MovieCard src={img} title={title} contentType={contentType} />
-      </Link> */}
+      {isImageReady ? 
+        <Link to={`/${contentType}/stream_dashboard?mediaId=${id}`}>
+          <MovieCard src={img} title={title} contentType={contentType} setIsImageReady={setIsImageReady} />
+        </Link>
+      : 
+        <MovieCard src={img} title={title} contentType={contentType} setIsImageReady={setIsImageReady} />
+      }
 
       {savedMedia.length === 1 && 
         <div className="fav" style={{ color: '#ccced1', fontSize: '12px', borderRadius: '10px 0 10px 0' }}>
@@ -95,9 +93,11 @@ const MoviesRow = ({isloadImage, cat, img, id, title, type, release_date, rate, 
         {icon}
       </div>
 
-      <div className="vidq">
-        {video_quality}
-      </div>
+      {(video_quality && isImageReady) && 
+        <div className="vidq">
+          {video_quality}
+        </div>
+      }
 
       <div className={'movies__info inn'}>
         <div className="movie__name" style={{ marginTop: cat === "suggestions" ? '-3px' : '-3px' }}>

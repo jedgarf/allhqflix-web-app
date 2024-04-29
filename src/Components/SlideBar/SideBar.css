@@ -1,5 +1,5 @@
 .app-bar-transparent {
-    background-color: var(--sidebar-transparent) !important;
+    background-color: transparent !important;
     color: var(--four-color) !important;
 }
 
@@ -8,6 +8,19 @@
 }
 
 .app-bar-transparent a {
+    color: var(--four-color) !important;
+}
+
+.app-bar-semi-transparent {
+    background-color: var(--sidebar-transparent) !important;
+    color: var(--four-color) !important;
+}
+
+.app-bar-semi-transparent button {
+    font-size: 12px !important;
+}
+
+.app-bar-semi-transparent a {
     color: var(--four-color) !important;
 }
 

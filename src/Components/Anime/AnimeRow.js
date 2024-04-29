@@ -23,6 +23,7 @@ const MovieCard = React.lazy(() => import('../LazyImageComponent/MovieCard'));
 function AnimeRow({ isloadImage, cat, img, id, title, type, release_date, rate, episode, season, grid, slug }) {
 
   const arcs = id === "21" ? require('../../Services/Data/onePieceArcs.json').arcs : [];
+  const [isImageReady, setIsImageReady] = useState(false);
   const [cardImage, setCardImage] = useState("");
   const [savedMedia, setSavedMedia] = useState([]);
   
@@ -65,9 +66,13 @@ function AnimeRow({ isloadImage, cat, img, id, title, type, release_date, rate, 
   return (
     <div className='movie_card' key={id} title={savedMedia.length === 1 ? 'Continue' : 'Play'}>
 
-      <Link to={`/${contentType}/stream_dashboard?mediaId=${id}`}>
-        <MovieCard src={cardImage || img} title={title} contentType={contentType} />
-      </Link>
+      {isImageReady ? 
+        <Link to={`/${contentType}/stream_dashboard?mediaId=${id}`}>
+          <MovieCard src={cardImage || img} title={title} contentType={contentType} setIsImageReady={setIsImageReady} />
+        </Link>
+      : 
+        <MovieCard src={cardImage || img} title={title} contentType={contentType} setIsImageReady={setIsImageReady} />
+      }
 
       {savedMedia.length === 1 && 
         <div className="fav" style={{ color: '#ccced1', fontSize: '12px', borderRadius: '10px 0 10px 0' }}>

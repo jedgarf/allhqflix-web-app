@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 // React Query
@@ -47,6 +47,7 @@ const SideBar = ({ Type, subType, haveSearch = true,  transparentBg = true, isSt
   const searchRef = useRef("");
   const [isGetMenu, setIsGetMenu] = useState(true);
   const [isGetSubMenu, setIsGetSubMenu] = useState(true);
+  const [isScrollTop, setIsScrollTop] = useState(true);
 
   const [auth, setAuth] = useState(getSession('user') ? true : false);
 
@@ -159,21 +160,26 @@ const SideBar = ({ Type, subType, haveSearch = true,  transparentBg = true, isSt
   }));
   // ----------------------------------------------------------------------------------------------------
 
-  // Switching AppBar Color 
-  var appbarClassName = "";
-  if(isMobileSize){
-    if (isStream === true) {
-      appbarClassName = 'app-bar-stream';
-    } else {
-      appbarClassName = 'app-bar-transparent';
-    }
-  } else {
-    appbarClassName = 'app-bar';
-  }
+  useEffect(() => {
+
+    const handleScroll = () => {
+      if (window.scrollY === 0) {
+        setIsScrollTop(true);
+      } else {
+        if (isScrollTop) setIsScrollTop(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [isScrollTop]);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="fixed" className={ appbarClassName } elevation={0}>
+      <AppBar position="fixed" className={ isStream ? 'app-bar-stream' : (isScrollTop ? 'app-bar-transparent' : 'app-bar-stream') } elevation={0}>
         <Container maxWidth="xl">
           <Toolbar disableGutters>
 
