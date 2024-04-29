@@ -1,6 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
+// Framer Motion
+import { motion } from "framer-motion";
+
 // React Query
 import { useQuery } from 'react-query';
 
@@ -144,16 +147,16 @@ const SideBar = ({ Type, subType, haveSearch = true,  transparentBg = true, isSt
           width: '30ch',
           opacity: 1,
           borderRadius: 5,
-          backgroundColor: 'rgba(0, 10, 20, 0.5)',
+          backgroundColor: alpha(theme.palette.common.white, 0.15),
         },
       },
       [theme.breakpoints.only('xs')]: {
-        width: searchKeyword ? 'auto' : '0ch',
+        width: searchKeyword ? '100%' : '0ch',
         '&:focus': {
-          width: 'auto',
+          width: '100%',
           opacity: 1,
           borderRadius: 5,
-          backgroundColor: 'rgba(0, 10, 20, 0.5)',
+          backgroundColor: alpha(theme.palette.common.white, 0.15),
         },
       },
     },

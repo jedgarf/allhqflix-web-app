@@ -53,7 +53,7 @@ const NativeApps = () => {
             <ThemeProvider theme={darkTheme}>
                 <CssBaseline />
                 <div style={{ width: '100%' }}>
-                    <Container>
+                    <Container maxWidth={'xl'}>
                         <div className="appdownloads">
                             <div className="apd-container">
                                 <div className="apdc-content text-white">
