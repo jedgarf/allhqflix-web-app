@@ -1,19 +1,14 @@
 "use client";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
 import Particles, { initParticlesEngine } from "@tsparticles/react";
 import { loadSlim } from "@tsparticles/slim";
 
 const ParticleEffect = () => {
 
-    const [init, setInit] = useState(false);
-
     useEffect(() => {
         initParticlesEngine(async (engine) => {
-        await loadSlim(engine);
-        //await loadBasic(engine);
-        }).then(() => {
-        setInit(true);
-        });
+            await loadSlim(engine);
+        })
     }, []);
 
     const particlesLoaded = (container) => {
@@ -85,11 +80,9 @@ const ParticleEffect = () => {
         }),
         [],
     );
-
-    // if (!init) return "";
     
     return (
-        <div className="particles-container" style={{ position: 'relative' }}>
+        <div className="particles-container" style={{ position: 'relative', zIndex: 0 }}>
             <Particles
                 particlesLoaded={particlesLoaded}
                 options={options}
