@@ -20,7 +20,7 @@ a {
     left: 0;
     height: 100%;
     width: 100%;
-    background: linear-gradient(rgba(10, 10, 10, 0.8),rgba(10, 10, 10, 0));
+    background: linear-gradient(rgba(10, 10, 10, 0.8),rgba(10, 10, 10, 0), rgba(10, 10, 10, 1));
     /* background: radial-gradient(farthest-corner at 60% 55%, rgba(2, 9, 22, 0.30), rgba(2, 9, 22, 0.50), rgba(2, 9, 22, 1), rgba(2, 9, 22, 255)); */
     /* border-radius: 10px; */
 }
