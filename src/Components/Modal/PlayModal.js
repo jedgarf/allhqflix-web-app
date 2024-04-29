@@ -120,15 +120,6 @@ const MoviePlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ser
     setServer(name);
   }
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-
-    // selecting server
-    setServerVar(server);
-    setIsModalOpen(false);
-    deleteCookie(encodeURIComponent(mediaId));
-  }
-
   const loadSavedMedia = () => {
     const cookiesSavedMedia = getAllSavedCookiesMedia();
     setSavedMedia(cookiesSavedMedia);
@@ -231,11 +222,13 @@ const MoviePlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ser
             </DialogContent>
             <Divider/>
             <DialogActions className='modal-container'>
-              <Button size='small' variant='outlined' color='error' startIcon={<CloseIcon/>} onClick={() => handleModal(false)}>Close</Button>
               {resourceData.isSuccess && resourceInfo?.data?.sources?.length > 0 ?
-              (<Link to={`${url}?server=${server === 'upcloud' ? '1' : '2'}`} onClick={() => deleteCookie(encodeURIComponent(mediaId))}><Button size='small' variant='contained' color='primary' startIcon={<PlayCircleOutlineIcon/>}>Play</Button></Link>)
-               : 
-              (<Button size='small' variant='contained' color='primary' onClick={(e) => onSubmit(e)} startIcon={<SaveIcon/>}>Save</Button>)}
+                <Link to={`${url}?server=${server === 'upcloud' ? '1' : '2'}`} onClick={() => deleteCookie(encodeURIComponent(mediaId))}>
+                  <Button size='small' variant='contained' color='primary' startIcon={<PlayCircleOutlineIcon/>}>Play</Button>
+                </Link>
+              : 
+                <Button size='small' variant='contained' color='primary' startIcon={<SaveIcon/>}>Save</Button>
+              }
             </DialogActions>
 
         </ReusableModal>
@@ -328,16 +321,6 @@ const SeriesPlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ep
   const loadSavedMedia = () => {
     const cookiesSavedMedia = getAllSavedCookiesMedia();
     setSavedMedia(cookiesSavedMedia);
-  }
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-    // selecting season, episode and server
-    setSeasonIdVar(seasonNumber);
-    setEpisodeIdVar(episodeNumber);
-    setServerVar(server);
-    setIsModalOpen(false);
-    deleteCookie(encodeURIComponent(mediaId));
   }
 
   // React Query
@@ -554,7 +537,6 @@ const SeriesPlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ep
       </DialogContent>
       <Divider/>
       <DialogActions className='modal-container'>
-        <Button size='small' variant='outlined' color='error' startIcon={<CloseIcon/>} onClick={() => handleModal(false)}>Close</Button>
         {resourceData.isSuccess && resourceInfo?.data?.sources?.length > 0 ?
           isDisableSave ?
             <Button size='small' variant='contained' color='primary' startIcon={<PlayCircleOutlineIcon/>} disabled>Play</Button>
@@ -563,10 +545,7 @@ const SeriesPlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ep
               <Button size='small' variant='contained' color='primary' startIcon={<PlayCircleOutlineIcon/>}>Play</Button>
             </Link>
         : 
-          isDisableSave ?
-            <Button size='small' variant='contained' color='primary' startIcon={<SaveIcon/>} disabled>Save</Button>
-          : 
-            <Button size='small' variant='contained' color='primary' onClick={(e) => onSubmit(e)} startIcon={<SaveIcon/>}>Save</Button>
+          <Button size='small' variant='contained' color='primary' startIcon={<SaveIcon/>} disabled>Save</Button>
         }
       </DialogActions>
 
@@ -648,14 +627,6 @@ const AnimePlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVar, ur
   const loadSavedMedia = () => {
     const cookiesSavedMedia = getAllSavedCookiesMedia();
     setSavedMedia(cookiesSavedMedia);
-  }
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-    // selecting episode
-    setEpisodeIdVar(episodeNumber);
-    setIsModalOpen(false);
-    deleteCookie(encodeURIComponent(mediaId));
   }
 
   useEffect(() => {
@@ -834,7 +805,6 @@ const AnimePlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVar, ur
                 <span style={{ fontWeight: '550' }}>SELECTED: {episodeNum}</span>
               </Grid>
               <Grid item xl={6} lg={6} md={6} sm={6} xs={6} style={{ textAlign: 'right' }}>
-                <Button size='small' variant='outlined' color='error' style={{ marginRight: '5px' }} startIcon={<CloseIcon/>} onClick={() => handleModal(false)}>Close</Button>
                 <Link to={`${url}?dub=${isDub}&episode=${episodeNumber}`} onClick={() => deleteCookie(encodeURIComponent(mediaId))}>
                   <Button size='small' variant='contained' color='primary' startIcon={<PlayCircleOutlineIcon/>}>Play</Button>
                 </Link>
@@ -889,13 +859,6 @@ const AsianDramaPlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVa
   const loadSavedMedia = () => {
     const cookiesSavedMedia = getAllSavedCookiesMedia();
     setSavedMedia(cookiesSavedMedia);
-  }
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-    // selecting episode
-    setEpisodeIdVar(episodeNumber);
-    setIsModalOpen(false);
   }
 
   useEffect(() => {
@@ -1013,7 +976,6 @@ const AsianDramaPlayModal = ({ mediaInfo, episodes, episodeIdVar, setEpisodeIdVa
             </DialogContent>
             <Divider/>
             <DialogActions className='modal-container'>
-              <Button size='small' variant='outlined' color='error' startIcon={<CloseIcon/>} onClick={() => handleModal(false)}>Close</Button>
               <Link className='text-link-without-underline' to={`${url}?episode=${episodeNumber}`} onClick={() => deleteCookie(mediaId)}>
                 <Button size='small' variant='contained' color='primary' startIcon={<PlayCircleOutlineIcon/>}>Play</Button>
               </Link>

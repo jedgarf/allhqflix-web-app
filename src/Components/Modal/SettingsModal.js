@@ -101,10 +101,10 @@ const SettingsModal = ({ settingModal, setSettingModal, setUpperMenu }) => {
                             <PlayerSettings playerSettings={playerSettings} setPlayerSettings={setPlayerSettings}/>
                         </DialogContent>
                         <Divider/>
-                        <DialogActions className='modal-container'>
+                        {/* <DialogActions className='modal-container'>
                             <Button size='small' variant='outlined' color='error' startIcon={<CloseIcon/>} onClick={() => handleModal(false)}>Close</Button>
-                            {/* <Button size='small' variant='contained' color='primary' onClick={(evt) => onSubmit(evt)} startIcon={<SaveIcon/>}>Save</Button> */}
-                        </DialogActions>
+                            <Button size='small' variant='contained' color='primary' onClick={(evt) => onSubmit(evt)} startIcon={<SaveIcon/>}>Save</Button>
+                        </DialogActions> */}
                     </Fragment>
                 : 
                     <DialogContent>
