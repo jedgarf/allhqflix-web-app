@@ -38,7 +38,7 @@ function AnimeDiscovers({ banner, title, des, id, year, season, genres, episode,
         <div className="discover__content">
           <div className="discover__left">
             <Typography variant="p" className="carousel_movie_name">
-              {truncate(title, 100)}
+              {title}
             </Typography>
             <Typography variant="p" sx={{ display: { xs: 'none', lg: 'flex' }, marginTop: '10px' }}>
               <span style={{ backgroundColor: 'rgba(0, 0, 0, 0.50)', padding: '8px 5px', borderRadius: 5 }}>
