@@ -110,7 +110,9 @@
     border-color: var(--forth-color);
 }
 
-
+.faq ul li {
+    margin-left: -35px !important;
+}
 /* .home_search_content {
     margin-top: 30px;
     padding-bottom: 250px;

@@ -36,13 +36,9 @@
 
 .movie_result_name {
     width: 150px !important;
-    /* Set the desired width */
     white-space: nowrap;
-    /* Prevent text from wrapping to the next line */
     overflow: hidden;
-    /* Hide overflowing text */
     text-overflow: ellipsis;
-    /* Add an ellipsis when text overflows */
 }
 
 @media (max-width:400px) {

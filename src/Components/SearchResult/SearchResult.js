@@ -107,7 +107,7 @@ const SearchResult = ({ isloadImage, contentType, img, id, title, type, release_
         </div>
       }
 
-      <div className='movies__info inn' style={{ marginTop: '-8px' }}>
+      <div className='movies__info inn' style={isImageReady ? { marginTop: '-8px' } : {}}>
         <div className="movie__name">
           <Typography variant="h3" className="movie_result_name" title={title}>{title}</Typography>
         </div>
