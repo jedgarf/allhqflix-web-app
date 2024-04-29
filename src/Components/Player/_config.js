@@ -75,7 +75,7 @@ export const saveProgress = (details, mediaId, type, paramDub, seasonNumber, epi
 
     if(mediaId == 21) {
         const arcs = require('../../Services/Data/onePieceArcs.json').arcs;
-        image = arcs.find(item => item.start_episode <= parseInt(episodeNumber) && item.end_episode >= parseInt(episodeNumber))?.mini_banner;
+        image = arcs.find(item => item.start_episode <= parseInt(episodeNumber) && item.end_episode >= parseInt(episodeNumber))?.mini_banner || details?.image;
     }
 
     const title = type === 'anime' ? (details?.title?.english || details?.title?.userPreferred || details?.title?.romaji || details?.title?.native) : details?.title;
