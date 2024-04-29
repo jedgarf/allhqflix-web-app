@@ -8,9 +8,9 @@
 }
 
 
-/* .owner-image {
-    margin: 170px auto -30px 50px !important;
-} */
+.owner-image {
+    margin-bottom: -30px;
+}
 
 .jefdev_image {
     width: 350px !important;

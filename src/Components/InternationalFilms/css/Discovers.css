@@ -20,7 +20,7 @@ a {
     left: 0;
     height: 100%;
     width: 100%;
-    background: linear-gradient(rgba(10, 10, 10, 0.8),rgba(10, 10, 10, 0), rgba(10, 10, 10, 1));
+    background: linear-gradient(rgba(var(--body-raw-color), 0.8),rgba(var(--body-raw-color), 0), rgba(var(--body-raw-color), 1));
     /* background: radial-gradient(farthest-corner at 60% 55%, rgba(2, 9, 22, 0.30), rgba(2, 9, 22, 0.50), rgba(2, 9, 22, 1), rgba(2, 9, 22, 255)); */
     /* border-radius: 10px; */
 }
@@ -58,7 +58,7 @@ a {
     padding: 20px 10px 10px 10px;
     position: absolute;
     /* background: linear-gradient(180deg, rgba(0, 0, 0, 0.30), rgba(0, 0, 0, 0.50)); */
-    background-color: rgba(0, 0, 0, 0.40);
+    background-color: rgba(var(--body-raw-color), 0.40);
     bottom: 0;
     left: 0;
     height: auto;

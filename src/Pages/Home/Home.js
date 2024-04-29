@@ -147,9 +147,9 @@ const Home = () => {
               </Grid>
               <Grid item xl={12} lg={12} md={12} sm={12} xs={12} style={{ marginBottom: 20 }}>
                 <motion.p 
-                  initial={{ opacity: 0, y: -50 }}
+                  initial={{ opacity: 0, y: 50 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 1, delay: 0.2 }} 
+                  transition={{ duration: 1, delay: 0.3 }} 
                   className="text-white" 
                   style={{ marginBottom: 1, fontWeight: '550' }}
                 >
@@ -158,9 +158,9 @@ const Home = () => {
               </Grid>
               <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
                 <motion.div 
-                  initial={{ opacity: 0, y: -50 }}
+                  initial={{ opacity: 0, y: 50 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 1, delay: 0.3 }} 
+                  transition={{ duration: 1, delay: 0.4 }} 
                 >
                   <Box sx={{ textAlign: 'left' }} width={{ xs: '85vw', sm: '500px', md: '600px' }}>
                     <form onSubmit={(e) => queryHandler(e)}>

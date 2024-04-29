@@ -14,7 +14,7 @@
 }
 
 .vidq {
-    background: rgba(0, 0, 0, 0.80);
+    background: rgba(var(--body-raw-color), 0.80);
     color: var(--four-color);
     position: absolute;
     top: 0;

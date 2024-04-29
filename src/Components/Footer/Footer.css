@@ -96,24 +96,35 @@
     }
     .footer_links {
         font-size: 13px;
-        margin-left: -30px;
+    }
+
+    .link-head-title {
+        margin-inline: 90px !important;
+    }
+
+    .footer_links a {
+        margin-inline: 90px !important;
     }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 700px) {
     .lower-footer {
         margin-top: 50px;
-        margin-bottom: 100px;
+        margin-bottom: 50px;
         text-align: center;
     }
     .footer_title {
         margin-left: 2px;
+    }
+    .link-head-title {
+        margin-inline: 60px !important;
     }
     .footer_text {
         font-size: 11px !important;
     }
     .footer_links a {
         font-size: 11px;
+        margin-inline: 60px !important;
     }
     .footer h1 {
         font-size: 24px;
@@ -121,4 +132,13 @@
     /* .footer p {
         font-size: 14px;
     } */
+}
+
+@media (max-width: 400px) {
+    .link-head-title {
+        margin-inline: 10px !important;
+    }
+    .footer_links a {
+        margin-inline: 10px !important;
+    }
 }

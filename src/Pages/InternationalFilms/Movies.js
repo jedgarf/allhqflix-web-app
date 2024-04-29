@@ -75,8 +75,8 @@ const Movies = () => {
         <LoadingPage/>
       : 
       <div className="movies">
-      <ReactQueryTools/>
-      <SideBar Type={urlContentType} subType={urlContentSubType}/>
+        <ReactQueryTools/>
+        <SideBar Type={urlContentType} subType={urlContentSubType}/>
         <Box
           display={{ xs: 'block', md: 'block' }}
         >
