@@ -115,8 +115,8 @@ export default function AsianEpisodesDrawer({ details, subtitles, mediaId, episo
         {[drawerAlign].map((anchor) => (
           <React.Fragment key={anchor}>
             <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={0}>
-              <Grid item xl={6} lg={6} md={6} sm={6} xs={6} style={{ display: 'flex', alignItems: 'center', height: '6.5vh' }}>
-                <Typography variant='p' className='selectedEpisodeContent' style={{ textTransform: 'uppercase', fontWeight: 550 }}>Episode {norm_episodes?.filter(item => item.id === episodeId)[0]?.episode}</Typography>
+              <Grid item xl={6} lg={6} md={6} sm={6} xs={6} style={{ display: 'flex', alignItems: 'center', height: '3.3vh' }}>
+                <Typography variant='big' className='selectedEpisodeContent'>Episode {norm_episodes?.filter(item => item.id === episodeId)[0]?.episode}</Typography>
               </Grid>
               <Grid item xl={6} lg={6} md={6} sm={6} xs={6} style={{ display: 'flex', alignItems: 'center', height: '6.5vh', justifyContent: 'right' }}>
                 {isMobileSize ? (

@@ -141,9 +141,9 @@ export default function TVEpisodesDrawer({ movieInfo, mediaId, seasonId, episode
         {[drawerAlign].map((anchor) => (
           <React.Fragment key={anchor}>
             <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={0}>
-              <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>
+              <Grid item xl={6} lg={6} md={6} sm={6} xs={6} style={{ display: 'flex', alignItems: 'center', height: '3.3vh' }}>
                 {episodes[seasonId] && 
-                  <Typography variant='p' className='selectedEpisodeContent'>Season {seasonId} / {episodes[seasonId]?.filter(item => item.id == episodeId)[0]?.number === 0 ? 'Intro.' : `Episode ${episodes[seasonId]?.filter(item => item.id == episodeId)[0]?.number}`}</Typography>
+                  <Typography variant='big' className='selectedEpisodeContent'>SEASON {seasonId} / {episodes[seasonId]?.filter(item => item.id == episodeId)[0]?.number === 0 ? 'Intro.' : `EPISODE ${episodes[seasonId]?.filter(item => item.id == episodeId)[0]?.number}`}</Typography>
                 }
               </Grid>
               <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>

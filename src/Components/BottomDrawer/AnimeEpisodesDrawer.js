@@ -106,9 +106,9 @@ export default function AnimeEpisodesDrawer({ details, downloadUrl, mediaId, epi
       {[drawerAlign].map((anchor) => (
         <React.Fragment key={anchor}>
           <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={0}>
-            <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>
+            <Grid item xl={6} lg={6} md={6} sm={6} xs={6} style={{ display: 'flex', alignItems: 'center', height: '3.3vh' }}>
               {details?.episodes?.length > 1 && 
-                <Typography variant='big' className='selectedEpisodeContent' style={{ verticalAlign: 'middle' }}>EPISODE {norm_episodes?.filter(item => item.id === episodeId)[0]?.number}</Typography>
+                <Typography variant='big' className='selectedEpisodeContent'>EPISODE {norm_episodes?.filter(item => item.id === episodeId)[0]?.number}</Typography>
               }
             </Grid>
             <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>

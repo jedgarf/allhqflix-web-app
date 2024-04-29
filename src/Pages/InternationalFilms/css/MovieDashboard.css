@@ -295,6 +295,10 @@ td {
     margin-top: 25px !important;
 }
 
+.selectedEpisodeContent {
+    margin-bottom: -5px !important;
+}
+
 
 /* ---------------------------------------------------- */
 
@@ -420,9 +424,11 @@ td {
 @media (max-width: 600px) {
     .movie_info .media-title {
         margin-top: 350px !important;
+        font-size: 23px !important;
     }
     .tv_info .media-title {
         margin-top: 80px !important;
+        font-size: 23px !important;
     }
     .top__heading {
         display: flex;
