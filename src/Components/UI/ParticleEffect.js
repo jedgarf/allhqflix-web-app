@@ -102,7 +102,7 @@ const ParticleEffect = ({ containerId }) => {
 
     if (init) {
         return (
-            <div className="particles-container" style={{ position: 'relative', zIndex: -1 }}>
+            <div className="particles-container" style={{ position: 'relative' }}>
                 <Particles
                     id={containerId}
                     particlesLoaded={particlesLoaded}
@@ -112,7 +112,7 @@ const ParticleEffect = ({ containerId }) => {
         );
     }
 
-    return <>test</>;
+    return <></>;
 };
 
 export default ParticleEffect;
