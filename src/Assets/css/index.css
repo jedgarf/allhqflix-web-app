@@ -271,9 +271,7 @@ body {
 
 /* ---------------------------------------------------------------------------------- */
 
-
 /* two column OL */
-
 @media (min-width:700px) {
     .two-column-ol {
         columns: 2;
@@ -287,13 +285,15 @@ body {
         /* Add margin to the right of each list item */
     }
 }
-
-
 /* Sweet Alert-------------------------------------------------------------------------- */
-
 .swal2-container {
     z-index: 20000 !important;
 }
+/* ------------------------------------------------------------------------------------ */
 
-
+/* artplayer fullscreen----------------------------------------------------------------- */
+.artplayer-fullscreen.artplayer-web-fullscreen .artplayer-mask,
+.artplayer-fullscreen.artplayer-web-fullscreen .artplayer-layer {
+    z-index: 9999 !important;
+}
 /* ------------------------------------------------------------------------------------ */
