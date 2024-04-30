@@ -131,14 +131,14 @@ const ContactUs = () => {
         <div className="landing-page">
             <ReactQueryTools/>
             <SideBar Type={type} subType={null} haveSearch={true} transparentBg={false} isStream={false} setIsPageAuth={setIsPageAuth}/>
-            <div className="divFocus" style={{backgroundImage: `linear-gradient(rgba(2, 9, 22, 0.8),rgba(2, 9, 22, 0.8))` }}>
+            <div className="divFocus">
                 <SnackBar severity={snackBarType} handleSnackBarOpen={handleSnackBarOpen} status={snackBarOpen} snackBarMessage={snackBarMessage} />
                 <div style={{ marginTop: '70px', minHeight: 600, width: '99vw' }}>
                     <ThemeProvider theme={darkTheme}>
                         <CssBaseline />
                         <Grid container rowSpacing={5}>
                             <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
-                                <Card sx={{ minHeight: '150px', marginInline: '10px' }} style={{backgroundImage: `linear-gradient(rgba(2, 9, 22, 0.4),rgba(2, 9, 22, 0.9)), url("${homeBackground}")`, paddingTop: '40px' }}>
+                                <Card sx={{ minHeight: '150px', marginInline: '10px' }} style={{backgroundImage: `linear-gradient(rgba(var(--body-raw-color), 0.4),rgba(var(--body-raw-color), 0.9)), url("${homeBackground}")`, paddingTop: '40px' }}>
                                     <CardContent>
                                         <Typography variant="h5" component="div" sx={{ textTransform: 'uppercase', fontWeight: 550, textAlign: 'center' }}>
                                             Contact Us

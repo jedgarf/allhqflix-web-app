@@ -28,7 +28,6 @@ const SearchResult = ({ isloadImage, contentType, img, id, title, type, release_
   const [isImageReady, setIsImageReady] = useState(false);
   const [cardImage, setCardImage] = useState("");
   const [savedMedia, setSavedMedia] = useState([]);
-  const [ loadingPicture, setLoadingPicture ] = useState(isloadImage);
   const year = new Date(release_date);
   const [icon, setIcon] = React.useState(<FavoriteBorderIcon />);
   const dispatch = useDispatch();

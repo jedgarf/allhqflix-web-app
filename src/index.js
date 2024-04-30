@@ -15,8 +15,8 @@ import { init } from 'console-ban';
 import { disableReactDevTools } from '@fvilers/disable-react-devtools';
 
 // Vercel monitoring
-import { Analytics } from '@vercel/analytics/react';
-import { SpeedInsights } from '@vercel/speed-insights/react';
+// import { Analytics } from '@vercel/analytics/react';
+// import { SpeedInsights } from '@vercel/speed-insights/react';
 
 // Importing all css file (Assets/css)
 const importAll = (r) => {
@@ -57,8 +57,8 @@ root.render(
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
           <AppRoutes/>
-          <Analytics />
-          <SpeedInsights />
+          {/* <Analytics />
+          <SpeedInsights /> */}
       </PersistGate>
     </Provider>
   </React.StrictMode>

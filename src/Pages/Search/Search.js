@@ -39,7 +39,7 @@ import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 import { pageLoadMS } from "../../Config/settings.config";
 
 // Utils
-import { moveToTop } from "../../Services/Utils";
+import { moveToTop, isPageOverflowed } from "../../Services/Utils";
 
 // Services
 import { menus } from "../../Services/SettingService";
@@ -151,7 +151,7 @@ function Search() {
     isLoading && content.data?.results ? 
       <LoadingPage/>
     : 
-    <div className="movies" style={{ height: content.data?.results?.length > 0 ? '100%' : '100vh' }}>
+    <div className="movies" style={{ height: '100vh' }}>
       <ReactQueryTools/>
       <div className="search_result_content">
         <div className="search__top">

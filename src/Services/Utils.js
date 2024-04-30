@@ -569,6 +569,11 @@ const triggerKeyF11 = () => {
 
 const isMobile = navigator.userAgent.match(/(iphone|ipod|ipad|android)/i);
 
+const isPageOverflowed = () => {
+  return document.body.scrollHeight > window.innerHeight;
+};
+
+
 export { shortenTextHeight, 
          streamDashboardBackButton, 
          moveToTop, 
@@ -609,4 +614,5 @@ export { shortenTextHeight,
          enterFullscreen, 
          exitFullscreen, 
          triggerKeyF11, 
-         isMobile };
+         isMobile,
+         isPageOverflowed };

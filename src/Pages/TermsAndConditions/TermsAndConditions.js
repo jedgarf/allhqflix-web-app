@@ -30,15 +30,15 @@ const TermsAndConditions = () => {
             <div className="landing-page">
                 <ReactQueryTools/>
                 <SideBar Type={type} subType={null} haveSearch={true} transparentBg={false} isStream={false}/>
-                    <div className="divFocus" style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5))`, color: '#ccced1' }}>
+                    <div className="divFocus" style={{ color: '#ccced1' }}>
                         <div style={{ marginTop: '70px', minHeight: 500, width: '100%' }}>
 
                         <Grid container rowSpacing={9}>
                             <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
-                                <Card sx={{ minHeight: '150px', marginInline: '10px' }} style={{backgroundImage: `linear-gradient(rgba(2, 9, 22, 0.4),rgba(2, 9, 22, 0.9)), url("${homeBackground}")`, paddingTop: '40px' }}>
+                                <Card sx={{ minHeight: '150px', marginInline: '10px' }} style={{backgroundImage: `linear-gradient(rgba(var(--body-raw-color), 0.4),rgba(var(--body-raw-color), 0.9)), url("${homeBackground}")`, paddingTop: '40px' }}>
                                     <CardContent>
                                         <Typography variant="h5" component="div" sx={{ textTransform: 'uppercase', fontWeight: 550, textAlign: 'center', color: '#ccced1' }}>
-                                            Terms and Conditions of use
+                                            Terms and Conditions
                                         </Typography>
                                     </CardContent>
                                 </Card>

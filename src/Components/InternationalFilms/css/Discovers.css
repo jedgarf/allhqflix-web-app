@@ -3,7 +3,7 @@ a {
 }
 
 .discovers {
-    background-color: var(--body) !important;
+    /* background-color: var(--body) !important; */
     width: 100%;
     height: 100%;
     /* border-radius: 10px; */

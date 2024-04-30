@@ -2,7 +2,7 @@ body {
     /* box-sizing: border-box; */
     /* transition: .3s; */
     margin: 0;
-    background-color: var(--body);
+    background-color: rgba(var(--body-raw-color), 1) !important;
 }
 
 .home-bg {

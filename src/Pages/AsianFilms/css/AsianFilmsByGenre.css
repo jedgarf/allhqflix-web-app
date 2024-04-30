@@ -1,7 +1,7 @@
 .search_result {
     width: 100%;
     /* max-height: 950px; */
-    background: var(--body);
+    /* background: var(--body); */
     overflow-y: scroll;
 }
 
