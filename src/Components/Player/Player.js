@@ -146,11 +146,12 @@ const Player = ({ details, episodes, defaultlink, infotitle, infocover, seasonNu
                 art.notice.show = infotitle;
             });
 
-            art.on('video:fullscreenWeb', (state) => {
+            art.on('fullscreenWeb', (state) => {
                 showPrevNextControls(art, state, additionalControls);
             });
 
-            art.on('video:fullscreen', (state) => {
+            art.on('fullscreen', (state) => {
+                alert(state);
                 showPrevNextControls(art, state, additionalControls);
             });
 
