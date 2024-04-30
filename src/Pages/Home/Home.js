@@ -19,7 +19,7 @@ import "./Home.css";
 // Pages
 import SideBar from "../../Components/SlideBar/SideBar";
 import Footer from "../../Components/Footer/Footer";
-import ParticleEffect from "../../Components/UI/ParticleEffect";
+// import ParticleEffect from "../../Components/UI/ParticleEffect";
 import LoadingPage from "../../Components/LoadingPage/LoadingPage";
 import FloatingButton from '../../Components/FloatingButton/FloatingButton';
 import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
@@ -27,7 +27,6 @@ import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 // partial page
 import Faq from "./Faq";
 import MediaCategories from "./MediaCategories";
-import RecentWatched from "./RecentWatched";
 import TopPlayed from "./TopPlayed";
 import Products from "./Products";
 
@@ -123,7 +122,7 @@ const Home = () => {
       <LoadingPage/>
      : 
     <div className="landing-page">
-      <ParticleEffect/>
+      {/* <ParticleEffect/> */}
       <ReactQueryTools/>
       <SideBar Type={type} subType={null} haveSearch={false}/>
 
