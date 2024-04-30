@@ -34,7 +34,7 @@ const AboutDevelopers = () => {
         <div>
             <div className="movies">
                 <ReactQueryTools/>
-                <SideBar Type={type} subType={null} haveSearch={true} transparentBg={false} isStream={true}/>
+                <SideBar Type={type} subType={null} haveSearch={true} transparentBg={false} isStream={false}/>
                     <div className="divFocus" style={{backgroundImage: `linear-gradient(rgba(10, 10, 10, 0.5), rgba(10, 10, 10, 0.5))` }}>
                         <div style={{ marginTop: '70px', minHeight: 550, width: '99vw' }}>
 

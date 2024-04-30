@@ -30,7 +30,6 @@
         "@tsparticles/slim": "^3.3.0",
         "@vercel/analytics": "^1.2.2",
         "@vercel/speed-insights": "^1.0.10",
-        "artplayer": "^4.6.2",
         "artplayer-plugin-ads": "^1.0.6",
         "artplayer-plugin-control": "^1.0.0",
         "artplayer-plugin-dash-quality": "^2.0.0",
@@ -117,6 +116,7 @@
     "devDependencies": {
         "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
         "@babel/plugin-transform-private-property-in-object": "^7.22.11",
+        "artplayer": "^5.1.1",
         "babel-cli": "^6.26.0",
         "babel-preset-es2015": "^6.24.1",
         "babel-preset-react": "^6.24.1",

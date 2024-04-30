@@ -45,7 +45,7 @@ const AnimeDownloadBtn = ({ url, hasManyEpisode }) => {
             size='small' 
             title='Download' 
             onClick={(e) => handleOnDownload(e, url)} 
-            style={{ marginRight: 10 }}
+            style={{ marginRight: 0 }}
             startIcon={<DownloadIcon />}>
                 Download
         </Button>;

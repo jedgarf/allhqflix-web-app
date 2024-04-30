@@ -3,7 +3,9 @@ import React, { useState, useEffect, useCallback, useRef, Fragment } from "react
 import { useQuery } from 'react-query';
 import { Link, useParams } from "react-router-dom";
 
-import { Container, Divider, Grid, Box, Button } from "@mui/material";
+import { useMediaQuery, createTheme } from "@material-ui/core";
+
+import { Container, Divider, Grid, Box, Button, IconButton } from "@mui/material";
 import moment from 'moment';
 
 // CSS
@@ -13,6 +15,10 @@ import "./css/MovieDashboard.css";
 import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
 import CircularProgress from '@mui/material/CircularProgress';
 import OndemandVideoIcon from '@mui/icons-material/OndemandVideo';
+import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
+import SkipNextIcon from '@mui/icons-material/SkipNext';
+import LocalMoviesIcon from '@mui/icons-material/LocalMovies';
+import ShareIcon from '@mui/icons-material/Share';
 
 // Pages
 import SideBar from "../../Components/SlideBar/SideBar";
@@ -23,6 +29,8 @@ import { Player, artPlayerInstance } from "../../Components/Player/Player";
 import Suggestions from "../../Components/InternationalFilms/Suggestions";
 import TVEpisodesDrawer from "../../Components/BottomDrawer/TVEpisodesDrawer";
 import MediaDescription from "../../Components/MediaDescription/MediaDescription";
+import TraillerModal from "../../Components/Modal/TraillerModal";
+import ShareModal from "../../Components/Modal/ShareModal";
 import SnackBar from "../../Components/SnackBar/SnackBar";
 import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 import { MovieDetailsSkeleton } from "../../Components/SkeletonLoader/MediaDetailsSkeleton";
@@ -53,6 +61,10 @@ const MovieDashboard = (props) => {
   var paramSeasonId = queryParams.get("season") ? parseInt(queryParams.get("season")) : null;
   var paramEpisodeId = queryParams.get("episode") ? parseInt(queryParams.get("episode")) : null;
   var paramServer = queryParams.get("server") ? (queryParams.get("server") === '1' ? 'upcloud' : 'vidcloud') : null;
+
+  // Determine if mobile size
+  const theme = createTheme();
+  const isMobileSize = useMediaQuery(theme.breakpoints.down('sm'));
 
   // Get save data in cookies
   if (savedMedia.length > 0) {
@@ -335,6 +347,7 @@ const MovieDashboard = (props) => {
     // Previous Episode
     if (selectedItemIndex > 0 && selectedItemIndex < infoValue?.episodes?.length) {
       additionalControls.push({
+        name: 'prevEpisode',
         position: 'right',
         html: isMobile ? `PREV.` : `&#8678;`,
         tooltip: 'Previous Episode',
@@ -351,6 +364,7 @@ const MovieDashboard = (props) => {
     // Next Episode
     if (selectedItemIndex >= 0 && (selectedItemIndex + 1) < infoValue?.episodes?.length) {
       additionalControls.push({
+        name: 'nextEpisode',
         position: 'right',
         html: isMobile ? `NEXT` : `&#8680;`,
         tooltip: 'Next Episode',
@@ -432,10 +446,10 @@ const MovieDashboard = (props) => {
       <ReactQueryTools/>
       <SideBar Type={'foreign'} subType={null} transparentBg={false} isStream={true}/>
       <SnackBar severity={snackBarType} handleSnackBarOpen={handleSnackBarOpen} status={snackBarOpen} snackBarMessage={snackBarMessage} />
-      <div className="movie_cover" style={{backgroundImage: `linear-gradient(rgba(10, 10, 10, 1),rgba(10, 10, 10, 0.5),rgba(10, 10, 10, 0.2)), url("${infoValue?.cover}"), url("${homeBackground}")`}}>
-        <div className="heading cheading movie-stream-title">
-          <h6> </h6>
-        </div>
+      <div 
+        className={type === 'tv' ? `tv_cover` : `movie_cover`} 
+        style={{ backgroundImage: `linear-gradient(rgba(var(--body-raw-color), 0.8), rgba(var(--body-raw-color), 0), rgba(var(--body-raw-color), 0.6), rgba(var(--body-raw-color), 1)), url("${infoValue?.cover}"), url("${homeBackground}")` }}
+      >
         {loadingEpisode ? (
           <InitPlayerLoading/>
         ) : (
@@ -455,6 +469,7 @@ const MovieDashboard = (props) => {
             mediaId={indexId}
             episodeId={selectedEpisode}
             server={selectedServer}
+            additionalControls={additionalControls}
             option={{
               enableAds: true,
               setting: true,
@@ -503,10 +518,42 @@ const MovieDashboard = (props) => {
                   type: getFileExtention(defaultSubtitle),
                   encoding: 'utf-8',
               },
-              controls: additionalControls,
+              controls: [],
             }}
           />
         )}
+        <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={0} className="player-options-content">
+          <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>
+            <div className="player-options">
+              <TraillerModal category={type} infoValue={infoValue} setSnackBarType={''} setSnackBarMessage={''} setSnackBarOpen={''}/>
+              <ShareModal infoValue={infoValue} size={'25px'} elem={'button'}/>
+            </div>
+          </Grid>
+          <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>
+            {type === 'tv' && 
+              <div className="player-controls">
+                <IconButton 
+                  title="Previous Episode" 
+                  variant="outlined"
+                  onClick={() => previousEpisode()} 
+                  disabled={additionalControls.filter(item => item.tooltip === 'Previous Episode')?.length > 0 ? false : true}
+                  style={{ marginRight: '10px', border: `${additionalControls.filter(item => item.tooltip === 'Previous Episode')?.length > 0 ? 'var(--four-color)' : 'var(--text-color)'} 1px solid` }}
+                >
+                  <SkipPreviousIcon sx={{ color: additionalControls.filter(item => item.tooltip === 'Previous Episode')?.length > 0 ? 'var(--four-color)' : 'var(--text-color)' }}/>
+                </IconButton>
+                <IconButton 
+                  title="Next Episode" 
+                  variant="outlined" 
+                  onClick={() => nextEpisode()} 
+                  disabled={additionalControls.filter(item => item.tooltip === 'Next Episode')?.length > 0 ? false : true}
+                  style={{ border: `${additionalControls.filter(item => item.tooltip === 'Next Episode')?.length > 0 ? 'var(--four-color)' : 'var(--text-color)'} 1px solid` }}
+                >
+                  <SkipNextIcon sx={{ color: additionalControls.filter(item => item.tooltip === 'Next Episode')?.length > 0 ? 'var(--four-color)' : 'var(--text-color)' }}/>
+                </IconButton>
+              </div>
+            }
+          </Grid>
+        </Grid>
       </div>
 
       {selectedServer !== null && movieServer?.data?.length > 0 ? 

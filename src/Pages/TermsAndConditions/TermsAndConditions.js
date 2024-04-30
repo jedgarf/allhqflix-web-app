@@ -29,7 +29,7 @@ const TermsAndConditions = () => {
         <div>
             <div className="landing-page">
                 <ReactQueryTools/>
-                <SideBar Type={type} subType={null} haveSearch={true} transparentBg={false} isStream={true}/>
+                <SideBar Type={type} subType={null} haveSearch={true} transparentBg={false} isStream={false}/>
                     <div className="divFocus" style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5))`, color: '#ccced1' }}>
                         <div style={{ marginTop: '70px', minHeight: 500, width: '100%' }}>
 

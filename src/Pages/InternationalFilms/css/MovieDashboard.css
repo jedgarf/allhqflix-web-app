@@ -7,11 +7,6 @@
     /* height: 100vh; */
 }
 
-.movie-stream-title h6 {
-    margin-top: -80px;
-    margin-bottom: -6px;
-}
-
 .heading a {
     color: whitesmoke;
     text-decoration: none;
@@ -21,31 +16,17 @@
     color: gray;
 }
 
-/* .movie_dashboard::-webkit-scrollbar {
-    display: none;
-    width: 100%;
-} */
-
 .movies__box,
 .movies__boxx {
-    /* display: flex;
-    align-items: center; */
     gap: 20px;
     overflow-x: scroll;
-    /* height: 350px; */
     overflow-y: hidden;
-    /* margin: 0 20px; */
 }
 
 .movies__boxx {
     /* height: 500px; */
     overflow-x: hidden;
 }
-
-/* .movies__box::-webkit-scrollbar,
-.movies__boxx::-webkit-scrollbar {
-    display: none;
-} */
 
 .movie_dashboard .cheading {
     padding-left: 20px;
@@ -86,9 +67,9 @@
 }
 
 .movie_cover {
-    padding-top: 1px !important;
-    padding-bottom: 13px;
-    margin-top: 67px;
+    padding-top: 67px !important;
+    padding-bottom: 40px;
+    /* margin-top: 67px; */
     width: 100%;
     height: 70% !important;
     background-position: center;
@@ -96,21 +77,33 @@
 }
 
 .tv_cover {
-    padding-top: 1px !important;
-    padding-bottom: 13px;
-    margin-top: 67px;
+    padding-top: 67px !important;
+    padding-bottom: 40px;
+    /* margin-top: 67px; */
     width: 100%;
     height: 70% !important;
     background-position: center;
     background-size: cover;
 }
 
-.movie_cover .playButton {
-    height: 65vh;
+.anime_cover {
+    padding-top: 67px !important;
+    padding-bottom: 40px;
+    /* margin-top: 67px; */
+    width: 100%;
+    height: 70% !important;
+    background-position: center;
+    background-size: cover;
 }
 
-.tv_cover .playButton {
-    height: 40vh;
+.anime_tv_cover {
+    padding-top: 67px !important;
+    padding-bottom: 40px;
+    /* margin-top: 67px; */
+    width: 100%;
+    height: 70% !important;
+    background-position: center;
+    background-size: cover;
 }
 
 .movie_player {
@@ -225,7 +218,7 @@ td {
     color: var(--four-color);
     font-size: 15px !important;
     margin-bottom: -50px !important;
-    margin-top: 30px;
+    margin-top: 10px;
     text-align: center;
 }
 
@@ -292,21 +285,39 @@ td {
 }
 
 .movie_server_tv {
-    margin-top: 25px !important;
+    margin-top: 8px !important;
 }
 
 .selectedEpisodeContent {
     margin-bottom: -5px !important;
 }
 
+.player-options-content .player-options {
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 30px;
+    margin-top: 5px;
+}
+
+.player-options-content .player-options button {
+    margin-right: 5px;
+}
+
+.player-options-content .player-controls {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 40px;
+    margin-top: 5px;
+}
+
+.player-options-content .player-controls button {
+    padding: 3px !important;
+}
+
 
 /* ---------------------------------------------------- */
 
 @media (max-width: 1900px) {
-    .movie-stream-title h6 {
-        margin-top: -75px !important;
-        margin-bottom: -8px !important;
-    }
     .movie_info {
         margin-top: -125px !important;
     }
@@ -314,28 +325,40 @@ td {
         margin-top: -125px !important;
     }
     .movie_cover {
-        padding-bottom: 25px !important;
-        margin-top: 65px !important;
+        padding-bottom: 60px !important;
+        padding-top: 65px !important;
         width: 100%;
-        height: 485px !important;
+        height: 450px !important;
         background-position: center;
         background-size: cover;
     }
+
     .tv_cover {
-        /* padding-top: 20px; */
-        padding-bottom: 25px !important;
-        margin-top: 55px !important;
+        padding-bottom: 55px !important;
+        padding-top: 60px !important;
         width: 100%;
-        height: 430px !important;
+        height: 560px !important;
         background-position: center;
         background-size: cover;
     }
-    .movie_cover .playButton {
-        height: 65vh !important;
+
+    .anime_cover {
+        padding-bottom: 60px !important;
+        padding-top: 65px !important;
+        width: 100%;
+        height: 550px !important;
+        background-position: center;
+        background-size: cover;
     }
-    .tv_cover .playButton {
-        height: 65vh !important;
+    .anime_tv_cover {
+        padding-bottom: 60px !important;
+        padding-top: 65px !important;
+        width: 100%;
+        height: 550px !important;
+        background-position: center;
+        background-size: cover;
     }
+
     .movie_player {
         /* margin: auto; */
         /* align-items: center; */
@@ -347,16 +370,15 @@ td {
         margin-top: 140px !important;
         margin-inline: 10px !important;
     }
+    .player-options-content .player-options {
+        margin-left: 45px;
+    }
+    .player-options-content .player-controls {
+        margin-right: 50px;
+    }
 }
 
 @media (max-width: 1200px) {
-    /* .movie_dashboard {
-        flex: 1;
-    } */
-    .movie-stream-title h6 {
-        margin-top: -64px !important;
-        margin-bottom: -12px !important;
-    }
     .movie_info .media-title {
         margin-top: 90px !important;
     }
@@ -364,11 +386,34 @@ td {
         margin-top: 90px !important;
     }
     .movie_cover {
-        /* padding-top: 20px; */
-        padding-bottom: 36px !important;
-        margin-top: 50px !important;
+        padding-bottom: 55px !important;
+        padding-top: 60px !important;
         width: 100%;
-        height: 485px !important;
+        height: 490px !important;
+        background-position: center;
+        background-size: cover;
+    }
+    .tv_cover {
+        padding-bottom: 55px !important;
+        padding-top: 60px !important;
+        width: 100%;
+        height: 600px !important;
+        background-position: center;
+        background-size: cover;
+    }
+    .anime_cover {
+        padding-bottom: 55px !important;
+        padding-top: 60px !important;
+        width: 100%;
+        height: 590px !important;
+        background-position: center;
+        background-size: cover;
+    }
+    .anime_tv_cover {
+        padding-bottom: 55px !important;
+        padding-top: 60px !important;
+        width: 100%;
+        height: 590px !important;
         background-position: center;
         background-size: cover;
     }
@@ -378,33 +423,59 @@ td {
     .tv_info .content-details {
         margin-top: -120px !important;
     }
-    .tv_cover {
-        /* padding-top: 20px; */
-        padding-bottom: 20px !important;
-        margin-top: 55px !important;
-        width: 100%;
-        height: 450px !important;
-        background-position: center;
-        background-size: cover;
-    }
+
     .episodesBtn {
         margin-top: 20px !important;
         margin-inline: 10px !important;
     }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1000px) {
     .movie_info .media-title {
         margin-top: 100px !important;
     }
+    .movie_cover {
+        padding-bottom: 55px !important;
+        padding-top: 60px !important;
+        width: 100%;
+        height: 490px !important;
+        background-position: center;
+        background-size: cover;
+    }
+    .tv_cover {
+        padding-bottom: 55px !important;
+        padding-top: 60px !important;
+        width: 100%;
+        height: 490px !important;
+        background-position: center;
+        background-size: cover;
+    }
+    .anime_cover {
+        padding-bottom: 55px !important;
+        padding-top: 60px !important;
+        width: 100%;
+        height: 550px !important;
+        background-position: center;
+        background-size: cover;
+    }
+
+    .anime_tv_cover {
+        padding-bottom: 55px !important;
+        padding-top: 60px !important;
+        width: 100%;
+        height: 550px !important;
+        background-position: center;
+        background-size: cover;
+    }
+
     .movie_dashboard .bheading {
         margin-top: -50px !important;
     }
-}
-
-@media (max-width: 400px) {
-    .movies__boxx {
-        height: 370px;
+    .player-options-content .player-options {
+        margin-left: 20px !important;
+    }
+    .player-options-content .player-controls {
+        margin-right: 20px !important;
     }
 }
 
@@ -437,10 +508,6 @@ td {
         padding-right: 1rem;
         margin-top: 150px !important;
     }
-    .movie-stream-title h6 {
-        margin-top: -74px !important;
-        margin-bottom: -13px !important;
-    }
     .top__heading span {
         display: block;
     }
@@ -453,27 +520,49 @@ td {
         width: 60% !important;
     }
     .movie_cover {
-        /* padding-top: 20px; */
         position: fixed;
         z-index: 10;
-        padding-bottom: 3px !important;
-        margin-top: 50px !important;
+        padding-bottom: 15px !important;
+        padding-top: 60px !important;
         width: 100%;
-        height: 272px !important;
+        height: 280px !important;
         background-position: center;
         background-size: cover;
     }
+
     .tv_cover {
-        /* padding-top: 20px; */
         position: fixed;
         z-index: 10;
-        padding-bottom: 3px !important;
-        margin-top: 50px !important;
+        padding-bottom: 15px !important;
+        padding-top: 60px !important;
         width: 100%;
-        height: 272px !important;
+        height: 353px !important;
         background-position: center;
         background-size: cover;
     }
+
+    .anime_cover {
+        position: fixed;
+        z-index: 10;
+        padding-bottom: 15px !important;
+        padding-top: 60px !important;
+        width: 100%;
+        height: 280px !important;
+        background-position: center;
+        background-size: cover;
+    }
+
+    .anime_tv_cover {
+        position: fixed;
+        z-index: 10;
+        padding-bottom: 15px !important;
+        padding-top: 60px !important;
+        width: 100%;
+        height: 353px !important;
+        background-position: center;
+        background-size: cover;
+    }
+
     .movie_player {
         margin: auto;
         align-items: center;
@@ -490,48 +579,49 @@ td {
         margin-top: -120px !important;
     }
     .movie_info .movie_description {
-        font-size: 15px;
+        font-size: 12px;
         margin-right: 10px;
         margin-left: 10px;
     }
     .tv_info .movie_description {
-        font-size: 15px;
+        font-size: 12px;
         margin-right: 10px;
         margin-left: 10px;
     }
     .movie_info table {
-        font-size: 15px !important;
+        font-size: 12px !important;
     }
     /* .movie_info table th,
     td {
         padding: 10px;
     } */
     .tv_info table {
-        font-size: 15px !important;
+        font-size: 12px !important;
     }
     /* .tv_info table th,
     td {
         padding: 10px;
     } */
-    .movie_cover .playButton {
-        height: 23vh !important;
+    .movie_info table button, .tv_info table button {
+        font-size: 10px;
     }
-    .tv_cover .playButton {
+    .movie_cover .playButton {
         height: 23vh !important;
     }
     .subtitle-icon>* {
         font-size: 15px !important;
     }
     .movie_server {
-        margin-top: 345px !important;
+        margin-top: 360px !important;
         margin-bottom: -380px !important;
     }
     .movie_server_tv {
-        margin-top: 345px !important;
+        margin-top: 360px !important;
         margin-bottom: -305px !important;
     }
     .episodesBtn {
-        margin-top: 340px !important;
+        margin-top: 320px !important;
+        margin-bottom: 20px !important;
         margin-inline: 10px !important;
     }
 }
@@ -539,5 +629,11 @@ td {
 @media only screen and (max-width: 768px) {
     .floating-player {
         display: none !important;
+    }
+}
+
+@media (max-width: 400px) {
+    .movies__boxx {
+        height: 370px;
     }
 }

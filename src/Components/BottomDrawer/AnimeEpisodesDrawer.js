@@ -106,7 +106,7 @@ export default function AnimeEpisodesDrawer({ details, downloadUrl, mediaId, epi
       {[drawerAlign].map((anchor) => (
         <React.Fragment key={anchor}>
           <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={0}>
-            <Grid item xl={6} lg={6} md={6} sm={6} xs={6} style={{ display: 'flex', alignItems: 'center', height: '3.3vh' }}>
+            <Grid item xl={6} lg={6} md={6} sm={6} xs={6} style={{ display: 'flex', alignItems: 'center', height: '3.5vh' }}>
               {details?.episodes?.length > 1 && 
                 <Typography variant='big' className='selectedEpisodeContent'>EPISODE {norm_episodes?.filter(item => item.id === episodeId)[0]?.number}</Typography>
               }
@@ -117,7 +117,7 @@ export default function AnimeEpisodesDrawer({ details, downloadUrl, mediaId, epi
                 {details?.episodes?.length > 1 && 
                   <Button className="channel_list_btn" variant="outlined" color='primary' size='small' onClick={toggleDrawer(anchor, true)} startIcon={<ListIcon/>}>EPISODES</Button>
                 }
-                </div>
+              </div>
             </Grid>
           </Grid>
           <Drawer

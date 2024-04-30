@@ -102,3 +102,17 @@ export const saveProgress = (details, mediaId, type, paramDub, seasonNumber, epi
         }, 5000);   
     }
 };
+
+export const showPrevNextControls = (art, state, additionalControls) => {
+    if (state) { 
+        if (additionalControls.filter(item => item.name === 'prevEpisode').length > 0) {
+            if (!art.controls['prevEpisode']) art.controls.add(additionalControls.find(item => item.name === 'prevEpisode'));
+        }
+        if (additionalControls.filter(item => item.name === 'nextEpisode').length > 0) {
+            if (!art.controls['nextEpisode']) art.controls.add(additionalControls.find(item => item.name === 'nextEpisode'));
+        }
+    } else { 
+        if (art.controls['prevEpisode']) art.controls.remove('prevEpisode');
+        if (art.controls['nextEpisode']) art.controls.remove('nextEpisode');
+    }
+}

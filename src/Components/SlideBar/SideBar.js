@@ -169,7 +169,11 @@ const SideBar = ({ Type, subType, haveSearch = true,  transparentBg = true, isSt
       if (window.scrollY === 0) {
         setIsScrollTop(true);
       } else {
-        if (isScrollTop) setIsScrollTop(false);
+        if (isStream && isMobileSize) {
+          setIsScrollTop(true); 
+        } else {
+          setIsScrollTop(false); 
+        }
       }
     };
 
@@ -178,11 +182,11 @@ const SideBar = ({ Type, subType, haveSearch = true,  transparentBg = true, isSt
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [isScrollTop]);
+  }, [isScrollTop, isStream, isMobileSize]);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="fixed" className={ isStream ? 'app-bar-stream' : (isScrollTop ? 'app-bar-transparent' : 'app-bar-stream') } elevation={0}>
+      <AppBar position="fixed" className={ isScrollTop ? 'app-bar-transparent' : 'app-bar-stream' } elevation={0}>
         <Container maxWidth="xl">
           <Toolbar disableGutters>
 

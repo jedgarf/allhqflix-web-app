@@ -16,7 +16,7 @@ import { mainLogo, customLoadingFileName, homeBackground } from "../../Config/im
 
 // Utilities
 import { getFileExtention, randomizeArray, isMobile } from "../../Services/Utils";
-import { playFlv, destroyPlayFlv, playM3u8, destroyPlayM3u8, playMpd, saveProgress } from "./_config";
+import { playFlv, destroyPlayFlv, playM3u8, destroyPlayM3u8, playMpd, saveProgress, showPrevNextControls } from "./_config";
 
 // Helpers
 import { deleteCookie } from "../../Helpers/Cookies";
@@ -29,7 +29,7 @@ const PlayerLoading = () => {
     return <SpinnerDotted size={39} thickness={180} speed={121} color="rgba(220, 76, 100, 1)" />;
 }
 
-const Player = ({ details, episodes, defaultlink, infotitle, infocover, seasonNumber = null, episodeNum, episodeNumber = null, totalEpisodes, nextEpisode, seekTime, mediaId, episodeId, server = null, option, ...rest }) => {
+const Player = ({ details, episodes, defaultlink, infotitle, infocover, seasonNumber = null, episodeNum, episodeNumber = null, totalEpisodes, nextEpisode, seekTime, mediaId, episodeId, server = null, additionalControls, option, ...rest }) => {
 
     const { type } = useParams();
     const queryParams = new URLSearchParams(window.location.search);
@@ -146,9 +146,12 @@ const Player = ({ details, episodes, defaultlink, infotitle, infocover, seasonNu
                 art.notice.show = infotitle;
             });
 
-            art.on('fullscreenWeb', (state) => {
-                // if (state) { enterFullscreen(); } else { exitFullscreen(); }
-                // triggerKeyF11();
+            art.on('video:fullscreenWeb', (state) => {
+                showPrevNextControls(art, state, additionalControls);
+            });
+
+            art.on('video:fullscreen', (state) => {
+                showPrevNextControls(art, state, additionalControls);
             });
 
             art.on('video:waiting', () => {
@@ -158,7 +161,7 @@ const Player = ({ details, episodes, defaultlink, infotitle, infocover, seasonNu
             });
 
             art.on('video:ended', () => {
-                art.poster = infocover || homeBackground;
+                art.template.$poster.style.display = '';
                 if (episodeNum === totalEpisodes) {
                     deleteCookie(decodeURIComponent(mediaId));
                     if (!isMobile) art.fullscreenWeb = false;

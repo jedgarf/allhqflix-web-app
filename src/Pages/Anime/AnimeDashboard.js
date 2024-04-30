@@ -3,8 +3,10 @@ import React, { useState, useEffect, useCallback, Fragment } from "react";
 import { useQuery, useQueryClient } from 'react-query';
 import { useParams } from "react-router-dom";
 
+import { useMediaQuery, createTheme } from "@material-ui/core";
+
 // Material UI Components
-import { Grid, Box, Container, Button } from '@mui/material';
+import { Grid, Box, Container, Button, IconButton } from '@mui/material';
 
 // React Slick
 import Slider from "react-slick";
@@ -19,6 +21,8 @@ import ReplayIcon from '@mui/icons-material/Replay';
 import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
 import SkipNextIcon from '@mui/icons-material/SkipNext';
 import StarIcon from '@mui/icons-material/Star';
+import LocalMoviesIcon from '@mui/icons-material/LocalMovies';
+import ShareIcon from '@mui/icons-material/Share';
 
 // Components
 import SideBar from "../../Components/SlideBar/SideBar";
@@ -32,6 +36,8 @@ import AnimeEpisodesDrawer from "../../Components/BottomDrawer/AnimeEpisodesDraw
 import OnePieceEpisodesDrawer from "../../Components/BottomDrawer/OnePieceEpisodesDrawer";
 import AnimeCharacterCard from "../../Components/Anime/AnimeCharacterCard";
 import MediaDescription from "../../Components/MediaDescription/MediaDescription";
+import TraillerModal from "../../Components/Modal/TraillerModal";
+import ShareModal from "../../Components/Modal/ShareModal";
 import ReactQueryTools from "../../Components/ReactQueryTools/ReactQueryTools";
 import { AnimeDetailsSkeleton } from "../../Components/SkeletonLoader/MediaDetailsSkeleton";
 import SnackBar from "../../Components/SnackBar/SnackBar";
@@ -69,6 +75,10 @@ const AnimeDashboard = (props) => {
   const queryParams = new URLSearchParams(window.location.search);
   var paramEpisode = queryParams.get("episode") ? queryParams.get("episode") : null;
   var paramDub = queryParams.get("dub") ? queryParams.get("dub") == 'true' : false;
+
+  // Determine if mobile size
+  const theme = createTheme();
+  const isMobileSize = useMediaQuery(theme.breakpoints.down('sm'));
 
   // Get save data in cookies
   if (savedMedia.length > 0) {
@@ -249,6 +259,7 @@ const AnimeDashboard = (props) => {
     // Previous Episode
     if (selectedEpisodeIndex > 0 && selectedEpisodeIndex < infoValue?.episodes?.length) {
       additionalControls.push({
+        name: 'prevEpisode',
         position: 'right',
         html: isMobile ? `PREV.` : `&#8678;`,
         tooltip: 'Previous Episode',
@@ -266,6 +277,7 @@ const AnimeDashboard = (props) => {
     // Next Episode
     if (selectedEpisodeIndex >= 0 && (selectedEpisodeIndex + 1) < infoValue?.episodes?.length) {
       additionalControls.push({
+        name: 'nextEpisode',
         position: 'right',
         html: isMobile ? `NEXT` : `&#8680;`,
         tooltip: 'Next Episode',
@@ -355,10 +367,10 @@ const AnimeDashboard = (props) => {
       <ReactQueryTools/>
       <SideBar Type={type} subType={null} transparentBg={false} isStream={true} />
       <SnackBar severity={snackBarType} handleSnackBarOpen={handleSnackBarOpen} status={snackBarOpen} snackBarMessage={snackBarMessage} />
-      <div className="movie_cover" style={{backgroundImage: `linear-gradient(rgba(10, 10, 10, 1),rgba(10, 10, 10, 0.5), rgba(10, 10, 10, 0.2)), url("${BGImage}"), url("${homeBackground}")`}}>
-        <div className="heading cheading movie-stream-title">
-          <h6> </h6>
-        </div>
+      <div 
+        className={infoValue?.episodes?.length > 0 ? `anime_tv_cover` : `anime_cover`}
+        style={{backgroundImage: `linear-gradient(rgba(var(--body-raw-color), 0.8), rgba(var(--body-raw-color), 0), rgba(var(--body-raw-color), 0.6), rgba(var(--body-raw-color), 1)), url("${BGImage}"), url("${homeBackground}")`}}
+      >
         {infoData.isSuccess && resourceData.isSuccess && defaultLink !== "" && videoQualities.length > 0 && !loadingEpisode ? 
           <Player
             className="movie_player"
@@ -374,6 +386,7 @@ const AnimeDashboard = (props) => {
             mediaId={indexId}
             episodeId={selectedEpisode}
             server={null}
+            additionalControls={additionalControls}
             option={{
               enableAds: true,
               hotkey: true,
@@ -422,7 +435,7 @@ const AnimeDashboard = (props) => {
               //   type: getFileExtention(animeSubtitles?.find(item => item.default === true)?.url),
               //   encoding: 'utf-8',
               // },
-              controls: additionalControls,
+              controls: [],
               // quality: videoQualities,
             }}
           />
@@ -444,9 +457,43 @@ const AnimeDashboard = (props) => {
           :
             <InitPlayerLoading />
         }
+        <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={0} className="player-options-content">
+          <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>
+            <div className="player-options">
+              <TraillerModal category="anime" infoValue={infoValue} setSnackBarType={''} setSnackBarMessage={''} setSnackBarOpen={''}/>
+              <ShareModal infoValue={infoValue} size={'25px'} elem={'button'}/>
+            </div>
+          </Grid>
+          <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>
+            {infoValue?.episodes?.length > 0 && 
+              <div className="player-controls">
+                <IconButton 
+                  title="Previous Episode" 
+                  variant='outlined'
+                  size='small'
+                  onClick={() => previousEpisode()} 
+                  disabled={selectedEpisodeIndex > 0 && selectedEpisodeIndex < infoValue?.episodes?.length ? false : true}
+                  style={{ marginRight: '10px', border: `${selectedEpisodeIndex > 0 && selectedEpisodeIndex < infoValue?.episodes?.length ? 'var(--four-color)' : 'var(--text-color)'} 1px solid` }}
+                >
+                  <SkipPreviousIcon sx={{ color: selectedEpisodeIndex > 0 && selectedEpisodeIndex < infoValue?.episodes?.length ? 'var(--four-color)' : 'var(--text-color)' }}/>
+                </IconButton>
+                <IconButton 
+                  title="Next Episode" 
+                  variant='outlined'
+                  size='small'
+                  onClick={() => nextEpisode()} 
+                  disabled={selectedEpisodeIndex >= 0 && (selectedEpisodeIndex + 1) < infoValue?.episodes?.length ? false : true}
+                  style={{ border: `${selectedEpisodeIndex >= 0 && (selectedEpisodeIndex + 1) < infoValue?.episodes?.length ? 'var(--four-color)' : 'var(--text-color)'} 1px solid` }}
+                >
+                  <SkipNextIcon sx={{ color: selectedEpisodeIndex >= 0 && (selectedEpisodeIndex + 1) < infoValue?.episodes?.length ? 'var(--four-color)' : 'var(--text-color)' }}/>
+                </IconButton>
+              </div>
+            }
+          </Grid>
+        </Grid>
       </div>
 
-      <div className="anime_info">
+      <div className={infoValue?.episodes?.length > 1 ? `anime_tv_info` : `anime_info`}>
 
         <Container maxWidth={'xxl'}>
           <Box className="episodesBtn" display={{ xs: 'block', sm: 'block', md: 'none', lg: 'none' }}>

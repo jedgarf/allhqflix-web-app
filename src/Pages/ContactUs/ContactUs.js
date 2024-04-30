@@ -130,7 +130,7 @@ const ContactUs = () => {
     return (
         <div className="landing-page">
             <ReactQueryTools/>
-            <SideBar Type={type} subType={null} haveSearch={true} transparentBg={false} isStream={true} setIsPageAuth={setIsPageAuth}/>
+            <SideBar Type={type} subType={null} haveSearch={true} transparentBg={false} isStream={false} setIsPageAuth={setIsPageAuth}/>
             <div className="divFocus" style={{backgroundImage: `linear-gradient(rgba(2, 9, 22, 0.8),rgba(2, 9, 22, 0.8))` }}>
                 <SnackBar severity={snackBarType} handleSnackBarOpen={handleSnackBarOpen} status={snackBarOpen} snackBarMessage={snackBarMessage} />
                 <div style={{ marginTop: '70px', minHeight: 600, width: '99vw' }}>

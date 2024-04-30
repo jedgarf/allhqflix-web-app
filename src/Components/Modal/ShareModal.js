@@ -46,7 +46,7 @@ const darkTheme = createTheme({
     },
 });
 
-const ShareModal = ({ infoValue, size = '18px' }) => {
+const ShareModal = ({ infoValue, size = '18px', elem = 'icon' }) => {
 
     const { type } = useParams();
     const shareLink = `${window.location.protocol}//${window.location.host}/${type}/stream_dashboard?mediaId=${infoValue.id}&share=true`;
@@ -73,7 +73,11 @@ const ShareModal = ({ infoValue, size = '18px' }) => {
     return (
         <ThemeProvider theme={darkTheme}>
             <CssBaseline />
-            <ShareIcon onClick={() => setModalQROpen(true)} style={{ fontSize: size, marginBottom: '-2px', padding: 0, color: '#DC4C64', fontWeight: 'bolder', cursor: 'pointer' }}/>
+            {elem === 'button' ? 
+                <Button variant='outlined' size='small' onClick={() => setModalQROpen(true)} startIcon={<ShareIcon/>}>Share</Button>
+            : 
+                <ShareIcon onClick={() => setModalQROpen(true)} style={{ fontSize: size, marginBottom: '-2px', padding: 0, color: '#DC4C64', fontWeight: 'bolder', cursor: 'pointer' }}/>
+            }
 
             <Modal
                 aria-labelledby="transition-modal-title"
