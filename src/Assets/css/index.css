@@ -292,8 +292,12 @@ body {
 /* ------------------------------------------------------------------------------------ */
 
 /* artplayer fullscreen----------------------------------------------------------------- */
-.artplayer-fullscreen.artplayer-web-fullscreen .artplayer-mask,
-.artplayer-fullscreen.artplayer-web-fullscreen .artplayer-layer {
+.artplayer-fullscreen.artplayer-web-fullscreen .artplayer-mask {
     z-index: 9999 !important;
+}
+
+.artplayer-fullscreen.artplayer-web-fullscreen .artplayer-layer .artplayer-controls-layer,
+.artplayer-fullscreen.artplayer-web-fullscreen .artplayer-layer .artplayer-error-layer {
+    z-index: 10000 !important;
 }
 /* ------------------------------------------------------------------------------------ */
