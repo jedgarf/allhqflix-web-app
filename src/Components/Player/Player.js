@@ -151,7 +151,6 @@ const Player = ({ details, episodes, defaultlink, infotitle, infocover, seasonNu
             });
 
             art.on('fullscreen', (state) => {
-                alert(state);
                 showPrevNextControls(art, state, additionalControls);
             });
 
