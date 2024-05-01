@@ -266,7 +266,7 @@ const AnimeDashboard = (props) => {
         style: {
           fontSize: isMobile ? '15px' : '30px',
           marginTop: isMobile ? 0 : '-6px',
-          marginRight: isMobile ? '8px' : 0
+          marginRight: isMobile ? '10px' : 0
         },
         click: function (item) {
           previousEpisode();
@@ -284,7 +284,7 @@ const AnimeDashboard = (props) => {
         style: {
           fontSize: isMobile ? '15px' : '30px',
           marginTop: isMobile ? 0 : '-6px',
-          marginRight: isMobile ? '8px' : 0
+          marginRight: isMobile ? '10px' : 0
         },
         click: function (item) {
           nextEpisode();
