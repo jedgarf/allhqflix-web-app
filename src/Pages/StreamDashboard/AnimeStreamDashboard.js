@@ -285,15 +285,15 @@ const AnimeStreamDashboard = (props) => {
                             (<label className='stream-dashboard-servername'>
                                 <span style={{ marginRight: 2 }}>Episode 1 to {infoValue?.episodes?.length}</span>
                                 {/* &nbsp;&bull;&nbsp;<span style={{ marginRight: 5 }}><StarIcon style={{ marginBottom: '-3px', fontSize: 18, color: "#E4A11B" }}/> {infoValue?.rating}</span> */}
-                                &nbsp;&bull;&nbsp;<span style={{ paddingBottom: '-4px !important' }}><StarRating value={infoValue?.rating} /></span>
-                                &nbsp;&bull;&nbsp;<ShareModal infoValue={infoValue} size={'15px'}/>
+                                &nbsp;&bull;&nbsp;<span style={{ marginBottom: '-4px !important' }}><StarRating value={infoValue?.rating} /></span>
+                                &nbsp;&bull;&nbsp;&nbsp;<ShareModal infoValue={infoValue} size={'18px'} elem={'button'}/>
                             </label>)
                             : 
                             (<label className='stream-dashboard-servername'>
                                 {infoValue?.duration ? <span style={{ marginRight: 2 }}>{convertMinutesToHoursAndMinutes(infoValue?.duration)}</span> : ''}
                                 {/* &nbsp;&bull;&nbsp;<span style={{ marginRight: 5 }}><StarIcon style={{ marginBottom: '-3px', fontSize: 18, color: "#E4A11B" }}/> {infoValue?.rating}</span> */}
                                 &nbsp;&bull;&nbsp;<span style={{ marginRight: 5 }}><StarRating value={infoValue?.rating} /></span>
-                                &nbsp;&bull;&nbsp;<ShareModal infoValue={infoValue} size={'15px'}/>
+                                &nbsp;&bull;&nbsp;&nbsp;<ShareModal infoValue={infoValue} size={'15px'} elem={'button'}/>
                             </label>)}
                         </div>
                         <p className='stream-dashboard-description' title={DOMPurify.sanitize(infoValue?.description).trim()} dangerouslySetInnerHTML={{ __html: infoValue?.description.trim() ? DOMPurify.sanitize(infoValue?.description).replace('<br>', '').replace('</br>', '').trim() : '-'}}/>

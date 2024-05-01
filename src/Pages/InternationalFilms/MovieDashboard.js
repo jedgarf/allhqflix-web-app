@@ -78,6 +78,7 @@ const MovieDashboard = (props) => {
   const [movieServer, setMovieServer] = useState([]);
   const [videoQualities, setVideoQualities] = useState([]);
   const [videoSubtitles, setVideoSubtitles] = useState([]);
+  const [playerServers, setPlayerServers] = useState([]);
   const [recommendations, setRecommendations] = useState([]);
 
   // alert variable
@@ -93,6 +94,7 @@ const MovieDashboard = (props) => {
   const [defaultSubtitle, setDefaultSubtitle] = useState("");
   const [defaultQualityToolTip, setDefaultQualityToolTip] = useState("");
   const [defaultSubtitleToolTip, setDefaultSubtitleToolTip] = useState("");
+  const [defaultServerToolTip, setDefaultServerToolTip] = useState("");
   
   // selected data
   const [selectedSeason, setSelectedSeason] = useState(paramSeasonId);
@@ -110,12 +112,12 @@ const MovieDashboard = (props) => {
       setSnackBarOpen(false);
   };
 
-  const chooseServer = (server, rabbitstreamId) => {
+  const chooseServer = (serverValue, server, rabbitstreamId) => {
     if (server === selectedServer) {
       moveToTop();
     } else {
       setLoadingEpisode(true);
-      set_selectedServer(server, rabbitstreamId);
+      set_selectedServer(serverValue, server, rabbitstreamId);
       moveToTop();
     }
   }
@@ -142,7 +144,7 @@ const MovieDashboard = (props) => {
 
   }, [selectedSeason, selectedEpisode]);
 
-  const set_selectedServer = useCallback((server, rabbitstreamId) => {
+  const set_selectedServer = useCallback((serverValue, server, rabbitstreamId) => {
 
     if (server !== undefined) {
       if (server.length > 0) {
@@ -168,9 +170,26 @@ const MovieDashboard = (props) => {
         setSnackBarMessage(`No Server Found.`);
         setSnackBarOpen(true);
       }
+
+      // ============================ set player servers ===================================
+      let playerServerContent = [];
+      let playerServer = serverValue?.data;
+      if (playerServer !== undefined) {
+        for (let playerServerLength = 0; playerServerLength < playerServer?.length; playerServerLength++) {
+          const serverAlias = playerServer[playerServerLength]?.name === 'upcloud' ? 'Server 1' : 'Server 2';
+          if (playerServer[playerServerLength].name === selectedServer) {
+            setDefaultServerToolTip(serverAlias);
+            playerServerContent.push({"default": true, "name": playerServer[playerServerLength].name, "html": serverAlias, "url": "", rabbitstream_id: playerServer[playerServerLength].rabbitstream_id });
+          } else {
+            playerServerContent.push({"default": false, "name": playerServer[playerServerLength].name, "html": serverAlias, "url": "", rabbitstream_id: playerServer[playerServerLength].rabbitstream_id });
+          }
+        } 
+      }
+      setPlayerServers(playerServerContent);
+      // ==================================================================================
     }
 
-  }, [paramServer]);
+  }, [paramServer, selectedServer]);
 
   const set_selectedLinkSubtitle = useCallback((resourceValue) => {
 
@@ -246,6 +265,8 @@ const MovieDashboard = (props) => {
       }
     }
     setVideoSubtitles(videoSubtitlesContent);
+    // ==================================================================================
+
     setLoadingEpisode(false);
   }, [selectedServer]);
 
@@ -387,7 +408,7 @@ const MovieDashboard = (props) => {
     }
 
     if (serverData.isSuccess) {
-      set_selectedServer(serverVar, rabbitStreamId);
+      set_selectedServer(serverValue, serverVar, rabbitStreamId);
     }
 
     if (resourceData.isSuccess) {
@@ -450,9 +471,9 @@ const MovieDashboard = (props) => {
         className={type === 'tv' ? `tv_cover` : `movie_cover`} 
         style={{ backgroundImage: `linear-gradient(rgba(var(--body-raw-color), 0.8), rgba(var(--body-raw-color), 0), rgba(var(--body-raw-color), 0.6), rgba(var(--body-raw-color), 1)), url("${infoValue?.cover}"), url("${homeBackground}")` }}
       >
-        {loadingEpisode ? (
+        {loadingEpisode || playerServers.length === 0 ? 
           <InitPlayerLoading/>
-        ) : (
+        : 
           <Player
             className="movie_player"
             details={infoValue}
@@ -475,6 +496,20 @@ const MovieDashboard = (props) => {
               setting: true,
               hotkey: true,
               settings: [
+              {
+                html: 'Servers',
+                width: 300,
+                tooltip: defaultServerToolTip,
+                icon: `<img width="22" heigth="22" src="${videoQuality}">`,
+                selector: playerServers || [],
+                onSelect: function (item, $dom, event) {
+                  if (item.name === selectedServer) {
+                    return item.html;
+                  } else {
+                    chooseServer(movieServer, item.name, item.rabbitstream_id);
+                  }
+                },
+              },
               {
                 html: 'Video Resolutions',
                 width: 300,
@@ -521,12 +556,21 @@ const MovieDashboard = (props) => {
               controls: [],
             }}
           />
-        )}
+        }
         <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={0} className="player-options-content">
           <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>
             <div className="player-options">
-              <TraillerModal category={type} infoValue={infoValue} setSnackBarType={''} setSnackBarMessage={''} setSnackBarOpen={''}/>
-              <ShareModal infoValue={infoValue} size={'25px'} elem={'button'}/>
+              {isMobileSize ? 
+                <Fragment>
+                  <TraillerModal category={type} infoValue={infoValue} size={'24px'} color={'var(--main-red)'} elem={'icon'} setSnackBarType={''} setSnackBarMessage={''} setSnackBarOpen={''}/>
+                  <ShareModal infoValue={infoValue} size={'24px'} elem={'icon'} color={'var(--dark-mode-blue)'}/>
+                </Fragment>
+              : 
+                <Fragment>
+                  <TraillerModal category={type} infoValue={infoValue} size={'25px'} elem={'button'} setSnackBarType={''} setSnackBarMessage={''} setSnackBarOpen={''}/>
+                  <ShareModal infoValue={infoValue} size={'25px'} elem={'button'}/>
+                </Fragment>
+              }
             </div>
           </Grid>
           <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>
@@ -537,7 +581,7 @@ const MovieDashboard = (props) => {
                   variant="outlined"
                   onClick={() => previousEpisode()} 
                   disabled={additionalControls.filter(item => item.tooltip === 'Previous Episode')?.length > 0 ? false : true}
-                  style={{ marginRight: '10px', border: `${additionalControls.filter(item => item.tooltip === 'Previous Episode')?.length > 0 ? 'var(--four-color)' : 'var(--text-color)'} 1px solid` }}
+                  style={{ border: `${additionalControls.filter(item => item.tooltip === 'Previous Episode')?.length > 0 ? 'var(--four-color)' : 'var(--text-color)'} 1px solid` }}
                 >
                   <SkipPreviousIcon sx={{ color: additionalControls.filter(item => item.tooltip === 'Previous Episode')?.length > 0 ? 'var(--four-color)' : 'var(--text-color)' }}/>
                 </IconButton>
@@ -556,47 +600,11 @@ const MovieDashboard = (props) => {
         </Grid>
       </div>
 
-      {selectedServer !== null && movieServer?.data?.length > 0 ? 
-        <div className={type === 'tv' ? 'movie_server_tv' : 'movie_server'} hidden={server_status.filter(item => item.status === 'stable').length > 1 || movieServer?.data[0].name === 'vidcloud' ? false : true }>
-          {/* <div className="movie_server_content_note">
-            <p>If current server doesn't work please try other servers below.</p>
-          </div> */}
-          <div className="movie_server_content">
-            <center>
-              {movieServer?.data?.map((item, index) => {
-                return (
-                  <Fragment key={index}>
-                    {server_status.filter((serverValue) => serverValue.code === item.name).length > 0 && 
-                      server_status.filter((serverValue) => serverValue.code === item.name)
-                      .map((subItem, subIndex) => {
-                        return (
-                            <Fragment key={subIndex}>
-                                {subItem.status === 'stable' ?
-                                  <Button variant={selectedServer === item.name ? 'contained' : 'outlined'} startIcon={<OndemandVideoIcon/>} size="small" style={{ marginInline: 5 }} onClick={() => chooseServer(item.name, item.rabbitstream_id)} disabled={resourceData.isLoading}>
-                                    {`Server ${index+1}`}
-                                  </Button>
-                                : 
-                                  <Button variant={selectedServer === item.name ? 'contained' : 'outlined'} startIcon={<OndemandVideoIcon/>} size="small" style={{ marginInline: 5, cursor: 'not-allowed' }} color='error' disabled={resourceData.isLoading}>
-                                    {`Server ${index+1}`}
-                                  </Button>
-                                }
-                            </Fragment>
-                        )
-                      })
-                    }        
-                  </Fragment>
-                )
-              })}
-            </center>
-          </div>
-          <Divider variant="middle"/>
-        </div>
-      : <div className={type === 'tv' ? 'movie_server_tv' : 'movie_server'}></div>}
-
       <div className={type === 'tv' ? 'tv_info' : 'movie_info'}>
-      
-        {type === 'tv' ?
+
+        {type === 'tv' && 
           <Container maxWidth={'xxl'}>
+            {/* For Mobile and Tablets */}
             <Box className="episodesBtn" display={{ xs: 'block', sm: 'block', md: 'none', lg: 'none' }}>
               <TVEpisodesDrawer
                 movieInfo={infoValue} 
@@ -614,6 +622,7 @@ const MovieDashboard = (props) => {
                 drawerAlign={'bottom'}
               />
             </Box>
+            {/* For Desktop (higher screen size) */}
             <Box className="episodesBtn" display={{ xs: 'none', sm: 'none', md: 'block', lg: 'block' }}>
               <TVEpisodesDrawer
                 movieInfo={infoValue} 
@@ -632,10 +641,6 @@ const MovieDashboard = (props) => {
               />
             </Box>
           </Container>
-        :  
-          <Box display={{ xs: 'none', sm: 'none', md: 'block', lg: 'block', xl: 'block' }}>
-            <br/><br/><br/>
-          </Box>
         }
 
         <Container maxWidth={'xxl'} className="content-details">
@@ -664,7 +669,7 @@ const MovieDashboard = (props) => {
                           </h5>
                         </Grid>
                         <Grid item>
-                          <h4>{infoValue?.episodes?.length > 0 ? `${infoValue?.episodes?.length} EPISODES` : `${infoValue?.episodes?.length} EPISODE`}</h4>
+                          <h5>{infoValue?.episodes?.length > 0 ? `${infoValue?.episodes?.length} EPISODES` : `${infoValue?.episodes?.length} EPISODE`}</h5>
                         </Grid>
                       </Grid>
                       : 

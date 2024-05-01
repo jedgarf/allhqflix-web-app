@@ -46,7 +46,7 @@ const darkTheme = createTheme({
     },
 });
 
-const ShareModal = ({ infoValue, size = '18px', elem = 'icon' }) => {
+const ShareModal = ({ infoValue, size = '18px', elem = 'icon', color = 'var(--dark-mode-blue)' }) => {
 
     const { type } = useParams();
     const shareLink = `${window.location.protocol}//${window.location.host}/${type}/stream_dashboard?mediaId=${infoValue.id}&share=true`;
@@ -73,10 +73,14 @@ const ShareModal = ({ infoValue, size = '18px', elem = 'icon' }) => {
     return (
         <ThemeProvider theme={darkTheme}>
             <CssBaseline />
-            {elem === 'button' ? 
-                <Button variant='outlined' size='small' onClick={() => setModalQROpen(true)} startIcon={<ShareIcon/>}>Share</Button>
+            {elem === "icon" ? 
+                <IconButton title='Share' variant='outlined' size='small' onClick={() => setModalQROpen(true)} style={{ padding: '3px 4px 3px 1px', border: `${color} solid 1px` }}>
+                    <ShareIcon style={{ fontSize: size, color: color }}/>
+                </IconButton>
             : 
-                <ShareIcon onClick={() => setModalQROpen(true)} style={{ fontSize: size, marginBottom: '-2px', padding: 0, color: '#DC4C64', fontWeight: 'bolder', cursor: 'pointer' }}/>
+                <Button title='Share' variant='outlined' size='small' onClick={() => setModalQROpen(true)} startIcon={<ShareIcon/>}>
+                    Share
+                </Button>
             }
 
             <Modal

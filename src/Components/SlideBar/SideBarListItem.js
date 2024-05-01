@@ -8,7 +8,6 @@ import { Collapse, Icon } from "@material-ui/core";
 import { Link } from 'react-router-dom';
 import Badge from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';
-import ReactHtmlParser from 'react-html-parser';
 
 // Icons
 import ChecklistIcon from '@mui/icons-material/Checklist';
@@ -21,8 +20,6 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 const SideBarListItem = ({ page, subType, subPage, classes, selected }) => {
 
     subPage = subPage?.filter((item) => item.menu_id === page.id).sort((a, b) => { return a.sequence - b.sequence });
-    var icon = ReactHtmlParser(`<${page?.icon} />`);
-    var icon2 = <LocalMoviesIcon/>;
     const [open, setOpen] = useState(false);
 
     const handleClick = () => {

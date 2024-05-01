@@ -460,8 +460,17 @@ const AnimeDashboard = (props) => {
         <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={0} className="player-options-content">
           <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>
             <div className="player-options">
-              <TraillerModal category="anime" infoValue={infoValue} setSnackBarType={''} setSnackBarMessage={''} setSnackBarOpen={''}/>
-              <ShareModal infoValue={infoValue} size={'25px'} elem={'button'}/>
+              {isMobileSize ? 
+                <Fragment>
+                  <TraillerModal category={type} infoValue={infoValue} size={'24px'} color={'var(--main-red)'} elem={'icon'} setSnackBarType={''} setSnackBarMessage={''} setSnackBarOpen={''}/>
+                  <ShareModal infoValue={infoValue} size={'24px'} elem={'icon'} color={'var(--dark-mode-blue)'}/>
+                </Fragment>
+              : 
+                <Fragment>
+                  <TraillerModal category={type} infoValue={infoValue} size={'25px'} elem={'button'} setSnackBarType={''} setSnackBarMessage={''} setSnackBarOpen={''}/>
+                  <ShareModal infoValue={infoValue} size={'25px'} elem={'button'}/>
+                </Fragment>
+              }
             </div>
           </Grid>
           <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>

@@ -151,10 +151,14 @@ td {
 }
 
 .tv_info {
-    margin: -65px auto auto auto !important;
+    margin: -85px auto auto auto !important;
     align-items: center;
     width: 98.5% !important;
     color: var(--four-color);
+}
+
+.tv_info .content-details {
+    margin-top: 12px !important;
 }
 
 .tv_info .movie_description {
@@ -300,7 +304,7 @@ td {
 }
 
 .player-options-content .player-options button {
-    margin-right: 5px;
+    margin-right: 10px;
 }
 
 .player-options-content .player-controls {
@@ -311,6 +315,7 @@ td {
 }
 
 .player-options-content .player-controls button {
+    margin-right: 10px;
     padding: 3px !important;
 }
 
@@ -319,7 +324,7 @@ td {
 
 @media (max-width: 1900px) {
     .movie_info {
-        margin-top: -125px !important;
+        margin-top: -110px !important;
     }
     .tv_info {
         margin-top: -125px !important;
@@ -380,7 +385,7 @@ td {
 
 @media (max-width: 1200px) {
     .movie_info .media-title {
-        margin-top: 90px !important;
+        margin-top: 103px !important;
     }
     .tv_info .media-title {
         margin-top: 90px !important;
@@ -418,7 +423,7 @@ td {
         background-size: cover;
     }
     .tv_info {
-        margin-top: -5px !important;
+        margin-top: 15px !important;
     }
     .tv_info .content-details {
         margin-top: -120px !important;
@@ -479,26 +484,13 @@ td {
     }
 }
 
-/* @media (max-width: 600px) {
-    .movie_cover {
-        position: fixed;
-        z-index: 10;
-        padding-bottom: 5px !important;
-        margin-top: 50px !important;
-        width: 100%;
-        height: 270px !important;
-        background-position: center;
-        background-size: cover;
-    }
-} */
-
 @media (max-width: 600px) {
     .movie_info .media-title {
         margin-top: 350px !important;
         font-size: 23px !important;
     }
     .tv_info .media-title {
-        margin-top: 80px !important;
+        margin-top: 70px !important;
         font-size: 23px !important;
     }
     .top__heading {
@@ -570,14 +562,14 @@ td {
         max-height: 248px !important;
     }
     .movie_info {
-        margin-top: -50px !important;
+        margin-top: 20px !important;
     }
     .tv_info {
-        margin-top: 30px !important;
+        margin-top: 370px !important;
     }
-    .tv_info .content-details {
+    /* .tv_info .content-details {
         margin-top: -120px !important;
-    }
+    } */
     .movie_info .movie_description {
         font-size: 12px;
         margin-right: 10px;

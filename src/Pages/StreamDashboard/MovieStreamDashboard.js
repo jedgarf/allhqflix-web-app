@@ -246,13 +246,13 @@ const MovieStreamDashboard = (props) => {
                             <label className='stream-dashboard-servername'>
                                 <span className='videoq-span' style={{ backgroundColor: 'transparent', fontWeight: 'bolder', border: '1px solid white', paddingInline: '1px', marginRight: '9px' }}>{infoValue?.video_quality}</span>
                                 &bull;<span style={{ marginLeft: '5px' }}>{ObjectLength(seasons) > 1 ? 'Season 1 to ' + ObjectLength(seasons) : 'Season 1'}</span>
-                                &nbsp;&nbsp;&bull;&nbsp;<ShareModal infoValue={infoValue} size={'15px'}/>
+                                &nbsp;&nbsp;&bull;&nbsp;&nbsp;<ShareModal infoValue={infoValue} size={'18px'} elem={'button'}/>
                             </label>
                         : 
                             <label className='stream-dashboard-servername'>
                                 <span className='videoq-span' style={{ backgroundColor: 'transparent', fontWeight: 'bolder', border: '1px solid white', paddingInline: '1px', marginRight: '9px' }}>{infoValue?.video_quality}</span> 
                                 &bull;<span style={{ marginLeft: '5px' }}>{convertMinutesToHoursAndMinutes(infoValue?.duration.replace('min', ''))}</span>
-                                &nbsp;&nbsp;&bull;&nbsp;<ShareModal infoValue={infoValue} size={'15px'}/>
+                                &nbsp;&nbsp;&bull;&nbsp;&nbsp;<ShareModal infoValue={infoValue} size={'18px'} elem={'button'}/>
                             </label> }
                         </div>
                         {infoValue?.description.replace(/\s+/g,'') !== "" ?

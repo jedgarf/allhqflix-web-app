@@ -1,7 +1,7 @@
 import React from 'react';
 
 // Material UI Components
-import { Button, Modal, Backdrop, Fade, Box } from '@mui/material';
+import { Button, Modal, Backdrop, Fade, Box, IconButton } from '@mui/material';
 
 // Material UI Theme
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -17,7 +17,7 @@ const darkTheme = createTheme({
     },
 });
 
-const TraillerModal = ({ category, infoValue }) => {
+const TraillerModal = ({ category, infoValue, size = '18px', elem = 'button', color = 'var(--four-color)' }) => {
 
     const [modalOpen, setModalOpen] = React.useState(false);
     const handleModalClose = () => setModalOpen(false);
@@ -45,19 +45,18 @@ const TraillerModal = ({ category, infoValue }) => {
         top: '40%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        // width: 700,
-        // height: 400,
-        // bgcolor: '#0f1622',
-        // border: '2px solid #000',
-        // boxShadow: 24,
-        // p: 4,
     };
 
     return (
         <ThemeProvider theme={darkTheme}>
             <CssBaseline />
-            {infoValue?.trailer !== undefined ?
-                <Button title='Trailer' variant='outlined' color='error' size='small' style={{ marginRight: '10px' }} onClick={() => setModalOpen(true)} startIcon={<LocalMoviesIcon/>}>Trailer</Button>
+            {infoValue?.trailer !== undefined ? 
+                elem === "button" ? 
+                    <Button title='Trailer' variant='outlined' color='error' size='small' style={{ marginRight: '10px' }} onClick={() => setModalOpen(true)} startIcon={<LocalMoviesIcon/>}>Trailer</Button>
+                : 
+                    <IconButton title='Trailer' variant='outlined' size='small' style={{ marginRight: '5px', padding: '3px', border: `${color} solid 1px` }} onClick={() => setModalOpen(true)}>
+                        <LocalMoviesIcon style={{ fontSize: size, color: color }}/>
+                    </IconButton>
             : ''}
 
             <Modal
