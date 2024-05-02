@@ -260,13 +260,13 @@ const AnimeStreamDashboard = (props) => {
         : 
         <Fragment>
             <ReactQueryTools/>
-            <div className='stream-dashboard' style={{backgroundImage: isMobile ? `linear-gradient(rgba(10, 10, 10, 0.527),rgba(10, 10, 10, 0.5)), url("${BGImage}"), url("${homeBackground}")` : `linear-gradient(to right, rgba(10, 10, 10, 0.85) 30%, rgba(10, 10, 10, 0.5) 70%), url("${BGImage}"), url("${homeBackground}")`, objectFit: 'cover', backgroundSize: ' 100% 100%', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', width: '100%'}} 
+            <div className='stream-dashboard' style={{backgroundImage: isMobile ? `linear-gradient(rgba(var(--header-raw-color), 0.527),rgba(var(--header-raw-color), 0.5)), url("${BGImage}"), url("${homeBackground}")` : `linear-gradient(to right, rgba(var(--header-raw-color), 0.85) 30%, rgba(var(--header-raw-color), 0.5) 70%), url("${BGImage}"), url("${homeBackground}")`, objectFit: 'cover', backgroundSize: ' 100% 100%', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', width: '100%'}} 
                 onError={handleBackgroundImageError}>
                 <SnackBar severity={snackBarType} handleSnackBarOpen={handleSnackBarOpen} status={snackBarOpen} snackBarMessage={snackBarMessage} withLoading={snackBarWithLoading} hideDuration={hideDuration} />
                 <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={1} justifyContent="center">
                     <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>
                         <Button onClick={() => streamDashboardBackButton(navigate, type, isShare)}>
-                            <ArrowBackTwoToneIcon sx={{ fontSize: { xs: '35px', sm: '40px' }, margin: '10px', color: '#DC4C64' }}/>
+                            <ArrowBackTwoToneIcon sx={{ fontSize: { xs: '35px', sm: '40px' }, margin: '10px', color: 'var(--main-red)' }}/>
                         </Button>
                     </Grid>
                     <Grid item xl={6} lg={6} md={6} sm={6} xs={6} style={{ marginTop: 8, marginRight: 0, textAlign: 'right' }}>
@@ -278,7 +278,7 @@ const AnimeStreamDashboard = (props) => {
                 {infoData.isLoading ? 
                     <MediaDashboardSkeleton />
                 : 
-                    <div className='stream-dashboard-content' style={{ backgroundColor: isMobile ? 'rgba(10, 10, 10, 0.5)' : 'transparent' }}>
+                    <div className='stream-dashboard-content' style={{ backgroundColor: isMobile ? 'rgba(var(--header-raw-color), 0.5)' : 'transparent' }}>
                         <div className='stream-dashboard-title'>
                             <h1 style={{ marginBottom: '5px' }}>{ infoValue?.title?.english || infoValue?.title?.userPreferred || infoValue?.title?.romaji || infoValue?.title?.native }</h1>
                             {infoValue?.episodes?.length > 1 ?
@@ -298,23 +298,23 @@ const AnimeStreamDashboard = (props) => {
                         </div>
                         <p className='stream-dashboard-description' title={DOMPurify.sanitize(infoValue?.description).trim()} dangerouslySetInnerHTML={{ __html: infoValue?.description.trim() ? DOMPurify.sanitize(infoValue?.description).replace('<br>', '').replace('</br>', '').trim() : '-'}}/>
                         <div className='stream-dashboard-description-details'>
-                            <b style={{ color: '#DC4C64', marginRight: '5px' }}>Released:</b> 
+                            <b style={{ color: 'var(--main-red)', marginRight: '5px' }}>Released:</b> 
                                 { infoValue?.releaseDate ? infoValue?.releaseDate : '-' }
                             <br/>
-                            <b style={{ color: '#DC4C64', marginRight: '5px' }}>Country:</b> 
+                            <b style={{ color: 'var(--main-red)', marginRight: '5px' }}>Country:</b> 
                             {foreign_country.filter((item) => item.code === infoValue?.countryOfOrigin).length > 0 ? (
                                 <span>
                                     {foreign_country.filter((item) => item.code === infoValue?.countryOfOrigin)[0].name}
                                 </span>
                             ) : ('-')}
                             <br/>
-                            <b style={{ color: '#DC4C64', marginRight: '5px' }}>Season:</b>
+                            <b style={{ color: 'var(--main-red)', marginRight: '5px' }}>Season:</b>
                                 { infoValue?.season ? capitalizeString(infoValue?.season) : '-' }
                             <br/>
-                            {/* <b style={{ color: '#DC4C64', marginRight: '5px' }}>Synonym/s:</b>
+                            {/* <b style={{ color: 'var(--main-red)', marginRight: '5px' }}>Synonym/s:</b>
                             <SeparateArrayByComma type={'google_link'} data={infoValue?.synonyms} link={'https://www.google.com/search?q='} />
                             <br/> */}
-                            <b style={{ color: '#DC4C64', marginRight: '5px' }}>Genre/s:</b> 
+                            <b style={{ color: 'var(--main-red)', marginRight: '5px' }}>Genre/s:</b> 
                             <SeparateArrayByComma type={'site_link'} data={infoValue?.genres} link={'/anime/genre_filter?genre='} />
                             <br/>
                             <b><SubtitlesIcon style={{ marginBottom: '-6px' }}/></b>{' '}

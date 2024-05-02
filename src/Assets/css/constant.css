@@ -1,4 +1,6 @@
 :root {
+    --body-raw-color: 24, 24, 24;
+    --header-raw-color: 0, 0, 0;
     --main-color: #01a3ff;
     --second-color: #14A44D;
     --third-color: #222222;
@@ -10,12 +12,11 @@
     --submenu-color: rgba(53, 59, 69, 255);
     --footer-link: #8394f5;
     --main-red: #DC4C64;
-    --sidebar: rgba(0, 10, 20, 255);
-    --sidebar-transparent: rgba(10, 12, 15, 0.3);
-    --appbar: rgba(0, 10, 20, 0.7);
-    --appbar-stream: rgba(0, 10, 20, 1);
-    --footer: rgba(0, 10, 20, 255);
-    --body-raw-color: 10, 10, 10;
+    --sidebar: rgba(0, 0, 0, 255);
+    --sidebar-transparent: rgba(0, 0, 0, 0.3);
+    --appbar: rgba(0, 0, 0, 0.7);
+    --appbar-stream: rgba(0, 0, 0, 1);
+    --footer: rgba(var(--body-raw-color), 0.5);
     --body: rgba(var(--body-raw-color), 1);
     --body-content: rgba(45, 45, 45, 255);
     --body-content-contain: rgba(25, 25, 45, 255);

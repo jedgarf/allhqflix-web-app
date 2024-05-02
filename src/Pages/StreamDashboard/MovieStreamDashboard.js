@@ -221,13 +221,13 @@ const MovieStreamDashboard = (props) => {
         : 
         <Fragment>
             <ReactQueryTools/>
-            <div className='stream-dashboard' style={{backgroundImage: isMobile ? `linear-gradient(rgba(10, 10, 10, 0.527),rgba(10, 10, 10, 0.5)), url("${BGImage}"), url("${homeBackground}")` : `linear-gradient(to right, rgba(10, 10, 10, 0.85) 30%, rgba(10, 10, 10, 0.5) 70%), url("${BGImage}"), url("${homeBackground}")`, objectFit: 'cover', backgroundSize: ' 100% 100%', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', width: '100%'}} 
+            <div className='stream-dashboard' style={{backgroundImage: isMobile ? `linear-gradient(rgba(var(--header-raw-color), 0.527),rgba(var(--header-raw-color), 0.5)), url("${BGImage}"), url("${homeBackground}")` : `linear-gradient(to right, rgba(var(--header-raw-color), 0.85) 30%, rgba(var(--header-raw-color), 0.5) 70%), url("${BGImage}"), url("${homeBackground}")`, objectFit: 'cover', backgroundSize: ' 100% 100%', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', width: '100%'}} 
                 onError={handleBackgroundImageError}>
                 <SnackBar severity={snackBarType} handleSnackBarOpen={handleSnackBarOpen} status={snackBarOpen} snackBarMessage={snackBarMessage} withLoading={snackBarWithLoading} />
                 <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={1} justifyContent="left">
                     <Grid item xl={6} lg={6} md={6} sm={6} xs={6} style={{ marginTop: 8, marginLeft: 0, textAlign: 'left' }}>
                         <Button onClick={() => streamDashboardBackButton(navigate, media, isShare)}>
-                            <ArrowBackTwoToneIcon sx={{ fontSize: { xs: '35px', sm: '40px' }, color: '#DC4C64' }}/>
+                            <ArrowBackTwoToneIcon sx={{ fontSize: { xs: '35px', sm: '40px' }, color: 'var(--main-red)' }}/>
                         </Button>
                     </Grid>
                     <Grid item xl={6} lg={6} md={6} sm={6} xs={6} style={{ marginTop: 8, marginRight: 0, textAlign: 'right' }}>
@@ -239,7 +239,7 @@ const MovieStreamDashboard = (props) => {
                 {infoData.isLoading || serverData.isLoading ?  
                     <MediaDashboardSkeleton />
                 : 
-                    <div className='stream-dashboard-content' style={{ backgroundColor: isMobile ? 'rgba(10, 10, 10, 0.5)' : 'transparent' }}>
+                    <div className='stream-dashboard-content' style={{ backgroundColor: isMobile ? 'rgba(var(--header-raw-color), 0.5)' : 'transparent' }}>
                         <div className='stream-dashboard-title'>
                         <h1 style={{ marginBottom: '7px' }}>{infoValue?.title}</h1>
                         {type === 'tv' ?
@@ -260,15 +260,15 @@ const MovieStreamDashboard = (props) => {
                             : <div className='stream-dashboard-description'>{`-`}</div>}
 
                         <div className='stream-dashboard-description-details'>
-                            <b style={{ color: '#DC4C64', marginRight: '5px' }}>Released Date:</b> 
+                            <b style={{ color: 'var(--main-red)', marginRight: '5px' }}>Released Date:</b> 
                             {infoValue?.releaseDate !== undefined ? moment(infoValue?.releaseDate).format('MMMM D, YYYY') : ''}
                             <br/>
-                            <b style={{ color: '#DC4C64', marginRight: '5px' }}>Country:</b> 
+                            <b style={{ color: 'var(--main-red)', marginRight: '5px' }}>Country:</b> 
                             <Link className='text-link' style={{ cursor: 'pointer' }} title={ infoValue?.country } to={`/foreign/country_filter?country=${infoValue?.country}`}>{ infoValue?.country }</Link>
                             <br/>
                             {infoValue?.casts?.length > 0 ?
                                 <div>
-                                    <b style={{ color: '#DC4C64', marginRight: '5px' }}>Main Casts:</b>
+                                    <b style={{ color: 'var(--main-red)', marginRight: '5px' }}>Main Casts:</b>
                                     <SeparateArrayByComma type={'google_link'} data={infoValue?.casts} link={'https://www.google.com/search?q='} />
                                     <br/>
                                 </div>
@@ -276,7 +276,7 @@ const MovieStreamDashboard = (props) => {
                                 
                             {infoValue?.genres?.length > 0 ?
                                 <Fragment>
-                                    <b style={{ color: '#DC4C64', marginRight: '5px' }}>Genres:</b>
+                                    <b style={{ color: 'var(--main-red)', marginRight: '5px' }}>Genres:</b>
                                     <SeparateArrayByComma type={'site_link'} data={infoValue?.genres} link={'/foreign/genre_filter?genre='} />
                                     <br/>
                                 </Fragment>
