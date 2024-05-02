@@ -1,6 +1,7 @@
 :root {
     --body-raw-color: 24, 24, 24;
     --header-raw-color: 0, 10, 20;
+    --menu-raw-color: 45, 45, 45;
     --main-color: #01a3ff;
     --second-color: #14A44D;
     --third-color: #222222;
@@ -18,10 +19,10 @@
     --appbar-stream: rgba(var(--header-raw-color), 1);
     --footer: rgba(var(--body-raw-color), 0.5);
     --body: rgba(var(--body-raw-color), 1);
-    --body-content: rgba(45, 45, 45, 255);
+    --body-content: rgba(var(--menu-raw-color), 255);
     --body-content-contain: rgba(25, 25, 45, 255);
-    --accordion-header: rgba(45, 45, 45, 1);
-    --accordion-body: rgba(45, 45, 45, 0.9);
+    --accordion-header: rgba(var(--menu-raw-color), 1);
+    --accordion-body: rgba(var(--menu-raw-color), 0.9);
     --skeleton-loader-transparent: rgba(25, 27, 29, 0.8);
     --modal-bg: rgba(56,56,56,255);
     /* --modal-bg: rgba(0, 10, 20, 0.5); */

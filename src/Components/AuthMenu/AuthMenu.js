@@ -88,7 +88,7 @@ const AuthMenu = ({ isStream, isAuth }) => {
             >
               {/* <Badge badgeContent={devAlert.length} color="primary"> */}
               <center>
-                <Avatar alt={'U'} sx={{ bgcolor: '#DC4C64' }} style={{ width: '33px', height: '33px' }} src={user?.picture && user.picture} />
+                <Avatar alt={'U'} sx={{ bgcolor: 'var(--main-red)' }} style={{ width: '33px', height: '33px' }} src={user?.picture && user.picture} />
               </center>
               {/* </Badge> */}
             </IconButton>
@@ -106,7 +106,7 @@ const AuthMenu = ({ isStream, isAuth }) => {
                 sx: {
                 //   width: 150,
                   overflow: 'visible',
-                  filter: 'drop-shadow(0px 2px 8px rgba(45,45,45,0.32))',
+                  filter: 'drop-shadow(0px 2px 8px rgba(var(--menu-raw-color),0.32))',
                   mt: 1.5,
                   '& .MuiAvatar-root': {
                     width: 32,
@@ -123,7 +123,7 @@ const AuthMenu = ({ isStream, isAuth }) => {
                     width: 10,
                     height: 10,
                     // bgcolor: 'background.paper',
-                    bgcolor: 'rgba(45,45,45, 255)',
+                    bgcolor: 'rgba(var(--menu-raw-color), 1)',
                     transform: 'translateY(-50%) rotate(45deg)',
                     zIndex: 0,
                   },

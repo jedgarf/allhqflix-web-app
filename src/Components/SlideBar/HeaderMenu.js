@@ -63,7 +63,7 @@ const HeaderMenu = ({ Type, subType,getMenu, menu, submenu }) => {
                         <div style={{ textDecoration: 'none', fontWeight: 'bolder !important', marginRight: '20px' }}>
                         <Button
                             key={page.id}
-                            sx={{ my: 2, color: '#DC4C64', fontWeight: '550', display: 'block' }}
+                            sx={{ my: 2, color: 'var(--main-red)', fontWeight: '550', display: 'block' }}
                             aria-controls={openTopMenu ? 'basic-menu' : undefined}
                             aria-haspopup="true"
                             aria-expanded={openTopMenu ? 'true' : undefined}
@@ -71,16 +71,16 @@ const HeaderMenu = ({ Type, subType,getMenu, menu, submenu }) => {
                         >
                             {page.is_dev === 1 ?
                             <StyledBadge badgeContent={page.badge_message} color="error">
-                                {page.name} {openTopMenu && activeMenu === page.id ? <ExpandLessIcon style={{ color: '#DC4C64', marginBottom: '-7px' }} /> : <ExpandMoreIcon style={{ color: '#DC4C64', marginBottom: '-7px' }} />}
+                                {page.name} {openTopMenu && activeMenu === page.id ? <ExpandLessIcon style={{ color: 'var(--main-red)', marginBottom: '-7px' }} /> : <ExpandMoreIcon style={{ color: 'var(--main-red)', marginBottom: '-7px' }} />}
                             </StyledBadge>
-                            : <>{page.name} {openTopMenu && activeMenu === page.id ? <ExpandLessIcon style={{ color: '#DC4C64', marginBottom: '-7px' }} /> : <ExpandMoreIcon style={{ color: '#DC4C64', marginBottom: '-7px' }} />}</>}
+                            : <>{page.name} {openTopMenu && activeMenu === page.id ? <ExpandLessIcon style={{ color: 'var(--main-red)', marginBottom: '-7px' }} /> : <ExpandMoreIcon style={{ color: 'var(--main-red)', marginBottom: '-7px' }} />}</>}
                         </Button>
                         </div>
                         :
                         <Link to={page.link} style={{ textDecoration: 'none', fontWeight: 'bolder !important', marginRight: '20px' }}>
                         <Button
                             key={page.id}
-                            sx={{ my: 2, color: '#DC4C64', fontWeight: '550', display: 'block' }}
+                            sx={{ my: 2, color: 'var(--main-red)', fontWeight: '550', display: 'block' }}
                             aria-controls={openTopMenu ? 'basic-menu' : undefined}
                             aria-haspopup="true"
                             aria-expanded={openTopMenu ? 'true' : undefined}
@@ -146,7 +146,7 @@ const HeaderMenu = ({ Type, subType,getMenu, menu, submenu }) => {
                     sx: {
                     width: 150,
                     overflow: 'visible',
-                    filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                    filter: 'drop-shadow(0px 2px 8px rgba(var(--menu-raw-color),0.32))',
                     mt: 1.5,
                     '& .MuiAvatar-root': {
                         width: 32,
@@ -163,7 +163,7 @@ const HeaderMenu = ({ Type, subType,getMenu, menu, submenu }) => {
                         width: 10,
                         height: 10,
                         // bgcolor: 'background.paper',
-                        bgcolor: 'rgba(45,45,45, 255)',
+                        bgcolor: 'rgba(var(--menu-raw-color), 1)',
                         transform: 'translateY(-50%) rotate(45deg)',
                         zIndex: 0,
                     },
@@ -179,9 +179,9 @@ const HeaderMenu = ({ Type, subType,getMenu, menu, submenu }) => {
                     <MenuItem onClick={handleTopMenuClose} selected>
                         {subPage.is_dev === 1 ?
                         <StyledSubBadge badgeContent={subPage.badge_message} color="error">
-                            <Typography className='sub-menu-text sub-menu-active' textAlign="left" sx={{ color: '#DC4C64 !important' }}>{subPage.name.toUpperCase()}</Typography>
+                            <Typography className='sub-menu-text sub-menu-active' textAlign="left" sx={{ color: 'var(--main-red) !important' }}>{subPage.name.toUpperCase()}</Typography>
                         </StyledSubBadge>
-                        : <Typography className='sub-menu-text sub-menu-active' textAlign="left" sx={{ color: '#DC4C64 !important' }}>{subPage.name.toUpperCase()}</Typography>}
+                        : <Typography className='sub-menu-text sub-menu-active' textAlign="left" sx={{ color: 'var(--main-red) !important' }}>{subPage.name.toUpperCase()}</Typography>}
                     </MenuItem>
                     </Link>
                     : 

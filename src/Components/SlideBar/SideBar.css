@@ -64,12 +64,12 @@
 }
 
 .MuiMenu-list {
-    background-color: var(--submenu-color) !important;
+    background-color: rgba(var(--menu-raw-color), 1) !important;
     border-radius: 2px !important;
 }
 
 .MuiMenu-paper {
-    background-color: var(--submenu-color) !important;
+    background-color: rgba(var(--menu-raw-color), 1) !important;
 }
 
 .sub-menu-text {
