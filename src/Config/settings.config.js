@@ -2026,7 +2026,7 @@ const suggestion_carousel_settings = {
 const allowed_countries = ['Philippines', 'United States', 'Japan', 'Singapore', 'Thailand', 'China'];
 
 const server_status = [ { id: 1, code: 'upcloud', name: 'UpCloud', status: 'stable' },
-                        { id: 2, code: 'vidcloud', name: 'VidCloud', status: 'stable' } ];
+                        { id: 2, code: 'vidcloud', name: 'VidCloud', status: 'unstable' } ];
 
 const devAlert = [ {id: 1, type: 'info', message: 'Auto next episode in series.', status: 'features'}, 
                    {id: 2, type: 'info', message: 'Setting access for logged users.', status: 'features'} ];

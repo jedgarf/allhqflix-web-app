@@ -180,10 +180,12 @@ const MoviePlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ser
             {savedMedia?.filter(item => item.mediaId == mediaId).length > 0 ? `FROM THE BEGINNING` : `QUICK PLAY`}
           </MenuItem>
         </Link>
-        <MenuItem onClick={() => handleModal(true)} style={{ fontSize: '15px' }} disableRipple>
-          <ChecklistIcon/>
-          SERVER SELECTION
-        </MenuItem>
+        {server_status.filter(item => item.status === 'stable').length > 1 && 
+          <MenuItem onClick={() => handleModal(true)} style={{ fontSize: '15px' }} disableRipple>
+            <ChecklistIcon/>
+            SERVER SELECTION
+          </MenuItem>
+        }
       </StyledMenu>
 
         {/* Modal */}
@@ -298,8 +300,12 @@ const SeriesPlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ep
         searchEpisodeValue.current.value = ""; 
       }
       setEpisodeNumber(episodes[season][0].id);
-      setIsDisableSave(true);
-      setServerList([]); 
+      if (server_status.filter(item => item.status === 'stable').length > 1) {
+        setIsDisableSave(true);
+        setServerList([]); 
+      } else {
+        setIsDisableSave(false);
+      }
     }
   }
 
@@ -308,8 +314,12 @@ const SeriesPlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ep
       return false;
     } else {
       setEpisodeNumber(episodeId);
-      setIsDisableSave(true);
-      setServerList([]);
+      if (server_status.filter(item => item.status === 'stable').length > 1) {
+        setIsDisableSave(true);
+        setServerList([]);
+      } else {
+        setIsDisableSave(false);
+      }
     }
   }
 
@@ -473,66 +483,68 @@ const SeriesPlayModal = ({ mediaInfo, serverInfo, resourceData, resourceInfo, ep
           </>}
 
           {/* Servers */}
-          <Grid item xl={12} lg={12} md={12} sm={12} xs={12} style={{ paddingTop: 10, paddingBottom: 10 }}>
-            {isServerData ? 
-              <center><CircularProgress sx={{ fontSize: 10 }} /></center>
-            : 
-              <Fragment>
-                {serverList.length > 0 ? (
-                  <Fragment>
-                    <Typography variant='h6' sx={{ marginBottom: 1 }}>Servers</Typography>
-                    <Slider {...manual_selection_carousel_settings} infinite={false} style={{ marginInline: (isMobile ? 0 : 10) }}>
-                        {serverList.map((item, index) => {
-                            return (
-                                <Fragment key={index}>
-                                  {server_status.filter((serverValue) => serverValue.code === item.name).length > 0 ? (
-                                      <>
-                                      {server_status.filter((serverValue) => serverValue.code === item.name).map((subItem, subNo) => {
-                                          return (
-                                              <>
-                                                  {subItem.status === 'stable' ?
-                                                  (
-                                                  <Button size='small' variant={server === item.name ? 'contained' : 'outlined'} startIcon={<OndemandVideoIcon/>} style={{ marginRight: 3 }} onClick={() => onSelectServer(item.name)}>
-                                                      {`Server ${index+1}`}
-                                                  </Button>
-                                                  )
-                                                  : 
-                                                  (
-                                                    <Button size='small' variant={server === item.name ? 'contained' : 'outlined'} startIcon={<OndemandVideoIcon/>} style={{ marginRight: 3, cursor: 'not-allowed' }} color='error'>
-                                                      {`Server ${index+1}`}
+          {server_status.filter(item => item.status === 'stable').length > 1 && 
+            <Grid item xl={12} lg={12} md={12} sm={12} xs={12} style={{ paddingTop: 10, paddingBottom: 10 }}>
+              {isServerData ? 
+                <center><CircularProgress sx={{ fontSize: 10 }} /></center>
+              : 
+                <Fragment>
+                  {serverList.length > 0 ? (
+                    <Fragment>
+                      <Typography variant='h6' sx={{ marginBottom: 1 }}>Servers</Typography>
+                      <Slider {...manual_selection_carousel_settings} infinite={false} style={{ marginInline: (isMobile ? 0 : 10) }}>
+                          {serverList.map((item, index) => {
+                              return (
+                                  <Fragment key={index}>
+                                    {server_status.filter((serverValue) => serverValue.code === item.name).length > 0 ? (
+                                        <>
+                                        {server_status.filter((serverValue) => serverValue.code === item.name).map((subItem, subNo) => {
+                                            return (
+                                                <>
+                                                    {subItem.status === 'stable' ?
+                                                    (
+                                                    <Button size='small' variant={server === item.name ? 'contained' : 'outlined'} startIcon={<OndemandVideoIcon/>} style={{ marginRight: 3 }} onClick={() => onSelectServer(item.name)}>
+                                                        {`Server ${index+1}`}
                                                     </Button>
-                                                  )}
-                                              </>
-                                          )
-                                      })}
-                                      </>
-                                  ) : ("")}        
-                                </Fragment>
-                            )
-                        })}
-                    </Slider>
-                  </Fragment>
-                ) : (
-                  <div style={{ textAlign: 'center', marginTop: '15px' }}>
-                    {isServerData ? (
-                      <LoadingButton
-                        color="primary"
-                        loading
-                        loadingPosition="start"
-                        startIcon={<SaveIcon />}
-                        variant="contained"
-                        size='small'
-                      >
-                        <span>Check available server</span>
-                      </LoadingButton>
-                    ) : (
-                      <Button variant='contained' size='small' color='primary' onClick={(e) => checkServerAvailability(e)} startIcon={<SearchIcon />}>Check available server</Button>
-                    )}
-                  </div>
-                )}
-              </Fragment>
-            }
-          </Grid>
+                                                    )
+                                                    : 
+                                                    (
+                                                      <Button size='small' variant={server === item.name ? 'contained' : 'outlined'} startIcon={<OndemandVideoIcon/>} style={{ marginRight: 3, cursor: 'not-allowed' }} color='error'>
+                                                        {`Server ${index+1}`}
+                                                      </Button>
+                                                    )}
+                                                </>
+                                            )
+                                        })}
+                                        </>
+                                    ) : ("")}        
+                                  </Fragment>
+                              )
+                          })}
+                      </Slider>
+                    </Fragment>
+                  ) : (
+                    <div style={{ textAlign: 'center', marginTop: '15px' }}>
+                      {isServerData ? (
+                        <LoadingButton
+                          color="primary"
+                          loading
+                          loadingPosition="start"
+                          startIcon={<SaveIcon />}
+                          variant="contained"
+                          size='small'
+                        >
+                          <span>Check available server</span>
+                        </LoadingButton>
+                      ) : (
+                        <Button variant='contained' size='small' color='primary' onClick={(e) => checkServerAvailability(e)} startIcon={<SearchIcon />}>Check available server</Button>
+                      )}
+                    </div>
+                  )}
+                </Fragment>
+              }
+            </Grid>
+          }
         </Grid>
       </DialogContent>
       <Divider/>

@@ -176,12 +176,14 @@ const MovieDashboard = (props) => {
       let playerServer = serverValue?.data;
       if (playerServer !== undefined) {
         for (let playerServerLength = 0; playerServerLength < playerServer?.length; playerServerLength++) {
-          const serverAlias = playerServer[playerServerLength]?.name === 'upcloud' ? 'Server 1' : 'Server 2';
-          if (playerServer[playerServerLength].name === selectedServer) {
-            setDefaultServerToolTip(serverAlias);
-            playerServerContent.push({"default": true, "name": playerServer[playerServerLength].name, "html": serverAlias, "url": "", rabbitstream_id: playerServer[playerServerLength].rabbitstream_id });
-          } else {
-            playerServerContent.push({"default": false, "name": playerServer[playerServerLength].name, "html": serverAlias, "url": "", rabbitstream_id: playerServer[playerServerLength].rabbitstream_id });
+          if (server_status.filter(item => item.code === playerServer[playerServerLength]?.name && item.status === 'stable').length > 0) {
+            const serverAlias = playerServer[playerServerLength]?.name === 'upcloud' ? 'Server 1' : 'Server 2';
+            if (playerServer[playerServerLength].name === selectedServer) {
+              setDefaultServerToolTip(serverAlias);
+              playerServerContent.push({"default": true, "name": playerServer[playerServerLength].name, "html": serverAlias, "url": "", rabbitstream_id: playerServer[playerServerLength].rabbitstream_id });
+            } else {
+              playerServerContent.push({"default": false, "name": playerServer[playerServerLength].name, "html": serverAlias, "url": "", rabbitstream_id: playerServer[playerServerLength].rabbitstream_id });
+            }
           }
         } 
       }
