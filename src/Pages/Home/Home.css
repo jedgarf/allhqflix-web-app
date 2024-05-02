@@ -129,12 +129,12 @@
 }
 
 #panel1a-header {
-    background-color: var(--body-content) !important;
+    background-color: var(--accordion-header) !important;
     color: var(--four-color);
 }
 
 .home_accordion_body {
-    background-color: var(--footer) !important;
+    background-color: var(--accordion-body) !important;
     color: var(--four-color);
     padding-top: 20px !important;
     padding-bottom: 20px !important;
@@ -142,7 +142,7 @@
 }
 
 .home_accordion_about_body {
-    background-color: var(--footer) !important;
+    background-color: var(--accordion-body) !important;
     color: var(--four-color);
     padding-top: 20px !important;
     padding-bottom: 20px !important;

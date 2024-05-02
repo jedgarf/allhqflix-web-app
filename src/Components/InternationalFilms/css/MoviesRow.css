@@ -61,6 +61,7 @@
 .movie__other {
     font-weight: normal !important;
     font-size: 12px !important;
+    margin-top: -5px;
 }
 
 .movie_card {

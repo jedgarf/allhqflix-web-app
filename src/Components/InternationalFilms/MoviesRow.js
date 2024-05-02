@@ -100,7 +100,7 @@ const MoviesRow = ({isloadImage, cat, img, id, title, type, release_date, rate, 
       }
 
       <div className={'movies__info inn'}>
-        <div className="movie__name" style={{ marginTop: cat === "suggestions" ? '-3px' : '-3px' }}>
+        <div className="movie__name" style={{ marginTop: '-8px' }}>
           <Typography variant="h3" className="movie_name" title={title}>{title}</Typography>
         </div>
         <div className="movie__other">

@@ -4,7 +4,7 @@
     position: relative;
     left: 0;
     bottom: 0 !important;
-    background-color: var(--footer);
+    background-color: linear-gradient(rgba(var(--body-raw-color), 0.8),rgba(var(--body-raw-color), 0), rgba(var(--header-raw-color), 1));
     color: var(--four-color);
     font-weight: normal;
     margin-top: 30px;
