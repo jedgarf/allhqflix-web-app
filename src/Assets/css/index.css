@@ -259,11 +259,51 @@ body {
     }
     
     .MuiFormGroup-root label span {
-        font-size: 13px !important;
+        font-size: 12px !important;
     }
     
     .MuiFormGroup-root label span svg {
         font-size: 16px !important;
+    }
+
+    .MuiDialogContent-root h6 {
+        font-size: 15px !important;
+    }
+
+    .MuiDialogContent-root .MuiFormControl-root #demo-simple-select-error {
+        font-size: 12px !important;
+    }
+
+    .MuiDialogContent-root .MuiInputBase-root {
+        height: 35px !important;
+    }
+
+    .MuiDialogContent-root .MuiInputBase-root svg {
+        font-size: 15px !important;
+    }
+
+    .MuiDialogContent-root .MuiGrid-root .MuiPaper-root {
+        height: 30px !important;
+    }
+
+    .MuiDialogContent-root .MuiInputBase-root input {
+        font-size: 12px !important;
+    }
+
+    .MuiDialogContent-root .MuiFormControl-root svg {
+        font-size: 20px !important;
+    }
+
+    .MuiDialogContent-root button {
+        margin-top: 3px !important;
+        font-size: 11px !important;
+    }
+
+    .MuiDialogActions-root span {
+        font-size: 13px !important;
+    }
+    .MuiDialogActions-root button {
+        font-size: 11px !important;
     }
 }
 
