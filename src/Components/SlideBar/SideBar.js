@@ -215,46 +215,33 @@ const SideBar = ({ Type, subType, haveSearch = true,  transparentBg = true, isSt
             <HeaderMenu Type={Type} subType={subType} getMenu={getMenu} menu={menu} submenu={submenu}/>
               
             {/* Search */}
-            {search_bar === true && haveSearch ? 
+            {search_bar === true && haveSearch && 
               <Box sx={{ my: 0, flexGrow: 0 }}>
                 <form onSubmit={(e) => queryHandler(e)}>
-                    {/* <Toolbar>  */}
-                        <Search>
-                            <SearchIconWrapper>
-                            <SearchIcon sx={{ fontSize: '25px', color: '#DC4C64' }} />
-                            </SearchIconWrapper>
-                            <StyledInputBase
-                            size='small'
-                            inputRef={searchRef}
-                            placeholder={'Search here...'}
-                            inputProps={{ 'aria-label': 'search', defaultValue: `${searchKeyword}` }}
-                            required
-                            />
-                        </Search>
-                    {/* </Toolbar> */}
+                  <Search>
+                      <SearchIconWrapper>
+                      <SearchIcon sx={{ fontSize: '25px', color: 'var(--main-red)' }} />
+                      </SearchIconWrapper>
+                      <StyledInputBase
+                      size='small'
+                      inputRef={searchRef}
+                      placeholder={'Search here...'}
+                      inputProps={{ 'aria-label': 'search', defaultValue: `${searchKeyword}` }}
+                      required
+                      />
+                  </Search>
                 </form>
               </Box>
-            : ''}
-
-            {/* <Box sx={{ flexGrow: 0 }} display={{ xs: 'none', sm: 'none' }}>
-              <IconButton onClick={(e) => openSideBarMenu(e)}>
-                  <SearchIcon sx={{ color: '#DC4C64' }}/>
-              </IconButton>
-            </Box> */}
+            }
 
             {/* Search Bar */}
-            {/* {search_bar === true && haveSearch ? 
-              <Box sx={{ flexGrow: 0 }} hidden>
+            {/* {search_bar === true && haveSearch && 
+              <Box sx={{ flexGrow: 0 }}>
                 <SearchBar/>
               </Box>
-            : ''} */}
+            } */}
             
-            {/* {isStream && <Latency/>} */}
-
-            {/* Dev Notifications */}
-            {/* <Box sx={{ flexGrow: 0 }}>
-              <DevAlert/>
-            </Box> */}
+            {!haveSearch && <Latency/>}
             
             {/* Login Modal */}
             <Box sx={{ flexGrow: 0, marginLeft: 1 }}>
@@ -264,6 +251,13 @@ const SideBar = ({ Type, subType, haveSearch = true,  transparentBg = true, isSt
                 <Login isMobileSize={isMobileSize} haveSearch={haveSearch} isStream={isStream} isAuth={isAuth} align={'right'}/>
               }
             </Box>
+
+            {/* Dev Notifications */}
+            {/* {!haveSearch && 
+              <Box sx={{ flexGrow: 0 }}>
+                <DevAlert/>
+              </Box>
+            } */}
 
           </Toolbar>
         </Container>

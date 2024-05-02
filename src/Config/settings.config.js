@@ -2028,8 +2028,8 @@ const allowed_countries = ['Philippines', 'United States', 'Japan', 'Singapore',
 const server_status = [ { id: 1, code: 'upcloud', name: 'UpCloud', status: 'stable' },
                         { id: 2, code: 'vidcloud', name: 'VidCloud', status: 'stable' } ];
 
-const devAlert = [ {id: 1, type: 'info', message: 'Development of live channels was still in progress and will be available soon.', status: 'progress'},
-                   {id: 2, type: 'info', message: 'Displaying network latency, before and during stream.', status: 'features'} ];
+const devAlert = [ {id: 1, type: 'info', message: 'Auto next episode in series.', status: 'features'}, 
+                   {id: 2, type: 'info', message: 'Setting access for logged users.', status: 'features'} ];
 
 export {  title,
           version,

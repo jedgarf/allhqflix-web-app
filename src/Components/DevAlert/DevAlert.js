@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 // Material UI Components
-import { Button, Badge, Menu, MenuItem, Typography } from '@mui/material';
+import { IconButton, Badge, Menu, MenuItem, Typography } from '@mui/material';
 
 // Material UI Icons
 import CampaignIcon from '@mui/icons-material/Campaign';
@@ -26,18 +26,18 @@ const DevAlert = () => {
 
     return (
         <>
-            <Button
-            sx={{ my: 2, color: 'white', display: 'block' }}
-            aria-controls={openTopMenu ? 'basic-menu' : undefined}
-            aria-haspopup="true"
-            aria-expanded={openTopMenu ? 'true' : undefined}
-            onClick={(event) => handleTopMenuClick(event)}
-            title='Announcement'
+            <IconButton
+              sx={{ m: 0, color: 'white', display: 'block' }}
+              aria-controls={openTopMenu ? 'basic-menu' : undefined}
+              aria-haspopup="true"
+              aria-expanded={openTopMenu ? 'true' : undefined}
+              onClick={(event) => handleTopMenuClick(event)}
+              title='Announcement'
             >
                 <Badge badgeContent={devAlert.length} color="primary">
                     <CampaignIcon sx={{ fontSize: '30px' }} />
                 </Badge>
-            </Button>
+            </IconButton>
 
             {/* Sub Menu */}
 
@@ -94,18 +94,6 @@ const DevAlert = () => {
                 <Typography sx={{ fontWeight: 'bolder' }}>New Features:</Typography>
             </MenuItem>
               {devAlert.sort((a, b) => { return a.id - b.id }).filter(item => item.status === 'features').map((subPage, num) => {
-                return (
-                      <MenuItem style={{ pointerEvents: 'none' }} disableGutters={false}>
-                          <div className='sub-menu-text'>
-                              <span> • {subPage.message.toUpperCase()}</span>
-                          </div>  
-                      </MenuItem>
-                )
-              })}
-            <MenuItem style={{ pointerEvents: 'none' }} disableGutters={false}>
-                <Typography sx={{ fontWeight: 'bolder' }}>On Progress:</Typography>
-            </MenuItem>
-              {devAlert.sort((a, b) => { return a.id - b.id }).filter(item => item.status === 'progress').map((subPage, num) => {
                 return (
                       <MenuItem style={{ pointerEvents: 'none' }} disableGutters={false}>
                           <div className='sub-menu-text'>

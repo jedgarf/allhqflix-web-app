@@ -224,6 +224,49 @@ body {
     }
 }
 
+#max-width-dialog-title {
+    font-size: 18px !important;
+}
+
+#max-width-dialog-title svg {
+    font-size: 20px !important;
+}
+
+.MuiFormGroup-root label span {
+    font-size: 17px !important;
+}
+
+.MuiFormGroup-root label span svg {
+    font-size: 18px !important;
+}
+
+#max-width-dialog-title button svg {
+    margin-top: -1px !important;
+}
+
+@media (max-width: 600px) {
+    #max-width-dialog-title {
+        font-size: 14px !important;
+    }
+    
+    #max-width-dialog-title svg {
+        font-size: 19px !important;
+    }
+
+    #max-width-dialog-title button svg {
+        margin-top: -3px !important;
+        font-size: 20px !important;
+    }
+    
+    .MuiFormGroup-root label span {
+        font-size: 13px !important;
+    }
+    
+    .MuiFormGroup-root label span svg {
+        font-size: 16px !important;
+    }
+}
+
 .image-container:hover img {
     /* transform: scale(1.1); */
     /* Zoom in the image on hover (adjust as needed) */
