@@ -82,9 +82,9 @@ const SideBar = ({ Type, subType, haveSearch = true,  transparentBg = true, isSt
     borderRadius: theme.shape.borderRadius,
     // backgroundColor: alpha(theme.palette.common.white, 0.35),
     backgroundColor: 'transparent',
-    '&:hover': {
-      backgroundColor: alpha(theme.palette.common.white, 0.20),
-    },
+    // '&:hover': {
+    //   backgroundColor: alpha(theme.palette.common.white, 0.20),
+    // },
     '&:focus': {
       opacity: 1,
     },
