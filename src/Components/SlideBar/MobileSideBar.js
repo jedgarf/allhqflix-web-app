@@ -49,7 +49,7 @@ const useStyles = makeStyles({
     }
 });
 
-const MobileSideBar = ({ Type, subType, getMenu, menu, submenu }) => {
+const MobileSideBar = ({ Type, subType, menu, submenu }) => {
 
     const drawerWidth = 270;
     const container = window !== undefined ? () => window.document.body : undefined;
@@ -100,10 +100,7 @@ const MobileSideBar = ({ Type, subType, getMenu, menu, submenu }) => {
                     />
                 </center>
             </Link>
-            {getMenu.isLoading ?
-            <center><CircularProgress sx={{ fontSize: 10 }} /></center>
-                : 
-            <Fragment>
+            {<Fragment>
                 {/* <Divider /> */}
 
                 <div>

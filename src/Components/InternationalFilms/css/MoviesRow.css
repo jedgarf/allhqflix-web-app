@@ -90,19 +90,16 @@
 
 .movie_name {
     width: 150px !important;
-    /* Set the desired width */
     white-space: nowrap;
-    /* Prevent text from wrapping to the next line */
     overflow: hidden;
-    /* Hide overflowing text */
     text-overflow: ellipsis;
-    /* Add an ellipsis when text overflows */
 }
 
 .img-card-skeleton {
-    height: 225px !important;
+    height: 223px !important;
     width: 150px !important;
     border-radius: 10px !important;
+    margin-bottom: 5px !important;
 }
 
 .img-carousel-skeleton {

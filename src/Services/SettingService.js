@@ -32,7 +32,8 @@ const receiveEmail = async (email, subject, message) => {
     }
 };
 
-const menus = async ({ queryKey }) => {
+// unused ================================================================================================================
+const menuss = async ({ queryKey }) => {
 
     const [_key, { type, is_active, id }] = queryKey;
 
@@ -46,7 +47,7 @@ const menus = async ({ queryKey }) => {
     return results;
 };
 
-const sub_menus = async ({ queryKey }) => {
+const sub_menuss = async ({ queryKey }) => {
 
     const [_key, { is_active, id }] = queryKey;
 
@@ -58,6 +59,21 @@ const sub_menus = async ({ queryKey }) => {
 
     const results = await axios.get(url + "/sub_menus" + idString + "?is_active=" + is_active);
     return results;
+};
+// end of unused ============================================================================================================
+
+const menus = (type, is_active, id) => {
+    const menu = require('./Data/menu.json');
+    menu?.filter(item => item.type == type && item.is_active == is_active);
+    if (id) menu?.filter(item => item.id == id);
+    return menu;
+};
+
+const sub_menus = (is_active, id) => {
+    const subMenu = require('./Data/sub_menu.json');
+    subMenu?.filter(item => item.is_active == is_active);
+    if (id) subMenu?.filter(item => item.id == id);
+    return subMenu;
 };
 
 export {valid_apis, receiveEmail, menus, sub_menus};

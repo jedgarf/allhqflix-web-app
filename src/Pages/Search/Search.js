@@ -50,6 +50,7 @@ import { asianfilms_search } from "../../Services/ViewAsianService";
 
 function Search() {
 
+  const menu = menus("FEATURE", 1, null);
   const queryParams = new URLSearchParams(window.location.search);
   const searchKeyword = queryParams.get("keyword") === null ? "" : queryParams.get("keyword");
   const { type } = useParams();
@@ -97,14 +98,6 @@ function Search() {
     setIsloadPicture(true);
     setContentType(event.target.value);
   };
-
-  let getMenu = useQuery(['menus', { type: "FEATURE", is_active: 1, id: null }], menus, {
-    cacheTime: 24 * 60 * 60 * 1000, // 24 hours
-    refetchOnWindowFocus: false,
-    notifyOnChangeProps: "tracked",
-  });
-
-  let menu = getMenu?.data?.data?.data;
 
   const getInfo = useCallback((page = 1) => {
     setIsLoading(true);

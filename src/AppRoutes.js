@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 
 // Components
 import Favorite from "./Components/Favorite/Favorite";
+import ScrollToTop from "./Components/Common/ScrollToTop";
 
 // Pages
 import CountryFilter from './Services/CountryFilter';
@@ -147,7 +148,9 @@ const AppRoutes = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <div className="app-routes">
+        {/* Auto scroll top when change page */}
         <Router>
+          <ScrollToTop/>
           <Routes>
             
             {/*---------------------------------------------- Home --------------------------------------------------------------------- */}

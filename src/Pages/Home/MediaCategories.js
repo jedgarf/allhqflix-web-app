@@ -25,20 +25,13 @@ import { sub_menus } from "../../Services/SettingService";
 
 const MediaCategories = () => {
 
+    const submenu = sub_menus(1, null);
+
     const darkTheme = createTheme({
         palette: {
           mode: 'dark',
         },
     });
-
-     // React Query
-    let getSubMenu = useQuery(['sub_menus', { is_active: 1, id: null }], sub_menus, {
-        cacheTime: 24 * 60 * 60 * 1000, // 24 hours
-        refetchOnWindowFocus: false,
-        notifyOnChangeProps: "tracked",
-    });
-
-    let submenu = getSubMenu?.data?.data?.data;
 
     return (
         <ThemeProvider theme={darkTheme}>

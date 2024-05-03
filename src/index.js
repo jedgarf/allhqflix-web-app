@@ -56,9 +56,9 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-          <AppRoutes/>
-          {/* <Analytics />
-          <SpeedInsights /> */}
+        <AppRoutes/>
+        {/* <Analytics />
+        <SpeedInsights /> */}
       </PersistGate>
     </Provider>
   </React.StrictMode>

@@ -47,9 +47,10 @@ import { menus, sub_menus } from "../../Services/SettingService";
 
 const SideBar = ({ Type, subType, haveSearch = true,  transparentBg = true, isStream = false, setIsPageAuth }) => {
 
+  const menu = menus("FEATURE", 1, null);
+  const submenu = sub_menus(1, null);
+  
   const searchRef = useRef("");
-  const [isGetMenu, setIsGetMenu] = useState(true);
-  const [isGetSubMenu, setIsGetSubMenu] = useState(true);
   const [isScrollTop, setIsScrollTop] = useState(true);
 
   const [auth, setAuth] = useState(getSession('user') ? true : false);
@@ -73,28 +74,6 @@ const SideBar = ({ Type, subType, haveSearch = true,  transparentBg = true, isSt
     let searchText = searchRef.current.value;
     navigate(`/${Type}/search?keyword=${search(searchText).payload}`);
   };
-
-  // -------------------------------------------------------------------------------------------
-  // data source
-  let getMenu = useQuery(['menus', { type: "FEATURE", is_active: 1, id: null }], menus, {
-    cacheTime: 24 * 60 * 60 * 1000, // 24 hours
-    enabled: isGetMenu,
-    onSuccess: (response) => {
-      setIsGetMenu(false);
-    }
-  });
-  let menu = getMenu?.data?.data?.data;
-
-  let getSubMenu = useQuery(['sub_menus', { is_active: 1, id: null }], sub_menus, {
-    cacheTime: 24 * 60 * 60 * 1000, // 24 hours
-    enabled: isGetSubMenu,
-    onSuccess: (response) => {
-      setIsGetSubMenu(false);
-    }
-  });
-
-  let submenu = getSubMenu?.data?.data?.data;
-  // ---------------------------------------------------------------------------------------------
 
   // ---------------------------------------------------------------------------------------------
   // Styles
@@ -208,11 +187,11 @@ const SideBar = ({ Type, subType, haveSearch = true,  transparentBg = true, isSt
             </Link>
 
             {/* menu for mobile */}
-            <MobileSideBar Type={Type} subType={subType} getMenu={getMenu} menu={menu} submenu={submenu}/>
+            <MobileSideBar Type={Type} subType={subType} menu={menu} submenu={submenu}/>
 
             
             {/* Menu in non mobile size */}
-            <HeaderMenu Type={Type} subType={subType} getMenu={getMenu} menu={menu} submenu={submenu}/>
+            <HeaderMenu Type={Type} subType={subType} menu={menu} submenu={submenu}/>
               
             {/* Search */}
             {search_bar === true && haveSearch && 

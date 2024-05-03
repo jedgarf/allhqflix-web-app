@@ -87,6 +87,7 @@ const MovieStreamDashboard = (props) => {
         cacheTime: 24 * 60 * 60 * 1000, // 24 hours
         refetchOnWindowFocus: false,
         notifyOnChangeProps: "tracked",
+        retry: 3, // Number of retries
         enabled: indexId !== null,
         onSuccess: (response) => {
             setSeasonIdVar(response.data.episodes.length > 0 ? response.data.episodes[0].season : undefined);
@@ -99,7 +100,9 @@ const MovieStreamDashboard = (props) => {
             setSnackBarOpen(true);
             setSnackBarWithLoading(false);
 
-            if (_retries >= 3) {
+            // navigate(-1);
+
+            if (_retries >= 2) {
               console.log('All retry attempts failed for query:', _query);
               streamDashboardBackButton(navigate, type, isShare);
             }

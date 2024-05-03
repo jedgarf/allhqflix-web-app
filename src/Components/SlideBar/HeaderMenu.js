@@ -12,7 +12,7 @@ import { styled } from '@mui/material/styles';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-const HeaderMenu = ({ Type, subType,getMenu, menu, submenu }) => {
+const HeaderMenu = ({ Type, subType, menu, submenu }) => {
 
     const [selectedSubMenu, setSelectedSubMenu] = useState([]);
     const [anchorEl, setAnchorEl] = useState(null);
@@ -51,10 +51,7 @@ const HeaderMenu = ({ Type, subType,getMenu, menu, submenu }) => {
         <Box sx={{ flexGrow: 1, display: { xs: 'none', lg: 'flex' } }}>
             
             {/* ----------------------------------------------------------------------------------------------------------------------------------- */}
-            {getMenu.isLoading ?
-                <CircularProgress sx={{ fontSize: 10 }} />
-            : 
-                menu?.filter((item) => { return item.is_active === true })
+            {menu?.filter((item) => { return item.is_active === true })
                 .sort((a, b) => { return a.sequence - b.sequence })
                 .map((page, index) => {
                     return page.code === Type ?

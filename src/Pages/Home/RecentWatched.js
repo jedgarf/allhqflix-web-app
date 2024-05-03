@@ -137,7 +137,7 @@ const RecentWatched = ({ title = true, loadSavedMedia }) => {
                                                 }
 
                                                 <div className={'movies__info inn'}>
-                                                    <div className="movie__name" style={{ marginTop: '-3px' }}>
+                                                    <div className="movie__name" style={{ marginTop: '-10px' }}>
                                                         <Typography variant="h3" className="movie_name" title={item?.title}>{item?.title}</Typography>
                                                     </div>
                                                     <div className="movie__other">
