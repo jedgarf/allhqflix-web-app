@@ -92,7 +92,7 @@ const SideBar = ({ Type, subType, haveSearch = true,  transparentBg = true, isSt
     width: '100%',
     [theme.breakpoints.up('xs')]: {
       // marginLeft: '-150px',
-      backgroundColor: searchKeyword ? alpha(theme.palette.common.white, 0.15) : 'transparent',
+      backgroundColor: searchKeyword ? 'rgba(var(--body-raw-color), 0.5)' : 'transparent',
       width: 'auto',
     },
     // [theme.breakpoints.up('sm')]: {
