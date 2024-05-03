@@ -140,6 +140,9 @@ const Player = ({ details, episodes, defaultlink, infotitle, infocover, seasonNu
             
             art.on('play', () => {
                 if (player_auto_fullscreen && !isMobile) art.fullscreenWeb = true;
+                if (totalEpisodes > 1 && episodeNum < totalEpisodes) {
+                    if (art.currentTime === art.duration) nextEpisode();
+                }
             });
 
             art.on('pause', () => {
