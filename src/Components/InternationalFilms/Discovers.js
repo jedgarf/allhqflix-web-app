@@ -4,6 +4,8 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { Link } from 'react-router-dom';
 import { Typography, Box, Skeleton } from "@mui/material";
 
+import { motion } from "framer-motion";
+
 // CSS
 import "./css/Discovers.css";
 
@@ -38,16 +40,23 @@ function Discovers({ banner, title, des, id, year, season, genres, slug, video_q
         </div>
         
         <div className="discover__content">
-          <div className="discover__left">
+          <div 
+            // initial={{ opacity: 0, y: 100 }}
+            // whileInView={{ opacity: 1, y: 0 }}
+            // transition={{ duration: 0.5, delay: 0.3 }}
+            className="discover__left"
+          >
             <Typography variant="p" className="carousel_movie_name">
-              {title} <span>{urlContentSubType === "movie" && '(' + year.split("-")[0] + ')'}</span>
+              {title}
             </Typography>
-            <Typography variant="p" sx={{ display: { xs: 'none', lg: 'flex' }, marginTop: '10px' }}>
-              <span style={{ padding: '8px 5px', borderRadius: 5 }}>
+            <Typography variant="p" sx={{ display: { xs: 'none', lg: 'flex' } }}>
+              <span style={{ padding: '5px 0', borderRadius: 5 }}>
                 <SeparateArrayButtons type={'site_link'} color={''} data={genres} link={'/foreign/genre_filter?genre='} />
               </span>
             </Typography>
-            <Typography display={{ xs: 'none', md: 'flex' }} style={{marginTop: '5px'}}>{des ? truncate(des, 250) : '-'}</Typography>
+            <Typography display={{ xs: 'none', sm: 'flex' }} style={{marginTop: '5px'}}>
+              {des ? truncate(des, 250) : '-'}
+            </Typography>
             <div className="button__box">
               <Link to={`/${urlContentSubType}/stream_dashboard?mediaId=${id}`}>
                 <Button style={{fontWeight: '550'}} variant="contained" size="small">Watch {urlContentSubType === "tv" && displaySeason}{urlContentSubType === "movie" && ' in' }<span style={urlContentSubType === "movie" ? { marginLeft: '5px', backgroundColor: 'rgba(0, 0, 0, 0.80)', padding: '0 5px 0 5px', borderRadius: '5px' } : {}}>{urlContentSubType === "movie" && video_quality}</span></Button>

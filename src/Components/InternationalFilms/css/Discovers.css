@@ -70,7 +70,9 @@ a {
 }
 
 .discover__left .carousel_movie_name {
-    font-size: 30px;
+    font-size: 40px;
+    font-weight: 550;
+    padding-right: 7px !important;
 }
 
 .discover__left h3 span {

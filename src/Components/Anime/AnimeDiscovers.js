@@ -40,8 +40,8 @@ function AnimeDiscovers({ banner, title, des, id, year, season, genres, episode,
             <Typography variant="p" className="carousel_movie_name">
               {title}
             </Typography>
-            <Typography variant="p" sx={{ display: { xs: 'none', lg: 'flex' }, marginTop: '10px' }}>
-              <span style={{ padding: '8px 5px', borderRadius: 5 }}>
+            <Typography variant="p" sx={{ display: { xs: 'none', lg: 'flex' } }}>
+              <span style={{ padding: '5px 0', borderRadius: 5 }}>
                 <SeparateArrayButtons type={'site_link'} color={''} data={genres} link={'/anime/genre_filter?genre='} />
               </span>
             </Typography>
