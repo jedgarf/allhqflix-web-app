@@ -23,6 +23,9 @@ import { familyWatching } from "../../Config/images.config";
 // Models
 import { sub_menus } from "../../Services/SettingService";
 
+// Images
+import { homeBackground1, onePieceBanner } from "../../Config/images.config";
+
 const MediaCategories = () => {
 
     const submenu = sub_menus(1, null);
@@ -61,11 +64,11 @@ const MediaCategories = () => {
                         </Stack>
                     </Grid>
 
-                    <Grid item xl={6} lg={6} md={6} sm={12} xs={12} style={{ margin: 'auto', width: '640px', padding: '10px' }}>
+                    <Grid item xl={6} lg={6} md={6} sm={12} xs={12} style={{ margin: 'auto', width: 'auto' }}>
                         <center>
-                            <Container fluid="true" sx={{ width: '100%' }}>
-                                <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={1} justifyContent="center">
-                                {submenu?.filter((item) => parseInt(item.is_main) === 1).map((item, index) => {
+                            <Container sx={{ width: '100%' }}>
+                                <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={2} justifyContent="center">
+                                {submenu?.filter((item) => parseInt(item.is_main) === 1 && item.is_active).map((item, index) => {
                                     return (
                                     <Grid item xl={12} lg={12} md={12} sm={12} xs={12} key={index}>
                                         <motion.div
@@ -74,10 +77,10 @@ const MediaCategories = () => {
                                             transition={{ duration: 0.5, delay: 0.5 + (0.2 * index) }}
                                         >
                                             {item.is_dev ? 
-                                                <Button className="provider-links" variant="contained" color={item.is_dev ? 'error' : 'primary'} fullWidth={true} style={{ fontWeight: '550' }}>{item.full_name} {item.is_dev ? '('+item.badge_message+')' : ''}</Button>
+                                                <Button className="provider-links" variant="contained" color={item.is_dev ? 'error' : 'primary'} fullWidth={true} style={{ fontWeight: '550', height: '50px', backgroundImage: `linear-gradient(rgba(var(--header-raw-color), 0.9), rgba(var(--header-raw-color), 0.3), rgba(var(--header-raw-color), 0.9)))`, fontSize: '15px' }}>{item.full_name} {item.is_dev ? '('+item.badge_message+')' : ''}</Button>
                                             : 
                                                 <Link to={item.link}>
-                                                    <Button className="provider-links" variant="contained" color={item.is_dev ? 'error' : 'primary'} fullWidth={true} style={{ fontWeight: '550' }}>{item.full_name} {item.is_dev ? '('+item.badge_message+')' : ''}</Button>
+                                                    <Button className="provider-links" variant="contained" color={item.is_dev ? 'error' : 'primary'} fullWidth={true} style={{ fontWeight: '550', height: '50px', backgroundImage: `linear-gradient(rgba(var(--header-raw-color), 0.9), rgba(var(--header-raw-color), 0.3), rgba(var(--header-raw-color), 0.9)))`, fontSize: '15px' }}>{item.full_name} {item.is_dev ? '('+item.badge_message+')' : ''}</Button>
                                                 </Link>
                                             }
                                         </motion.div>

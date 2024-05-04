@@ -7,7 +7,7 @@
     "search_code": "",
     "icon": "",
     "name": "Featured Movies",
-    "full_name": "International Movies",
+    "full_name": "Movies",
     "link": "/foreign/movies",
     "sequence": 1,
     "is_main": 1,
@@ -24,7 +24,7 @@
     "search_code": "",
     "icon": "",
     "name": "Featured TV Series",
-    "full_name": "International TV Series",
+    "full_name": "TV Series",
     "link": "/foreign/tvshow",
     "sequence": 3,
     "is_main": 1,
@@ -81,7 +81,7 @@
     "is_main": 1,
     "is_dev": 1,
     "badge_message": "UNDER DEVELOPMENT",
-    "is_active": true
+    "is_active": false
 },
 {
     "id": 6,

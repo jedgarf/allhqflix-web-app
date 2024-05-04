@@ -39,18 +39,18 @@ function Footer() {
                                         {/* <li><Link className="text-link" to="/" onClick={moveToTop}>Home Page</Link></li> */}
                                         <li><Link className="text-link" to="/foreign/movies">Movies</Link></li>
                                         <li><Link className="text-link" to="/foreign/tvshow">TV Series</Link></li>
-                                        <li><Link className="text-link" to="/anime">Anime</Link></li>
+                                        <li><Link className="text-link" to="/anime">Animes</Link></li>
                                         {/* <li><Link className="text-link" to="/asian_drama">Asian Films</Link></li> */}
                                         {/* <li><Link className="text-link" to="/asian_films">Asian Films</Link></li> */}
-                                        <li><Link className="text-link" to="/">Asian Films (UD)</Link></li>
+                                        {/* <li><Link className="text-link" to="/">Asian Films (UD)</Link></li> */}
                                         {/* <li><Link className="text-link" to="/tv_channels">TV Channels</Link></li> */}
+                                        <li><Link className="text-link" to="/native_apps">Mobile App</Link></li>
                                     </ul>
                                 </div>
                             </Grid>
                             <Grid item xl={7} lg={7} md={7} sm={7} xs={7}>
                                 <div className="footer_links">
                                     <ul type='none'>
-                                        <li><Link className="text-link" to="/native_apps">Mobile App</Link></li>
                                         {/* <li><Link className="text-link" to="/about_developers">About the Developers</Link></li> */}
                                         <li><Link className="text-link" to="/terms_and_conditions">Terms & Conditions</Link></li>
                                         <li><Link className="text-link" to="/privacy_policy">Privacy Policy</Link></li>

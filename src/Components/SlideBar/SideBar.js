@@ -45,7 +45,7 @@ import { getSession } from "../../Helpers/Sessions";
 // Models
 import { menus, sub_menus } from "../../Services/SettingService";
 
-const SideBar = ({ Type, subType, haveSearch = true,  transparentBg = true, isStream = false, setIsPageAuth }) => {
+const SideBar = ({ Type, subType, haveSearch = true,  scrollEffects = true, isStream = false, setIsPageAuth }) => {
 
   const menu = menus("FEATURE", 1, null);
   const submenu = sub_menus(1, null);
@@ -80,11 +80,10 @@ const SideBar = ({ Type, subType, haveSearch = true,  transparentBg = true, isSt
   const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
-    // backgroundColor: alpha(theme.palette.common.white, 0.35),
     backgroundColor: 'transparent',
-    // '&:hover': {
-    //   backgroundColor: alpha(theme.palette.common.white, 0.20),
-    // },
+    '&:hover': {
+      backgroundColor: 'rgba(var(--body-raw-color), 0.6)',
+    },
     '&:focus': {
       opacity: 1,
     },
@@ -116,17 +115,20 @@ const SideBar = ({ Type, subType, haveSearch = true,  transparentBg = true, isSt
     color: 'inherit',
     '& .MuiInputBase-input': {
       padding: theme.spacing(1, 1, 1, 0),
-      // vertical padding + font size from searchIcon
       paddingLeft: `calc(1em + ${theme.spacing(4)})`,
       transition: theme.transitions.create('width'),
+      borderRadius: 5,
+      backgroundColor: searchKeyword ? alpha(theme.palette.common.white, 0.1) : 'transparent',
       width: '100%',
+      '&:hover': {
+        backgroundColor: alpha(theme.palette.common.white, 0.2),
+      },
       [theme.breakpoints.up('sm')]: {
         width: searchKeyword ? '30ch' : '0ch',
         '&:focus': {
           width: '30ch',
           opacity: 1,
-          borderRadius: 5,
-          backgroundColor: alpha(theme.palette.common.white, 0.15),
+          backgroundColor: alpha(theme.palette.common.white, 0.2),
         },
       },
       [theme.breakpoints.only('xs')]: {
@@ -134,8 +136,7 @@ const SideBar = ({ Type, subType, haveSearch = true,  transparentBg = true, isSt
         '&:focus': {
           width: '100%',
           opacity: 1,
-          borderRadius: 5,
-          backgroundColor: alpha(theme.palette.common.white, 0.15),
+          backgroundColor: alpha(theme.palette.common.white, 0.2),
         },
       },
     },

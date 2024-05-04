@@ -1,6 +1,7 @@
 import mainLogo from "../Assets/images/multimedia_hub_logo.png";
 import headerLogo from "../Assets/images/header_logo.JPG";
 import homeBackground from "../Assets/images/movies-background.jpg";
+import homeBackground1 from "../Assets/images/movies-background_old.jpg";
 import jefdevLogoTransparent from "../Assets/images/jefdev_projects_transparent.png";
 import consumetLogo from "../Assets/images/consumet.png";
 import familyWatching from "../Assets/images/family_watching.jpeg";
@@ -41,4 +42,4 @@ import videoQuality from "../Assets/images/video_quality.png";
 import iptv from "../Assets/images/iptv.png";
 
 
-export { mainLogo, headerLogo, homeBackground, jefdevLogoTransparent, consumetLogo, familyWatching, mediaAlchemyLogo, strangerThingsBanner, allOfUsAreDeadBanner, onePieceBanner, onePieceNetflixBanner, yuYuHakushoBanner, appPhoto, noImagePlaceholder, carouselNoImagePlaceholder, notFoundImage, offLimits, customLoadingFileName, subtitleLogo, videoQuality, iptv };
+export { mainLogo, headerLogo, homeBackground, homeBackground1, jefdevLogoTransparent, consumetLogo, familyWatching, mediaAlchemyLogo, strangerThingsBanner, allOfUsAreDeadBanner, onePieceBanner, onePieceNetflixBanner, yuYuHakushoBanner, appPhoto, noImagePlaceholder, carouselNoImagePlaceholder, notFoundImage, offLimits, customLoadingFileName, subtitleLogo, videoQuality, iptv };
