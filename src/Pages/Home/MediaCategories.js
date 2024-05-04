@@ -18,7 +18,7 @@ import { Grid, Typography, Container, Button, Alert, AlertTitle, Stack } from "@
 import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
 
 // Images
-import { familyWatching } from "../../Config/images.config";
+import { familyWatching, homeBackground } from "../../Config/images.config";
 
 // Models
 import { sub_menus } from "../../Services/SettingService";
@@ -98,7 +98,7 @@ const MediaCategories = () => {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 1, delay: 0.5 }}
                             >
-                                <img src={familyWatching} alt='' style={{ borderRadius: 10 }}/>
+                                <img src={homeBackground1} alt='' style={{ borderRadius: 10 }}/>
                             </motion.div>
                         </center>
                     </Grid>
