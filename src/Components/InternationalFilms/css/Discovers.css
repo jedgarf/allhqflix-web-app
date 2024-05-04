@@ -26,12 +26,12 @@ a {
 
 .discover__img {
     width: 100%;
-    height: 75vh;
+    height: 80vh;
 }
 
 .discover__img img {
     width: 100%;
-    height: 75vh;
+    height: 80vh;
     /* border-radius: 10px; */
     object-fit: cover;
 }
@@ -121,6 +121,15 @@ a {
     margin-bottom: 5px;
 }
 
+@media (max-width:1000px) {
+    .discover__img {
+        height: 500px !important;
+    }
+    
+    .discover__img img {
+        height: 500px !important;
+    }
+}
 @media (max-width:650px) {
     .discover__left .carousel_movie_name {
         font-size: 20px !important;
