@@ -38,7 +38,7 @@
 }
 
 .app-bar-stream {
-    background-color: var(--appbar-stream) !important;
+    background-color: rgba(var(--header-raw-color), 0.9) !important;
     color: var(--four-color) !important;
 }
 

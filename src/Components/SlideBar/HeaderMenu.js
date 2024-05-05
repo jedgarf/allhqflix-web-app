@@ -60,7 +60,7 @@ const HeaderMenu = ({ Type, subType, menu, submenu }) => {
                         <div style={{ textDecoration: 'none', fontWeight: 'bolder !important', marginRight: '20px' }}>
                         <Button
                             key={page.id}
-                            sx={{ my: 1.8, color: 'var(--main-red)', fontWeight: '550', display: 'block' }}
+                            sx={{ my: 1.9, color: 'var(--main-red)', fontWeight: '550', display: 'block' }}
                             aria-controls={openTopMenu ? 'basic-menu' : undefined}
                             aria-haspopup="true"
                             aria-expanded={openTopMenu ? 'true' : undefined}
@@ -96,7 +96,7 @@ const HeaderMenu = ({ Type, subType, menu, submenu }) => {
                             <div style={{ textDecoration: 'none', fontWeight: 'bolder !important', borderBottom: 'none', marginRight: '20px' }}>
                                 <Button
                                     key={page.id}
-                                    sx={{ my: 1.8, color: 'white', display: 'block' }}
+                                    sx={{ my: 1.9, color: 'white', display: 'block' }}
                                     aria-controls={openTopMenu ? 'basic-menu' : undefined}
                                     aria-haspopup="true"
                                     aria-expanded={openTopMenu ? 'true' : undefined}

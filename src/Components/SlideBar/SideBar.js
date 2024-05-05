@@ -167,7 +167,7 @@ const SideBar = ({ Type, subType, haveSearch = true,  scrollEffects = true, isSt
   return (
     <Box sx={{ flexGrow: 0 }}>
       <AppBar position={`fixed`} className={ isScrollTop ? 'app-bar-transparent' : 'app-bar-stream' } elevation={0}>
-        <Container maxWidth="lg">
+        <Container maxWidth="xl">
           <Toolbar disableGutters>
 
             {/* Header Logo */}
