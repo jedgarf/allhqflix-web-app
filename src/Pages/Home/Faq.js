@@ -54,7 +54,7 @@ const Faq = () => {
                                 <AccordionDetails className="home_accordion_body">
                                     <Typography variant="p">
                                         <div>
-                                        <b>{ title }</b> allows users to watch tens of thousands of Movies, TV shows, Anime and Asian Dramas in HD quality safely, freely, and smoothly. Despite the extensive content library and premium features, <b>{ title }</b> does not require any commitment from users. You are not obliged to pay, or even register to enjoy your favorite movies on the site without limits. We update new titles on a daily basis; therefore, you can rest assured, the fun never ends on <b>{ title }</b>. Sharing is caring! Introduce <b>{ title }</b> to your friends and family to protect them from shady and low-quality sites.
+                                        <b>{ title }</b> allows users to watch tens of thousands of Anime, Movies and TV Series in HD quality safely, freely, and smoothly. Despite the extensive content library and premium features, <b>{ title }</b> does not require any commitment from users. You are not obliged to pay, or even register to enjoy your favorite movies on the site without limits. We update new titles on a daily basis; therefore, you can rest assured, the fun never ends on <b>{ title }</b>. Sharing is caring! Introduce <b>{ title }</b> to your friends and family to protect them from shady and low-quality sites.
                                         </div>
                                         <p>Only available in 
                                         {allowed_countries.map((country, index) => {
@@ -95,7 +95,7 @@ const Faq = () => {
                                     <Typography variant="div">
                                         <div className="faq">
                                             {/* <big>1. Is <b>{ title }</b> safe?</big> */}
-                                            <p>Using <b>{ title }</b> to watch Movies, TV shows, Anime and Asian Dramas online is as safe as using Google to search for results. <b>{ title }</b> does not pose any risk to your device and identity. Normally hackers use ad links to install viruses and malware into your device. Therefore, you are completely safe. In addition, <b>{ title }</b> does not require any registration or signup, which protects users from information leakage. Apart from excellent security, <b>{ title }</b> also provides users with these premium features:</p>
+                                            <p>Using <b>{ title }</b> to watch Anime, Movies and TV Series online is as safe as using Google to search for results. <b>{ title }</b> does not pose any risk to your device and identity. Normally hackers use ad links to install viruses and malware into your device. Therefore, you are completely safe. In addition, <b>{ title }</b> does not require any registration or signup, which protects users from information leakage. Apart from excellent security, <b>{ title }</b> also provides users with these premium features:</p>
                                             <ul type="none">
                                             <li>- An extensive pool of TV shows and series with tens of thousands of titles.</li>
                                             <li>- HD Resolution (720p, adjustable).</li>
