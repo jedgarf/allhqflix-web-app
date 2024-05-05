@@ -46,7 +46,7 @@ function AnimeFilterByGenre() {
   const type = 'anime';
   const subType = 'animefilterbygenre';
   const defaultGenre = queryParams.get("genre") === null ? 'Action' : (anime_genres.filter(item => item === queryParams.get("genre")).length > 0 ? anime_genres.filter(item => item === queryParams.get("genre"))[0] : "");
-  document.title = 'AllHQFlix - Animes - By Genre';
+  document.title = 'AllHQFlix - Anime - By Genre';
 
   const [isLoading, setIsLoading] = useState(true);
   const [genre, setGenre] = useState(defaultGenre);

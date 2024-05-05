@@ -96,7 +96,7 @@ function TrendingAnime() {
             <Grid container direction="row" columnSpacing={{ xs: 2, sm: 2, md: 2, lg: 2, xl: 2 }} rowSpacing={2}>
               <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
                 <div className="page-title">
-                  <Typography variant="h5" sx={{ fontWeight: 'bolder' }}>TRENDING ANIMES</Typography>
+                  <Typography variant="h5" sx={{ fontWeight: 'bolder' }}>TRENDING ANIME</Typography>
                 </div>
               </Grid>
             

@@ -50,7 +50,7 @@ const MediaCategories = () => {
                                 transition={{ duration: 0.5, delay: 0 }}
                             >
                                 <Typography variant="h5" sx={{ marginBottom: 1, fontWeight: '550' }}><SubscriptionsIcon sx={{ fontSize: 28, marginBottom: '-6px' }}/> FEATURES</Typography>
-                                <Typography variant="p" sx={{ fontWeight: '550', textTransform: 'uppercase' }}>Unlimited Movies, TV Series and more.</Typography>
+                                <Typography variant="p" sx={{ fontWeight: '550', textTransform: 'uppercase' }}>Unlimited Anime, Movies and TV Series.</Typography>
                             </motion.div>
                         </center>
                     </Grid>

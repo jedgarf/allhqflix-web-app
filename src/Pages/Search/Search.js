@@ -76,7 +76,7 @@ function Search() {
       defaultType = "drama";
     break;
     default:
-      defaultType = 'foreign';
+      defaultType = 'anime';
       break;
   }
 

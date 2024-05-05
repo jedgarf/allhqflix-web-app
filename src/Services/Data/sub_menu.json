@@ -1,6 +1,22 @@
 [{
     "id": 1,
     "created_at": "2023-04-18T08:59:29.000Z",
+    "updated_at": "2023-10-10T12:31:06.000Z",
+    "menu_id": 2,
+    "code": "anime",
+    "search_code": "",
+    "icon": "",
+    "name": "Featured",
+    "full_name": "Anime",
+    "link": "/anime",
+    "sequence": 1,
+    "is_main": 1,
+    "is_dev": 0,
+    "badge_message": "",
+    "is_active": true
+},{
+    "id": 2,
+    "created_at": "2023-04-18T08:59:29.000Z",
     "updated_at": "2023-11-22T04:35:13.000Z",
     "menu_id": 1,
     "code": "movie",
@@ -16,7 +32,7 @@
     "is_active": true
 },
 {
-    "id": 2,
+    "id": 3,
     "created_at": "2023-04-18T08:59:29.000Z",
     "updated_at": "2023-11-22T04:35:15.000Z",
     "menu_id": 1,
@@ -30,23 +46,6 @@
     "is_main": 1,
     "is_dev": 0,
     "badge_message": "UNSTABLE",
-    "is_active": true
-},
-{
-    "id": 3,
-    "created_at": "2023-04-18T08:59:29.000Z",
-    "updated_at": "2023-10-10T12:31:06.000Z",
-    "menu_id": 2,
-    "code": "anime",
-    "search_code": "",
-    "icon": "",
-    "name": "Featured",
-    "full_name": "Animes",
-    "link": "/anime",
-    "sequence": 1,
-    "is_main": 1,
-    "is_dev": 0,
-    "badge_message": "",
     "is_active": true
 },
 {
@@ -278,7 +277,7 @@
     "code": "popular_anime",
     "search_code": "popular_anime",
     "icon": "",
-    "name": "Popular Animes",
+    "name": "Popular Anime",
     "full_name": "",
     "link": "/anime/popular_anime",
     "sequence": 2,
@@ -295,7 +294,7 @@
     "code": "trending_anime",
     "search_code": "trending_anime",
     "icon": "",
-    "name": "Trending Animes",
+    "name": "Trending Anime",
     "full_name": "",
     "link": "/anime/trending_anime",
     "sequence": 3,

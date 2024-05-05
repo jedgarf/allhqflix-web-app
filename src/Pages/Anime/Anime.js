@@ -146,7 +146,7 @@ const Anime = () => {
         {discoverData.isSuccess ? 
           <div style={{ margin: 'auto' }}>
             <div className="heading">
-              POPULAR ANIMES
+              POPULAR ANIME
               <Link className="text-link-without-underline" to="/anime/popular_anime" style={{ float: 'right', fontSize: '20px', marginRight: 10 }}>
                 <Button variant="contained" size="small" color="primary">MORE</Button>
               </Link>
@@ -174,7 +174,7 @@ const Anime = () => {
         {trendingData.isSuccess ? 
           <div className="top_content">
             <div className="heading">
-              TRENDING ANIMES
+              TRENDING ANIME
               <Link className="text-link-without-underline" to="/anime/trending_anime" style={{ float: 'right', fontSize: '20px', marginRight: 10 }}>
                 <Button variant="contained" size="small" color="primary">MORE</Button>
               </Link>
@@ -202,7 +202,7 @@ const Anime = () => {
         {recentData.isSuccess && recentValue?.length > 0 ? 
           <div className="top_content">
             <div className="heading">
-              RECENT ANIMES
+              RECENT RELEASED
               <Link className="text-link-without-underline" to="/anime/recent_anime" style={{ float: 'right', fontSize: '20px', marginRight: 10 }}>
                 <Button variant="contained" size="small" color="primary">MORE</Button>
               </Link>
