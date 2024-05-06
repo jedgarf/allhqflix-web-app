@@ -54,7 +54,7 @@ const Player = ({ details, episodes, defaultlink, infotitle, infocover, seasonNu
 
         // Custom artplayer values
         Artplayer.ASPECT_RATIO = ['default', '1:1', '2:1', '4:3', '6:5'];
-        Artplayer.TOUCH_MOVE_RATIO = 0;
+        // Artplayer.TOUCH_MOVE_RATIO = 1;
         Artplayer.USE_RAF = true;
 
         try {
