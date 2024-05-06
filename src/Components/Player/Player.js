@@ -67,7 +67,7 @@ const Player = ({ details, episodes, defaultlink, infotitle, infocover, seasonNu
                 url: defaultlink,
                 type: getFileExtention(defaultlink),
                 customType: { m3u8: playM3u8, flv: playFlv, mpd: playMpd },
-                title: infotitle || "Unknown title",
+                title: infotitle || "",
                 poster: infocover || homeBackground,
                 volume: 1,
                 muted: false,
