@@ -11,6 +11,7 @@ import { getAllSavedCookiesMedia } from "../../Services/Utils";
 
 // Helpers
 import { getCookie, addCookie, deleteCookie } from "../../Helpers/Cookies";
+import { getSession } from "../../Helpers/Sessions";
 
 export const playFlv = (video, url, art) => {
     if (flvjs.isSupported()) {
@@ -95,7 +96,8 @@ export const saveProgress = (details, mediaId, type, paramDub, seasonNumber, epi
                 server: server,
                 time: currentTime,
                 duration: duration,
-                expires: ''
+                expires: '',
+                userAuth: getSession('user') || ''
             };
             if (getCookie(encodeURIComponent(mediaId))) deleteCookie(encodeURIComponent(mediaId));
             addCookie(encodeURIComponent(mediaId), JSON.stringify(mediaProgress), 7);

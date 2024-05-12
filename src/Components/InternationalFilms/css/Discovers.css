@@ -48,13 +48,13 @@ a {
 }
 
 .discover__content {
-    width: 100%;
+    width: inherit;
     z-index: 1100;
     color: #fff;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px 10px 10px 10px;
+    padding: 20px 10px 10px 20px;
     position: absolute;
     background: linear-gradient(rgba(var(--body-raw-color), 0),rgba(var(--body-raw-color), 0.5), rgba(var(--body-raw-color), 1));
     bottom: 0;
@@ -189,7 +189,8 @@ a {
         font-size: 13px !important;
     }
     .discover__content {
-        padding: 20px 10px 10px 10px;
+        padding: 20px 10px 10px 10px !important;
+        /* max-width: 96%; */
     }
     /* image size */
     .discover__img {
