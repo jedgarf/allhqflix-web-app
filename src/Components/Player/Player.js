@@ -15,7 +15,7 @@ import { ads } from "../../Config/settings.config";
 import { mainLogo, customLoadingFileName, homeBackground } from "../../Config/images.config";
 
 // Utilities
-import { getFileExtention, randomizeArray, isMobile } from "../../Services/Utils";
+import { getFileExtention, randomizeArray, isMobile, secondsToHMS } from "../../Services/Utils";
 import { playFlv, destroyPlayFlv, playM3u8, destroyPlayM3u8, playMpd, saveProgress, showPrevNextControls } from "./_config";
 
 // Helpers
@@ -158,6 +158,9 @@ const Player = ({ details, episodes, defaultlink, infotitle, infocover, seasonNu
             });
 
             art.on('video:waiting', () => {
+
+                // if (seekTime > 0) art.notice.show = `Loading progress to ${secondsToHMS(seekTime)}`;
+
                 if (art.currentTime === art.loadedTime) {
                     setTimeout(() => {art.notice.show = 'Your connection is too slow.';}, 3000);   
                 }

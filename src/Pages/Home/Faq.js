@@ -147,9 +147,10 @@ const Faq = () => {
                                                                     <li><a className='text-link' href={`${googleSearch}CSS3`} target='__blank'>CSS3</a>/<a className='text-link' href={`${googleSearch}Material UI`} target='__blank'>Material UI Design</a></li>
                                                                     <li><a className='text-link' href={`${googleSearch}Javascript`} target='__blank'>JavaScript ES5/ES6</a></li>
                                                                     <li><a className='text-link' href={`${googleSearch}ReactJS`} target='__blank'>ReactJS CRA (Front-End Framework)</a></li>
+                                                                    <li><a className='text-link' href={`${googleSearch}Framer Motion`} target='__blank'>Framer Motion (UI Animation)</a></li>
                                                                     <li><a className='text-link' href={`${googleSearch}Google OAuth 2.0 API`} target='__blank'>Google OAuth 2.0 API</a></li>
                                                                     <li><a className='text-link' href={`${googleSearch}TanStack Query`} target='__blank'>TanStack Query (Caching Management)</a></li>
-                                                                    <li><a className='text-link' href={`${googleSearch}Redux`} target='__blank'>Redux Toolkit (State Management)</a></li>
+                                                                    <li><a className='text-link' href={`${googleSearch}Zustand`} target='__blank'>Zustand (State Management)</a></li>
                                                                 </ul>
                                                             </td>
                                                         </tr>
@@ -161,7 +162,7 @@ const Faq = () => {
                                                                 <ul className="main_features_text">
                                                                 <li><a className='text-link' href={`${googleSearch}Javascript`} target='__blank'>JavaScript ES5/ES6</a></li>
                                                                 <li><a className='text-link' href={`${googleSearch}NodeJS`} target='__blank'>NodeJS v.20</a></li>
-                                                                <li><a className='text-link' href={`${googleSearch}ExpressJS`} target='__blank'>ExpressJS (REST API Framework)</a></li>
+                                                                <li><a className='text-link' href={`${googleSearch}ExpressJS`} target='__blank'>ExpressJS (API Framework)</a></li>
                                                                 <li><a className='text-link' href={`${googleSearch}Firebase`} target='__blank'>Firebase (Storage Management)</a></li>
                                                                 {/* <li><a className='text-link' href={`${googleSearch}MySQL`} target='__blank'>MySQL Database</a></li>
                                                                 <li><a className='text-link' href={`${googleSearch}Sequelize`} target='__blank'>Sequelize (ORM)</a></li> */}
@@ -170,13 +171,13 @@ const Faq = () => {
                                                         </tr>
                                                         <tr>
                                                             <th>
-                                                                <span><b>Mobile App</b> <span style={{ color: '#3B71CA', fontWeight: 'bolder' }}>(Soon)</span></span>
+                                                                <span><b>Mobile App</b> <span style={{ color: 'var(--main-red)', fontWeight: 'bolder' }}><br/>Tentative Release: 1<sup>st</sup> Quarter of 2025</span></span>
                                                             </th>
                                                             <td>
                                                                 <ul className="main_features_text">
-                                                                <li><a className='text-link' href={`${googleSearch}Dart Programming`} target='__blank'>Dart Programming</a></li>
-                                                                <li><a className='text-link' href={`${googleSearch}Flutter`} target='__blank'>Flutter (UI Software Development Kit)</a></li>
-                                                                <li><a className='text-link' href={`${googleSearch}flutter BLoC`} target='__blank'>Flutter BLoC (State Management Pattern)</a></li>
+                                                                <li><a className='text-link' href={`${googleSearch}React Native`} target='__blank'>React Native (UI software framework)</a></li>
+                                                                <li><a className='text-link' href={`${googleSearch}Tailwind CSS`} target='__blank'>Tailwind CSS</a></li>
+                                                                <li><a className='text-link' href={`${googleSearch}NativeWind`} target='__blank'>NativeWind UI Design</a></li>
                                                                 </ul>
                                                             </td>
                                                         </tr>

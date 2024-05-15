@@ -224,7 +224,7 @@ const MovieStreamDashboard = (props) => {
         : 
         <Fragment>
             <ReactQueryTools/>
-            <div className='stream-dashboard' style={{backgroundImage: isMobile ? `linear-gradient(rgba(var(--header-raw-color), 0.527),rgba(var(--header-raw-color), 0.5)), url("${BGImage}"), url("${homeBackground}")` : `linear-gradient(to right, rgba(var(--header-raw-color), 0.85) 30%, rgba(var(--header-raw-color), 0.5) 70%), url("${BGImage}"), url("${homeBackground}")`, objectFit: 'cover', backgroundSize: ' 100% 100%', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', width: '100%'}} 
+            <div className='stream-dashboard' style={{backgroundImage: isMobile ? `linear-gradient(rgba(var(--header-raw-color), 0.85),rgba(var(--header-raw-color), 0.5)), url("${BGImage}"), url("${homeBackground}")` : `linear-gradient(to right, rgba(var(--header-raw-color), 0.85) 30%, rgba(var(--header-raw-color), 0.5) 70%), url("${BGImage}"), url("${homeBackground}")`, objectFit: 'cover', backgroundSize: ' 100% 100%', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', width: '100%'}} 
                 onError={handleBackgroundImageError}>
                 <SnackBar severity={snackBarType} handleSnackBarOpen={handleSnackBarOpen} status={snackBarOpen} snackBarMessage={snackBarMessage} withLoading={snackBarWithLoading} />
                 <Grid container columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }} rowSpacing={1} justifyContent="left">
@@ -242,7 +242,7 @@ const MovieStreamDashboard = (props) => {
                 {infoData.isLoading || serverData.isLoading ?  
                     <MediaDashboardSkeleton />
                 : 
-                    <div className='stream-dashboard-content' style={{ backgroundColor: isMobile ? 'rgba(var(--header-raw-color), 0.5)' : 'transparent' }}>
+                    <div className='stream-dashboard-content' style={{ backgroundImage: isMobile ? 'linear-gradient(rgba(var(--header-raw-color), 0.1), rgba(var(--header-raw-color), 0.6), rgba(var(--header-raw-color), 0.6), rgba(var(--header-raw-color), 0.1))' : 'transparent' }}>
                         <div className='stream-dashboard-title'>
                         <h1 style={{ marginBottom: '7px' }}>{infoValue?.title}</h1>
                         {type === 'tv' ?

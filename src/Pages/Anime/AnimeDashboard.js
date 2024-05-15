@@ -476,26 +476,59 @@ const AnimeDashboard = (props) => {
           <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>
             {infoValue?.episodes?.length > 0 && 
               <div className="player-controls">
-                <IconButton 
-                  title="Previous Episode" 
-                  variant='outlined'
-                  size='small'
-                  onClick={() => previousEpisode()} 
-                  disabled={selectedEpisodeIndex > 0 && selectedEpisodeIndex < infoValue?.episodes?.length ? false : true}
-                  style={{ marginRight: '10px', border: `${selectedEpisodeIndex > 0 && selectedEpisodeIndex < infoValue?.episodes?.length ? 'var(--four-color)' : 'var(--text-color)'} 1px solid` }}
-                >
-                  <SkipPreviousIcon sx={{ color: selectedEpisodeIndex > 0 && selectedEpisodeIndex < infoValue?.episodes?.length ? 'var(--four-color)' : 'var(--text-color)' }}/>
-                </IconButton>
-                <IconButton 
-                  title="Next Episode" 
-                  variant='outlined'
-                  size='small'
-                  onClick={() => nextEpisode()} 
-                  disabled={selectedEpisodeIndex >= 0 && (selectedEpisodeIndex + 1) < infoValue?.episodes?.length ? false : true}
-                  style={{ border: `${selectedEpisodeIndex >= 0 && (selectedEpisodeIndex + 1) < infoValue?.episodes?.length ? 'var(--four-color)' : 'var(--text-color)'} 1px solid` }}
-                >
-                  <SkipNextIcon sx={{ color: selectedEpisodeIndex >= 0 && (selectedEpisodeIndex + 1) < infoValue?.episodes?.length ? 'var(--four-color)' : 'var(--text-color)' }}/>
-                </IconButton>
+                
+                  <div>
+                    <IconButton 
+                      title="Previous Episode" 
+                      variant='outlined'
+                      size='small'
+                      onClick={() => previousEpisode()} 
+                      disabled={selectedEpisodeIndex > 0 && selectedEpisodeIndex < infoValue?.episodes?.length ? false : true}
+                      style={{ marginRight: '10px', border: `${selectedEpisodeIndex > 0 && selectedEpisodeIndex < infoValue?.episodes?.length ? 'var(--four-color)' : 'var(--text-color)'} 1px solid` }}
+                    >
+                      <SkipPreviousIcon sx={{ color: selectedEpisodeIndex > 0 && selectedEpisodeIndex < infoValue?.episodes?.length ? 'var(--four-color)' : 'var(--text-color)' }}/>
+                    </IconButton>
+                    <IconButton 
+                      title="Next Episode" 
+                      variant='outlined'
+                      size='small'
+                      onClick={() => nextEpisode()} 
+                      disabled={selectedEpisodeIndex >= 0 && (selectedEpisodeIndex + 1) < infoValue?.episodes?.length ? false : true}
+                      style={{ border: `${selectedEpisodeIndex >= 0 && (selectedEpisodeIndex + 1) < infoValue?.episodes?.length ? 'var(--four-color)' : 'var(--text-color)'} 1px solid` }}
+                    >
+                      <SkipNextIcon sx={{ color: selectedEpisodeIndex >= 0 && (selectedEpisodeIndex + 1) < infoValue?.episodes?.length ? 'var(--four-color)' : 'var(--text-color)' }}/>
+                    </IconButton>
+                  </div>
+
+                {/* {isMobileSize ? 
+                  <></>
+                :
+                  <div>
+                    <Button 
+                      title="Previous Episode" 
+                      variant='outlined'
+                      size='small'
+                      onClick={() => previousEpisode()} 
+                      startIcon={<SkipPreviousIcon sx={{ color: selectedEpisodeIndex > 0 && selectedEpisodeIndex < infoValue?.episodes?.length ? 'var(--four-color)' : 'var(--text-color)' }}/>}
+                      disabled={selectedEpisodeIndex > 0 && selectedEpisodeIndex < infoValue?.episodes?.length ? false : true}
+                      style={{ marginRight: '10px', border: `${selectedEpisodeIndex > 0 && selectedEpisodeIndex < infoValue?.episodes?.length ? 'var(--four-color)' : 'var(--text-color)'} 1px solid`, color: `${selectedEpisodeIndex > 0 && selectedEpisodeIndex < infoValue?.episodes?.length ? 'var(--four-color)' : 'var(--text-color)'}` }}
+                    >
+                      PREVIOUS
+                    </Button>
+                    <Button 
+                      title="Next Episode" 
+                      variant='outlined'
+                      size='small'
+                      onClick={() => nextEpisode()} 
+                      startIcon={<SkipNextIcon sx={{ color: selectedEpisodeIndex >= 0 && (selectedEpisodeIndex + 1) < infoValue?.episodes?.length ? 'var(--four-color)' : 'var(--text-color)' }}/>}
+                      disabled={selectedEpisodeIndex >= 0 && (selectedEpisodeIndex + 1) < infoValue?.episodes?.length ? false : true}
+                      style={{ border: `${selectedEpisodeIndex >= 0 && (selectedEpisodeIndex + 1) < infoValue?.episodes?.length ? 'var(--four-color)' : 'var(--text-color)'} 1px solid`, color: `${selectedEpisodeIndex >= 0 && (selectedEpisodeIndex + 1) < infoValue?.episodes?.length ? 'var(--four-color)' : 'var(--text-color)'}` }}
+                    >
+                      NEXT
+                    </Button>
+                  </div>
+                } */}
+
               </div>
             }
           </Grid>
