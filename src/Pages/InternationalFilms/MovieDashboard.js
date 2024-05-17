@@ -201,14 +201,18 @@ const MovieDashboard = (props) => {
     let defLink = resourceValue.data?.sources?.find(item => item.quality === "auto")?.url;
     switch (selectedServer) {
       case "upcloud":
-        defLink = `${apiConfig.hqflix_video_link_enable_override_cors && apiConfig.override_cors}/${defLink?.replace("https://", "")}`;
+        // defLink = `${apiConfig.hqflix_video_link_enable_override_cors && apiConfig.override_cors}/${defLink?.replace("https://", "")}`;
+        defLink = `${apiConfig.hqflix_video_link_enable_override_cors && 'https://corsproxy.io/?' + encodeURIComponent(defLink)}`;
+        // defLink = `https://jef-m3u8-proxy.vercel.app/m3u8-proxy?url=${encodeURIComponent(defLink)}&headers=${encodeURIComponent(JSON.stringify(headers))}`;
         break;
       case "vidcloud":
-        defLink = `${apiConfig.hqflix_video_link_enable_override_cors && apiConfig.override_cors2}${defLink}`;
-        // defLink = `${apiConfig.hqflix_video_link_enable_override_cors && apiConfig.override_cors}/${defLink}`;
+        // defLink = `${apiConfig.hqflix_video_link_enable_override_cors && apiConfig.override_cors2}${defLink}`;
+        defLink = `${apiConfig.hqflix_video_link_enable_override_cors && 'https://corsproxy.io/?' + encodeURIComponent(defLink)}`;
+        // defLink = `https://jef-m3u8-proxy.vercel.app/m3u8-proxy?url=${encodeURIComponent(defLink)}&headers=${encodeURIComponent(JSON.stringify(headers))}`;
         break;
       default:
-        defLink = defLink?.length > 0 ? defLink[0]?.url : "";
+        defLink = `https://corsproxy.io/?${encodeURIComponent(defLink)}`;
+        // defLink = `https://jef-m3u8-proxy.vercel.app/m3u8-proxy?url=${encodeURIComponent(defLink)}&headers=${encodeURIComponent(JSON.stringify(headers))}`;
     }
     setDefaultLink(defLink);
 
