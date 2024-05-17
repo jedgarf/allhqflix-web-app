@@ -33,7 +33,11 @@ const TraillerModal = ({ category, infoValue, size = '18px', elem = 'button', co
     }
 
     if (category === 'anime') {
-        trallerURL = 'https://www.youtube.com/embed/' + infoValue?.trailer?.id + '?autoplay=1'; 
+        if (infoValue?.id == 21) {
+            trallerURL = 'https://www.youtube.com/embed/tUg2fRRls8o?autoplay=1'; 
+        } else {
+            trallerURL = 'https://www.youtube.com/embed/' + infoValue?.trailer?.id + '?autoplay=1'; 
+        }
     } else if (category === 'asian_films') {
         trallerURL = infoValue?.trailer + '?autoplay=1';  
     } else {
@@ -50,7 +54,7 @@ const TraillerModal = ({ category, infoValue, size = '18px', elem = 'button', co
     return (
         <ThemeProvider theme={darkTheme}>
             <CssBaseline />
-            {infoValue?.trailer !== undefined ? 
+            {infoValue?.trailer !== undefined || infoValue?.id == 21 ? 
                 elem === "button" ? 
                     <Button title='Trailer' variant='outlined' color='error' size='small' style={{ marginRight: '10px' }} onClick={() => setModalOpen(true)} startIcon={<LocalMoviesIcon/>}>Trailer</Button>
                 : 

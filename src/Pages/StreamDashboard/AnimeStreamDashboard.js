@@ -342,7 +342,7 @@ const AnimeStreamDashboard = (props) => {
                             {(resourceData.isSuccess && savedMedia?.length >= maxMediaSaved && savedMedia?.filter(item => item?.mediaId == indexId).length === 0) && 
                                 <SaveListModal loadSavedMedia={loadSavedMedia}/>
                             }
-                            {(infoData.isSuccess && resourceData.isError) && <TraillerModal category="anime" infoValue={infoValue} setSnackBarType={setSnackBarType} setSnackBarMessage={setSnackBarMessage} setSnackBarOpen={setSnackBarOpen}/>}
+                            {infoData.isSuccess && <TraillerModal category="anime" infoValue={infoValue} setSnackBarType={setSnackBarType} setSnackBarMessage={setSnackBarMessage} setSnackBarOpen={setSnackBarOpen}/>}
                             {infoData.isSuccess && resourceData.isSuccess ?
                                 infoValue?.episodes?.length > 0 && resourceValue?.data?.sources?.length > 0 && 
                                     <AnimePlayModal infoValue={infoValue} episodes={infoValue?.episodes} episodeIdVar={episodeIdVar} setEpisodeIdVar={setEpisodeIdVar} isDub={dubCheckbox} url={`/watch/${type}/${indexId}`} isDisabled={false} />
