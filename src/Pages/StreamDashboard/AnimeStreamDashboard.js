@@ -278,7 +278,7 @@ const AnimeStreamDashboard = (props) => {
                 {infoData.isLoading ? 
                     <MediaDashboardSkeleton />
                 : 
-                    <div className='stream-dashboard-content' style={{ backgroundColor: isMobile ? 'linear-gradient(rgba(var(--header-raw-color), 0.1), rgba(var(--header-raw-color), 0.6), rgba(var(--header-raw-color), 0.6), rgba(var(--header-raw-color), 0.1))' : 'transparent' }}>
+                    <div className='stream-dashboard-content' style={{ backgroundImage: isMobile ? 'linear-gradient(rgba(var(--header-raw-color), 0.1), rgba(var(--header-raw-color), 0.6), rgba(var(--header-raw-color), 0.6), rgba(var(--header-raw-color), 0.1))' : 'transparent' }}>
                         <div className='stream-dashboard-title'>
                             <h1 style={{ marginBottom: '5px' }}>{ infoValue?.title?.english || infoValue?.title?.userPreferred || infoValue?.title?.romaji || infoValue?.title?.native }</h1>
                             {infoValue?.episodes?.length > 1 ?
