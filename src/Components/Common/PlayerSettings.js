@@ -72,7 +72,7 @@ const PlayerSettings = ({ playerSettings, setPlayerSettings }) => {
                 }
             </FormGroup>
             {(episode || server) && 
-                <Typography variant='span' style={{ color: '#DC4C64', marginTop: '20px' }}>
+                <Typography variant='span' style={{ color: '#DC4C64', marginTop: '20px', fontSize: '12px' }}>
                     <b>Note:</b>{' '}
                     Changes take effect in the next movie or episode.
                 </Typography>

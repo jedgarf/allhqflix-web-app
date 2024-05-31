@@ -4,7 +4,6 @@ import { SpinnerDotted } from 'spinners-react';
 
 // ArtPlayerJS
 import Artplayer from 'artplayer';
-// import ArtplayerToolThumbnail from 'artplayer-tool-thumbnail';
 import artplayerPluginAds from 'artplayer-plugin-ads';
 // import artplayerPluginControl from "artplayer-plugin-control";
 

@@ -39,8 +39,15 @@ const useStyles = makeStyles({
     text: {
       fontWeight: "bold",
       fontFamily: "courier",
-      fontSize: "12px !important"
+      fontSize: "12px !important",
+      color: "#ccced1"
     },
+    textActive: {
+        fontWeight: "bold",
+        fontFamily: "courier",
+        fontSize: "12px !important",
+        color: "#DC4C64"
+      },
     appBarTransparent: {
       backgroundColor: 'rgba(15, 22, 34, 0.5) !important'
     },

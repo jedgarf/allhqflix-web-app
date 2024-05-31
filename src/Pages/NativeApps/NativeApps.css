@@ -14,6 +14,18 @@
     font-size: clamp(12px, 1rem, 25px);
 }
 
+.google-play-download-btn {
+    max-width: 200px;
+}
+
+.app-store-download-btn {
+    max-width: 200px;
+}
+
+.app-gallery-download-btn {
+    max-width: 200px;
+}
+
 @media (max-width: 900px) {
     .appdownloads {
         padding-top: 80px;

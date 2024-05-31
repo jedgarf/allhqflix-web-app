@@ -71,7 +71,7 @@ const SideBarListItem = ({ page, subType, subPage, classes, selected }) => {
 
                             {page.is_dev === 1 ?
                             <ListItemText className='sidebar-no-link-menu' primary={<StyledSubBadge badgeContent={page.badge_message} color='error'>{page.name.toLocaleUpperCase()}</StyledSubBadge>} classes={{ primary: classes.text }} />
-                            : <ListItemText className='sidebar-no-link-menu' primary={page.name.toLocaleUpperCase()} classes={{ primary: classes.text }} />}
+                            : <ListItemText className='sidebar-no-link-menu' primary={page.name.toLocaleUpperCase()} classes={{ primary: selected ? classes.textActive : classes.text }} />}
 
                         {open ? <ExpandLessIcon sx={{ color: selected ? '#DC4C64' : '#ccced1' }} /> : <ExpandMoreIcon sx={{ color: selected ? '#DC4C64' : '#ccced1' }} />}
                         </ListItemButton>
@@ -88,7 +88,7 @@ const SideBarListItem = ({ page, subType, subPage, classes, selected }) => {
                         {page.is_dev === 1 ?
                             <ListItemText primary={<StyledSubBadge badgeContent={page.badge_message} color="error">{page.name.toLocaleUpperCase()}</StyledSubBadge>} classes={{ primary: classes.text }} />
                         : 
-                            <ListItemText primary={page.name.toLocaleUpperCase()} classes={{ primary: classes.text }} />
+                            <ListItemText primary={page.name.toLocaleUpperCase()} classes={{ primary: selected ? classes.textActive : classes.text }} />
                         }
                         </ListItemButton>
                     </ListItem>
@@ -112,7 +112,7 @@ const SideBarListItem = ({ page, subType, subPage, classes, selected }) => {
                                                 <StyledSubBadge badgeContent={item.badge_message} color="error">
                                                     <ListItemText className='sidebar-no-link-menu' primary={item.name.toLocaleUpperCase()} sx={{ color: '#DC4C64 !important' }} classes={{ primary: classes.text }} />
                                                 </StyledSubBadge>
-                                                : <ListItemText className='sidebar-no-link-menu' primary={item.name.toLocaleUpperCase()} sx={{ color: '#DC4C64 !important' }} classes={{ primary: classes.text }} />}
+                                                : <ListItemText className='sidebar-no-link-menu' primary={item.name.toLocaleUpperCase()} sx={{ color: '#DC4C64 !important' }} classes={{ primary: classes.textActive }} />}
 
                                             </ListItemButton>
                                         </ListItem>
@@ -129,7 +129,7 @@ const SideBarListItem = ({ page, subType, subPage, classes, selected }) => {
                                                 <StyledSubBadge badgeContent={item.badge_message} color="error">
                                                     <ListItemText className='sidebar-no-link-menu' primary={item.name.toLocaleUpperCase()} sx={{ color: '#DC4C64 !important' }} classes={{ primary: classes.text }} />
                                                 </StyledSubBadge>
-                                                : <ListItemText className='sidebar-no-link-menu' primary={item.name.toLocaleUpperCase()} sx={{ color: '#DC4C64 !important' }} classes={{ primary: classes.text }} />}
+                                                : <ListItemText className='sidebar-no-link-menu' primary={item.name.toLocaleUpperCase()} sx={{ color: '#DC4C64 !important' }} classes={{ primary: classes.textActive }} />}
 
                                             </ListItemButton>
                                         </ListItem>
