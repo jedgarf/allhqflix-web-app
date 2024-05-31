@@ -92,7 +92,7 @@ const NativeApps = () => {
                                                         Download for hybrid android app
                                                     </Button>
                                                 </a><br/> */}
-                                                <span style={{ color: 'var(--main-red)', fontWeight: 'bolder' }}><br/>Tentative Release: 1<sup>st</sup> Quarter of 2025</span>
+                                                <big style={{ color: 'var(--main-red)', fontWeight: 'bolder' }}><br/>Tentative Release: 1<sup>st</sup> Quarter of 2025</big>
                                                 <Button variant='contained' color='primary' style={{ color: 'black !important', marginBottom: '20px' }} size='small' fullWidth startIcon={<InstallMobileIcon/>} disabled={true}>
                                                     Download Alpha Version (Soon)
                                                 </Button>
