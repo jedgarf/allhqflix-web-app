@@ -56,21 +56,23 @@ const Faq = () => {
                                         <div>
                                         <b>{ title }</b> allows users to watch tens of thousands of Anime, Movies and TV Series in HD quality safely, freely, and smoothly. Despite the extensive content library and premium features, <b>{ title }</b> does not require any commitment from users. You are not obliged to pay, or even register to enjoy your favorite movies on the site without limits. We update new titles on a daily basis; therefore, you can rest assured, the fun never ends on <b>{ title }</b>. Sharing is caring! Introduce <b>{ title }</b> to your friends and family to protect them from shady and low-quality sites.
                                         </div>
-                                        <p>Only available in 
-                                        {allowed_countries.map((country, index) => {
-                                            return (
-                                                <React.Fragment key={index}>
-                                                    {index + 1 !== allowed_countries.length ?
-                                                        index + 1 === allowed_countries.length - 1 ?
-                                                            ` ${country}`
+                                        {allowed_countries.length > 0 && 
+                                            <p>Only available in 
+                                            {allowed_countries.map((country, index) => {
+                                                return (
+                                                    <React.Fragment key={index}>
+                                                        {index + 1 !== allowed_countries.length ?
+                                                            index + 1 === allowed_countries.length - 1 ?
+                                                                ` ${country}`
+                                                            : 
+                                                                ` ${country}, `
                                                         : 
-                                                            ` ${country}, `
-                                                    : 
-                                                    ` and ${country}`}
-                                                </React.Fragment>
-                                            );
-                                        })}
-                                        .</p>
+                                                        ` and ${country}`}
+                                                    </React.Fragment>
+                                                );
+                                            })}
+                                            .</p>
+                                        }
                                     </Typography>
                                 </AccordionDetails>
                             </Accordion>
