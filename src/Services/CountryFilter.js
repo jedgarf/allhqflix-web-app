@@ -19,8 +19,7 @@ const CountryFilter = ({ children }) => {
         console.error('Error fetching location:', error);
       }
     };
-
-    fetchLocation();
+    if (allowed_countries.length > 0) fetchLocation();
   }, []);
 
   return <Fragment>{children}</Fragment>;
