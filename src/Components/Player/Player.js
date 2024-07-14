@@ -184,7 +184,8 @@ const Player = ({ details, episodes, defaultlink, infotitle, infocover, seasonNu
                 } else {
                     saveProgress(details, mediaId, type, paramDub, seasonNumber, episodeId, episodeNum, server, art.currentTime, art.duration);
                     
-                    if (player_auto_next && episodeNum < totalEpisodes) {
+                    // if (player_auto_next && episodeNum < totalEpisodes) {
+                    if (episodeNum < totalEpisodes) {
                         if (Math.round(art.currentTime) >= Math.round(art.duration-9)) {
                             const index = episodes.findIndex(item => item.id == episodeId);
                             if (type === "movie" || type === "tv") {
