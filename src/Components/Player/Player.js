@@ -36,7 +36,7 @@ const Player = ({ details, episodes, defaultlink, infotitle, infocover, seasonNu
     const playerAds = randomizeArray(ads);
     const artRef = useRef();
     const player_auto_play = getLocalStorage('player_auto_play') === 'true' && getSession('user') ? true : false;
-    const player_auto_next = getLocalStorage('player_auto_next') === 'true' && getSession('user') ? true : false;
+    // const player_auto_next = getLocalStorage('player_auto_next') === 'true' && getSession('user') ? true : false;
     const player_auto_fullscreen = getLocalStorage('player_auto_fullscreen') === 'true' && getSession('user') ? true : false;
 
     if(episodeNumber === null) episodeNumber = episodeNum;
@@ -171,7 +171,8 @@ const Player = ({ details, episodes, defaultlink, infotitle, infocover, seasonNu
                     deleteCookie(decodeURIComponent(mediaId));
                     if (!isMobile) art.fullscreenWeb = false;
                 } else {
-                    if (player_auto_next && totalEpisodes > 1) nextEpisode();
+                    // if (player_auto_next && totalEpisodes > 1) nextEpisode();
+                    nextEpisode();
                 }
             });
 

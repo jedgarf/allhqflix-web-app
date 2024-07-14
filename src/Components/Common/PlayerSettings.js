@@ -66,7 +66,7 @@ const PlayerSettings = ({ playerSettings, setPlayerSettings }) => {
             <CssBaseline />
             <FormGroup>
                 <FormControlLabel control={<Checkbox checked={autoPlay} onChange={(event) => handleAutoPlay(event)} />} label="Auto play" />
-                <FormControlLabel control={<Checkbox checked={autoNext} onChange={(event) => handleAutoNext(event)} />} label="Auto next episodes (series)" />
+                {/* <FormControlLabel control={<Checkbox checked={autoNext} onChange={(event) => handleAutoNext(event)} />} label="Auto next episodes (series)" /> */}
                 {!isMobile && 
                     <FormControlLabel control={<Checkbox checked={autoFullscreen} onChange={(event) => handleAutoFullscreen(event)} />} label="Auto fullscreen" />
                 }

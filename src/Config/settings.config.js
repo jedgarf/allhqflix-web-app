@@ -2022,8 +2022,8 @@ const suggestion_carousel_settings = {
   // variableWidth:true,
 
 };
-
-const allowed_countries = ['Philippines', 'United States', 'Japan', 'Singapore', 'Thailand', 'China'];
+// 'Philippines', 'United States', 'Japan', 'Singapore', 'Thailand', 'China'
+const allowed_countries = [];
 
 const server_status = [ { id: 1, code: 'upcloud', name: 'UpCloud', status: 'stable' },
                         { id: 2, code: 'vidcloud', name: 'VidCloud', status: 'stable' } ];
