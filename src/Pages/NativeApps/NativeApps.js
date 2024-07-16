@@ -85,15 +85,15 @@ const NativeApps = () => {
                                                     <li>Daily update on both Movies and Series.</li>
                                                 </ul>
                                             </div>
-                                            <div className="app-btn" style={{  }}>
+                                            <div className="app-btn" style={{ marginTop: '-40px' }}>
                                                 {/* https://dl.getmenow.click/onstream-latest.apk?ref=289 */}
                                                 {/* <a href="https://drive.google.com/file/d/1C3GxpI17MdX5_yRoWzhRRIUAUOkuLUe6/view" target='__blank' className='text-link-without-underline' style={{ maxWidth: '100px' }}>
                                                     <Button variant='contained' color='primary' style={{ color: 'black !important' }} size='small' fullWidth startIcon={<InstallMobileIcon/>}>
                                                         Download for hybrid android app
                                                     </Button>
                                                 </a><br/> */}
-                                                <big style={{ color: 'var(--main-red)', fontWeight: 'bolder' }}><br/>Tentative Release: 1<sup>st</sup> Quarter of 2025</big>
-                                                <Button variant='contained' color='primary' style={{ color: 'black !important', marginBottom: '20px' }} size='small' fullWidth startIcon={<InstallMobileIcon/>} disabled={true}>
+                                                <big style={{ color: 'var(--main-red)', fontWeight: 'bolder' }}><br/>Tentative Release: 1<sup>st</sup> Quarter of 2025</big><br/>
+                                                <Button variant='contained' color='primary' style={{ color: 'black !important', marginTop: '10px', marginBottom: '20px' }} size='small' fullWidth startIcon={<InstallMobileIcon/>} disabled={true}>
                                                     Download Alpha Version (Soon)
                                                 </Button>
                                                 {/* <ButtonsContainer direction="row" gap="2">

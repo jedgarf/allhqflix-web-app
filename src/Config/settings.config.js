@@ -1870,10 +1870,10 @@ function SampleNextArrow(props) {
   return (
     <div
       className={className}
-      style={{ ...style, display: "block" }}
+      style={{ ...style, display: "block", backgroundColor: 'rgba(255,255,255,0.2)', padding: '5px 10px 8px 5px', borderRadius: '20px', zIndex: 20 }}
       onClick={onClick}
     >
-      <ArrowForwardIosIcon sx={{ color: '#DC4C64' }}/>
+      <ArrowForwardIosIcon sx={{ color: '#DC4C64', fontWeight: 550 }}/>
     </div>
   );
 }
@@ -1883,10 +1883,10 @@ function SamplePrevArrow(props) {
   return (
     <div
       className={className}
-      style={{ ...style, display: "block" }}
+      style={{ ...style, display: "block", backgroundColor: 'rgba(255,255,255,0.3)', padding: '5px 10px 8px 5px', borderRadius: '20px', zIndex: 20 }}
       onClick={onClick}
     >
-      <ArrowBackIosNewIcon sx={{ color: '#DC4C64' }}/>
+      <ArrowBackIosNewIcon sx={{ color: '#DC4C64', fontWeight: 550 }}/>
     </div>
   );
 }

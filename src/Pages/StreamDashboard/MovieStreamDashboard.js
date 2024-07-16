@@ -88,6 +88,7 @@ const MovieStreamDashboard = (props) => {
         refetchOnWindowFocus: false,
         notifyOnChangeProps: "tracked",
         retry: 3, // Number of retries
+        retryDelay: attemptIndex => Math.min(1000 * 2 ** attemptIndex, 30000), // Exponential backoff
         enabled: indexId !== null,
         onSuccess: (response) => {
             setSeasonIdVar(response.data.episodes.length > 0 ? response.data.episodes[0].season : undefined);
@@ -213,11 +214,16 @@ const MovieStreamDashboard = (props) => {
         //     setSnackBarOpen(true);
         //     setSnackBarWithLoading(true);
         // };
+
+        if (infoData.isError && infoData.failureCount >= 3) {
+            // Navigate back to the previous page
+            navigate(-1);
+        }
         setTimeout(() => {
             setIsLoading(false);
         }, pageLoadMS);
 
-    }, [type, handleResize, infoData.isSuccess, infoValue?.title, resourceData.isLoading, infoData.isLoading, serverData.isLoading]);
+    }, [type, handleResize, infoData.isSuccess, infoValue?.title, resourceData.isLoading, infoData.isLoading, serverData.isLoading, infoData.isError, infoData.failureCount, navigate]);
 
     return (
         isLoading ? <LoadingPage/>
