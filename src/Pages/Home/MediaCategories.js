@@ -55,11 +55,14 @@ const MediaCategories = () => {
                         </center>
                     </Grid>
 
-                    <Grid item xl={12} lg={12} md={12} sm={12} xs={12} style={{ marginBottom: 15 }} hidden>
+                    <Grid item xl={12} lg={12} md={12} sm={12} xs={12} style={{ marginBottom: 15 }}>
                         <Stack sx={{ width: '100%', textAlign: 'left !important' }} spacing={0}>
                             <Alert severity="info">
-                                <AlertTitle>Attention Movie Enthusiasts!</AlertTitle>
-                                🎬 We're aware of some hiccups in our <strong>International Movies</strong> and <strong>International Series</strong> sections. 🌍 Developer is on the case, working tirelessly to fix these issues ASAP! 🛠️ Your seamless streaming experience is our priority, and we appreciate your patience. Sit back, relax, and stay tuned for an improved movie-watching journey! 🍿✨ <strong>#TechFixInProgress</strong>
+                                <AlertTitle>Good News!</AlertTitle>
+                                We're thrilled to announce that we're actively working on enabling downloads for your favorite movies and series.<br/>
+                                This upcoming feature will allow you to enjoy your preferred content offline, at any time and anywhere.<br/>
+                                Stay tuned for more updates as we prepare to launch this amazing new functionality soon.<br/>
+                                Thank you for your continued support and happy viewing!
                             </Alert>
                         </Stack>
                     </Grid>
