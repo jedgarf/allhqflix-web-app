@@ -84,7 +84,7 @@ const WatchLater = () => {
                                     Thank you for your continued support and happy viewing!
                                 </p>
                                 <Link to={'/watch_later'}>
-                                    <Button variant='contained' color='error' size='small' startIcon={<WatchLaterIcon/>} disabled={false}>
+                                    <Button variant='contained' color='primary' size='small' startIcon={<WatchLaterIcon/>} disabled={false}>
                                         Watch Later
                                     </Button>
                                 </Link>
