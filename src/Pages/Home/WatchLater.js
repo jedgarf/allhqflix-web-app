@@ -80,9 +80,6 @@ const WatchLater = () => {
                                 <p style={{ textAlign: 'justify' }}>
                                     Whether you want to revisit a classic, catch up on the latest episodes, or save a movie for a rainy day, the "Watch Later" feature has you covered. This new functionality enhances your viewing experience, ensuring you never miss out on your favorite content.
                                 </p>
-                                <p style={{ textAlign: 'justify' }}>
-                                    Thank you for your continued support and happy viewing!
-                                </p>
                                 <Link to={'/watch_later'}>
                                     <Button variant='contained' color='primary' size='small' startIcon={<WatchLaterIcon/>} disabled={false}>
                                         Watch Later
