@@ -55,18 +55,6 @@ const MediaCategories = () => {
                         </center>
                     </Grid>
 
-                    <Grid item xl={12} lg={12} md={12} sm={12} xs={12} style={{ marginBottom: 15 }}>
-                        <Stack sx={{ width: '100%', textAlign: 'left !important' }} spacing={0}>
-                            <Alert severity="info">
-                                <AlertTitle>Good News!</AlertTitle>
-                                We're thrilled to announce that we're actively working on enabling downloads for your favorite movies and series.<br/>
-                                This upcoming feature will allow you to enjoy your preferred content offline, at any time and anywhere.<br/>
-                                Stay tuned for more updates as we prepare to launch this amazing new functionality soon.<br/>
-                                Thank you for your continued support and happy viewing!
-                            </Alert>
-                        </Stack>
-                    </Grid>
-
                     <Grid item xl={6} lg={6} md={6} sm={12} xs={12} style={{ margin: 'auto', width: 'auto' }}>
                         <center>
                             <Container sx={{ width: '100%' }}>
@@ -104,6 +92,18 @@ const MediaCategories = () => {
                                 <img src={homeBackground1} alt='' style={{ borderRadius: 10 }}/>
                             </motion.div>
                         </center>
+                    </Grid>
+
+                    <Grid item xl={12} lg={12} md={12} sm={12} xs={12} style={{ marginBottom: 15 }}>
+                        <Stack sx={{ width: '100%', textAlign: 'left !important' }} spacing={0}>
+                            <Alert severity="info">
+                                <AlertTitle>Good News!</AlertTitle>
+                                We're thrilled to announce that we're actively working on enabling downloads for your favorite movies and series.<br/>
+                                This upcoming feature will allow you to enjoy your preferred content offline, at any time and anywhere.<br/>
+                                Stay tuned for more updates as we prepare to launch this amazing new functionality soon.<br/>
+                                Thank you for your continued support and happy viewing!
+                            </Alert>
+                        </Stack>
                     </Grid>
 
                 </Grid>
