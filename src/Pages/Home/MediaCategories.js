@@ -96,13 +96,19 @@ const MediaCategories = () => {
 
                     <Grid item xl={12} lg={12} md={12} sm={12} xs={12} style={{ marginBottom: 15 }}>
                         <Stack sx={{ width: '100%', textAlign: 'left !important' }} spacing={0}>
-                            <Alert severity="info">
-                                <AlertTitle>Good News!</AlertTitle>
-                                We're thrilled to announce that we're actively working on enabling downloads for your favorite movies and series.<br/>
-                                This upcoming feature will allow you to enjoy your preferred content offline, at any time and anywhere.<br/>
-                                Stay tuned for more updates as we prepare to launch this amazing new functionality soon.<br/>
-                                Thank you for your continued support and happy viewing!
-                            </Alert>
+                            <motion.div
+                                initial={{ opacity: 0, y: -50 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 1, delay: 1 }}
+                            >
+                                <Alert severity="info">
+                                    <AlertTitle>Good News!</AlertTitle>
+                                    We're thrilled to announce that we're actively working on enabling downloads for your favorite movies and series.<br/>
+                                    This upcoming feature will allow you to enjoy your preferred content offline, at any time and anywhere.<br/>
+                                    Stay tuned for more updates as we prepare to launch this amazing new functionality soon.<br/>
+                                    Thank you for your continued support and happy viewing!
+                                </Alert>
+                            </motion.div>
                         </Stack>
                     </Grid>
 
