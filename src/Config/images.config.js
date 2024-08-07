@@ -41,5 +41,8 @@ import videoQuality from "../Assets/images/video_quality.png";
 // IPTV
 import iptv from "../Assets/images/iptv.png";
 
+// Watch Later
+import watchLaterImage from "../Assets/images/movieTime.png";
 
-export { mainLogo, headerLogo, homeBackground, homeBackground1, jefdevLogoTransparent, consumetLogo, familyWatching, mediaAlchemyLogo, strangerThingsBanner, allOfUsAreDeadBanner, onePieceBanner, onePieceNetflixBanner, yuYuHakushoBanner, appPhoto, noImagePlaceholder, carouselNoImagePlaceholder, notFoundImage, offLimits, customLoadingFileName, subtitleLogo, videoQuality, iptv };
+
+export { mainLogo, headerLogo, homeBackground, homeBackground1, jefdevLogoTransparent, consumetLogo, familyWatching, mediaAlchemyLogo, strangerThingsBanner, allOfUsAreDeadBanner, onePieceBanner, onePieceNetflixBanner, yuYuHakushoBanner, appPhoto, noImagePlaceholder, carouselNoImagePlaceholder, notFoundImage, offLimits, customLoadingFileName, subtitleLogo, videoQuality, iptv, watchLaterImage };

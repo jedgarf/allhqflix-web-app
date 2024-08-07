@@ -29,6 +29,7 @@ import Faq from "./Faq";
 import MediaCategories from "./MediaCategories";
 import TopPlayed from "./TopPlayed";
 import Products from "./Products";
+import WatchLater from "./WatchLater";
 
 import { search } from '../../Features/searchSlice';
 
@@ -201,6 +202,10 @@ const Home = () => {
           <MediaCategories/>
         </div>
       </motion.div>
+      
+      <div className="media-watch-later">
+        <WatchLater/>
+      </div>
 
       <div className="media-top-played" hidden>
         <TopPlayed/>

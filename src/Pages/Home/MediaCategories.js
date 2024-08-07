@@ -17,14 +17,11 @@ import { Grid, Typography, Container, Button, Alert, AlertTitle, Stack } from "@
 // Icons
 import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
 
-// Images
-import { familyWatching, homeBackground } from "../../Config/images.config";
-
 // Models
 import { sub_menus } from "../../Services/SettingService";
 
 // Images
-import { homeBackground1, onePieceBanner } from "../../Config/images.config";
+import { homeBackground1 } from "../../Config/images.config";
 
 const MediaCategories = () => {
 
