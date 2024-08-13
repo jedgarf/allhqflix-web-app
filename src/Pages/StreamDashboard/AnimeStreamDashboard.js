@@ -72,8 +72,8 @@ const AnimeStreamDashboard = (props) => {
     const [dubCheckbox, setDubCheckbox] = useState(false);
 
     // episode count
-    // const [dubEpisodeCount, setDubEpisodeCount] = useState(1);
-    // const [subEpisodeCount, setSubEpisodeCount] = useState(1);
+    const [dubEpisodeCount, setDubEpisodeCount] = useState(1);
+    const [subEpisodeCount, setSubEpisodeCount] = useState(1);
 
     const navigate = useNavigate();
 
@@ -145,14 +145,14 @@ const AnimeStreamDashboard = (props) => {
                 setSnackBarWithLoading(false);
                 setHideDuration(6000);
 
-                // if (dubCheckbox) {
-                //     setDubEpisodeCount(0);
-                // } else {
-                //     setSubEpisodeCount(0);
-                // }
-                // if (dubEpisodeCount === 1 || subEpisodeCount === 1) {
-                //     setDubCheckbox(!dubCheckbox);   
-                // }
+                if (dubCheckbox) {
+                    setDubEpisodeCount(0);
+                } else {
+                    setSubEpisodeCount(0);
+                }
+                if (dubEpisodeCount === 1 || subEpisodeCount === 1) {
+                    setDubCheckbox(!dubCheckbox);   
+                }
             }
             setEpisodeIdVar(response.data.episodes.length > 0 ? response.data.episodes[0].id : undefined);
         },
@@ -385,7 +385,7 @@ const AnimeStreamDashboard = (props) => {
                 </div>
             }
             {/* English dub switch */}
-            {1===0 && (infoData.isSuccess && !resourceData.isLoading) && 
+            {true && (infoData.isSuccess && !resourceData.isLoading) && 
                 <div className="anime-english-dub text-white">
                     <FormControlLabel
                         control={<Android12Switch defaultChecked={dubCheckbox} onChange={handleDubSwitch} disabled={infoData.isLoading}/>}
